@@ -1,0 +1,27 @@
+---
+import MainLayout from '../layouts/main.astro';
+import BlogList from '../components/BlogList';
+
+const pageTitle = "Blog - smartly.sale | Product Reviews & Shopping Guides";
+const pageDescription = "Read our latest product reviews, shopping guides, and tips for finding the best deals on Shopee Philippines.";
+---
+
+<MainLayout 
+  title={pageTitle}
+  description={pageDescription}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    {/* Hero Section */}
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold text-foreground mb-4">
+        Blog & Reviews
+      </h1>
+      <p class="text-xl text-muted-foreground max-w-2xl mx-auto">
+        Your guide to smart shopping with product reviews, comparisons, and shopping tips
+      </p>
+    </div>
+
+    {/* Blog List Component */}
+    <BlogList client:only="react" />
+  </div>
+</MainLayout>

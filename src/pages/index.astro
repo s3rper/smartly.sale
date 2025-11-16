@@ -1,0 +1,36 @@
+---
+import MainLayout from '../layouts/main.astro';
+import Hero from '../components/Hero';
+import FeaturedProducts from '../components/FeaturedProducts';
+import WhyChooseUs from '../components/WhyChooseUs';
+import HowItWorks from '../components/HowItWorks';
+import TrustIndicators from '../components/TrustIndicators';
+import Newsletter from '../components/Newsletter';
+
+const pageTitle = "smartly.sale - Discover Viral Shopee Finds!";
+const pageDescription = "Find the best trending products, budget gadgets, and must-have deals from Shopee. Your ultimate guide to smart shopping in the Philippines.";
+---
+
+<MainLayout 
+title={pageTitle}
+description={pageDescription}
+ogImage="/og-image.jpg"
+>
+<!-- Hero Section -->
+<Hero client:only="react" />
+
+<!-- Featured Products Section -->
+<FeaturedProducts client:only="react" />
+
+<!-- Why Choose Us Section -->
+<WhyChooseUs client:only="react" />
+
+<!-- How It Works Section -->
+<HowItWorks client:only="react" />
+
+<!-- Trust Indicators Section -->
+<TrustIndicators client:only="react" />
+
+<!-- Newsletter Section -->
+<Newsletter client:only="react" />
+</MainLayout>

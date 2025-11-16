@@ -1,0 +1,13 @@
+---
+import MainLayout from '../../layouts/main.astro';
+import ProductDetail from '../../components/ProductDetail';
+
+// Dynamic route - slug will be passed to the component
+---
+
+<MainLayout 
+  title="Product Details - smartly.sale"
+  description="View detailed information about this trending product from Shopee Philippines."
+>
+  <ProductDetail client:only="react" />
+</MainLayout>

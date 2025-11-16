@@ -1,0 +1,71 @@
+---
+import '../../generated/fonts.css';
+import '../site-components/global.css';
+import '../styles/global.css';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+
+interface Props {
+title?: string;
+description?: string;
+ogImage?: string;
+pageClass?: string;
+}
+
+const { 
+title = 'smartly.sale - Discover Viral Shopee Finds',
+description = 'Find the best trending products, budget gadgets, and must-have deals from Shopee.',
+ogImage = '/og-image.jpg',
+pageClass = ''
+} = Astro.props;
+---
+
+<html lang="en" class={pageClass}>
+<head>
+<meta charset="utf-8" />
+<link rel="icon" type="image/png" href="/favicon.ico" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="generator" content={Astro.generator} />
+
+<!-- SEO Meta Tags -->
+<title>smartly.sale</title>
+<meta name="description" content={description} />
+<meta name="keywords" content="Shopee Philippines, viral products, budget gadgets, trending deals, affiliate shopping, smartly.sale" />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:site_name" content="smartly.sale" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<!-- Performance Optimization -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="dns-prefetch" href="https://shopee.ph" />
+</head>
+<body class="__DARK_MODE_CLASS__ min-h-screen flex flex-col">
+<Navbar client:only="react" />
+
+<main class="flex-grow">
+<slot />
+</main>
+
+<Footer client:only="react" />
+</body>
+</html>
+
+<style is:global>
+html {
+scroll-behavior: smooth;
+}
+
+body {
+overflow-x: hidden;
+}
+</style>

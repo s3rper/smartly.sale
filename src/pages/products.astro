@@ -1,0 +1,27 @@
+---
+import MainLayout from '../layouts/main.astro';
+import AllProductsList from '../components/AllProductsList';
+
+const pageTitle = "All Products - smartly.sale";
+const pageDescription = "Browse our complete collection of trending Shopee products, budget gadgets, and must-have deals.";
+---
+
+<MainLayout 
+title={pageTitle}
+description={pageDescription}
+>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<!-- Page Header -->
+<div class="text-center mb-12">
+<h1 class="text-4xl md:text-5xl font-bold text-foreground mb-4">
+All Products
+</h1>
+<p class="text-xl text-muted-foreground max-w-2xl mx-auto">
+Discover our complete catalog of trending products and amazing deals
+</p>
+</div>
+
+<!-- Products List Component -->
+<AllProductsList client:only="react" />
+</div>
+</MainLayout>

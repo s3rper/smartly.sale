@@ -1,0 +1,17 @@
+---
+import MainLayout from '../../layouts/main.astro';
+import PostContent from '../../components/PostContent';
+
+// This is a dynamic route for blog posts
+// For now using static title, can be made dynamic with CMS data
+const post = { title: 'Blog Post' }; // Placeholder
+const pageTitle = `${post.title} - smartly.sale`;
+const pageDescription = "Read our latest product review and shopping guide.";
+---
+
+<MainLayout 
+  title={pageTitle}
+  description={pageDescription}
+>
+  <PostContent client:only="react" />
+</MainLayout>
