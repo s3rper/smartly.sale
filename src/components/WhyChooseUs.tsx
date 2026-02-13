@@ -1,79 +1,59 @@
 import React from 'react';
-import { Shield, TrendingUp, Award, Clock } from 'lucide-react';
+import { CheckCircle, Shield, Zap, ThumbsUp } from 'lucide-react';
 
 const WhyChooseUs: React.FC = () => {
-  const benefits = [
+  const features = [
     {
-      icon: Shield,
-      title: 'Verified Products',
-      description: 'Every product is carefully vetted and tested by our team to ensure quality and authenticity.'
+      icon: <CheckCircle className="w-12 h-12 text-brand" />,
+      title: 'Curated Selection',
+      description: 'We handpick only the best and most viral products from Shopee Philippines, saving you time from endless scrolling.'
     },
     {
-      icon: TrendingUp,
-      title: 'Latest Trends',
-      description: 'Stay ahead with the hottest viral products that Filipinos are loving right now.'
+      icon: <Shield className="w-12 h-12 text-brand" />,
+      title: 'Verified Reviews',
+      description: 'Every product is backed by real customer reviews and ratings. Shop with confidence knowing others loved it first.'
     },
     {
-      icon: Award,
-      title: 'Best Deals',
-      description: 'We hunt down the most competitive prices and exclusive discounts just for you.'
+      icon: <Zap className="w-12 h-12 text-brand" />,
+      title: 'Daily Updates',
+      description: 'Stay ahead of the trends with daily product recommendations and flash deals you won\'t find anywhere else.'
     },
     {
-      icon: Clock,
-      title: 'Updated Daily',
-      description: 'Fresh finds added every day so you never miss out on the next must-have item.'
+      icon: <ThumbsUp className="w-12 h-12 text-brand" />,
+      title: 'Best Price Guarantee',
+      description: 'We track prices and alert you to the best deals, ensuring you always get the most value for your money.'
     }
   ];
 
   return (
-    <section className="py-16 bg-muted/50">
+    <section className="py-16 bg-muted">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Why Choose <span className="text-[#FF6600]">smartly.sale?</span>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+            Why Choose smartly.sale?
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            We're more than just a product listing site. We're your trusted shopping companion.
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Your trusted partner in discovering the best Shopee deals and trending products
           </p>
         </div>
 
-        {/* Benefits Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {benefits.map((benefit, index) => {
-            const Icon = benefit.icon;
-            return (
-              <div
-                key={index}
-                className="bg-background rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-border group hover:border-[#FF6600]"
-              >
-                {/* Icon */}
-                <div className="w-12 h-12 bg-[#FF6600]/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-[#FF6600] transition-colors">
-                  <Icon className="w-6 h-6 text-[#FF6600] group-hover:text-white transition-colors" />
-                </div>
-
-                {/* Title */}
-                <h3 className="text-xl font-bold text-foreground mb-2">
-                  {benefit.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-muted-foreground text-sm">
-                  {benefit.description}
-                </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {features.map((feature, index) => (
+            <div
+              key={index}
+              className="bg-background p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1 text-center"
+            >
+              <div className="flex justify-center mb-4">
+                {feature.icon}
               </div>
-            );
-          })}
-        </div>
-
-        {/* Trust Badge */}
-        <div className="mt-12 text-center">
-          <div className="inline-flex items-center gap-2 bg-background px-6 py-3 rounded-full border border-border shadow-sm">
-            <Shield className="w-5 h-5 text-[#FF6600]" />
-            <span className="text-sm font-medium text-foreground">
-              Trusted by <strong className="text-[#FF6600]">50,000+</strong> Smart Shoppers
-            </span>
-          </div>
+              <h3 className="text-xl font-bold text-foreground mb-4">
+                {feature.title}
+              </h3>
+              <p className="text-muted-foreground">
+                {feature.description}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

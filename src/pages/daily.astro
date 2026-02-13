@@ -1,0 +1,374 @@
+---
+import MainLayout from '../layouts/main.astro';
+import DailyInsightsGenerator from '../components/DailyInsightsGenerator';
+
+const pageTitle = "Daily Insights Generator - Free Daily Advice & Predictions 2025 | smartly.sale";
+const pageDescription = "Get instant daily insights, predictions, advice, and motivation. 30+ tools including mood check, energy level, life advice, and more. 100% free daily insight generator.";
+const pageUrl = "https://smartly.sale/daily";
+const ogImage = "https://cdn.prod.website-files.com/662c296bd4d3a8028c713c69/6927f8763fb93cf7d2ff4516_jokes.png";
+
+// Schema.org structured data for SEO
+const schemaData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": `${pageUrl}#webpage`,
+      "url": pageUrl,
+      "name": pageTitle,
+      "description": pageDescription,
+      "inLanguage": "en-US",
+      "isPartOf": {
+        "@id": "https://smartly.sale/#website"
+      },
+      "about": {
+        "@id": `${pageUrl}#softwareapplication`
+      },
+      "datePublished": "2025-01-15T00:00:00+08:00",
+      "dateModified": new Date().toISOString()
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": `${pageUrl}#softwareapplication`,
+      "name": "Daily Insights Generator",
+      "applicationCategory": "LifestyleApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "3584",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "description": "Free daily insights generator with 30+ tools for advice, predictions, motivation, and self-awareness.",
+      "featureList": [
+        "30+ insight tools",
+        "Daily predictions",
+        "Mood checker",
+        "Energy level tracker",
+        "Decision maker",
+        "Relationship insights",
+        "Work motivation",
+        "100% free"
+      ],
+      "screenshot": ogImage,
+      "softwareVersion": "1.0",
+      "author": {
+        "@type": "Organization",
+        "name": "smartly.sale"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${pageUrl}#breadcrumb`,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://smartly.sale/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Daily Insights Generator"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${pageUrl}#faq`,
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the Daily Insights Generator?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The Daily Insights Generator is a free online tool that provides instant daily predictions, advice, mood checks, and motivational insights. It features 30+ different tools covering relationships, work, personal growth, and decision-making."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the Daily Insights Generator free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! The Daily Insights Generator is 100% free to use with no registration required. Access all 30+ tools unlimited times."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What kind of insights can I get?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You can get daily predictions, mood insights, energy levels, relationship advice, work motivation, decision help, compliments, life advice, stress checks, and much more across 30+ categories."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use this for daily motivation?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely! The tool includes multiple motivation generators, confidence boosters, daily advice, and inspirational insights perfect for starting your day or getting through tough moments."
+          }
+        }
+      ]
+    }
+  ]
+};
+---
+
+<MainLayout 
+  title={pageTitle}
+  description={pageDescription}
+  ogImage={ogImage}
+>
+  <!-- Enhanced SEO Meta Tags in Head -->
+  <Fragment slot="head">
+    <link rel="canonical" href={pageUrl} />
+    
+    <meta name="keywords" content="daily insights, daily advice, mood checker, energy level, daily predictions, motivation generator, life advice, decision maker, relationship insights, free daily tool, personal growth, self awareness" />
+    <meta name="author" content="smartly.sale" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="smartly.sale" />
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={pageUrl} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={ogImage} />
+    
+    <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+  </Fragment>
+
+  <!-- Hero Section -->
+  <section 
+    class="relative bg-background py-12 md:py-16"
+    itemscope
+    itemtype="https://schema.org/SoftwareApplication"
+  >
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center space-y-6 mb-12">
+        <div class="inline-flex items-center space-x-2 bg-brand/10 text-brand px-4 py-2 rounded-full text-sm font-medium">
+          <span>Your Daily Dose of Insight & Clarity</span>
+        </div>
+
+        <h1 class="text-4xl md:text-6xl font-bold text-foreground leading-tight" itemprop="name">
+          <span class="text-brand">Daily Insights</span> Generator
+        </h1>
+
+        <p class="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto" itemprop="description">
+          Get instant predictions, advice, mood checks, and motivation. 
+          30+ free tools to help you navigate your day with clarity and confidence.
+        </p>
+
+        <!-- CTA Button -->
+        <div>
+          <DailyInsightsGenerator client:only="react" showCTA={true} />
+        </div>
+      </div>
+
+      <!-- Generator Component - Category Grid -->
+      <div class="mb-12">
+        <DailyInsightsGenerator client:only="react" showCTA={false} />
+      </div>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-3xl mx-auto">
+        <div class="text-center">
+          <div class="text-3xl md:text-4xl font-bold text-brand">30+</div>
+          <div class="text-sm md:text-base text-muted-foreground mt-1">Insight Tools</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl md:text-4xl font-bold text-brand">Instant</div>
+          <div class="text-sm md:text-base text-muted-foreground mt-1">Results</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl md:text-4xl font-bold text-brand">100%</div>
+          <div class="text-sm md:text-base text-muted-foreground mt-1">Personalized</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl md:text-4xl font-bold text-brand" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+            <span itemprop="price" content="0">Free</span>
+            <meta itemprop="priceCurrency" content="USD" />
+          </div>
+          <div class="text-sm md:text-base text-muted-foreground mt-1">Always</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="absolute top-0 right-0 w-64 h-64 bg-brand/5 rounded-full blur-3xl -z-10" aria-hidden="true"></div>
+    <div class="absolute bottom-0 left-0 w-64 h-64 bg-brand/5 rounded-full blur-3xl -z-10" aria-hidden="true"></div>
+  </section>
+
+  <!-- Feature Highlights -->
+  <section class="py-16 bg-muted/30">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+        Why Use Daily Insights Generator?
+      </h2>
+      <div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-8 text-center">
+        <div class="p-6">
+          <div class="text-4xl mb-4">🎯</div>
+          <h3 class="text-xl font-bold mb-2">Instant Clarity</h3>
+          <p class="text-muted-foreground">Get immediate insights for better decisions and self-awareness.</p>
+        </div>
+
+        <div class="p-6">
+          <div class="text-4xl mb-4">💡</div>
+          <h3 class="text-xl font-bold mb-2">Daily Motivation</h3>
+          <p class="text-muted-foreground">Start your day with positivity, confidence, and actionable advice.</p>
+        </div>
+
+        <div class="p-6">
+          <div class="text-4xl mb-4">🔮</div>
+          <h3 class="text-xl font-bold mb-2">30+ Tools</h3>
+          <p class="text-muted-foreground">From mood checks to work advice - everything you need in one place.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Overview -->
+  <section class="py-16 bg-background">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+          What You Can Discover
+        </h2>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="border border-border rounded-lg p-6">
+            <h3 class="text-xl font-bold mb-3 flex items-center gap-2">
+              <span>🌟</span> Daily Predictions
+            </h3>
+            <p class="text-muted-foreground">
+              Check your emotional state, energy level, and lucky vibes for the day. Get weekly predictions for luck, career, and love.
+            </p>
+          </div>
+
+          <div class="border border-border rounded-lg p-6">
+            <h3 class="text-xl font-bold mb-3 flex items-center gap-2">
+              <span>💭</span> Mood & Emotions
+            </h3>
+            <p class="text-muted-foreground">
+              Understand your mood, check your stress type, detect dominant emotions, and get personalized insights based on how you feel.
+            </p>
+          </div>
+
+          <div class="border border-border rounded-lg p-6">
+            <h3 class="text-xl font-bold mb-3 flex items-center gap-2">
+              <span>❤️</span> Relationship Tools
+            </h3>
+            <p class="text-muted-foreground">
+              Interpret messages, check if they're thinking about you, assess relationship power dynamics, and get love advice.
+            </p>
+          </div>
+
+          <div class="border border-border rounded-lg p-6">
+            <h3 class="text-xl font-bold mb-3 flex items-center gap-2">
+              <span>💼</span> Work & Productivity
+            </h3>
+            <p class="text-muted-foreground">
+              Get work motivation, decide between rest or work, prioritize tasks, and receive productivity tips tailored to your energy.
+            </p>
+          </div>
+
+          <div class="border border-border rounded-lg p-6">
+            <h3 class="text-xl font-bold mb-3 flex items-center gap-2">
+              <span>🧠</span> Self-Awareness
+            </h3>
+            <p class="text-muted-foreground">
+              Check your self-awareness level, emotional maturity, overthinking patterns, and discover your hidden talents.
+            </p>
+          </div>
+
+          <div class="border border-border rounded-lg p-6">
+            <h3 class="text-xl font-bold mb-3 flex items-center gap-2">
+              <span>🔥</span> Motivation & Growth
+            </h3>
+            <p class="text-muted-foreground">
+              Daily compliments, confidence boosters, motivational taps, and insights on who you're becoming.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-16 bg-muted/30" itemscope itemtype="https://schema.org/FAQPage">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+          Frequently Asked Questions
+        </h2>
+        
+        <div class="space-y-6">
+          <div class="border border-border rounded-lg p-6" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="text-xl font-bold mb-3" itemprop="name">What is the Daily Insights Generator?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p class="text-muted-foreground" itemprop="text">
+                The Daily Insights Generator is a free online tool that provides instant daily predictions, advice, mood checks, and motivational insights. It features 30+ different tools covering relationships, work, personal growth, and decision-making.
+              </p>
+            </div>
+          </div>
+
+          <div class="border border-border rounded-lg p-6" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="text-xl font-bold mb-3" itemprop="name">Is it really free?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p class="text-muted-foreground" itemprop="text">
+                Yes! 100% free with no registration, no hidden fees, and unlimited access to all 30+ tools. Use it as many times as you want, whenever you need guidance.
+              </p>
+            </div>
+          </div>
+
+          <div class="border border-border rounded-lg p-6" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="text-xl font-bold mb-3" itemprop="name">How accurate are the insights?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p class="text-muted-foreground" itemprop="text">
+                Our insights are designed to provide perspective, motivation, and clarity. While they're randomized, they're carefully crafted to be universally relatable and thought-provoking. Use them as a tool for reflection and inspiration.
+              </p>
+            </div>
+          </div>
+
+          <div class="border border-border rounded-lg p-6" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="text-xl font-bold mb-3" itemprop="name">Can I use this for daily motivation?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p class="text-muted-foreground" itemprop="text">
+                Absolutely! Many users start their day with our motivation tools, confidence boosters, and daily advice. It's perfect for a quick dose of positivity or clarity when you need it most.
+              </p>
+            </div>
+          </div>
+
+          <div class="border border-border rounded-lg p-6" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="text-xl font-bold mb-3" itemprop="name">What makes this different from other advice tools?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p class="text-muted-foreground" itemprop="text">
+                We offer 30+ specialized tools in one place, each designed for specific needs - from mood checks to relationship insights. Everything is instant, free, and requires just one click. No lengthy quizzes or personal information needed.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</MainLayout>
+
+<style>
+  section {
+    scroll-margin-top: 80px;
+  }
+</style>

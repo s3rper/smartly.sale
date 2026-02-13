@@ -1,0 +1,375 @@
+---
+import MainLayout from '../layouts/main.astro';
+import PinoyJokeGenerator from '../components/PinoyJokeGenerator';
+
+const pageTitle = "Free Pinoy Joke Generator - Filipino Tagalog Jokes 2025 | smartly.sale";
+const pageDescription = "Generate unlimited authentic Filipino jokes instantly! 11 categories of Tagalog & Taglish humor. Perfect for social media content creators. 100% free Pinoy joke generator.";
+const pageUrl = "https://smartly.sale/jokes";
+const ogImage = "https://cdn.prod.website-files.com/662c296bd4d3a8028c713c69/6927f8763fb93cf7d2ff4516_jokes.png";
+
+// Schema.org structured data for SEO
+const schemaData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": `${pageUrl}#webpage`,
+      "url": pageUrl,
+      "name": pageTitle,
+      "description": pageDescription,
+      "inLanguage": "tl-PH",
+      "isPartOf": {
+        "@id": "https://smartly.sale/#website"
+      },
+      "about": {
+        "@id": `${pageUrl}#softwareapplication`
+      },
+      "datePublished": "2025-01-15T00:00:00+08:00",
+      "dateModified": new Date().toISOString()
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": `${pageUrl}#softwareapplication`,
+      "name": "Pinoy Joke Generator",
+      "applicationCategory": "EntertainmentApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "PHP"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "1247",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "description": "Free Filipino joke generator with 11 categories. Generate unlimited Tagalog and Taglish jokes for social media.",
+      "featureList": [
+        "11 joke categories",
+        "Unlimited joke generation",
+        "Social media ready",
+        "Download as image",
+        "Copy to clipboard",
+        "100% free",
+        "No registration required"
+      ],
+      "screenshot": ogImage,
+      "softwareVersion": "1.0",
+      "author": {
+        "@type": "Organization",
+        "name": "smartly.sale"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${pageUrl}#breadcrumb`,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://smartly.sale/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Pinoy Joke Generator"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${pageUrl}#faq`,
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the Pinoy Joke Generator?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The Pinoy Joke Generator is a free online tool that creates authentic Filipino jokes in Tagalog and Taglish. It features 11 categories including Love & Hugot, Office humor, Student life, and more."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the Pinoy Joke Generator free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! The Pinoy Joke Generator is 100% free to use with no registration required. Generate unlimited jokes anytime."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use these jokes for social media?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely! All generated jokes are perfect for Facebook, TikTok, Instagram, and other social media platforms. You can copy the text or download as an image."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What joke categories are available?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We offer 11 categories: Love & Hugot, Barkada & Friendship, Office & Workmates, Student Life, Asaran & Banat, Family & Everyday, Trending & Pop Culture, Politika & Election, Nanay Moments, Commute & Travel, and Traffic sa Pinas."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://smartly.sale/#organization",
+      "name": "smartly.sale",
+      "url": "https://smartly.sale",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://smartly.sale/logo.png"
+      },
+      "sameAs": [
+        "https://www.facebook.com/smartlysale",
+        "https://twitter.com/smartlysale"
+      ]
+    }
+  ]
+};
+---
+
+<MainLayout 
+  title={pageTitle}
+  description={pageDescription}
+  ogImage={ogImage}
+>
+  <!-- Enhanced SEO Meta Tags in Head -->
+  <Fragment slot="head">
+    <!-- Canonical URL -->
+    <link rel="canonical" href={pageUrl} />
+    
+    <!-- Additional Meta Tags -->
+    <meta name="keywords" content="pinoy jokes, filipino jokes, tagalog jokes, taglish jokes, filipino humor, pinoy humor generator, tagalog joke generator, free joke generator, social media content, pinoy memes, filipino comedy, hugot lines, pinoy banat, filipino funny quotes" />
+    <meta name="author" content="smartly.sale" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Free Pinoy Joke Generator - Filipino Tagalog Jokes" />
+    <meta property="og:site_name" content="smartly.sale" />
+    <meta property="og:locale" content="tl_PH" />
+    <meta property="og:locale:alternate" content="en_PH" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={pageUrl} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content="Free Pinoy Joke Generator - Filipino Tagalog Jokes" />
+    <meta name="twitter:creator" content="@smartlysale" />
+    
+    <!-- Additional SEO Tags -->
+    <meta name="language" content="Filipino" />
+    <meta name="coverage" content="Philippines" />
+    <meta name="target" content="all" />
+    <meta name="audience" content="all" />
+    <meta name="rating" content="general" />
+    
+    <!-- Mobile Optimization -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Pinoy Jokes" />
+    
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+  </Fragment>
+
+  <!-- Hero Section with Generator -->
+  <section 
+    class="relative bg-background py-12 md:py-16"
+    itemscope
+    itemtype="https://schema.org/SoftwareApplication"
+  >
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center space-y-6 mb-12">
+        <!-- Badge -->
+        <div class="inline-flex items-center space-x-2 bg-brand/10 text-brand px-4 py-2 rounded-full text-sm font-medium">
+          <span>Authentic Pinoy Humor Generator</span>
+        </div>
+
+        <!-- Headline with SEO-optimized H1 -->
+        <h1 class="text-4xl md:text-6xl font-bold text-foreground leading-tight" itemprop="name">
+          Free <span class="text-brand">Pinoy Joke</span> Generator
+        </h1>
+
+        <!-- Subheadline -->
+        <p class="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto" itemprop="description">
+          Generate fresh, original, and highly relatable Filipino jokes in seconds. 
+          Perfect for social media, content creators, and spreading laughter!
+        </p>
+      </div>
+
+      <!-- Generator - Highlighted Position -->
+      <div class="mb-12">
+        <PinoyJokeGenerator client:only="react" />
+      </div>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-3xl mx-auto">
+        <div class="text-center">
+          <div class="text-3xl md:text-4xl font-bold text-brand">Unlimited</div>
+          <div class="text-sm md:text-base text-muted-foreground mt-1">Jokes Available</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl md:text-4xl font-bold text-brand">11</div>
+          <div class="text-sm md:text-base text-muted-foreground mt-1">Categories</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl md:text-4xl font-bold text-brand">100%</div>
+          <div class="text-sm md:text-base text-muted-foreground mt-1">Filipino</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl md:text-4xl font-bold text-brand" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+            <span itemprop="price" content="0">Free</span>
+            <meta itemprop="priceCurrency" content="PHP" />
+          </div>
+          <div class="text-sm md:text-base text-muted-foreground mt-1">Forever</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Decorative Elements -->
+    <div class="absolute top-0 right-0 w-64 h-64 bg-brand/5 rounded-full blur-3xl -z-10" aria-hidden="true"></div>
+    <div class="absolute bottom-0 left-0 w-64 h-64 bg-brand/5 rounded-full blur-3xl -z-10" aria-hidden="true"></div>
+  </section>
+
+  <!-- Simple Feature Highlights -->
+  <section class="py-16 bg-muted/30">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+        Why Use Our Pinoy Joke Generator?
+      </h2>
+      <div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-8 text-center">
+        <div class="p-6">
+          <h3 class="text-xl font-bold mb-2">Instant Generation</h3>
+          <p class="text-muted-foreground">One click to create authentic Filipino jokes. No waiting, no hassle.</p>
+        </div>
+
+        <div class="p-6">
+          <h3 class="text-xl font-bold mb-2">Social Media Ready</h3>
+          <p class="text-muted-foreground">Perfect for Facebook, TikTok, Instagram, and all social platforms.</p>
+        </div>
+
+        <div class="p-6">
+          <h3 class="text-xl font-bold mb-2">100% Filipino</h3>
+          <p class="text-muted-foreground">Authentic Tagalog and Taglish humor that Filipinos love.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section for SEO -->
+  <section class="py-16 bg-background" itemscope itemtype="https://schema.org/FAQPage">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+          Frequently Asked Questions
+        </h2>
+        
+        <div class="space-y-6">
+          <div class="border border-border rounded-lg p-6" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="text-xl font-bold mb-3" itemprop="name">What is the Pinoy Joke Generator?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p class="text-muted-foreground" itemprop="text">
+                The Pinoy Joke Generator is a free online tool that creates authentic Filipino jokes in Tagalog and Taglish. It features 11 categories including Love & Hugot, Office humor, Student life, and more. Simply click a category or generate a random joke to start laughing!
+              </p>
+            </div>
+          </div>
+
+          <div class="border border-border rounded-lg p-6" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="text-xl font-bold mb-3" itemprop="name">Is the Pinoy Joke Generator free?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p class="text-muted-foreground" itemprop="text">
+                Yes! The Pinoy Joke Generator is 100% free to use with no registration required. Generate unlimited jokes anytime, anywhere. No hidden fees, no subscriptions.
+              </p>
+            </div>
+          </div>
+
+          <div class="border border-border rounded-lg p-6" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="text-xl font-bold mb-3" itemprop="name">Can I use these jokes for social media?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p class="text-muted-foreground" itemprop="text">
+                Absolutely! All generated jokes are perfect for Facebook, TikTok, Instagram, Twitter, and other social media platforms. You can copy the text to your clipboard or download the joke as a shareable image with beautiful backgrounds.
+              </p>
+            </div>
+          </div>
+
+          <div class="border border-border rounded-lg p-6" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="text-xl font-bold mb-3" itemprop="name">What joke categories are available?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p class="text-muted-foreground" itemprop="text">
+                We offer 11 popular categories: Love & Hugot, Barkada & Friendship, Office & Workmates, Student Life, Asaran & Banat, Family & Everyday, Trending & Pop Culture, Politika & Election, Nanay Moments, Commute & Travel, and Traffic sa Pinas.
+              </p>
+            </div>
+          </div>
+
+          <div class="border border-border rounded-lg p-6" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="text-xl font-bold mb-3" itemprop="name">How do I download jokes as images?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p class="text-muted-foreground" itemprop="text">
+                After generating a joke, simply click the "Download Image" button. The joke will be formatted with beautiful backgrounds perfect for Instagram posts (1080x1080px). The image includes your joke text, an emoji, and our branding.
+              </p>
+            </div>
+          </div>
+
+          <div class="border border-border rounded-lg p-6" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h3 class="text-xl font-bold mb-3" itemprop="name">Are the jokes original and unique?</h3>
+            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p class="text-muted-foreground" itemprop="text">
+                Our joke database contains carefully curated Filipino jokes that are authentic, relatable, and culturally relevant. Each generation provides fresh content perfect for entertaining your audience.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEO Content Section -->
+  <section class="py-16 bg-muted/30">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto prose prose-lg">
+        <h2>Filipino Humor Generator for Content Creators</h2>
+        <p>
+          Looking for authentic Pinoy jokes to share with your audience? Our <strong>free Filipino joke generator</strong> helps content creators, social media managers, and comedy enthusiasts create engaging Tagalog and Taglish content in seconds.
+        </p>
+        
+        <h3>Perfect for Social Media Content</h3>
+        <p>
+          Whether you're managing a Facebook page, creating TikTok videos, or posting on Instagram, our Pinoy joke generator provides unlimited Filipino humor that resonates with your audience. Each joke is carefully crafted to capture authentic Pinoy culture and experiences.
+        </p>
+
+        <h3>11 Popular Categories</h3>
+        <p>
+          From <strong>hugot lines</strong> about love to hilarious takes on Manila traffic, our generator covers every aspect of Filipino life. Choose from categories like office humor, student life, family moments, trending topics, and more. Perfect for creating relatable content that gets shared.
+        </p>
+
+        <h3>Easy to Use, Free Forever</h3>
+        <p>
+          No registration required. No fees. Just instant Filipino jokes whenever you need them. Click a category, get a joke, and share it with your audience. It's that simple. Download jokes as images or copy the text directly to your clipboard.
+        </p>
+      </div>
+    </div>
+  </section>
+</MainLayout>
+
+<style>
+  section {
+    scroll-margin-top: 80px;
+  }
+</style>

@@ -1,0 +1,35 @@
+---
+import MainLayout from '../layouts/main.astro';
+---
+
+<MainLayout 
+  title="Cash Tracker - Family Finance Manager"
+  description="Track and manage cash with approval system"
+  pageClass="aunt-tracker-page"
+>
+  <div class="min-h-screen bg-gradient-to-br from-orange-50 to-orange-100 dark:from-gray-900 dark:to-gray-800 py-8 px-4">
+    <div class="max-w-4xl mx-auto">
+      <!-- Cash Tracker Component -->
+      <div id="cash-tracker-root"></div>
+    </div>
+  </div>
+
+  <!-- Load the React component -->
+  <script>
+    import { createRoot } from 'react-dom/client';
+    import { createElement } from 'react';
+    import AuntCashTracker from '../components/AuntCashTracker';
+
+    const container = document.getElementById('cash-tracker-root');
+    if (container) {
+      const root = createRoot(container);
+      root.render(createElement(AuntCashTracker));
+    }
+  </script>
+</MainLayout>
+
+<style>
+  .aunt-tracker-page {
+    min-height: 100vh;
+  }
+</style>

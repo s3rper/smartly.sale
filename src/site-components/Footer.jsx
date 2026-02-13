@@ -258,7 +258,19 @@ export function Footer(
                                                 className="button-submit pw100"
                                                 type="submit"
                                                 value="Sign Up"
-                                                data-wait="Please wait..." /></_Builtin.FormForm><_Builtin.FormSuccessMessage className="success-message-2"><_Builtin.Block className="signup-form-footer-success" tag="div"><_Builtin.HtmlEmbed
+                                                data-wait="Please wait..." /><_Builtin.FormRadioWrapper><_Builtin.FormRadioInput
+                                                    type="radio"
+                                                    data-name="Radio"
+                                                    name="radio"
+                                                    value="Radio"
+                                                    required={false}
+                                                    id="radio"
+                                                    form={{
+                                                        type: "radio-input",
+                                                        name: "Radio"
+                                                    }}
+                                                    inputType="custom"
+                                                    customClassName="w-form-formradioinput--inputType-custom" /><_Builtin.FormInlineLabel>{"Radio"}</_Builtin.FormInlineLabel></_Builtin.FormRadioWrapper></_Builtin.FormForm><_Builtin.FormSuccessMessage className="success-message-2"><_Builtin.Block className="signup-form-footer-success" tag="div"><_Builtin.HtmlEmbed
                                                     className="check-success-form"
                                                     value="%3Csvg%20width%3D%2248%22%20height%3D%2248%22%20viewbox%3D%220%200%2048%2048%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Cpath%20d%3D%22M24%204C12.96%204%204%2012.96%204%2024C4%2035.04%2012.96%2044%2024%2044C35.04%2044%2044%2035.04%2044%2024C44%2012.96%2035.04%204%2024%204ZM18.58%2032.58L11.4%2025.4C10.62%2024.62%2010.62%2023.36%2011.4%2022.58C12.18%2021.8%2013.44%2021.8%2014.22%2022.58L20%2028.34L33.76%2014.58C34.54%2013.8%2035.8%2013.8%2036.58%2014.58C37.36%2015.36%2037.36%2016.62%2036.58%2017.4L21.4%2032.58C20.64%2033.36%2019.36%2033.36%2018.58%2032.58Z%22%20fill%3D%22currentColor%22%2F%3E%0A%3C%2Fsvg%3E" /><_Builtin.Block className="contact-success-message" tag="div"><_Builtin.Block className="heading-32-2" tag="div">{"Thanks! Samantha will be in touch."}</_Builtin.Block></_Builtin.Block></_Builtin.Block></_Builtin.FormSuccessMessage><_Builtin.FormErrorMessage><_Builtin.Block tag="div">{"Oops! Something went wrong while submitting the form."}</_Builtin.Block></_Builtin.FormErrorMessage></_Builtin.FormWrapper></_Builtin.Block></_Builtin.Block><_Builtin.Block className="footer-bottom" tag="div"><_Builtin.Block className="copyright text-color-white" tag="div"><_Builtin.Link
                                         className="copyright-link"

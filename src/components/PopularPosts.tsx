@@ -51,8 +51,8 @@ const PopularPosts: React.FC = () => {
         <div className="flex items-center justify-between mb-12">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
-              <TrendingUp className="inline-block w-8 h-8 text-[#FF6600] mr-2 mb-1" />
-              Most <span className="text-[#FF6600]">Popular</span>
+              <TrendingUp className="inline-block w-8 h-8 text-brand mr-2 mb-1" />
+              Most <span className="text-brand">Popular</span>
             </h2>
             <p className="text-muted-foreground text-lg">
               Our most-read product reviews and buying guides
@@ -66,11 +66,11 @@ const PopularPosts: React.FC = () => {
             <a
               key={post.id}
               href={`${baseUrl}/post/${post.slug}`}
-              className="group bg-card rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 border border-border hover:border-[#FF6600]"
+              className="group bg-card rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 border border-border hover:border-brand"
             >
               {/* Ranking Badge */}
               <div className="relative">
-                <div className="absolute top-4 left-4 z-10 w-12 h-12 bg-[#FF6600] text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg">
+                <div className="absolute top-4 left-4 z-10 w-12 h-12 bg-brand text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg">
                   #{index + 1}
                 </div>
                 <div className="aspect-video overflow-hidden">
@@ -92,7 +92,7 @@ const PopularPosts: React.FC = () => {
                   </div>
                 </div>
 
-                <h3 className="font-bold text-xl text-foreground group-hover:text-[#FF6600] transition-colors line-clamp-2">
+                <h3 className="font-bold text-xl text-foreground group-hover:text-brand transition-colors line-clamp-2">
                   {post.title}
                 </h3>
 
@@ -101,7 +101,7 @@ const PopularPosts: React.FC = () => {
                 </p>
 
                 <div className="pt-2">
-                  <span className="text-[#FF6600] font-semibold group-hover:underline">
+                  <span className="text-brand font-semibold group-hover:underline">
                     Read More →
                   </span>
                 </div>

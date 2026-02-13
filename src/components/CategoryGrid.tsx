@@ -69,7 +69,7 @@ const CategoryGrid: React.FC = () => {
         {/* Section Header */}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Shop by <span className="text-[#FF6600]">Category</span>
+            Shop by <span className="text-brand">Category</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Browse through our curated collections and find exactly what you're looking for
@@ -84,13 +84,13 @@ const CategoryGrid: React.FC = () => {
               href={`${baseUrl}/blog?category=${category.slug}`}
               className="group"
             >
-              <div className={`bg-gradient-to-br ${category.color} rounded-2xl p-6 text-center hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-[#FF6600] cursor-pointer h-full`}>
+              <div className={`bg-gradient-to-br ${category.color} rounded-2xl p-6 text-center hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-brand cursor-pointer h-full`}>
                 <div className="flex flex-col items-center space-y-3">
-                  <div className="w-16 h-16 bg-background rounded-full flex items-center justify-center text-[#FF6600] group-hover:scale-110 transition-transform">
+                  <div className="w-16 h-16 bg-background rounded-full flex items-center justify-center text-brand group-hover:scale-110 transition-transform">
                     {category.icon}
                   </div>
                   <div>
-                    <h3 className="font-bold text-foreground text-sm md:text-base group-hover:text-[#FF6600] transition-colors">
+                    <h3 className="font-bold text-foreground text-sm md:text-base group-hover:text-brand transition-colors">
                       {category.name}
                     </h3>
                     <p className="text-xs text-muted-foreground mt-1">
@@ -107,7 +107,7 @@ const CategoryGrid: React.FC = () => {
         <div className="text-center mt-12">
           <a
             href={`${baseUrl}/categories`}
-            className="inline-flex items-center justify-center px-8 py-4 bg-[#FF6600] text-white font-bold rounded-full hover:bg-[#FF6600]/90 transition-all transform hover:scale-105"
+            className="inline-flex items-center justify-center px-8 py-4 bg-brand text-white font-bold rounded-full hover:bg-brand/90 transition-all transform hover:scale-105"
           >
             View All Categories
           </a>

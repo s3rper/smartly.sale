@@ -31,7 +31,7 @@ export function Navbar(
                             className="brand-3"
                             aria-label="Company Label"
                             options={{
-                                href: "#"
+                                href: "https://smartly-sale.webflow.io/"
                             }}><_Builtin.Image
                                 className="logo-mark"
                                 width="50"

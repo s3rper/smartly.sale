@@ -12,6 +12,8 @@ const Navbar: React.FC = () => {
   const navLinks = [
     { name: 'Home', href: `${baseUrl}/` },
     { name: 'Products', href: `${baseUrl}/products` },
+    { name: 'Earn Money', href: `${baseUrl}/earn` },
+    { name: 'Blog', href: `${baseUrl}/blog` },
     { name: 'About', href: `${baseUrl}/about` },
     { name: 'Contact', href: `${baseUrl}/contact` },
   ];
@@ -22,7 +24,7 @@ const Navbar: React.FC = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo - Always points to homepage */}
           <a href={`${baseUrl}/`} className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
-            <ShoppingBag className="w-8 h-8 text-[#FF6600]" />
+            <ShoppingBag className="w-8 h-8 text-brand" />
             <span className="text-xl font-bold text-foreground">smartly.sale</span>
           </a>
 
@@ -32,7 +34,7 @@ const Navbar: React.FC = () => {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-foreground hover:text-[#FF6600] transition-colors font-medium"
+                className="text-foreground hover:text-brand transition-colors font-medium"
               >
                 {link.name}
               </a>
@@ -61,7 +63,7 @@ const Navbar: React.FC = () => {
                 <a
                   key={link.name}
                   href={link.href}
-                  className="px-4 py-2 text-foreground hover:text-[#FF6600] hover:bg-accent rounded-lg transition-all font-medium"
+                  className="px-4 py-2 text-foreground hover:text-brand hover:bg-accent rounded-lg transition-all font-medium"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {link.name}

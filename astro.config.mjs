@@ -62,6 +62,10 @@ export default defineConfig({
   ],
   vite: {
     plugins: [tailwindcss(), patchViteErrorOverlay()],
+    cacheDir: 'node_modules/.vite',
+    optimizeDeps: {
+      force: false, // Don't force re-optimization on every restart
+    },
     server: {
       watch: {
         usePolling: true, // Enable polling for file watching in Docker
@@ -71,7 +75,13 @@ export default defineConfig({
           '**/dist/**',
           '**/node_modules/**',
           '**/src/site-components/**',
+          '**/.vite/**',
+          '**/.astro/**',
+          '**/output/**',
         ],
+      },
+      fs: {
+        strict: false,
       },
     },
     resolve: {

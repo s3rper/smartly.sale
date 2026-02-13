@@ -1,0 +1,206 @@
+---
+import MainLayout from '../layouts/main.astro';
+import ProductDetailDynamic from '../components/ProductDetailDynamic';
+
+// Get URL parameters
+const url = new URL(Astro.request.url);
+const productData = url.searchParams.get('data');
+
+let parsedData = null;
+let error = null;
+
+if (productData) {
+  try {
+    // First, try direct JSON parse (in case it's not encoded)
+    try {
+      parsedData = JSON.parse(productData);
+    } catch {
+      // If that fails, try decoding first
+      const decoded = decodeURIComponent(productData);
+      parsedData = JSON.parse(decoded);
+    }
+    
+    // Validate that we have the required fields
+    if (!parsedData || !parsedData.batch_item_for_item_card_full) {
+      error = 'Missing required product information (batch_item_for_item_card_full)';
+      parsedData = null;
+      console.error('Data structure:', parsedData);
+    }
+  } catch (e) {
+    error = null; // Don't show error, show the help page instead
+    parsedData = null;
+    console.error('Failed to parse product data:', e);
+    if (productData) {
+      console.error('Data preview:', productData.substring(0, 200));
+    }
+  }
+}
+
+// Prepare SEO data from parsed product
+const productName = parsedData?.batch_item_for_item_card_full?.name || 'Product Details';
+const shopName = parsedData?.batch_item_for_item_card_full?.shop_name || 'Shopee';
+const price = parsedData?.batch_item_for_item_card_full?.price_min
+  ? (parseInt(parsedData.batch_item_for_item_card_full.price_min) / 100000).toFixed(2) 
+  : '';
+const priceBeforeDiscount = parsedData?.batch_item_for_item_card_full?.price_before_discount 
+  ? (parseInt(parsedData.batch_item_for_item_card_full.price_before_discount) / 100000).toFixed(2) 
+  : '';
+const discount = parsedData?.batch_item_for_item_card_full?.discount || '';
+const rating = parsedData?.batch_item_for_item_card_full?.item_rating?.rating_star 
+  ? parsedData.batch_item_for_item_card_full.item_rating.rating_star.toFixed(1) 
+  : '';
+const soldText = parsedData?.batch_item_for_item_card_full?.sold_text || '';
+
+// Construct image URL
+const imageCode = parsedData?.batch_item_for_item_card_full?.image || '';
+const imageUrl = imageCode ? `https://down-ph.img.susercontent.com/file/${imageCode}` : '/images/placeholder-product.jpg';
+
+// Page title and description
+const pageTitle = productName && productName !== 'Product Details'
+  ? `${productName} - ${shopName} | smartly.sale`
+  : 'Product Details | smartly.sale';
+
+const pageDescription = productName && productName !== 'Product Details'
+  ? `Get ${productName} from ${shopName} on Shopee Philippines. ${discount ? `Save ${discount}! ` : ''}${rating ? `Rated ${rating}/5. ` : ''}${soldText ? `${soldText} sold. ` : ''}Shop now on smartly.sale!`
+  : 'Discover amazing Shopee products at smartly.sale. Best deals and viral finds in the Philippines.';
+---
+
+<MainLayout 
+  title={pageTitle}
+  description={pageDescription}
+  ogImage={imageUrl}
+>
+  {parsedData ? (
+    <ProductDetailDynamic client:only="react" productData={parsedData} />
+  ) : (
+    <div class="container mx-auto px-4 py-12">
+      <div class="max-w-3xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-8">
+          <div class="mb-6">
+            <svg class="w-24 h-24 mx-auto text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <h1 class="text-4xl font-bold mb-4">Dynamic Product Details</h1>
+          <p class="text-xl text-muted-foreground">
+            Generate unique product pages for your Facebook Ads campaigns
+          </p>
+        </div>
+
+        {error && (
+          <div class="bg-red-50 dark:bg-red-900/20 border-2 border-red-200 dark:border-red-800 rounded-lg p-6 mb-6">
+            <div class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-red-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <div>
+                <h3 class="font-bold text-red-900 dark:text-red-200 mb-1">Error Loading Product</h3>
+                <p class="text-red-800 dark:text-red-300">{error}</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <!-- How it Works -->
+        <div class="bg-muted rounded-lg p-6 mb-6">
+          <h2 class="text-2xl font-bold mb-4">🚀 How It Works</h2>
+          <ol class="space-y-3 text-muted-foreground">
+            <li class="flex gap-3">
+              <span class="flex-shrink-0 w-8 h-8 bg-brand text-white rounded-full flex items-center justify-center font-bold">1</span>
+              <span class="pt-1">Get product data from <strong class="text-foreground">Shopee Affiliate API</strong> (JSON format)</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="flex-shrink-0 w-8 h-8 bg-brand text-white rounded-full flex items-center justify-center font-bold">2</span>
+              <span class="pt-1">Generate a URL using our <strong class="text-foreground">helper tools</strong></span>
+            </li>
+            <li class="flex gap-3">
+              <span class="flex-shrink-0 w-8 h-8 bg-brand text-white rounded-full flex items-center justify-center font-bold">3</span>
+              <span class="pt-1">Use the URL in your <strong class="text-foreground">Facebook Ads</strong> or campaigns</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="flex-shrink-0 w-8 h-8 bg-brand text-white rounded-full flex items-center justify-center font-bold">4</span>
+              <span class="pt-1">Customers see a <strong class="text-foreground">beautiful product page</strong> with your affiliate link</span>
+            </li>
+          </ol>
+        </div>
+
+        <!-- Tools Available -->
+        <div class="grid md:grid-cols-2 gap-4 mb-6">
+          <div class="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 rounded-lg p-6">
+            <h3 class="font-bold text-lg mb-2 flex items-center gap-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              </svg>
+              HTML Tool
+            </h3>
+            <p class="text-sm text-muted-foreground mb-3">Visual interface for generating URLs with sample data included</p>
+            <p class="text-xs font-mono bg-white dark:bg-gray-800 p-2 rounded">test-product-url.html</p>
+          </div>
+
+          <div class="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 rounded-lg p-6">
+            <h3 class="font-bold text-lg mb-2 flex items-center gap-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+              CLI Script
+            </h3>
+            <p class="text-sm text-muted-foreground mb-3">Command-line tool for quick URL generation</p>
+            <p class="text-xs font-mono bg-white dark:bg-gray-800 p-2 rounded">node generate-product-url.js</p>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+          <a href="/product-details-demo" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand text-white rounded-lg hover:bg-brand-hover transition font-semibold">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+            </svg>
+            View Demo & Examples
+          </a>
+          <a href="/products" class="inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-border rounded-lg hover:border-brand transition font-semibold">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+            </svg>
+            Browse Products
+          </a>
+        </div>
+
+        <!-- Example URL Format -->
+        <div class="bg-gray-50 dark:bg-gray-900 rounded-lg p-6">
+          <h3 class="font-bold mb-3 flex items-center gap-2">
+            <svg class="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+            </svg>
+            Example URL Format:
+          </h3>
+          <div class="bg-white dark:bg-gray-800 rounded p-4 overflow-x-auto">
+            <code class="text-sm text-muted-foreground break-all">
+              https://smartly.sale/product-details?data=%7B%22item_id%22%3A%22...%22%7D
+            </code>
+          </div>
+          <p class="text-xs text-muted-foreground mt-3">
+            The <code class="bg-white dark:bg-gray-800 px-2 py-1 rounded">data</code> parameter contains URL-encoded JSON with all product information.
+          </p>
+        </div>
+
+        <!-- Back to Home -->
+        <div class="text-center mt-8 pt-6 border-t">
+          <a href="/" class="text-brand hover:underline inline-flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+            </svg>
+            Back to Home
+          </a>
+        </div>
+      </div>
+    </div>
+  )}
+</MainLayout>
+
+<style>
+  .container {
+    max-width: 1280px;
+  }
+</style>

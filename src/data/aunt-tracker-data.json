@@ -1,0 +1,20 @@
+{
+  "settings": {
+    "startingBalance": 250000,
+    "adminPin": "1234",
+    "approverPin": "5678",
+    "adminName": "Admin",
+    "approverName": "Tita"
+  },
+  "transactions": [
+    {
+      "id": "1770512971292",
+      "date": "2026-02-08T01:09:31.292Z",
+      "description": "Aljun Cash Advance",
+      "amount": 5000,
+      "status": "pending",
+      "notes": "",
+      "requestedBy": "admin"
+    }
+  ]
+}

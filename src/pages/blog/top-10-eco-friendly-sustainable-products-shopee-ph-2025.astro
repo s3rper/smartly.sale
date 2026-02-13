@@ -1,0 +1,369 @@
+---
+import MainLayout from '../../layouts/main.astro';
+import PostContent from '../../components/PostContent';
+import BlogStructuredData from '../../components/BlogStructuredData.astro';
+
+const post = {
+  title: "Top 10 Eco-Friendly & Sustainable Products Trending on Shopee PH (2025 Edition)",
+  excerpt: "Discover the best eco-friendly and sustainable products on Shopee Philippines. From bamboo essentials to reusable bags, shop green and support the planet while saving money.",
+  author: "smartly.sale Team",
+  date: "2025-01-15",
+  readTime: "8 min read",
+  category: "Sustainable Shopping",
+  image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1200&h=630&fit=crop",
+  slug: "top-10-eco-friendly-sustainable-products-shopee-ph-2025"
+};
+
+const content = `
+<p>The green revolution is here, and Filipino shoppers are leading the charge! In 2025, eco-friendly and sustainable products are not just trending on Shopee Philippines—they're becoming the new normal. Whether you're looking to reduce plastic waste, support sustainable brands, or simply make more conscious purchasing decisions, Shopee has become the go-to destination for green shopping.</p>
+
+<p>This comprehensive guide reveals the top 10 eco-friendly products flying off Shopee's virtual shelves, complete with why they matter, how to choose the best ones, and tips for maximizing your sustainable shopping journey.</p>
+
+<h2>Why Eco-Friendly Shopping Matters in 2025</h2>
+
+<p>The Philippines generates over 61,000 tons of waste daily, with a significant portion coming from single-use plastics and non-biodegradable materials. By choosing eco-friendly alternatives on Shopee, you're not just making a purchase—you're making a statement and contributing to real environmental change.</p>
+
+<h3>Benefits of Sustainable Shopping:</h3>
+
+<ul>
+<li><strong>Reduce Carbon Footprint:</strong> Eco-friendly products typically require less energy to produce and generate less waste</li>
+<li><strong>Save Money Long-Term:</strong> Reusable products mean fewer replacements and lower lifetime costs</li>
+<li><strong>Support Local Businesses:</strong> Many sustainable brands on Shopee are Filipino-owned small businesses</li>
+<li><strong>Healthier Choices:</strong> Eco-friendly often means fewer chemicals and toxins</li>
+<li><strong>Future-Proof Lifestyle:</strong> Prepare for upcoming plastic bans and environmental regulations</li>
+</ul>
+
+<h2>Top 10 Eco-Friendly Products on Shopee PH</h2>
+
+<h3>1. Bamboo Toothbrush Set (4-Pack)</h3>
+
+<p><strong>Price Range:</strong> PHP 120-250 | <strong>Why It's Hot:</strong> Replaces 4 plastic toothbrushes that would take 500+ years to decompose</p>
+
+<p>Bamboo toothbrushes are the gateway product for eco-conscious living. Made from biodegradable bamboo handles with soft, BPA-free bristles, these toothbrushes work just as well as plastic ones but decompose in 3-4 months instead of centuries.</p>
+
+<p><strong>What to Look For:</strong></p>
+<ul>
+<li>100% biodegradable bamboo handle (Moso bamboo is best)</li>
+<li>Charcoal-infused bristles for natural whitening</li>
+<li>Individual packaging (preferably paper-based)</li>
+<li>Filipino brand options: Humble Brush PH, EcoSmile Philippines</li>
+</ul>
+
+<p><strong>Pro Tip:</strong> Replace every 3 months like regular toothbrushes. After use, remove bristles and compost the handle!</p>
+
+<h3>2. Reusable Stainless Steel Straws (Set with Cleaning Brush)</h3>
+
+<p><strong>Price Range:</strong> PHP 80-180 | <strong>Daily Impact:</strong> Saves 1-3 plastic straws per person per day</p>
+
+<p>With cities across the Philippines banning single-use plastics, stainless steel straws have become a must-have. These durable, dishwasher-safe straws last for years and come in various sizes for different drinks.</p>
+
+<p><strong>Popular Types on Shopee:</strong></p>
+<ul>
+<li><strong>Straight Straws:</strong> Perfect for water, juice, and bubble tea</li>
+<li><strong>Bent Straws:</strong> Comfortable for sipping cocktails and iced coffee</li>
+<li><strong>Wide Straws:</strong> Essential for boba and thick smoothies</li>
+<li><strong>Travel Sets:</strong> Come with portable cases and cleaning brushes</li>
+</ul>
+
+<p><strong>Maintenance Tip:</strong> Use the included cleaning brush after each use. Soak in vinegar monthly to remove stains and odors.</p>
+
+<h3>3. Beeswax Food Wraps (Reusable Alternative to Cling Wrap)</h3>
+
+<p><strong>Price Range:</strong> PHP 200-450 for a 3-pack | <strong>Lifespan:</strong> 6-12 months with proper care</p>
+
+<p>Say goodbye to single-use plastic wrap! Beeswax wraps are coated fabric sheets that stick to themselves and containers using body heat. They're perfect for covering bowls, wrapping sandwiches, and storing produce.</p>
+
+<p><strong>Filipino Brands to Try:</strong></p>
+<ul>
+<li>Waxed PH - Uses locally-sourced beeswax</li>
+<li>Bee Humble Manila - Supports local beekeepers</li>
+<li>EcoWrap Philippines - Offers custom sizes</li>
+</ul>
+
+<p><strong>Care Instructions:</strong> Wash with cold water and mild soap. Air dry. Never use hot water or microwaves. Re-wax every 6 months to extend life.</p>
+
+<h3>4. Eco-Friendly Mesh Produce Bags</h3>
+
+<p><strong>Price Range:</strong> PHP 150-300 for a 5-bag set | <strong>Load Capacity:</strong> Up to 5kg per bag</p>
+
+<p>Stop using plastic bags at the grocery! These lightweight, breathable mesh bags are perfect for fruits, vegetables, and bulk items. They're washable, see-through for easy checkout, and incredibly durable.</p>
+
+<p><strong>Features to Look For:</strong></p>
+<ul>
+<li>Organic cotton or recycled polyester material</li>
+<li>Drawstring closure for secure transport</li>
+<li>Tare weight label (so cashiers can subtract bag weight)</li>
+<li>Multiple sizes: Small (herbs), Medium (fruits), Large (potatoes)</li>
+</ul>
+
+<p><strong>Money-Saving Tip:</strong> Many supermarkets now offer discounts for bringing your own bags!</p>
+
+<h3>5. Coconut Coir Dishwashing Sponge</h3>
+
+<p><strong>Price Range:</strong> PHP 60-120 each | <strong>Eco Factor:</strong> 100% biodegradable and compostable</p>
+
+<p>Traditional kitchen sponges shed microplastics with every use. Coconut coir (coconut husk fiber) sponges are naturally antibacterial, non-scratch, and completely biodegradable. Plus, they're a Filipino product—coconuts are abundant here!</p>
+
+<p><strong>Why Filipino Buyers Love Them:</strong></p>
+<ul>
+<li>Made from waste material (coconut husks)</li>
+<li>Naturally antibacterial (resists mold and bacteria)</li>
+<li>Tough on grease, gentle on dishes</li>
+<li>Lasts 2-3 months with regular use</li>
+<li>Supports local coconut farmers</li>
+</ul>
+
+<p><strong>Usage Tip:</strong> Boil for 10 minutes monthly to sanitize. When worn out, toss in compost bin or garden.</p>
+
+<h3>6. Solar-Powered Outdoor Lights</h3>
+
+<p><strong>Price Range:</strong> PHP 300-800 | <strong>Energy Savings:</strong> Zero electricity cost, 100% renewable</p>
+
+<p>Perfect for Philippine weather! Solar garden lights, pathway lights, and string lights absorb sunlight during the day and automatically illuminate at night. No wiring, no electricity bills, just sustainable outdoor lighting.</p>
+
+<p><strong>Best Sellers on Shopee:</strong></p>
+<ul>
+<li><strong>String Lights:</strong> 10-50 LED bulbs, perfect for gardens and patios</li>
+<li><strong>Pathway Lights:</strong> Stake into ground, lights walkways automatically</li>
+<li><strong>Motion Sensor Lights:</strong> For security, only activates when needed</li>
+<li><strong>Decorative Lanterns:</strong> Creates ambiance for outdoor dining</li>
+</ul>
+
+<p><strong>Installation Tip:</strong> Place solar panel in direct sunlight for at least 6 hours daily for optimal charging.</p>
+
+<h3>7. Bamboo Fiber Dishware Set</h3>
+
+<p><strong>Price Range:</strong> PHP 400-900 for a 4-piece set | <strong>Durability:</strong> 3-5 years with normal use</p>
+
+<p>Replace disposable plastic plates and toxic melamine dishes with beautiful bamboo fiber dinnerware. These plates, bowls, and cups are lightweight, microwave-safe, and naturally antibacterial.</p>
+
+<p><strong>Perfect For:</strong></p>
+<ul>
+<li>Kids (unbreakable and safe)</li>
+<li>Outdoor dining and picnics</li>
+<li>Daily use (dishwasher-safe options available)</li>
+<li>Minimalist aesthetic lovers</li>
+</ul>
+
+<p><strong>Care Note:</strong> Not suitable for ovens or extreme heat. Hand wash recommended for longer life.</p>
+
+<h3>8. Organic Cotton Tote Bags (Heavy-Duty)</h3>
+
+<p><strong>Price Range:</strong> PHP 150-400 | <strong>Replacement Value:</strong> Replaces 1000+ plastic bags over its lifetime</p>
+
+<p>The classic eco-friendly accessory gets an upgrade! 2025's tote bags are reinforced, stylish, and built to carry serious weight. From groceries to gym gear, one good tote bag replaces thousands of plastic alternatives.</p>
+
+<p><strong>Trending Features:</strong></p>
+<ul>
+<li>Reinforced bottom and handles (carry up to 15kg)</li>
+<li>Inner pockets for organization</li>
+<li>Foldable designs (fits in purse when not in use)</li>
+<li>Filipino-inspired prints and designs</li>
+<li>GOTS-certified organic cotton options</li>
+</ul>
+
+<p><strong>Style Tip:</strong> Buy 3-4 in different sizes and keep one in your car, one in your bag, and one at home.</p>
+
+<h3>9. Refillable Silicone Travel Bottles</h3>
+
+<p><strong>Price Range:</strong> PHP 180-350 for a 4-bottle set | <strong>TSA-Approved:</strong> 100ml leak-proof containers</p>
+
+<p>Stop buying travel-sized toiletries in plastic bottles! Food-grade silicone travel bottles are squeezable, leak-proof, and can be refilled hundreds of times. Perfect for shampoo, conditioner, lotion, and more.</p>
+
+<p><strong>Features That Matter:</strong></p>
+<ul>
+<li>3-layer leak-proof design</li>
+<li>Wide opening for easy filling and cleaning</li>
+<li>Label or color-coded caps</li>
+<li>Microwave and freezer safe</li>
+<li>BPA-free, FDA-approved silicone</li>
+</ul>
+
+<p><strong>Travel Hack:</strong> Fill with solid shampoo bars or conditioner bars for even more eco-friendly travel!</p>
+
+<h3>10. Compostable Trash Bags (Plant-Based)</h3>
+
+<p><strong>Price Range:</strong> PHP 200-400 for 50 bags | <strong>Decomposition Time:</strong> 3-6 months vs. 500+ years for plastic</p>
+
+<p>The final piece of the zero-waste puzzle! Plant-based compostable trash bags look and feel like regular plastic bags but break down completely in composting conditions. Made from cornstarch or cassava, they're strong enough for daily use.</p>
+
+<p><strong>Available Types:</strong></p>
+<ul>
+<li><strong>Kitchen Waste Bags:</strong> 10-20L, perfect for food scraps</li>
+<li><strong>Bathroom Bins:</strong> 5-10L, small and convenient</li>
+<li><strong>Garden Waste:</strong> 50-100L, for leaves and compostables</li>
+<li><strong>Pet Waste Bags:</strong> Convenient roll format</li>
+</ul>
+
+<p><strong>Important Note:</strong> "Biodegradable" ≠ "Compostable." Look for certifications like EN 13432 or ASTM D6400.</p>
+
+<h2>How to Shop Eco-Friendly on Shopee Like a Pro</h2>
+
+<h3>1. Use the Right Search Terms</h3>
+
+<p>Maximize your search results with these keywords:</p>
+<ul>
+<li>"eco-friendly [product]"</li>
+<li>"sustainable [category]"</li>
+<li>"zero waste [item]"</li>
+<li>"biodegradable" or "compostable"</li>
+<li>"reusable" or "refillable"</li>
+<li>"organic" or "natural"</li>
+</ul>
+
+<h3>2. Check Seller Ratings & Reviews</h3>
+
+<p>For eco products, look for:</p>
+<ul>
+<li>4.8+ star ratings</li>
+<li>Reviews with photos showing actual product quality</li>
+<li>Comments about durability and longevity</li>
+<li>Verified purchases</li>
+<li>Seller response rate and communication</li>
+</ul>
+
+<h3>3. Compare Total Cost of Ownership</h3>
+
+<p>Don't just look at initial price. Calculate:</p>
+<ul>
+<li>How long will it last?</li>
+<li>How much will you save over time?</li>
+<li>What's the replacement frequency?</li>
+<li>Are there hidden costs (special cleaning supplies, etc.)?</li>
+</ul>
+
+<h3>4. Look for Certifications</h3>
+
+<p>Trustworthy eco certifications to watch for:</p>
+<ul>
+<li><strong>USDA Organic:</strong> For food-related products</li>
+<li><strong>FSC Certified:</strong> Sustainable wood/paper products</li>
+<li><strong>Fair Trade:</strong> Ethical production</li>
+<li><strong>GOTS:</strong> Organic textile standard</li>
+<li><strong>Cradle to Cradle:</strong> Circular economy certification</li>
+</ul>
+
+<h3>5. Support Filipino Eco-Brands</h3>
+
+<p>Top sustainable Filipino brands on Shopee:</p>
+<ul>
+<li><strong>Humble Market:</strong> Zero-waste household essentials</li>
+<li><strong>The Bamboo Company PH:</strong> Bamboo lifestyle products</li>
+<li><strong>Casa de Lorenzo:</strong> Sustainable home goods</li>
+<li><strong>Ritual PH:</strong> Natural personal care</li>
+<li><strong>Klean Kanteen Philippines:</strong> Reusable bottles and containers</li>
+</ul>
+
+<h2>Making Your Eco Shopping Journey Easier</h2>
+
+<h3>Start Small, Think Big</h3>
+
+<p>You don't need to replace everything overnight. Start with:</p>
+<ul>
+<li><strong>Week 1:</strong> Replace plastic straws and water bottles</li>
+<li><strong>Week 2:</strong> Switch to reusable shopping bags</li>
+<li><strong>Week 3:</strong> Try bamboo toothbrushes</li>
+<li><strong>Week 4:</strong> Experiment with beeswax wraps</li>
+<li><strong>Month 2:</strong> Gradually replace kitchen and bathroom items</li>
+</ul>
+
+<h3>Calculate Your Environmental Impact</h3>
+
+<p>Every eco-friendly swap counts:</p>
+<ul>
+<li>1 reusable straw = 540+ plastic straws saved per year</li>
+<li>1 tote bag = 1000+ plastic bags diverted from landfills</li>
+<li>1 bamboo toothbrush = 1 plastic toothbrush not in the ocean</li>
+<li>1 reusable water bottle = 156 plastic bottles avoided annually</li>
+</ul>
+
+<h3>Join the Community</h3>
+
+<p>Connect with fellow eco-warriors:</p>
+<ul>
+<li>Join Shopee's sustainability seller groups</li>
+<li>Follow eco-friendly lifestyle influencers</li>
+<li>Participate in zero-waste challenges</li>
+<li>Share your sustainable swaps on social media</li>
+<li>Review products to help others make informed choices</li>
+</ul>
+
+<h2>Common Questions About Eco-Friendly Shopping</h2>
+
+<h3>Are eco-friendly products really better?</h3>
+
+<p>Yes! While some greenwashing exists, genuinely eco-friendly products reduce waste, use renewable materials, and often last longer than conventional alternatives. The key is doing your research and choosing certified products.</p>
+
+<h3>Aren't sustainable products more expensive?</h3>
+
+<p>Initially, yes—but the total cost of ownership is often lower. A PHP 300 stainless steel straw lasts 10+ years, while disposable straws cost PHP 50-100 per month. That's PHP 6,000-12,000 saved over a decade!</p>
+
+<h3>How do I know if a product is truly eco-friendly?</h3>
+
+<p>Look for:</p>
+<ul>
+<li>Specific material information (not vague "eco-friendly" claims)</li>
+<li>Certifications from recognized organizations</li>
+<li>Transparency about manufacturing process</li>
+<li>Detailed disposal/end-of-life instructions</li>
+<li>Honest reviews from verified buyers</li>
+</ul>
+
+<h3>Can one person really make a difference?</h3>
+
+<p>Absolutely! If every Filipino replaced just one plastic item with a sustainable alternative, we'd divert millions of tons of plastic from landfills and oceans annually. Your choices inspire others and create demand for eco-friendly products.</p>
+
+<h2>The Future of Sustainable Shopping in the Philippines</h2>
+
+<p>The eco-friendly movement on Shopee Philippines is just getting started. As awareness grows and prices become more competitive, sustainable products will become the norm rather than the exception.</p>
+
+<p><strong>What's Coming in 2025 and Beyond:</strong></p>
+<ul>
+<li>More Filipino-made sustainable products</li>
+<li>Carbon-neutral shipping options</li>
+<li>Plastic-free packaging initiatives</li>
+<li>Circular economy programs (product take-back and recycling)</li>
+<li>Educational content about sustainability</li>
+</ul>
+
+<h2>Your Eco-Friendly Shopping Action Plan</h2>
+
+<p><strong>This Week:</strong></p>
+<ul>
+<li>Choose 2-3 products from this list to try</li>
+<li>Set up Shopee alerts for eco-friendly product sales</li>
+<li>Calculate how much you'll save with reusables</li>
+</ul>
+
+<p><strong>This Month:</strong></p>
+<ul>
+<li>Replace 5 single-use items with sustainable alternatives</li>
+<li>Try at least one Filipino eco-brand</li>
+<li>Share your experience with friends and family</li>
+</ul>
+
+<p><strong>This Year:</strong></p>
+<ul>
+<li>Transition to 80% reusable/sustainable products</li>
+<li>Support 10+ small eco-friendly businesses</li>
+<li>Inspire others to join the sustainable shopping movement</li>
+</ul>
+
+<h2>Start Your Sustainable Journey Today</h2>
+
+<p>Every purchase is a vote for the kind of world you want to live in. By choosing eco-friendly products on Shopee Philippines, you're not just shopping—you're part of a movement that's reshaping consumer culture and protecting our planet for future generations.</p>
+
+<p>The top 10 products in this guide are your gateway to sustainable living. They're affordable, accessible, and proven to work in Filipino households. Start small, stay consistent, and watch how your choices ripple outward to create real, lasting change.</p>
+
+<p><strong>Ready to shop green? Browse Shopee's eco-friendly collections today and make your next purchase count for the planet!</strong></p>
+`;
+---
+
+<MainLayout 
+  title={post.title}
+  description={post.excerpt}
+  ogImage={post.image}
+>
+  <BlogStructuredData post={post} slug={post.slug} />
+  <PostContent client:only="react" post={post} content={content} />
+</MainLayout>

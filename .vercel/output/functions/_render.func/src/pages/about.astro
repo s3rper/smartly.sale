@@ -1,121 +1,177 @@
 ---
 import MainLayout from '../layouts/main.astro';
-import { ShoppingBag, Heart, Users, TrendingUp } from 'lucide-react';
 
-const pageTitle = "About Us - smartly.sale";
-const pageDescription = "Learn about smartly.sale and our mission to help Filipinos discover the best trending products on Shopee.";
+const pageTitle = "About smartly.sale - Your Trusted Shopee Shopping Guide Philippines 2025";
+const pageDescription = "Learn about smartly.sale, your go-to source for viral Shopee products, honest reviews, and exclusive deals in the Philippines. Smart shopping made easy since 2025.";
 ---
 
 <MainLayout 
   title={pageTitle}
   description={pageDescription}
+  ogImage="/og-image.jpg"
 >
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    {/* Hero Section */}
-    <div class="text-center mb-12">
-      <h1 class="text-4xl md:text-5xl font-bold text-foreground mb-4">
-        Welcome to <span class="text-[#FF6600]">smartly.sale</span>
-      </h1>
-      <p class="text-xl text-muted-foreground">
-        Your trusted guide to smart shopping in the Philippines
-      </p>
-    </div>
+  <!-- SEO Schema Markup for About Page -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About smartly.sale",
+    "description": pageDescription,
+    "url": "https://smartly.sale/about",
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://smartly.sale"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "About",
+          "item": "https://smartly.sale/about"
+        }
+      ]
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "smartly.sale",
+      "url": "https://smartly.sale",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://smartly.sale/og-image.jpg"
+      }
+    }
+  })} />
 
-    {/* Story Section */}
+  <!-- About Page Content -->
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+    
+    <!-- Main Heading -->
+    <h1 class="text-3xl md:text-4xl font-bold text-foreground mb-6">
+      About smartly.sale - Smart Shopping Made Easy
+    </h1>
+
+    <!-- Introduction -->
     <div class="prose prose-lg max-w-none mb-12">
-      <div class="bg-background rounded-xl p-8 shadow-md border border-border">
-        <h2 class="text-2xl font-bold text-foreground mb-4">Our Story</h2>
-        <p class="text-muted-foreground mb-4">
-          smartly.sale was born from a simple idea: help Filipinos make smarter shopping decisions. 
-          We know how overwhelming it can be to browse through thousands of products online, 
-          wondering which ones are actually worth your hard-earned money.
-        </p>
-        <p class="text-muted-foreground mb-4">
-          That's why we created this platform. We do the research, testing, and comparison so you don't have to. 
-          Our team scours Shopee daily to find the most viral products, best deals, and trending items that 
-          Filipino shoppers are loving.
-        </p>
-        <p class="text-muted-foreground">
-          Whether you're looking for budget-friendly gadgets, the latest fashion trends, home essentials, 
-          or beauty must-haves, we've got you covered. Every product we feature is carefully evaluated 
-          for quality, value, and customer satisfaction.
-        </p>
-      </div>
-    </div>
-
-    {/* Values Grid */}
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-      <div class="bg-background rounded-xl p-6 shadow-md border border-border">
-        <div class="w-12 h-12 bg-[#FF6600]/10 rounded-lg flex items-center justify-center mb-4">
-          <Heart class="w-6 h-6 text-[#FF6600]" />
-        </div>
-        <h3 class="text-xl font-bold text-foreground mb-2">Customer First</h3>
-        <p class="text-muted-foreground text-sm">
-          Your satisfaction is our priority. We only recommend products we would buy ourselves.
-        </p>
-      </div>
-
-      <div class="bg-background rounded-xl p-6 shadow-md border border-border">
-        <div class="w-12 h-12 bg-[#FF6600]/10 rounded-lg flex items-center justify-center mb-4">
-          <TrendingUp class="w-6 h-6 text-[#FF6600]" />
-        </div>
-        <h3 class="text-xl font-bold text-foreground mb-2">Always Current</h3>
-        <p class="text-muted-foreground text-sm">
-          We stay on top of trends to bring you the freshest and most relevant products daily.
-        </p>
-      </div>
-
-      <div class="bg-background rounded-xl p-6 shadow-md border border-border">
-        <div class="w-12 h-12 bg-[#FF6600]/10 rounded-lg flex items-center justify-center mb-4">
-          <ShoppingBag class="w-6 h-6 text-[#FF6600]" />
-        </div>
-        <h3 class="text-xl font-bold text-foreground mb-2">Best Value</h3>
-        <p class="text-muted-foreground text-sm">
-          We hunt for the best deals and prices so you get maximum value for your money.
-        </p>
-      </div>
-
-      <div class="bg-background rounded-xl p-6 shadow-md border border-border">
-        <div class="w-12 h-12 bg-[#FF6600]/10 rounded-lg flex items-center justify-center mb-4">
-          <Users class="w-6 h-6 text-[#FF6600]" />
-        </div>
-        <h3 class="text-xl font-bold text-foreground mb-2">Community Driven</h3>
-        <p class="text-muted-foreground text-sm">
-          We listen to our community and feature products based on real feedback and requests.
-        </p>
-      </div>
-    </div>
-
-    {/* Affiliate Disclosure */}
-    <div class="bg-accent/50 rounded-xl p-8 border border-border">
-      <h2 class="text-2xl font-bold text-foreground mb-4">Affiliate Disclosure</h2>
-      <p class="text-muted-foreground mb-4">
-        smartly.sale is a participant in affiliate marketing programs, including Shopee's affiliate program. 
-        This means when you click on links to products and make a purchase, we may receive a small commission 
-        at no additional cost to you.
+      <p class="text-xl text-muted-foreground mb-8 leading-relaxed">
+        Welcome to <strong>smartly.sale</strong>, your trusted guide to discovering the best Shopee deals, 
+        viral products, and budget-friendly finds in the Philippines.
       </p>
-      <p class="text-muted-foreground mb-4">
-        These commissions help us keep our website running and allow us to continue providing valuable 
-        product recommendations to the Filipino shopping community. However, our integrity is never 
-        compromised by these partnerships.
+
+      <h2 class="text-2xl font-bold text-foreground mb-4 mt-8">Our Mission</h2>
+      <p class="text-muted-foreground mb-6 leading-relaxed">
+        We're on a mission to make online shopping smarter, easier, and more rewarding for Filipinos. 
+        By curating the best products from Shopee and providing honest reviews, we help you make informed 
+        purchasing decisions without the overwhelm of endless scrolling.
       </p>
-      <p class="text-muted-foreground font-semibold">
-        We only recommend products that we genuinely believe will provide value to our readers. 
-        Your trust is our most valuable asset.
+
+      <h2 class="text-2xl font-bold text-foreground mb-4 mt-8">What We Do</h2>
+      <ul class="list-disc pl-6 text-muted-foreground space-y-3 mb-6">
+        <li><strong>Curate Viral Products:</strong> We track trending items on TikTok, social media, and Shopee to bring you the latest must-have products.</li>
+        <li><strong>Honest Reviews:</strong> Our team tests and reviews products to give you real insights before you buy.</li>
+        <li><strong>Exclusive Deals:</strong> We partner with Shopee to bring you special discounts and promotions you won't find elsewhere.</li>
+        <li><strong>Budget-Friendly Focus:</strong> We prioritize affordable options that deliver great value for money.</li>
+        <li><strong>Earning Opportunities:</strong> Through our Earn section, we share legitimate ways to make money online.</li>
+      </ul>
+
+      <h2 class="text-2xl font-bold text-foreground mb-4 mt-8">Why Trust Us?</h2>
+      <p class="text-muted-foreground mb-6 leading-relaxed">
+        <strong>Transparency is our priority.</strong> As a Shopee affiliate partner, we earn a small 
+        commission when you make purchases through our links, at no extra cost to you. This allows us 
+        to keep smartly.sale free while continuing to provide quality content and deals.
+      </p>
+      <p class="text-muted-foreground mb-6 leading-relaxed">
+        Every product we feature is carefully selected based on quality, popularity, and value. We never 
+        recommend products solely for commission – your trust means everything to us.
+      </p>
+
+      <h2 class="text-2xl font-bold text-foreground mb-4 mt-8">Our Story</h2>
+      <p class="text-muted-foreground mb-6 leading-relaxed">
+        smartly.sale was founded in 2025 by a team of online shopping enthusiasts who were tired of 
+        spending hours searching for good deals. We realized that many Filipinos faced the same challenge: 
+        finding quality products at affordable prices without getting overwhelmed.
+      </p>
+      <p class="text-muted-foreground mb-6 leading-relaxed">
+        Today, we're proud to serve thousands of smart shoppers across the Philippines, helping them 
+        discover amazing products and save money on their online purchases.
+      </p>
+
+      <h2 class="text-2xl font-bold text-foreground mb-4 mt-8">Join Our Community</h2>
+      <p class="text-muted-foreground mb-6 leading-relaxed">
+        Follow us on social media to stay updated on the latest deals, product drops, and shopping tips:
+      </p>
+      <ul class="list-disc pl-6 text-muted-foreground space-y-2 mb-6">
+        <li><strong>TikTok:</strong> Daily product reviews and unboxings</li>
+        <li><strong>Facebook:</strong> Community discussions and exclusive deals</li>
+        <li><strong>Shopee:</strong> Direct access to all featured products</li>
+      </ul>
+
+      <h2 class="text-2xl font-bold text-foreground mb-4 mt-8">Contact Us</h2>
+      <p class="text-muted-foreground mb-6 leading-relaxed">
+        Have questions, suggestions, or product recommendations? We'd love to hear from you! 
+        Reach out through our <a href="/contact" class="text-brand hover:underline">contact page</a> 
+        or connect with us on social media.
       </p>
     </div>
 
-    {/* CTA Section */}
-    <div class="text-center mt-12">
-      <h2 class="text-2xl font-bold text-foreground mb-4">
-        Ready to Start Smart Shopping?
-      </h2>
-      <a 
-        href="/"
-        class="inline-flex items-center justify-center px-8 py-3 bg-[#FF6600] text-white font-bold rounded-full hover:bg-[#FF6600]/90 transition-all shadow-lg"
-      >
-        Explore Products
-      </a>
+    <!-- Affiliate Disclaimer Box -->
+    <div class="bg-orange-50 border-l-4 border-brand p-6 rounded-lg mb-12">
+      <h3 class="text-xl font-bold text-foreground mb-3">
+        💡 Affiliate Disclosure
+      </h3>
+      <p class="text-muted-foreground leading-relaxed">
+        <strong>Important Notice:</strong> smartly.sale is a participant in the Shopee Affiliate Program. 
+        This means we may earn a commission when you click on our affiliate links and make a purchase, 
+        at no additional cost to you. These commissions help us maintain the site and continue providing 
+        free content. We only recommend products we believe will add value to our readers. Thank you for 
+        supporting smartly.sale!
+      </p>
     </div>
+
+    <!-- CTA Section -->
+    <div class="text-center bg-gradient-to-r from-brand to-orange-600 text-white p-8 rounded-2xl">
+      <h3 class="text-2xl font-bold mb-4">
+        Ready to Shop Smarter?
+      </h3>
+      <p class="text-lg mb-6 opacity-95">
+        Explore our curated collection of viral products and exclusive deals
+      </p>
+      <div class="flex gap-4 justify-center flex-wrap">
+        <a 
+          href="/products" 
+          class="bg-white text-brand px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition-colors inline-block"
+        >
+          Browse All Products
+        </a>
+        <a 
+          href="/earn" 
+          class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-full font-bold hover:bg-white hover:text-brand transition-colors inline-block"
+        >
+          Start Earning
+        </a>
+      </div>
+    </div>
+
   </div>
 </MainLayout>
+
+<style>
+  .prose h2 {
+    font-family: var(--heading-font);
+  }
+  
+  .prose p, .prose li {
+    font-family: var(--body-font);
+  }
+
+  .prose a {
+    color: var(--brand-orange);
+    font-weight: 600;
+  }
+
+  .prose a:hover {
+    text-decoration: underline;
+  }
+</style>

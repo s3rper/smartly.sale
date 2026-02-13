@@ -13,43 +13,97 @@ pageClass?: string;
 }
 
 const { 
-title = 'smartly.sale - Discover Viral Shopee Finds',
-description = 'Find the best trending products, budget gadgets, and must-have deals from Shopee.',
-ogImage = '/og-image.jpg',
+title = 'smartly.sale - Best Shopee Deals & Viral Products Philippines 2025',
+description = 'Discover trending Shopee products, viral finds, budget gadgets, and exclusive deals in the Philippines. Smart shopping made easy with curated reviews and affiliate links.',
+ogImage = 'https://smartly.sale/og-image.jpg',
 pageClass = ''
 } = Astro.props;
 ---
 
 <html lang="en" class={pageClass}>
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BWPR8CV7BR"></script>
+<script is:inline>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-BWPR8CV7BR');
+</script>
+
+<!-- Google Tag Manager -->
+<script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PXRK86GQ');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Meta Pixel Code -->
+<script is:inline>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '849998290917290');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=849998290917290&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
+<!-- ShareThis Social Sharing -->
+<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=691e9ef6247a56d61d0bb8a3&product=sop' async='async'></script>
+
 <meta charset="utf-8" />
-<link rel="icon" type="image/png" href="/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="generator" content={Astro.generator} />
 
 <!-- SEO Meta Tags -->
-<title>smartly.sale</title>
+<title>{title}</title>
 <meta name="description" content={description} />
-<meta name="keywords" content="Shopee Philippines, viral products, budget gadgets, trending deals, affiliate shopping, smartly.sale" />
+<meta name="keywords" content="Shopee Philippines, viral products, budget gadgets, trending deals, affiliate shopping, smartly.sale, Shopee finds, best Shopee products, Philippine online shopping, Shopee reviews" />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
+<meta property="og:url" content={`https://smartly.sale${Astro.url.pathname}`} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="smartly.sale - Best Shopee Deals & Viral Products Philippines" />
 <meta property="og:site_name" content="smartly.sale" />
+<meta property="og:locale" content="en_PH" />
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={`https://smartly.sale${Astro.url.pathname}`} />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
+<meta name="twitter:image:alt" content="smartly.sale - Best Shopee Deals & Viral Products Philippines" />
 
 <!-- Performance Optimization -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="dns-prefetch" href="https://shopee.ph" />
+
+<!-- Canonical URL -->
+<link rel="canonical" href={`https://smartly.sale${Astro.url.pathname}`} />
 </head>
 <body class="__DARK_MODE_CLASS__ min-h-screen flex flex-col">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PXRK86GQ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
 <Navbar client:only="react" />
 
 <main class="flex-grow">

@@ -1,27 +1,66 @@
 ---
 import MainLayout from '../layouts/main.astro';
 import BlogList from '../components/BlogList';
+import { baseUrl } from '../lib/base-url';
 
-const pageTitle = "Blog - smartly.sale | Product Reviews & Shopping Guides";
-const pageDescription = "Read our latest product reviews, shopping guides, and tips for finding the best deals on Shopee Philippines.";
+const pageTitle = 'Blog - Expert Reviews, Guides & Tips | smartly.sale';
+const pageDescription = 'Discover expert product reviews, buying guides, and shopping tips. Stay updated with the latest trends and deals from Shopee Philippines.';
 ---
 
 <MainLayout 
   title={pageTitle}
   description={pageDescription}
+  ogImage="/images/blog-og.jpg"
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    {/* Hero Section */}
-    <div class="text-center mb-12">
-      <h1 class="text-4xl md:text-5xl font-bold text-foreground mb-4">
-        Blog & Reviews
-      </h1>
-      <p class="text-xl text-muted-foreground max-w-2xl mx-auto">
-        Your guide to smart shopping with product reviews, comparisons, and shopping tips
-      </p>
-    </div>
+  <!-- Schema Markup for Blog -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "smartly.sale Blog",
+    "description": pageDescription,
+    "url": `${baseUrl}/blog`,
+    "publisher": {
+      "@type": "Organization",
+      "name": "smartly.sale",
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${baseUrl}/logo.png`
+      }
+    }
+  })} />
 
-    {/* Blog List Component */}
-    <BlogList client:only="react" />
+  <div class="bg-gradient-to-b from-orange-50 to-white">
+    <!-- Hero Section -->
+    <section class="py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          Smart Shopping Blog
+        </h1>
+        <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+          Expert reviews, buying guides, and insider tips to help you shop smarter on Shopee Philippines
+        </p>
+      </div>
+    </section>
+
+    <!-- Blog List with Filters -->
+    <BlogList client:load />
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-brand">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+          Never Miss a Deal or Review
+        </h2>
+        <p class="text-white/90 text-lg mb-8">
+          Subscribe to our newsletter for the latest product reviews, buying guides, and exclusive Shopee deals.
+        </p>
+        <a
+          href={`${baseUrl}/contact`}
+          class="inline-flex items-center justify-center px-8 py-4 bg-white text-brand font-bold rounded-full hover:bg-gray-100 transition-colors"
+        >
+          Subscribe Now
+        </a>
+      </div>
+    </section>
   </div>
 </MainLayout>

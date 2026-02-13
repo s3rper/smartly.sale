@@ -26,3 +26,6 @@ pnpm-debug.log*
 # wrangler files
 .wrangler
 .dev.vars*
+.vercel
+# Keep aunt tracker data
+!src/data/aunt-tracker-data.json

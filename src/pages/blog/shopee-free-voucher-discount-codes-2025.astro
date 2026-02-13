@@ -1,0 +1,500 @@
+---
+import MainLayout from '../../layouts/main.astro';
+import { baseUrl } from '../../lib/base-url';
+
+const title = "Shopee Free Voucher & Discount Codes - Claim Today!";
+const description = "Get the latest Shopee free vouchers and discount codes! Updated daily with working promo codes, hidden vouchers, and exclusive deals for Philippines shoppers.";
+const publishDate = "2025-01-20";
+const author = "smartly.sale Team";
+const category = "Deals & Steals";
+const featured = true;
+const featuredImage = "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1200&h=630&fit=crop";
+---
+
+<MainLayout 
+  title={title}
+  description={description}
+  ogImage={featuredImage}
+>
+
+  <!-- Breadcrumb Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://smartly.sale"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": "https://smartly.sale/blog"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Shopee Free Voucher & Discount Codes - Claim Today!"
+      }
+    ]
+  }
+  </script>
+  <article class="max-w-4xl mx-auto px-4 py-12">
+    <header class="mb-12">
+      <div class="mb-6">
+        <span class="inline-block bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+          {category}
+        </span>
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">{title}</h1>
+      </div>
+      
+      <div class="flex items-center gap-4 text-gray-600 dark:text-gray-400 mb-8">
+        <time datetime={publishDate}>{new Date(publishDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+        <span>•</span>
+        <span>By {author}</span>
+      </div>
+    </header>
+
+    <div class="article-content">
+      <p class="text-xl text-gray-700 dark:text-gray-300 mb-8 font-semibold">
+        Looking for free Shopee vouchers and discount codes? You're in the right place! This comprehensive guide reveals where to find working voucher codes, how to claim hidden discounts, and strategies to maximize your savings on every Shopee purchase.
+      </p>
+
+      <div class="bg-orange-50 dark:bg-orange-900/20 border-l-4 border-orange-500 p-6 rounded-r-lg mb-8">
+        <p class="font-semibold text-lg mb-2">Updated Daily!</p>
+        <p class="mb-0">
+          This page is updated every day with the latest working Shopee voucher codes and promotional offers. Bookmark this page and check back regularly for new deals!
+        </p>
+      </div>
+
+      <h2>Where to Find Free Shopee Vouchers</h2>
+      <p>
+        Shopee offers multiple ways to get free vouchers. Understanding where to look and when to claim them can save you hundreds of pesos every month.
+      </p>
+
+      <h3>1. Shopee App Voucher Section</h3>
+      <p>
+        The most direct way to find vouchers is through the official Shopee app:
+      </p>
+      <ul>
+        <li><strong>Me Tab:</strong> Navigate to Me, My Vouchers to see all available vouchers</li>
+        <li><strong>Homepage Banners:</strong> Daily rotating promotions with claimable vouchers</li>
+        <li><strong>Flash Deals Section:</strong> Limited-time vouchers during flash sale hours</li>
+        <li><strong>Category Pages:</strong> Specific vouchers for different product categories</li>
+        <li><strong>Checkout Page:</strong> Last-minute vouchers appear during checkout</li>
+      </ul>
+
+      <h3>2. Shopee Coins Exchange</h3>
+      <p>
+        Convert your accumulated Shopee Coins into valuable vouchers:
+      </p>
+      <ul>
+        <li>100 coins = 1 peso discount voucher</li>
+        <li>Redeem coins for free shipping vouchers</li>
+        <li>Exchange for platform-wide discount vouchers</li>
+        <li>Get category-specific discount codes</li>
+        <li>Claim cashback vouchers for future purchases</li>
+      </ul>
+
+      <h3>3. Daily Check-In Rewards</h3>
+      <p>
+        Consistent daily check-ins unlock free vouchers:
+      </p>
+      <ul>
+        <li>Day 1-6: Shopee Coins accumulation</li>
+        <li>Day 7: Free voucher reward (varies weekly)</li>
+        <li>Day 14: Bonus voucher bundle</li>
+        <li>Monthly milestones: Exclusive high-value vouchers</li>
+      </ul>
+
+      <h3>4. Shopee Games</h3>
+      <p>
+        Play daily games to earn vouchers and coins:
+      </p>
+      <ul>
+        <li><strong>Shopee Candy:</strong> Match-3 game with daily coin rewards</li>
+        <li><strong>Shopee Farm:</strong> Farming simulation with voucher prizes</li>
+        <li><strong>Shopee Bubble:</strong> Bubble shooter with special vouchers</li>
+        <li><strong>Shopee Quiz:</strong> Trivia challenges for instant vouchers</li>
+        <li><strong>Lucky Spin:</strong> Daily wheel spin for surprise vouchers</li>
+      </ul>
+
+      <h3>5. Shopee Live Streams</h3>
+      <p>
+        Watch live shopping streams to grab exclusive vouchers:
+      </p>
+      <ul>
+        <li>Flash vouchers announced during live sessions</li>
+        <li>Interactive games with voucher prizes</li>
+        <li>Limited-quantity codes (first-come, first-served)</li>
+        <li>Seller-specific vouchers from official brands</li>
+      </ul>
+
+      <h2>Types of Shopee Vouchers Available</h2>
+      <p>
+        Understanding different voucher types helps you choose the best savings strategy.
+      </p>
+
+      <h3>Platform Vouchers</h3>
+      <p>
+        Can be used across any Shopee seller:
+      </p>
+      <ul>
+        <li><strong>Percentage Off:</strong> 5% to 20% discount on total purchase</li>
+        <li><strong>Fixed Amount:</strong> 20 pesos to 200 pesos off minimum spend</li>
+        <li><strong>Free Shipping:</strong> No delivery charges on qualifying orders</li>
+        <li><strong>Cashback Vouchers:</strong> Get coins back after purchase</li>
+      </ul>
+
+      <h3>Shop Vouchers</h3>
+      <p>
+        Seller-specific discounts:
+      </p>
+      <ul>
+        <li>Only valid for specific seller stores</li>
+        <li>Often higher discount percentages</li>
+        <li>Can be stacked with platform vouchers</li>
+        <li>Available on seller shop pages</li>
+      </ul>
+
+      <h3>Shopee Mall Vouchers</h3>
+      <p>
+        Exclusive for official brand stores:
+      </p>
+      <ul>
+        <li>Higher value discounts (up to 500 pesos off)</li>
+        <li>Authentic products from verified brands</li>
+        <li>Special promotions during brand days</li>
+        <li>Premium customer service benefits</li>
+      </ul>
+
+      <h3>Bank and Payment Vouchers</h3>
+      <p>
+        Extra discounts when using specific payment methods:
+      </p>
+      <ul>
+        <li>Credit card promotions (BDO, BPI, Metrobank, etc.)</li>
+        <li>E-wallet bonuses (GCash, Maya, ShopeePay)</li>
+        <li>Installment plan discounts</li>
+        <li>First-time payment method bonuses</li>
+      </ul>
+
+      <h2>How to Find Hidden Shopee Vouchers</h2>
+      <p>
+        Some of the best Shopee vouchers aren't obviously displayed. Here's how to find them:
+      </p>
+
+      <h3>Method 1: Search Bar Trick</h3>
+      <ul>
+        <li>Open Shopee app and tap the search bar</li>
+        <li>Type "voucher" or "promo" in the search</li>
+        <li>Scroll through suggested categories</li>
+        <li>Look for banner promotions with voucher offers</li>
+        <li>Check promoted shops with exclusive vouchers</li>
+      </ul>
+
+      <h3>Method 2: Category Deep Dive</h3>
+      <ul>
+        <li>Browse specific product categories</li>
+        <li>Check banner ads at the top of category pages</li>
+        <li>Look for "Category Vouchers" section</li>
+        <li>Filter by "Shopee Mall" for premium vouchers</li>
+      </ul>
+
+      <h3>Method 3: Notification Bell</h3>
+      <ul>
+        <li>Enable push notifications in Shopee app</li>
+        <li>Check notification tab regularly</li>
+        <li>Claim vouchers sent via notifications</li>
+        <li>Act fast on flash voucher alerts</li>
+      </ul>
+
+      <h3>Method 4: Following Strategy</h3>
+      <ul>
+        <li>Follow your favorite sellers and official stores</li>
+        <li>Receive exclusive follower-only vouchers</li>
+        <li>Get notified of new voucher releases</li>
+        <li>Access VIP customer promotions</li>
+      </ul>
+
+      <h2>Shopee Voucher Codes for 2025</h2>
+      <p>
+        While specific voucher codes change frequently, here are the types you should watch for:
+      </p>
+
+      <h3>New User Vouchers</h3>
+      <ul>
+        <li>Welcome bundle: Multiple vouchers for first purchase</li>
+        <li>Higher discount percentages for newcomers</li>
+        <li>Free shipping on first order</li>
+        <li>Bonus Shopee Coins for account verification</li>
+      </ul>
+
+      <h3>Monthly Sale Event Codes</h3>
+      <ul>
+        <li><strong>Payday Sales (15th & 30th):</strong> Exclusive payday vouchers</li>
+        <li><strong>Monthly Mega Sales (9.9, 10.10, 11.11, 12.12):</strong> Biggest discounts</li>
+        <li><strong>Brand Days:</strong> Category-specific voucher codes</li>
+        <li><strong>Flash Sales:</strong> Hourly voucher releases (12PM, 6PM, 9PM)</li>
+      </ul>
+
+      <h3>Special Occasion Vouchers</h3>
+      <ul>
+        <li>Birthday month vouchers (register your birthday!)</li>
+        <li>Holiday promotions (Christmas, New Year, Valentine's)</li>
+        <li>Anniversary sales (Shopee Birthday in December)</li>
+        <li>Seasonal campaigns (Back to School, Summer Sale)</li>
+      </ul>
+
+      <h2>Shopee Voucher Stacking Strategy</h2>
+      <p>
+        Maximize savings by combining multiple vouchers on a single purchase:
+      </p>
+
+      <h3>Perfect Stacking Combination</h3>
+      <ol>
+        <li><strong>Platform Voucher:</strong> Start with site-wide discount (e.g., 100 off 500)</li>
+        <li><strong>Shop Voucher:</strong> Add seller-specific discount (e.g., 50 off 300)</li>
+        <li><strong>Shopee Coins:</strong> Apply accumulated coins for extra savings</li>
+        <li><strong>Free Shipping Voucher:</strong> Eliminate delivery costs</li>
+        <li><strong>Bank Promo:</strong> Use credit card or e-wallet discount</li>
+        <li><strong>Cashback Voucher:</strong> Get coins back for future purchases</li>
+      </ol>
+
+      <h3>Real Example</h3>
+      <p>
+        Let's say you're buying items worth 1,000 pesos:
+      </p>
+      <ul>
+        <li>Original Price: 1,000 pesos</li>
+        <li>Platform Voucher (150 off 800): -150 pesos</li>
+        <li>Shop Voucher (10% off): -85 pesos</li>
+        <li>Shopee Coins (300 coins): -30 pesos</li>
+        <li>Bank Promo (5% cashback): -37 pesos back</li>
+        <li>Free Shipping: -40 pesos</li>
+        <li><strong>Final Price: 735 pesos + get 37 pesos back</strong></li>
+        <li><strong>Total Savings: 302 pesos (30% off!)</strong></li>
+      </ul>
+
+      <h2>Best Times to Claim Shopee Vouchers</h2>
+      <p>
+        Timing is everything when hunting for the best vouchers:
+      </p>
+
+      <h3>Daily Windows</h3>
+      <ul>
+        <li><strong>12:00 AM:</strong> Daily voucher reset, new codes available</li>
+        <li><strong>12:00 PM:</strong> Lunch hour flash vouchers</li>
+        <li><strong>6:00 PM:</strong> After-work flash sales with vouchers</li>
+        <li><strong>9:00 PM:</strong> Prime time flash deals</li>
+        <li><strong>11:59 PM:</strong> Last-minute daily deals</li>
+      </ul>
+
+      <h3>Weekly Patterns</h3>
+      <ul>
+        <li><strong>Monday:</strong> Week starter deals, motivation vouchers</li>
+        <li><strong>Wednesday:</strong> Mid-week madness sales</li>
+        <li><strong>Friday:</strong> Weekend kickoff promotions</li>
+        <li><strong>Saturday-Sunday:</strong> Weekend special vouchers</li>
+      </ul>
+
+      <h3>Monthly Must-Watches</h3>
+      <ul>
+        <li><strong>1st of Month:</strong> Fresh monthly voucher allocations</li>
+        <li><strong>15th:</strong> Mid-month payday sale</li>
+        <li><strong>30th/31st:</strong> End-of-month payday sale</li>
+        <li><strong>X.X Sales:</strong> 9.9, 10.10, 11.11, 12.12 mega events</li>
+      </ul>
+
+      <h2>Shopee Voucher Hacks (100% Legal)</h2>
+      <p>
+        Smart strategies to maximize your voucher collection:
+      </p>
+
+      <h3>Hack 1: Multiple Device Strategy</h3>
+      <ul>
+        <li>Check Shopee on different devices (phone, tablet, computer)</li>
+        <li>Sometimes different devices show different vouchers</li>
+        <li>Web version may have exclusive browser-only codes</li>
+        <li>App-exclusive vouchers not visible on web</li>
+      </ul>
+
+      <h3>Hack 2: Cart Abandonment Technique</h3>
+      <ul>
+        <li>Add items to cart but don't checkout</li>
+        <li>Wait 24-48 hours</li>
+        <li>Shopee often sends reminder notifications with voucher incentives</li>
+        <li>Check "For You" section for personalized offers</li>
+      </ul>
+
+      <h3>Hack 3: Social Media Following</h3>
+      <ul>
+        <li>Follow Shopee Philippines on Facebook, Instagram, TikTok</li>
+        <li>Exclusive social media voucher codes in posts</li>
+        <li>Contest entries for voucher giveaways</li>
+        <li>Community-shared codes in comments</li>
+      </ul>
+
+      <h3>Hack 4: Shopee University</h3>
+      <ul>
+        <li>Complete Shopee tutorials and educational content</li>
+        <li>Earn vouchers for learning about platform features</li>
+        <li>Quiz completions reward voucher codes</li>
+        <li>Share feedback for bonus vouchers</li>
+      </ul>
+
+      <h3>Hack 5: Birthday Registration</h3>
+      <ul>
+        <li>Register your actual birthday in profile settings</li>
+        <li>Receive special birthday month voucher bundle</li>
+        <li>Higher value vouchers during your birth month</li>
+        <li>Exclusive birthday week flash deals</li>
+      </ul>
+
+      <h2>Common Voucher Mistakes to Avoid</h2>
+      <p>
+        Don't waste your hard-earned vouchers with these common errors:
+      </p>
+
+      <h3>Mistake 1: Not Reading Terms</h3>
+      <ul>
+        <li>Check minimum spend requirements</li>
+        <li>Verify product category restrictions</li>
+        <li>Note seller exclusions</li>
+        <li>Confirm expiration dates</li>
+      </ul>
+
+      <h3>Mistake 2: Letting Vouchers Expire</h3>
+      <ul>
+        <li>Set phone reminders for voucher expiry</li>
+        <li>Sort vouchers by expiration date</li>
+        <li>Use shortest-expiry vouchers first</li>
+        <li>Plan purchases around voucher deadlines</li>
+      </ul>
+
+      <h3>Mistake 3: Not Comparing Vouchers</h3>
+      <ul>
+        <li>Test different voucher combinations at checkout</li>
+        <li>Calculate which gives better savings</li>
+        <li>Sometimes multiple smaller vouchers beat one large voucher</li>
+        <li>Consider free shipping value in calculations</li>
+      </ul>
+
+      <h3>Mistake 4: Impulse Buying</h3>
+      <ul>
+        <li>Don't buy just because you have a voucher</li>
+        <li>Only purchase needed items</li>
+        <li>Compare prices even with vouchers applied</li>
+        <li>Check if other platforms offer better final prices</li>
+      </ul>
+
+      <h2>Shopee Coins to Free Vouchers Guide</h2>
+      <p>
+        Convert your Shopee Coins into valuable vouchers:
+      </p>
+
+      <h3>How to Earn Shopee Coins Fast</h3>
+      <ul>
+        <li>Daily check-in: 1-5 coins</li>
+        <li>Play Shopee games: 10-30 coins daily</li>
+        <li>Make purchases: 1-5% coins cashback</li>
+        <li>Write reviews: 10-50 coins per review</li>
+        <li>Refer friends: 100 coins per successful referral</li>
+        <li>Complete missions: Variable coin rewards</li>
+      </ul>
+
+      <h3>Best Coin-to-Voucher Exchanges</h3>
+      <ul>
+        <li><strong>Free Shipping Voucher:</strong> 300-500 coins (best value)</li>
+        <li><strong>50 peso Discount:</strong> 5,000 coins</li>
+        <li><strong>100 peso Discount:</strong> 10,000 coins</li>
+        <li><strong>Category Vouchers:</strong> 2,000-8,000 coins</li>
+      </ul>
+
+      <h2>Frequently Asked Questions</h2>
+      
+      <h3>Do Shopee vouchers expire?</h3>
+      <p>
+        Yes, all Shopee vouchers have expiration dates. Most vouchers expire within 7-30 days after claiming. Always check the validity period in "My Vouchers" section and use them before expiration.
+      </p>
+
+      <h3>Can I use multiple vouchers on one order?</h3>
+      <p>
+        Yes! You can stack different types of vouchers: one platform voucher + one shop voucher + free shipping voucher + payment vouchers. However, you cannot use multiple platform vouchers or multiple shop vouchers on the same order.
+      </p>
+
+      <h3>Why can't I use my voucher?</h3>
+      <p>
+        Common reasons include: not meeting minimum spend requirement, buying from excluded sellers, purchasing restricted categories, voucher already expired, or items in cart don't qualify. Always read voucher terms carefully.
+      </p>
+
+      <h3>Are there vouchers for new Shopee users?</h3>
+      <p>
+        Absolutely! New users get welcome voucher bundles including platform discounts, free shipping vouchers, and bonus Shopee Coins. These are typically higher value than regular vouchers to encourage first purchases.
+      </p>
+
+      <h3>How do I get notified of new vouchers?</h3>
+      <p>
+        Enable push notifications in Shopee app settings, follow Shopee Philippines on social media, turn on email notifications, and check the app daily. Vouchers are released at specific times (midnight, noon, 6PM, 9PM).
+      </p>
+
+      <h2>Exclusive Voucher Sources</h2>
+      <p>
+        Beyond the Shopee app, find vouchers through these channels:
+      </p>
+
+      <h3>Official Shopee Channels</h3>
+      <ul>
+        <li><strong>Facebook:</strong> @ShopeePH - Daily codes and contests</li>
+        <li><strong>Instagram:</strong> @shopee_ph - Visual deals and story codes</li>
+        <li><strong>TikTok:</strong> @shopee_ph - Viral voucher challenges</li>
+        <li><strong>YouTube:</strong> Shopee Philippines - Tutorial rewards</li>
+      </ul>
+
+      <h3>Community Sources</h3>
+      <ul>
+        <li>Filipino shopping deal Facebook groups</li>
+        <li>Reddit r/Philippines shopping threads</li>
+        <li>Telegram deal alert channels</li>
+        <li>Discord shopping communities</li>
+      </ul>
+
+      <h2>Conclusion</h2>
+      <p>
+        Getting free Shopee vouchers isn't about luck - it's about knowing where to look, when to claim, and how to stack discounts effectively. By following the strategies in this guide, you can save hundreds or even thousands of pesos every month on your Shopee purchases.
+      </p>
+      <p>
+        Remember: the best vouchers are claimed early and expire fast. Check back daily, enable notifications, and never shop on Shopee without first checking for available vouchers. Your wallet will thank you!
+      </p>
+
+      <div class="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 p-6 rounded-lg mt-8">
+        <h3 class="text-xl font-bold mb-3 text-orange-900 dark:text-orange-100">Quick Voucher Checklist</h3>
+        <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+          <li>Check Me, My Vouchers section</li>
+          <li>Claim daily check-in rewards</li>
+          <li>Play Shopee games for coins</li>
+          <li>Watch for flash sales at 12PM, 6PM, 9PM</li>
+          <li>Stack multiple voucher types</li>
+          <li>Use before expiration date</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-12 p-8 bg-white dark:bg-gray-800 border-2 border-orange-500 rounded-xl text-center shadow-lg">
+      <h3 class="text-2xl font-bold mb-3 text-gray-900 dark:text-white">Want Even More Ways to Save?</h3>
+      <p class="mb-6 text-lg text-gray-600 dark:text-gray-300">
+        Discover exclusive bonus offers and earn while you shop!
+      </p>
+      <a 
+        href={`${baseUrl}/bonus`}
+        class="inline-block bg-brand text-white px-8 py-3 rounded-lg font-bold shadow-md"
+      >
+        Explore Bonus Offers
+      </a>
+    </div>
+  </article>
+</MainLayout>

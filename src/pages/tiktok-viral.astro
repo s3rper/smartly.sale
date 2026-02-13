@@ -1,0 +1,336 @@
+---
+import MainLayout from '../layouts/main.astro';
+import FeaturedProducts from '../components/FeaturedProducts';
+import Newsletter from '../components/Newsletter';
+
+const pageTitle = "TikTok Viral Finds 2025 - Trending Shopee Products Philippines | smartly.sale";
+const pageDescription = "Discover the hottest TikTok viral products trending in the Philippines! From viral kitchen gadgets to beauty tools, find what everyone's buying on Shopee. Updated weekly!";
+const ogImage = "https://smartly.sale/og-image.jpg";
+
+// SEO Keywords: TikTok viral finds, viral products Philippines, trending Shopee 2025, TikTok made me buy it, viral gadgets
+---
+
+<MainLayout 
+  title={pageTitle}
+  description={pageDescription}
+  ogImage={ogImage}
+>
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-brand/10 via-background to-secondary/20 py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-4xl mx-auto">
+        <div class="inline-block bg-brand/10 text-brand px-4 py-2 rounded-full text-sm font-semibold mb-6">
+          🔥 Updated Weekly
+        </div>
+        <h1 class="font-heading font-bold text-foreground mb-6" style="font-size: 2.5em; line-height: 1.2;">
+          TikTok Viral Finds 2025
+        </h1>
+        <p class="text-xl text-muted-foreground mb-8 leading-relaxed">
+          The products that broke TikTok Philippines! From genius home hacks to must-have beauty tools, discover what everyone's adding to cart.
+        </p>
+        <div class="flex flex-wrap justify-center gap-3 text-sm">
+          <span class="bg-card border border-border px-4 py-2 rounded-full">✨ Trending Now</span>
+          <span class="bg-card border border-border px-4 py-2 rounded-full">💰 Best Deals</span>
+          <span class="bg-card border border-border px-4 py-2 rounded-full">⚡ Fast Shipping</span>
+          <span class="bg-card border border-border px-4 py-2 rounded-full">⭐ Top Rated</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Top 10 Viral This Week -->
+  <section class="py-16 bg-background">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="font-heading font-bold text-foreground mb-4" style="font-size: 2.5em;">
+          🔥 Top 10 Viral Products This Week
+        </h2>
+        <p class="text-lg text-muted-foreground max-w-3xl mx-auto">
+          These are the most-searched, most-shared, and most-bought items that TikTok can't stop talking about!
+        </p>
+      </div>
+      
+      <FeaturedProducts client:only="react" />
+      
+      <div class="text-center mt-12">
+        <a 
+          href="/products" 
+          class="inline-flex items-center justify-center px-8 py-4 bg-brand text-white font-bold rounded-full hover:bg-brand/90 transition-all shadow-lg hover:shadow-xl"
+        >
+          View All Viral Products →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Under ₱199 Viral Finds -->
+  <section class="py-16 bg-muted/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="font-heading font-bold text-foreground mb-4" style="font-size: 2.5em;">
+          💰 Under ₱199 Viral Finds
+        </h2>
+        <p class="text-lg text-muted-foreground max-w-3xl mx-auto">
+          Affordable viral products that won't break the bank. Because trending doesn't have to be expensive!
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <!-- Feature Card 1 -->
+        <div class="bg-card border border-border rounded-2xl p-6 hover:shadow-lg transition-all">
+          <div class="text-4xl mb-4">🍳</div>
+          <h3 class="font-heading font-bold text-foreground text-xl mb-3">Kitchen Gadgets</h3>
+          <ul class="space-y-2 text-muted-foreground">
+            <li>✓ Oil spray bottles (₱49-₱99)</li>
+            <li>✓ Automatic pan stirrers (₱159)</li>
+            <li>✓ Egg separators (₱39)</li>
+            <li>✓ Vegetable choppers (₱129)</li>
+            <li>✓ Sealing clips set (₱89)</li>
+          </ul>
+        </div>
+
+        <!-- Feature Card 2 -->
+        <div class="bg-card border border-border rounded-2xl p-6 hover:shadow-lg transition-all">
+          <div class="text-4xl mb-4">💄</div>
+          <h3 class="font-heading font-bold text-foreground text-xl mb-3">Beauty Tools</h3>
+          <ul class="space-y-2 text-muted-foreground">
+            <li>✓ Ice roller face massager (₱99)</li>
+            <li>✓ Eyebrow stencil kit (₱79)</li>
+            <li>✓ Makeup sponge set (₱49)</li>
+            <li>✓ LED lighted mirror (₱189)</li>
+            <li>✓ Hair styling clips (₱59)</li>
+          </ul>
+        </div>
+
+        <!-- Feature Card 3 -->
+        <div class="bg-card border border-border rounded-2xl p-6 hover:shadow-lg transition-all">
+          <div class="text-4xl mb-4">🏠</div>
+          <h3 class="font-heading font-bold text-foreground text-xl mb-3">Home Essentials</h3>
+          <ul class="space-y-2 text-muted-foreground">
+            <li>✓ Cable organizers (₱39)</li>
+            <li>✓ Sticky hooks set (₱69)</li>
+            <li>✓ Drawer dividers (₱99)</li>
+            <li>✓ Door stoppers (₱29)</li>
+            <li>✓ Mesh laundry bags (₱49)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <a 
+          href="/products" 
+          class="inline-flex items-center justify-center px-8 py-4 bg-background text-foreground font-bold rounded-full border-2 border-brand hover:bg-brand/10 transition-all"
+        >
+          Shop Budget Finds →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Viral But Actually Useful -->
+  <section class="py-16 bg-background">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="font-heading font-bold text-foreground mb-4" style="font-size: 2.5em;">
+          ✨ Viral But Actually Useful
+        </h2>
+        <p class="text-lg text-muted-foreground max-w-3xl mx-auto">
+          Not just hype! These viral products actually solve real problems and have amazing reviews.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-12">
+        <!-- Problem-Solution Cards -->
+        <div class="bg-gradient-to-br from-brand/5 to-transparent border border-brand/20 rounded-2xl p-8">
+          <h3 class="font-heading font-bold text-foreground text-2xl mb-4">🧹 Cleaning Made Easy</h3>
+          <p class="text-muted-foreground mb-6">
+            No more back pain! These viral cleaning tools actually save time and effort.
+          </p>
+          <ul class="space-y-3 text-foreground">
+            <li class="flex items-start gap-2">
+              <span class="text-brand font-bold">•</span>
+              <span>Spin mop with bucket (hands-free wringing!)</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-brand font-bold">•</span>
+              <span>Extendable duster (reaches ceiling fans)</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-brand font-bold">•</span>
+              <span>Scrub brush with soap dispenser</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-brand font-bold">•</span>
+              <span>Silicone toilet brush (never gross again)</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-gradient-to-br from-brand/5 to-transparent border border-brand/20 rounded-2xl p-8">
+          <h3 class="font-heading font-bold text-foreground text-2xl mb-4">📦 Organization Goals</h3>
+          <p class="text-muted-foreground mb-6">
+            Transform your space from messy to Instagram-worthy with these viral organizers.
+          </p>
+          <ul class="space-y-3 text-foreground">
+            <li class="flex items-start gap-2">
+              <span class="text-brand font-bold">•</span>
+              <span>Clear storage bins (see everything instantly)</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-brand font-bold">•</span>
+              <span>Rotating spice rack (saves cabinet space)</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-brand font-bold">•</span>
+              <span>Under-sink organizer (no more clutter)</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-brand font-bold">•</span>
+              <span>Cable management box (goodbye tangled wires)</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <a 
+          href="/products" 
+          class="inline-flex items-center justify-center px-8 py-4 bg-brand text-white font-bold rounded-full hover:bg-brand/90 transition-all shadow-lg hover:shadow-xl"
+        >
+          Shop Smart Solutions →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why These Products Go Viral -->
+  <section class="py-16 bg-muted/30">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="font-heading font-bold text-foreground mb-4" style="font-size: 2.5em;">
+          Why These Products Go Viral
+        </h2>
+      </div>
+
+      <div class="space-y-6">
+        <div class="bg-card border border-border rounded-xl p-6 flex gap-4">
+          <div class="text-3xl">💡</div>
+          <div>
+            <h3 class="font-bold text-foreground text-lg mb-2">They Solve Real Problems</h3>
+            <p class="text-muted-foreground">
+              Every viral product addresses a common frustration. From messy cables to hard-to-reach corners, they offer simple solutions.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-card border border-border rounded-xl p-6 flex gap-4">
+          <div class="text-3xl">💰</div>
+          <div>
+            <h3 class="font-bold text-foreground text-lg mb-2">Amazing Value</h3>
+            <p class="text-muted-foreground">
+              Most viral finds are surprisingly affordable (₱50-₱500). You get quality without the premium price tag.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-card border border-border rounded-xl p-6 flex gap-4">
+          <div class="text-3xl">📱</div>
+          <div>
+            <h3 class="font-bold text-foreground text-lg mb-2">Satisfying to Watch</h3>
+            <p class="text-muted-foreground">
+              The videos are oddly satisfying! Seeing organization hacks and transformations in action makes you want to try them yourself.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-card border border-border rounded-xl p-6 flex gap-4">
+          <div class="text-3xl">⭐</div>
+          <div>
+            <h3 class="font-bold text-foreground text-lg mb-2">Proven Results</h3>
+            <p class="text-muted-foreground">
+              Thousands of verified reviews and millions of views mean these products actually work. Social proof at its finest!
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Shopping Tips -->
+  <section class="py-16 bg-background">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-gradient-to-r from-brand/10 to-secondary/10 border-l-4 border-brand rounded-xl p-8">
+        <h2 class="font-heading font-bold text-foreground text-2xl mb-6">
+          💡 Smart Shopping Tips
+        </h2>
+        <ul class="space-y-4 text-foreground">
+          <li class="flex items-start gap-3">
+            <span class="text-brand text-xl font-bold">✓</span>
+            <span><strong>Check reviews first:</strong> Read what actual buyers say, not just watch TikToks</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-brand text-xl font-bold">✓</span>
+            <span><strong>Compare prices:</strong> Same product, different sellers = different prices</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-brand text-xl font-bold">✓</span>
+            <span><strong>Watch for flash sales:</strong> Viral products often go on sale during Shopee events</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-brand text-xl font-bold">✓</span>
+            <span><strong>Use vouchers:</strong> Stack shop vouchers + Shopee coins for extra savings</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-brand text-xl font-bold">✓</span>
+            <span><strong>Free shipping matters:</strong> Look for sellers offering free shipping to save more</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-16 bg-gradient-to-br from-brand/10 via-background to-secondary/20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="font-heading font-bold text-foreground mb-6" style="font-size: 2.5em;">
+        Ready to Join the Trend?
+      </h2>
+      <p class="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+        Browse our complete collection of viral finds and discover what everyone's adding to their cart!
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a 
+          href="/products" 
+          class="inline-flex items-center justify-center px-8 py-4 bg-brand text-white font-bold rounded-full hover:bg-brand/90 transition-all shadow-lg hover:shadow-xl"
+        >
+          Shop All Products
+        </a>
+        <a 
+          href="/contact" 
+          class="inline-flex items-center justify-center px-8 py-4 bg-background text-foreground font-bold rounded-full border-2 border-brand hover:bg-brand/10 transition-all"
+        >
+          Contact Us
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <Newsletter client:only="react" />
+
+  <!-- Schema Markup for SEO -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "TikTok Viral Finds 2025 - Trending Shopee Products Philippines",
+    "description": pageDescription,
+    "url": "https://smartly.sale/tiktok-viral",
+    "image": ogImage,
+    "publisher": {
+      "@type": "Organization",
+      "name": "smartly.sale",
+      "url": "https://smartly.sale"
+    },
+    "keywords": "TikTok viral finds, viral products Philippines, trending Shopee 2025, TikTok made me buy it, viral gadgets, trending products, viral home hacks, viral kitchen gadgets, viral beauty tools"
+  })} />
+</MainLayout>

@@ -1,21 +1,79 @@
-import { e as createComponent, k as renderComponent, r as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_B_OFuUZx.mjs';
+import { e as createComponent, k as renderComponent, r as renderTemplate, m as maybeRenderHead, u as unescapeHTML } from '../chunks/astro/server_B7CNsfjb.mjs';
 import 'kleur/colors';
-import { $ as $$Main } from '../chunks/main_C3qUMH6Z.mjs';
+import { $ as $$Main } from '../chunks/main__TEui6ED.mjs';
 export { renderers } from '../renderers.mjs';
 
+var __freeze = Object.freeze;
+var __defProp = Object.defineProperty;
+var __template = (cooked, raw) => __freeze(__defProp(cooked, "raw", { value: __freeze(cooked.slice()) }));
+var _a;
 const $$Contact = createComponent(($$result, $$props, $$slots) => {
-  const pageTitle = "Contact Us - smartly.sale";
-  const pageDescription = "Get in touch with smartly.sale for business inquiries, partnerships, or product review requests.";
-  return renderTemplate`${renderComponent($$result, "MainLayout", $$Main, { "title": pageTitle, "description": pageDescription }, { "default": ($$result2) => renderTemplate` ${maybeRenderHead()}<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">  <div class="text-center mb-12"> <h1 class="text-4xl md:text-5xl font-bold text-foreground mb-4">
-Get in Touch
-</h1> <p class="text-xl text-muted-foreground">
-Have questions or want to collaborate? We'd love to hear from you!
-</p> </div>  ${renderComponent($$result2, "ContactForm", null, { "client:only": "react", "client:component-hydration": "only", "client:component-path": "/app/src/components/ContactForm", "client:component-export": "default" })}  <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6"> <div class="bg-background rounded-xl p-6 shadow-md border border-border text-center"> <div class="w-12 h-12 bg-[#FF6600]/10 rounded-lg flex items-center justify-center mx-auto mb-4"> <svg class="w-6 h-6 text-[#FF6600]" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path> </svg> </div> <h3 class="font-bold text-lg mb-2">Email Us</h3> <p class="text-muted-foreground text-sm">contact@smartly.sale</p> </div> <div class="bg-background rounded-xl p-6 shadow-md border border-border text-center"> <div class="w-12 h-12 bg-[#FF6600]/10 rounded-lg flex items-center justify-center mx-auto mb-4"> <svg class="w-6 h-6 text-[#FF6600]" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path> </svg> </div> <h3 class="font-bold text-lg mb-2">Social Media</h3> <p class="text-muted-foreground text-sm">Follow us @smartly.sale</p> </div> <div class="bg-background rounded-xl p-6 shadow-md border border-border text-center"> <div class="w-12 h-12 bg-[#FF6600]/10 rounded-lg flex items-center justify-center mx-auto mb-4"> <svg class="w-6 h-6 text-[#FF6600]" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path> </svg> </div> <h3 class="font-bold text-lg mb-2">Response Time</h3> <p class="text-muted-foreground text-sm">Within 24-48 hours</p> </div> </div>  <div class="mt-12 bg-accent/50 rounded-xl p-6 border border-border"> <h3 class="font-bold text-lg mb-3">Business Inquiries</h3> <p class="text-muted-foreground mb-2">
-We welcome partnerships, sponsored posts, and product review opportunities. 
-        Please use the form above to reach out with your proposal.
-</p> <p class="text-muted-foreground text-sm">
-Note: We carefully select partnerships that align with our values and provide genuine value to our community.
-</p> </div> </div> ` })}`;
+  const pageTitle = "Contact Us - Get in Touch with smartly.sale | Philippines";
+  const pageDescription = "Have questions about our Shopee deals, product reviews, or partnerships? Contact smartly.sale today. We're here to help with all your smart shopping needs!";
+  return renderTemplate`${renderComponent($$result, "MainLayout", $$Main, { "title": pageTitle, "description": pageDescription, "ogImage": "/og-image.jpg" }, { "default": ($$result2) => renderTemplate(_a || (_a = __template(['  <script type="application/ld+json">', "<\/script>  ", `<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20"> <!-- Header --> <div class="text-center mb-12"> <h1 class="text-3xl md:text-4xl font-bold text-foreground mb-4">
+Get in Touch with smartly.sale
+</h1> <p class="text-xl text-muted-foreground max-w-2xl mx-auto">
+Have questions, feedback, or business inquiries? We'd love to hear from you! 
+        Fill out the form below and we'll get back to you within 24-48 hours.
+</p> </div> <div class="grid md:grid-cols-2 gap-12 mb-16"> <!-- Contact Form Section --> <div class="bg-white rounded-2xl shadow-lg p-8 border border-gray-100"> <h2 class="text-2xl font-bold text-foreground mb-6">
+Send Us a Message
+</h2> `, ` </div> <!-- Contact Information --> <div class="space-y-8"> <!-- Why Contact Us --> <div class="bg-gradient-to-br from-orange-50 to-white rounded-2xl p-8 border border-orange-100"> <h2 class="text-2xl font-bold text-foreground mb-6">
+Why Reach Out?
+</h2> <ul class="space-y-4"> <li class="flex items-start gap-3"> <span class="text-2xl">\u{1F4AC}</span> <div> <h3 class="font-bold text-foreground mb-1">General Inquiries</h3> <p class="text-sm text-muted-foreground">Questions about products, deals, or shopping tips</p> </div> </li> <li class="flex items-start gap-3"> <span class="text-2xl">\u{1F91D}</span> <div> <h3 class="font-bold text-foreground mb-1">Business Partnerships</h3> <p class="text-sm text-muted-foreground">Collaborate with us on affiliate programs or sponsorships</p> </div> </li> <li class="flex items-start gap-3"> <span class="text-2xl">\u{1F4DD}</span> <div> <h3 class="font-bold text-foreground mb-1">Product Submissions</h3> <p class="text-sm text-muted-foreground">Suggest products for us to review and feature</p> </div> </li> <li class="flex items-start gap-3"> <span class="text-2xl">\u{1F41B}</span> <div> <h3 class="font-bold text-foreground mb-1">Technical Support</h3> <p class="text-sm text-muted-foreground">Report website issues or broken links</p> </div> </li> <li class="flex items-start gap-3"> <span class="text-2xl">\u{1F4A1}</span> <div> <h3 class="font-bold text-foreground mb-1">Feedback & Suggestions</h3> <p class="text-sm text-muted-foreground">Help us improve your shopping experience</p> </div> </li> </ul> </div> <!-- Connect With Us --> <div class="bg-white rounded-2xl p-8 border border-gray-100 shadow-lg"> <h2 class="text-2xl font-bold text-foreground mb-6">
+Connect With Us
+</h2> <p class="text-muted-foreground mb-6">
+Follow us on social media for daily product updates, exclusive deals, and shopping tips!
+</p> <div class="space-y-4"> <a href="https://www.tiktok.com/@smartly.sale" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-4 rounded-lg border border-gray-200 hover:border-brand hover:bg-orange-50 transition-all group"> <span class="text-2xl">\u{1F4F1}</span> <div> <div class="font-bold text-foreground group-hover:text-brand">TikTok</div> <div class="text-sm text-muted-foreground">@smartly.sale</div> </div> </a> <a href="https://www.facebook.com/smartly.sale" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-4 rounded-lg border border-gray-200 hover:border-brand hover:bg-orange-50 transition-all group"> <span class="text-2xl">\u{1F465}</span> <div> <div class="font-bold text-foreground group-hover:text-brand">Facebook</div> <div class="text-sm text-muted-foreground">Follow for updates</div> </div> </a> <a href="https://shopee.ph/smartly.sale" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-4 rounded-lg border border-gray-200 hover:border-brand hover:bg-orange-50 transition-all group"> <span class="text-2xl">\u{1F6CD}\uFE0F</span> <div> <div class="font-bold text-foreground group-hover:text-brand">Shopee</div> <div class="text-sm text-muted-foreground">Shop our featured products</div> </div> </a> </div> </div> <!-- Response Time --> <div class="bg-blue-50 rounded-2xl p-6 border border-blue-100"> <div class="flex items-start gap-3"> <span class="text-2xl">\u23F0</span> <div> <h3 class="font-bold text-foreground mb-2">Response Time</h3> <p class="text-sm text-muted-foreground">
+We typically respond to all inquiries within <strong>24-48 hours</strong> during business days. 
+                Thank you for your patience!
+</p> </div> </div> </div> </div> </div> <!-- FAQ Section --> <div class="bg-gray-50 rounded-2xl p-8 md:p-12"> <h2 class="text-2xl md:text-3xl font-bold text-foreground mb-8 text-center">
+Frequently Asked Questions
+</h2> <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto"> <div class="bg-white p-6 rounded-xl border border-gray-100"> <h3 class="font-bold text-foreground mb-2">How do I track my Shopee order?</h3> <p class="text-sm text-muted-foreground">
+After purchasing through our affiliate links, you can track your order directly in the Shopee app 
+            or website using your order number.
+</p> </div> <div class="bg-white p-6 rounded-xl border border-gray-100"> <h3 class="font-bold text-foreground mb-2">Do you offer refunds or returns?</h3> <p class="text-sm text-muted-foreground">
+We don't process refunds directly. All purchases are handled by Shopee. Please refer to Shopee's 
+            return and refund policy for assistance.
+</p> </div> <div class="bg-white p-6 rounded-xl border border-gray-100"> <h3 class="font-bold text-foreground mb-2">How can I become an affiliate?</h3> <p class="text-sm text-muted-foreground">
+We're always looking for partners! Contact us through the form above with details about your 
+            platform and audience.
+</p> </div> <div class="bg-white p-6 rounded-xl border border-gray-100"> <h3 class="font-bold text-foreground mb-2">Can I suggest products to feature?</h3> <p class="text-sm text-muted-foreground">
+Absolutely! We love hearing from our community. Send us your product suggestions through the 
+            contact form.
+</p> </div> </div> </div> </div> `])), unescapeHTML(JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact smartly.sale",
+    "description": pageDescription,
+    "url": "https://smartly.sale/contact",
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://smartly.sale"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Contact",
+          "item": "https://smartly.sale/contact"
+        }
+      ]
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "smartly.sale",
+      "url": "https://smartly.sale",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Customer Service",
+        "availableLanguage": ["en", "tl"]
+      }
+    }
+  })), maybeRenderHead(), renderComponent($$result2, "ContactForm", null, { "client:only": "react", "client:component-hydration": "only", "client:component-path": "/app/src/components/ContactForm", "client:component-export": "default" })) })}`;
 }, "/app/src/pages/contact.astro", void 0);
 
 const $$file = "/app/src/pages/contact.astro";

@@ -1,0 +1,505 @@
+---
+import MainLayout from '../../layouts/main.astro';
+import BlogStructuredData from '../../components/BlogStructuredData.astro';
+
+const title = "Biggest Game Releases of November 2025: Football Manager 26, Satisfactory & More";
+const description = "Discover the major game launches of November 2025 including Football Manager 26, Satisfactory console release, and other AAA titles dominating PC, PlayStation, and Xbox this month.";
+const publishDate = "2025-11-05";
+const author = "smartly.sale Gaming Team";
+const category = "Gaming News";
+const image = "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200&h=630&fit=crop";
+---
+
+<MainLayout 
+  title={title}
+  description={description}
+  ogImage={image}
+>
+  <BlogStructuredData 
+    slug="biggest-game-releases-november-2025"
+    title={title}
+    description={description}
+    publishDate={publishDate}
+    author={author}
+    category={category}
+    image={image}
+  />
+
+  <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Hero Image -->
+    <div class="mb-8">
+      <img 
+        src={image}
+        alt="Biggest game releases November 2025"
+        class="w-full h-[400px] object-cover rounded-lg shadow-lg"
+      />
+    </div>
+
+    <!-- Header -->
+    <header class="mb-8">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 text-foreground">
+        {title}
+      </h1>
+      <div class="flex items-center text-muted-foreground text-sm mb-6">
+        <time datetime={publishDate}>{new Date(publishDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+        <span class="mx-2">•</span>
+        <span>{category}</span>
+      </div>
+    </header>
+
+    <!-- Article Content -->
+    <div class="article-content">
+      <p class="text-xl text-muted-foreground mb-8">
+        November 2025 delivers some of the year's most anticipated gaming experiences. From the long-awaited console release of Satisfactory to the annual Sports Sim excellence of Football Manager 26, this month's major launches promise hundreds of hours of entertainment. Here's your complete guide to November's blockbuster releases.
+      </p>
+
+      <h2>1. Satisfactory 1.0 - The Factory Builder Finally Arrives on Console</h2>
+      <p>
+        After years in PC early access, Satisfactory launches its complete 1.0 version across PC, PlayStation 5, and Xbox Series X|S on November 22, 2025.
+      </p>
+
+      <h3>What Is Satisfactory?</h3>
+      <p>
+        Satisfactory is a first-person factory-building game set on an alien planet. Your goal: construct increasingly complex production chains to manufacture goods for the mysterious FICSIT corporation.
+      </p>
+
+      <h3>Why This Release Matters</h3>
+      <ul>
+        <li><strong>Full Release After 6 Years:</strong> Complete story campaign now included</li>
+        <li><strong>Console Debut:</strong> First time available on PlayStation and Xbox</li>
+        <li><strong>Massive Content Addition:</strong> New tiers, buildings, and alien creatures</li>
+        <li><strong>Cross-Platform Play:</strong> PC and console players can cooperate</li>
+        <li><strong>Day-One Game Pass:</strong> Available immediately to subscribers</li>
+      </ul>
+
+      <h3>Core Gameplay Loop</h3>
+      <p>
+        Satisfactory combines exploration, resource management, and automation:
+      </p>
+      <ul>
+        <li>Explore a vast alien world on foot or in vehicles</li>
+        <li>Mine resources and build conveyor belt networks</li>
+        <li>Construct factories that produce increasingly complex items</li>
+        <li>Research new technologies to unlock advanced buildings</li>
+        <li>Complete objectives for the FICSIT corporation</li>
+        <li>Play solo or cooperatively with up to 4 players</li>
+      </ul>
+
+      <h3>What's New in Version 1.0</h3>
+      <ul>
+        <li><strong>Complete Story Campaign:</strong> Discover the secrets of planet Massage-2(AB)b</li>
+        <li><strong>Tier 9 Technology:</strong> Nuclear power and quantum computing</li>
+        <li><strong>New Biomes:</strong> Unexplored regions with unique resources</li>
+        <li><strong>Enhanced Combat:</strong> New weapons and alien threats</li>
+        <li><strong>Blueprint System:</strong> Save and share factory designs</li>
+        <li><strong>Quality of Life:</strong> UI improvements and optimization</li>
+      </ul>
+
+      <h3>Console-Specific Features</h3>
+      <p>
+        The console version includes thoughtful adaptations:
+      </p>
+      <ul>
+        <li>Streamlined controller interface</li>
+        <li>Radial menus for quick building access</li>
+        <li>Performance modes (Quality vs. Performance)</li>
+        <li>Haptic feedback on DualSense controllers</li>
+        <li>Quick Resume support on Xbox</li>
+      </ul>
+
+      <h3>Pricing and Availability</h3>
+      <ul>
+        <li><strong>PC (Steam/Epic):</strong> PHP 1,499</li>
+        <li><strong>PlayStation 5:</strong> PHP 1,999</li>
+        <li><strong>Xbox Series X|S:</strong> PHP 1,999 or Game Pass</li>
+        <li><strong>Pre-Order Bonus:</strong> Exclusive building skins</li>
+      </ul>
+
+      <h3>Who Should Play Satisfactory?</h3>
+      <ul>
+        <li>Fans of factory-building games like Factorio</li>
+        <li>Players who enjoy optimization puzzles</li>
+        <li>Cooperative gaming enthusiasts</li>
+        <li>Anyone wanting a massive time-sink game</li>
+        <li>Game Pass subscribers (it's included!)</li>
+      </ul>
+
+      <div class="bg-orange-50 dark:bg-orange-950/20 border-l-4 border-orange-500 p-6 my-8 rounded-r-lg">
+        <h4 class="font-semibold text-lg mb-3">Beginner's Tip: Start Small</h4>
+        <p class="mb-3">New to factory games? Follow these early-game tips:</p>
+        <ul class="space-y-2 text-sm">
+          <li>1. Don't worry about perfect layouts initially—iterate and improve</li>
+          <li>2. Automate basic materials (iron plates, rods) as soon as possible</li>
+          <li>3. Explore thoroughly to find pure resource nodes</li>
+          <li>4. Build vertically to save space and improve organization</li>
+          <li>5. Take breaks—this game can become incredibly addictive!</li>
+        </ul>
+      </div>
+
+      <h2>2. Football Manager 2026 - The Sports Sim Champion Returns</h2>
+      <p>
+        Sports Interactive releases Football Manager 2026 on November 15, 2025, across PC, Mac, PlayStation, Xbox, Nintendo Switch, and mobile platforms.
+      </p>
+
+      <h3>What Makes FM26 Special</h3>
+      <p>
+        Football Manager 2026 represents the most significant overhaul in franchise history:
+      </p>
+      <ul>
+        <li><strong>New Match Engine:</strong> Rebuilt from the ground up with enhanced AI</li>
+        <li><strong>Expanded Licensing:</strong> More official leagues and competitions</li>
+        <li><strong>Women's Football Integration:</strong> Manage women's teams alongside men's</li>
+        <li><strong>Dynamic Morale System:</strong> Player emotions affect performance</li>
+        <li><strong>Enhanced Transfer System:</strong> More realistic negotiations</li>
+        <li><strong>Improved UI:</strong> Modern interface across all platforms</li>
+      </ul>
+
+      <h3>Career Mode Enhancements</h3>
+      <p>
+        Live out your managerial dreams with deeper progression:
+      </p>
+      <ul>
+        <li>Manager reputation affects job offers and player signings</li>
+        <li>Personal life events impact your career trajectory</li>
+        <li>Media relationships and sponsorship deals</li>
+        <li>Rivalries with other managers develop over seasons</li>
+        <li>Hall of Fame and legacy tracking</li>
+      </ul>
+
+      <h3>Tactical Revolution</h3>
+      <p>
+        More control over your team's playing style:
+      </p>
+      <ul>
+        <li>Over 100 new tactical instructions</li>
+        <li>Set-piece designer with 3D previews</li>
+        <li>Opposition instructions for specific players</li>
+        <li>In-match tactical adjustments feel more impactful</li>
+        <li>AI managers adapt to your tactics over time</li>
+      </ul>
+
+      <h3>Platform Breakdown</h3>
+      
+      <h4>PC/Mac Version</h4>
+      <ul>
+        <li>Most comprehensive experience with all features</li>
+        <li>140+ playable leagues from 50+ countries</li>
+        <li>Unlimited database size</li>
+        <li><strong>Price:</strong> PHP 1,799 (standard) / PHP 2,499 (deluxe with editor)</li>
+      </ul>
+
+      <h4>Console Version (PS5/Xbox)</h4>
+      <ul>
+        <li>Optimized for controller play</li>
+        <li>80 playable leagues</li>
+        <li>Quick-play mode for faster matches</li>
+        <li><strong>Price:</strong> PHP 2,499</li>
+      </ul>
+
+      <h4>Nintendo Switch Version</h4>
+      <ul>
+        <li>Touch controls for handheld mode</li>
+        <li>40 playable leagues</li>
+        <li>Perfect for commuting</li>
+        <li><strong>Price:</strong> PHP 1,999</li>
+      </ul>
+
+      <h4>Mobile Version (iOS/Android)</h4>
+      <ul>
+        <li>Streamlined interface for phones</li>
+        <li>30 playable leagues</li>
+        <li>Cloud save across devices</li>
+        <li><strong>Price:</strong> PHP 899</li>
+      </ul>
+
+      <h3>Who Should Buy FM26?</h3>
+      <ul>
+        <li>Football/soccer strategy enthusiasts</li>
+        <li>Fans of previous FM editions</li>
+        <li>Players wanting the ultimate management sim</li>
+        <li>Anyone interested in football tactics</li>
+        <li>Long-form gaming fans (careers last years!)</li>
+      </ul>
+
+      <h2>3. NBA 2K26 - Basketball Simulation Excellence</h2>
+      <p>
+        The annual basketball sim launches November 15, 2025, with the most realistic NBA experience yet.
+      </p>
+
+      <h3>Key Improvements</h3>
+      <ul>
+        <li><strong>ProPLAY Technology:</strong> Real player motion from NBA footage</li>
+        <li><strong>MyCAREER Evolution:</strong> Deeper story mode</li>
+        <li><strong>MyTEAM Overhaul:</strong> Less pay-to-win, more skill-based</li>
+        <li><strong>The City Expansion:</strong> Larger online world</li>
+        <li><strong>WNBA MyCAREER:</strong> Full story mode for women's basketball</li>
+      </ul>
+
+      <h3>Pricing</h3>
+      <ul>
+        <li><strong>Standard Edition:</strong> PHP 2,999</li>
+        <li><strong>Championship Edition:</strong> PHP 3,999 (with VC and MyTEAM bonuses)</li>
+      </ul>
+
+      <h2>4. Dynasty Warriors 10 - Hack and Slash Returns</h2>
+      <p>
+        Koei Tecmo's legendary series launches its tenth main entry on November 10, 2025.
+      </p>
+
+      <h3>What's New</h3>
+      <ul>
+        <li>Open-world design instead of linear levels</li>
+        <li>60+ playable characters from Three Kingdoms era</li>
+        <li>4-player online co-op campaign</li>
+        <li>Enhanced combo system with 100+ moves per character</li>
+        <li>Dynamic weather affecting battlefields</li>
+      </ul>
+
+      <h3>Pricing</h3>
+      <ul>
+        <li><strong>Standard:</strong> PHP 2,499</li>
+        <li><strong>Ultimate Edition:</strong> PHP 3,499 (with season pass)</li>
+      </ul>
+
+      <h2>5. Formula E Racing 2025 - Electric Racing Sim</h2>
+      <p>
+        The official Formula E game releases November 12, bringing electric racing to consoles and PC.
+      </p>
+
+      <h3>Features</h3>
+      <ul>
+        <li>All official 2024-2025 season teams and drivers</li>
+        <li>Energy management gameplay mechanics</li>
+        <li>Attack Mode and Fan Boost features</li>
+        <li>Career mode spanning multiple seasons</li>
+        <li>Online championships and tournaments</li>
+      </ul>
+
+      <h3>Pricing</h3>
+      <ul>
+        <li><strong>Standard Edition:</strong> PHP 2,299</li>
+      </ul>
+
+      <h2>Essential Gaming Gear for November</h2>
+      <p>
+        Maximize your experience with these peripherals available on Shopee Philippines:
+      </p>
+
+      <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg my-6">
+        <h4 class="font-semibold mb-4">Top Gaming Accessories (Shopee Philippines)</h4>
+        
+        <div class="space-y-4">
+          <div class="border-l-4 border-orange-500 pl-4">
+            <h5 class="font-semibold">External SSD Storage (1-2TB)</h5>
+            <p class="text-sm text-muted-foreground">Satisfactory and FM26 require significant space</p>
+            <p class="text-sm">Price range: PHP 3,999 - PHP 9,999 | Compatible with PS5/Xbox</p>
+          </div>
+
+          <div class="border-l-4 border-orange-500 pl-4">
+            <h5 class="font-semibold">Gaming Mouse & Keyboard Combo</h5>
+            <p class="text-sm text-muted-foreground">Essential for PC versions of strategy games</p>
+            <p class="text-sm">Price range: PHP 1,999 - PHP 6,999 | Look for: Mechanical switches, RGB</p>
+          </div>
+
+          <div class="border-l-4 border-orange-500 pl-4">
+            <h5 class="font-semibold">Pro Controllers</h5>
+            <p class="text-sm text-muted-foreground">Precision for NBA 2K26 and Dynasty Warriors 10</p>
+            <p class="text-sm">Price range: PHP 2,499 - PHP 7,999 | Options: Elite, Scuf, Razer</p>
+          </div>
+
+          <div class="border-l-4 border-orange-500 pl-4">
+            <h5 class="font-semibold">Racing Wheels</h5>
+            <p class="text-sm text-muted-foreground">Immersive Formula E experience</p>
+            <p class="text-sm">Price range: PHP 8,999 - PHP 24,999 | Brands: Logitech, Thrustmaster</p>
+          </div>
+
+          <div class="border-l-4 border-orange-500 pl-4">
+            <h5 class="font-semibold">Gaming Monitors (144Hz+)</h5>
+            <p class="text-sm text-muted-foreground">Smooth visuals for competitive play</p>
+            <p class="text-sm">Price range: PHP 8,999 - PHP 24,999 | Features: 1ms response, FreeSync/G-Sync</p>
+          </div>
+        </div>
+      </div>
+
+      <h2>Money-Saving Strategies</h2>
+      <p>
+        November's major releases can get expensive. Here's how to save:
+      </p>
+
+      <h3>Subscription Services</h3>
+      <ul>
+        <li><strong>Xbox Game Pass Ultimate:</strong> Get Satisfactory day one (PHP 549/month)</li>
+        <li><strong>PlayStation Plus Extra:</strong> Dynasty Warriors 10 likely added within 6 months</li>
+        <li><strong>EA Play:</strong> NBA 2K26 trial (10 hours free)</li>
+        <li>One subscription beats buying 3+ full-price games</li>
+      </ul>
+
+      <h3>Shopee Gift Card Deals</h3>
+      <ul>
+        <li>Watch for mid-month payday sales (15th, 30th)</li>
+        <li>Stack platform vouchers with bank promos</li>
+        <li>Use accumulated Shopee coins (100 coins = PHP 1)</li>
+        <li>Bundle deals: Buy PHP 2,000 gift card, get PHP 200 bonus</li>
+        <li>Look for 10-15% off PSN/Xbox/Steam cards</li>
+      </ul>
+
+      <h3>Physical vs. Digital</h3>
+      <ul>
+        <li><strong>Physical Pros:</strong> Can resell, often cheaper at launch</li>
+        <li><strong>Physical Cons:</strong> Requires disc, no instant access</li>
+        <li><strong>Digital Pros:</strong> Pre-load and play at midnight, no storage</li>
+        <li><strong>Digital Cons:</strong> Can't resell, often more expensive</li>
+        <li><strong>Recommendation:</strong> Buy physical for single-player, digital for multiplayer</li>
+      </ul>
+
+      <h3>Patient Gaming</h3>
+      <ul>
+        <li>Wait 4-6 weeks for 25-30% off sales</li>
+        <li>Black Friday (late November) brings early discounts</li>
+        <li>Dynasty Warriors 10 historically drops fast</li>
+        <li>Sports games (NBA 2K, FM) hold value longer</li>
+        <li>Satisfactory best value at launch (Game Pass or one-time purchase)</li>
+      </ul>
+
+      <h2>Performance Requirements</h2>
+      <p>
+        Make sure your system can handle these games:
+      </p>
+
+      <h3>Satisfactory 1.0</h3>
+      <ul>
+        <li><strong>PC Minimum:</strong> GTX 1060 / RX 580, 16GB RAM</li>
+        <li><strong>PC Recommended:</strong> RTX 3060 / RX 6700 XT, 32GB RAM</li>
+        <li><strong>Console:</strong> PS5/Xbox Series X|S required (no last-gen)</li>
+        <li><strong>Storage:</strong> 60GB SSD recommended</li>
+      </ul>
+
+      <h3>Football Manager 2026</h3>
+      <ul>
+        <li><strong>PC Minimum:</strong> Integrated graphics, 8GB RAM</li>
+        <li><strong>PC Recommended:</strong> Dedicated GPU, 16GB RAM</li>
+        <li><strong>Console:</strong> Works on PS5, Xbox Series, Switch</li>
+        <li><strong>Mobile:</strong> 4GB RAM minimum</li>
+      </ul>
+
+      <h3>NBA 2K26 & Dynasty Warriors 10</h3>
+      <ul>
+        <li><strong>PC Minimum:</strong> GTX 1050 Ti, 8GB RAM</li>
+        <li><strong>PC Recommended:</strong> RTX 2060, 16GB RAM</li>
+        <li><strong>Console:</strong> Best on PS5/Xbox Series X for 60fps</li>
+        <li><strong>Storage:</strong> 100GB+ for NBA 2K26</li>
+      </ul>
+
+      <h2>Community and Multiplayer</h2>
+      <p>
+        Connect with Filipino gamers:
+      </p>
+
+      <h3>Where to Find Players</h3>
+      <ul>
+        <li><strong>Satisfactory:</strong> r/SatisfactoryGame, Discord servers</li>
+        <li><strong>Football Manager:</strong> Filipino FM Facebook groups</li>
+        <li><strong>NBA 2K26:</strong> PH 2K leagues on Facebook</li>
+        <li><strong>Dynasty Warriors:</strong> Co-op matchmaking discord</li>
+      </ul>
+
+      <h3>Local Events</h3>
+      <ul>
+        <li>NBA 2K26 tournaments in Metro Manila gaming cafes</li>
+        <li>Football Manager online leagues with PH players</li>
+        <li>Satisfactory factory showcase competitions</li>
+        <li>Gaming convention demos and giveaways</li>
+      </ul>
+
+      <h2>Which Games Should You Prioritize?</h2>
+      <p>
+        Can't afford all of November's releases? Here's our recommendation:
+      </p>
+
+      <h3>Best Overall Value</h3>
+      <p>
+        <strong>Satisfactory 1.0</strong> via Xbox Game Pass. For PHP 549/month you get this plus hundreds of other games. If you prefer ownership, the PC version at PHP 1,499 offers endless replayability.
+      </p>
+
+      <h3>Best for Sports Fans</h3>
+      <p>
+        <strong>Football Manager 2026</strong> is the deepest sports experience. Pick your platform based on where you'll play most (PC for power, mobile for portability).
+      </p>
+
+      <h3>Best for Action Fans</h3>
+      <p>
+        <strong>Dynasty Warriors 10</strong> delivers mindless fun with friends. Wait for a sale though—these games often drop 40% within 2 months.
+      </p>
+
+      <h3>Best for Competitive Players</h3>
+      <p>
+        <strong>NBA 2K26</strong> has the most active online community. If you play MyTEAM or Park modes, this is your game.
+      </p>
+
+      <h2>Looking Ahead: December Preview</h2>
+      <p>
+        Already planning beyond November?
+      </p>
+      <ul>
+        <li><strong>The Game Awards (Dec 7):</strong> Surprise announcements and shadow drops</li>
+        <li><strong>Winter Sales:</strong> Steam, PSN, Xbox sales start mid-December</li>
+        <li><strong>Holiday Content:</strong> Most live-service games add festive events</li>
+        <li><strong>Year-End Lists:</strong> Game of the Year discussions everywhere</li>
+      </ul>
+
+      <h2>Final Thoughts</h2>
+      <p>
+        November 2025's major releases showcase gaming at its finest. Satisfactory 1.0 proves early access can lead to masterpieces. Football Manager 2026 continues its reign as the definitive sports management sim. NBA 2K26, Dynasty Warriors 10, and Formula E Racing 2025 round out a month packed with quality experiences.
+      </p>
+      <p>
+        Whether you're building automated factories, managing your dream football club, or dominating on the basketball court, November delivers the content to keep you gaming well into 2026. Browse Shopee Philippines for gaming accessories, gift cards, and peripherals to maximize your experience.
+      </p>
+      <p>
+        Remember to take advantage of subscription services, watch for sales, and join Filipino gaming communities to enhance your November gaming journey. Happy playing!
+      </p>
+
+      <h2>Frequently Asked Questions</h2>
+
+      <h3>Is Satisfactory worth buying at full price?</h3>
+      <p>
+        Yes, especially on PC (PHP 1,499). The game offers 100+ hours of content with excellent co-op. Console players should try via Game Pass first.
+      </p>
+
+      <h3>Which version of Football Manager 2026 should I buy?</h3>
+      <p>
+        PC version offers the complete experience. Mobile (PHP 899) is perfect if you game on commute. Console version splits the difference at PHP 2,499.
+      </p>
+
+      <h3>Will these games go on sale for Black Friday?</h3>
+      <p>
+        Unlikely for November releases. Better to wait until Christmas sales in late December for 15-25% off.
+      </p>
+
+      <h3>Can I play Satisfactory solo or is co-op required?</h3>
+      <p>
+        Completely solo-friendly. Co-op is optional and supports up to 4 players.
+      </p>
+
+      <h3>Do I need to play previous Dynasty Warriors games?</h3>
+      <p>
+        No, each entry is standalone. DW10 is beginner-friendly with tutorials.
+      </p>
+
+      <!-- Gaming Deals CTA -->
+      <div class="mt-12 p-8 bg-white dark:bg-gray-900 rounded-xl shadow-lg border-2 border-orange-500">
+        <h3 class="text-2xl font-bold mb-4 text-center">Save Big on Gaming This November</h3>
+        <p class="text-center mb-6 text-muted-foreground">
+          Browse gift cards, gaming peripherals, and accessories on Shopee Philippines. Stack vouchers for maximum savings on November's biggest releases!
+        </p>
+        <div class="text-center">
+          <a 
+            href="/products" 
+            class="inline-block bg-[#ea5820] hover:bg-[#d14d1a] text-white font-semibold px-8 py-4 rounded-lg shadow-md transition-all duration-200"
+          >
+            Shop Gaming Deals
+          </a>
+        </div>
+      </div>
+    </div>
+  </article>
+</MainLayout>

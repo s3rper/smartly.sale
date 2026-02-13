@@ -1,0 +1,836 @@
+---
+import MainLayout from '../layouts/main.astro';
+
+const pageTitle = "10 Proven Ways to Earn Money Online in the Philippines 2025 | smartly.sale";
+const pageDescription = "Discover legitimate ways to earn extra income online in the Philippines. From freelancing to surveys, learn proven methods to make money from home in 2025.";
+
+// Article structured data for SEO
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "10 Proven Ways to Earn Money Online in the Philippines 2025",
+  "description": pageDescription,
+  "image": "https://smartly.sale/og-image.jpg",
+  "author": {
+    "@type": "Organization",
+    "name": "smartly.sale"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "smartly.sale",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://smartly.sale/og-image.jpg"
+    }
+  },
+  "datePublished": "2025-01-15",
+  "dateModified": new Date().toISOString().split('T')[0],
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://smartly.sale/earn"
+  }
+};
+
+// Breadcrumb schema
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://smartly.sale"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Earn Money Online",
+      "item": "https://smartly.sale/earn"
+    }
+  ]
+};
+
+// Money-making opportunities
+const earningMethods = [
+  {
+    title: "Freelancing on Upwork & Fiverr",
+    description: "Offer your skills in writing, graphic design, web development, or virtual assistance. Filipinos are highly sought after for their English proficiency and work ethic. Start with competitive rates and build your portfolio.",
+    thumbnail: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&h=500&fit=crop",
+    estimatedEarning: "500 - 5,000 pesos per day",
+    difficulty: "Medium",
+    timeCommitment: "Flexible"
+  },
+  {
+    title: "Online Surveys & Rewards Sites",
+    description: "Complete surveys, watch videos, and test apps on platforms like Swagbucks, Toluna, and Survey Junkie. While not a full-time income, it's perfect for earning extra money during your free time.",
+    thumbnail: "https://images.unsplash.com/photo-1554224311-beee2f7c12c7?w=800&h=500&fit=crop",
+    estimatedEarning: "100 - 500 pesos per day",
+    difficulty: "Easy",
+    timeCommitment: "1-2 hours per day"
+  },
+  {
+    title: "Become a Shopee Affiliate",
+    description: "Promote products from Shopee and earn commissions on every sale. Share product links on social media, TikTok, or your own website. Perfect for content creators and influencers.",
+    thumbnail: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&h=500&fit=crop",
+    estimatedEarning: "200 - 10,000 pesos per month",
+    difficulty: "Easy to Medium",
+    timeCommitment: "Flexible"
+  },
+  {
+    title: "Start a YouTube Channel or TikTok Account",
+    description: "Create content about product reviews, tutorials, or entertainment. Monetize through ad revenue, sponsorships, and affiliate marketing. Filipino creators are thriving in niches like food, tech reviews, and lifestyle.",
+    thumbnail: "https://images.unsplash.com/photo-1611162616475-46b635cb6868?w=800&h=500&fit=crop",
+    estimatedEarning: "500 - 50,000 pesos per month",
+    difficulty: "Medium to Hard",
+    timeCommitment: "10-20 hours per week"
+  },
+  {
+    title: "Online Tutoring & Teaching English",
+    description: "Teach English to foreign students on platforms like iTalki, Cambly, or Preply. If you have teaching experience, platforms like VIPKid and Qkids offer higher rates. No TEFL certificate required for most platforms.",
+    thumbnail: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=500&fit=crop",
+    estimatedEarning: "300 - 800 pesos per hour",
+    difficulty: "Medium",
+    timeCommitment: "Flexible"
+  },
+  {
+    title: "Dropshipping & E-commerce",
+    description: "Sell products online without holding inventory. Use Shopify or Facebook Marketplace to start your store. Source products from suppliers and ship directly to customers. Popular in Philippines for fashion and gadgets.",
+    thumbnail: "https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?w=800&h=500&fit=crop",
+    estimatedEarning: "5,000 - 100,000 pesos per month",
+    difficulty: "Medium to Hard",
+    timeCommitment: "15-30 hours per week"
+  },
+  {
+    title: "Social Media Management",
+    description: "Manage social media accounts for businesses. Create content, engage with followers, and run ad campaigns. Many small businesses need help with their online presence and are willing to pay well.",
+    thumbnail: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=500&fit=crop",
+    estimatedEarning: "10,000 - 30,000 pesos per month",
+    difficulty: "Medium",
+    timeCommitment: "Part-time to Full-time"
+  },
+  {
+    title: "Write and Sell eBooks on Amazon",
+    description: "Self-publish eBooks on Amazon Kindle Direct Publishing. Write about topics you're passionate about - recipes, how-to guides, fiction, or self-help. Earn royalties from every sale worldwide.",
+    thumbnail: "https://images.unsplash.com/photo-1455885661740-29cbf08a42fa?w=800&h=500&fit=crop",
+    estimatedEarning: "1,000 - 20,000 pesos per month",
+    difficulty: "Medium",
+    timeCommitment: "Variable"
+  },
+  {
+    title: "Micro-Tasks on Amazon MTurk & Clickworker",
+    description: "Complete small tasks like data entry, content moderation, and surveys. While individual tasks pay small amounts, they add up quickly. Perfect for earning money during short breaks throughout the day.",
+    thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=500&fit=crop",
+    estimatedEarning: "200 - 800 pesos per day",
+    difficulty: "Easy",
+    timeCommitment: "Flexible"
+  },
+  {
+    title: "Become a Virtual Assistant",
+    description: "Provide administrative support to businesses remotely. Tasks include email management, scheduling, customer service, and data entry. High demand from US and Australian companies looking for Filipino VAs.",
+    thumbnail: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=500&fit=crop",
+    estimatedEarning: "15,000 - 40,000 pesos per month",
+    difficulty: "Medium",
+    timeCommitment: "Part-time to Full-time"
+  }
+];
+---
+
+<MainLayout 
+  title={pageTitle}
+  description={pageDescription}
+  ogImage="/og-image.jpg"
+>
+  <!-- Schema Markup for SEO -->
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <!-- Article Content -->
+  <article class="earn-article">
+    
+    <!-- Hero Section -->
+    <header class="article-header">
+      <div class="container">
+        <h1 class="article-title">
+          10 Proven Ways to Earn Money Online in the Philippines 2025
+        </h1>
+        <div class="article-meta">
+          <time datetime="2025-01-15">Updated: January 2025</time>
+          <span class="separator">-</span>
+          <span>15 min read</span>
+          <span class="separator">-</span>
+          <span>Start earning today</span>
+        </div>
+        <p class="article-intro">
+          Looking for legitimate ways to make money online from the comfort of your home? Whether you're a student, 
+          stay-at-home parent, or someone looking for extra income, this comprehensive guide covers proven methods 
+          used by thousands of Filipinos to earn money online in 2025.
+        </p>
+      </div>
+    </header>
+
+    <!-- Table of Contents -->
+    <section class="toc-section">
+      <div class="container">
+        <div class="toc-box">
+          <h2 class="toc-title">Quick Navigation</h2>
+          <ol class="toc-list">
+            {earningMethods.map((method, index) => (
+              <li><a href={`#method-${index + 1}`}>{method.title}</a></li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Introduction Content -->
+    <section class="content-section">
+      <div class="container">
+        <div class="article-content">
+          <h2>Why Earn Money Online?</h2>
+          <p>
+            The digital economy has opened countless opportunities for Filipinos to earn income without leaving home. 
+            With the Philippines ranking as one of the top countries for freelancers and online workers, now is the 
+            perfect time to explore these opportunities.
+          </p>
+          
+          <div class="highlight-box">
+            <h3>Key Benefits of Online Earning:</h3>
+            <ul>
+              <li><strong>Flexibility:</strong> Work on your own schedule</li>
+              <li><strong>No Commute:</strong> Save time and money on transportation</li>
+              <li><strong>Global Opportunities:</strong> Access clients worldwide</li>
+              <li><strong>Scalable Income:</strong> Grow your earnings over time</li>
+              <li><strong>Multiple Income Streams:</strong> Combine different methods</li>
+            </ul>
+          </div>
+
+          <p>
+            Below, we've compiled 10 proven methods that real Filipinos are using to earn money online. Each method 
+            includes realistic earning estimates, difficulty levels, and time commitments to help you make an informed decision.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Earning Methods Cards -->
+    <section class="methods-section">
+      <div class="container">
+        <h2 class="section-title">Proven Money-Making Methods</h2>
+        
+        <div class="methods-grid">
+          {earningMethods.map((method, index) => (
+            <div class="method-card" id={`method-${index + 1}`}>
+              <div class="method-thumbnail">
+                <img src={method.thumbnail} alt={method.title} loading="lazy" />
+                <div class="method-number">{index + 1}</div>
+              </div>
+              <div class="method-content">
+                <h3 class="method-title">{method.title}</h3>
+                <p class="method-description">{method.description}</p>
+                <div class="method-stats">
+                  <div class="stat-item">
+                    <div>
+                      <div class="stat-label">Earning Potential</div>
+                      <div class="stat-value">{method.estimatedEarning}</div>
+                    </div>
+                  </div>
+                  <div class="stat-item">
+                    <div>
+                      <div class="stat-label">Difficulty</div>
+                      <div class="stat-value">{method.difficulty}</div>
+                    </div>
+                  </div>
+                  <div class="stat-item">
+                    <div>
+                      <div class="stat-label">Time Needed</div>
+                      <div class="stat-value">{method.timeCommitment}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Tips Section -->
+    <section class="tips-section">
+      <div class="container">
+        <h2 class="section-title">Expert Tips for Success</h2>
+        
+        <div class="tips-grid">
+          <div class="tip-card">
+            <h3>1. Start Small, Think Big</h3>
+            <p>Don't expect to make thousands on day one. Start with easier methods like surveys or micro-tasks while building skills for higher-paying opportunities.</p>
+          </div>
+          
+          <div class="tip-card">
+            <h3>2. Be Consistent</h3>
+            <p>Success in online earning requires consistency. Dedicate specific hours each day or week to your chosen method and stick to it.</p>
+          </div>
+          
+          <div class="tip-card">
+            <h3>3. Invest in Skills</h3>
+            <p>Take free online courses on platforms like Coursera, YouTube, or LinkedIn Learning to improve your skills and command higher rates.</p>
+          </div>
+          
+          <div class="tip-card">
+            <h3>4. Build Your Portfolio</h3>
+            <p>Whether freelancing or content creation, always showcase your best work. A strong portfolio can significantly increase your earning potential.</p>
+          </div>
+          
+          <div class="tip-card">
+            <h3>5. Network Online</h3>
+            <p>Join Facebook groups, Reddit communities, and Discord servers related to your field. Networking can lead to better opportunities and mentorship.</p>
+          </div>
+          
+          <div class="tip-card">
+            <h3>6. Track Your Progress</h3>
+            <p>Monitor your earnings, time invested, and growth. This helps you identify which methods work best for you and where to focus your efforts.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Warning Section -->
+    <section class="warning-section">
+      <div class="container">
+        <div class="warning-box">
+          <h3>Warning: Beware of Scams</h3>
+          <p>
+            While there are many legitimate ways to earn online, scams are unfortunately common. <strong>Never pay money upfront</strong> 
+            to start earning, avoid "get rich quick" schemes, and always research platforms before providing personal information.
+          </p>
+          <p>
+            <strong>Red flags to watch out for:</strong>
+          </p>
+          <ul>
+            <li>Promises of unrealistic earnings (e.g., "Earn 10,000 pesos in one day with no work!")</li>
+            <li>Requests for upfront payment or registration fees</li>
+            <li>Pyramid schemes disguised as legitimate businesses</li>
+            <li>Lack of company information or contact details</li>
+            <li>Pressure to recruit others to earn money</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Conclusion -->
+    <section class="conclusion-section">
+      <div class="container">
+        <div class="article-content">
+          <h2>Final Thoughts</h2>
+          <p>
+            Earning money online in the Philippines is not only possible but increasingly accessible. The methods outlined 
+            in this guide are proven and used by thousands of successful online earners across the country.
+          </p>
+          <p>
+            Remember, success doesn't happen overnight. Choose a method that aligns with your skills, interests, and 
+            available time. Start small, stay consistent, and gradually build your online income. Many Filipinos have 
+            transformed their financial situations through these opportunities - you can too!
+          </p>
+          
+          <div class="cta-box">
+            <h3>Ready to Start Shopping Smarter?</h3>
+            <p class="cta-white-text">While you're earning online, don't forget to shop smart! Check out our curated collection of viral products and exclusive deals.</p>
+            <div class="cta-buttons">
+              <a href="/products" class="btn-primary">Browse Products</a>
+              <a href="/about" class="btn-secondary">Learn More About Us</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Articles -->
+    <section class="related-section">
+      <div class="container">
+        <h2 class="section-title">Related Articles</h2>
+        <div class="related-grid">
+          <a href="/products" class="related-card">
+            <h3>Best Budget Gadgets Under 1000 Pesos</h3>
+            <p>Discover affordable tech products that won't break the bank</p>
+          </a>
+          <a href="/about" class="related-card">
+            <h3>About smartly.sale</h3>
+            <p>Learn more about our mission to help Filipinos shop smarter</p>
+          </a>
+          <a href="/contact" class="related-card">
+            <h3>Get in Touch</h3>
+            <p>Have questions? We're here to help!</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </article>
+</MainLayout>
+
+<style>
+  .earn-article {
+    font-family: var(--body-font);
+    line-height: 1.7;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* Article Header */
+  .article-header {
+    background: linear-gradient(135deg, #ea5820 0%, #ff7a33 100%);
+    color: white;
+    padding: 60px 20px;
+    text-align: center;
+  }
+
+  .article-title {
+    font-size: 2.5em;
+    font-weight: 800;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .article-meta {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+    font-size: 0.938rem;
+    opacity: 0.95;
+  }
+
+  .separator {
+    opacity: 0.6;
+  }
+
+  .article-intro {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    max-width: 800px;
+    margin: 0 auto;
+    opacity: 0.95;
+  }
+
+  /* Table of Contents */
+  .toc-section {
+    padding: 40px 20px;
+    background: #f8f8f8;
+  }
+
+  .toc-box {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .toc-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .toc-list {
+    list-style: decimal;
+    padding-left: 20px;
+  }
+
+  .toc-list li {
+    margin-bottom: 12px;
+  }
+
+  .toc-list a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .toc-list a:hover {
+    color: var(--brand-orange);
+  }
+
+  /* Content Section */
+  .content-section {
+    padding: 60px 20px;
+  }
+
+  .article-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .article-content h2 {
+    font-size: 2em;
+    font-weight: 700;
+    margin: 40px 0 20px;
+    color: #333;
+  }
+
+  .article-content p {
+    margin-bottom: 20px;
+    color: #555;
+  }
+
+  .highlight-box {
+    background: #fff5f0;
+    border-left: 4px solid var(--brand-orange);
+    padding: 30px;
+    border-radius: 12px;
+    margin: 30px 0;
+  }
+
+  .highlight-box h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #333;
+  }
+
+  .highlight-box ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .highlight-box li {
+    margin-bottom: 12px;
+    padding-left: 25px;
+    position: relative;
+    color: #555;
+  }
+
+  .highlight-box li::before {
+    content: "\2713";
+    position: absolute;
+    left: 0;
+    color: var(--brand-orange);
+    font-weight: 700;
+  }
+
+  /* Methods Section */
+  .methods-section {
+    padding: 60px 20px;
+    background: #f8f8f8;
+  }
+
+  .section-title {
+    font-size: 2.5em;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 50px;
+    color: #333;
+  }
+
+  .methods-grid {
+    display: grid;
+    gap: 40px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .method-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .method-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  }
+
+  .method-thumbnail {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+  }
+
+  .method-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .method-number {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    background: var(--brand-orange);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 800;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+
+  .method-content {
+    padding: 30px;
+  }
+
+  .method-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #333;
+  }
+
+  .method-description {
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 25px;
+  }
+
+  .method-stats {
+    display: grid;
+    gap: 15px;
+  }
+
+  .stat-item {
+    display: flex;
+    gap: 12px;
+    align-items: start;
+    padding: 15px;
+    background: #f8f8f8;
+    border-radius: 8px;
+  }
+
+  .stat-label {
+    font-size: 0.813rem;
+    color: #888;
+    margin-bottom: 4px;
+  }
+
+  .stat-value {
+    font-weight: 700;
+    color: #333;
+  }
+
+  /* Tips Section */
+  .tips-section {
+    padding: 60px 20px;
+  }
+
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .tip-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-left: 4px solid var(--brand-orange);
+  }
+
+  .tip-card h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #333;
+  }
+
+  .tip-card p {
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Warning Section */
+  .warning-section {
+    padding: 60px 20px;
+    background: #fff5f0;
+  }
+
+  .warning-box {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    border-left: 4px solid #dc2626;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .warning-box h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #dc2626;
+  }
+
+  .warning-box p {
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 15px;
+  }
+
+  .warning-box ul {
+    color: #555;
+    padding-left: 25px;
+    margin-top: 15px;
+  }
+
+  .warning-box li {
+    margin-bottom: 10px;
+  }
+
+  /* Conclusion Section */
+  .conclusion-section {
+    padding: 60px 20px;
+  }
+
+  .cta-box {
+    background: linear-gradient(135deg, #ea5820 0%, #ff7a33 100%);
+    color: white;
+    padding: 40px;
+    border-radius: 16px;
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  .cta-box h3 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+  }
+
+  .cta-box p {
+    margin-bottom: 25px;
+    opacity: 0.95;
+  }
+
+  /* White text for specific CTA paragraph */
+  .cta-white-text {
+    color: white !important;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary, .btn-secondary {
+    padding: 14px 32px;
+    border-radius: 50px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+
+  .btn-primary {
+    background: white;
+    color: var(--brand-orange);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+  }
+
+  .btn-secondary:hover {
+    background: white;
+    color: var(--brand-orange);
+  }
+
+  /* Related Section */
+  .related-section {
+    padding: 60px 20px;
+    background: #f8f8f8;
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .related-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .related-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+
+  .related-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #333;
+  }
+
+  .related-card p {
+    color: #666;
+    margin: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .article-title {
+      font-size: 2em;
+    }
+
+    .section-title {
+      font-size: 2em;
+    }
+
+    .method-thumbnail {
+      height: 200px;
+    }
+
+    .tips-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .related-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .article-title,
+    .section-title {
+      font-size: 2.5em;
+    }
+  }
+</style>

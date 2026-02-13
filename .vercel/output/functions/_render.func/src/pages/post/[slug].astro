@@ -1,17 +1,25 @@
 ---
 import MainLayout from '../../layouts/main.astro';
 import PostContent from '../../components/PostContent';
+import { blogPosts } from '../../lib/blog-data';
 
-// This is a dynamic route for blog posts
-// For now using static title, can be made dynamic with CMS data
-const post = { title: 'Blog Post' }; // Placeholder
-const pageTitle = `${post.title} - smartly.sale`;
-const pageDescription = "Read our latest product review and shopping guide.";
+export function getStaticPaths() {
+  return blogPosts.map(post => ({
+    params: { slug: post.slug },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props;
+
+const pageTitle = post.metaTitle || `${post.title} - smartly.sale`;
+const pageDescription = post.metaDescription || post.excerpt;
 ---
 
 <MainLayout 
   title={pageTitle}
   description={pageDescription}
+  ogImage={post.featuredImage}
 >
-  <PostContent client:only="react" />
+  <PostContent client:only="react" post={post} />
 </MainLayout>

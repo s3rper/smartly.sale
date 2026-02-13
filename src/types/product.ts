@@ -37,8 +37,8 @@ export interface CMSProduct {
     'shop-name'?: string;
     'shop-location'?: string;
     'shop-rating'?: number;
-    // Affiliate Link
-    'product-offer-link'?: { url: string };
+    // Affiliate Link - can be string or object with url property
+    'product-offer-link'?: string | { url: string };
     // Meta
     _archived?: boolean;
     _draft?: boolean;
@@ -74,21 +74,42 @@ export function transformCMSProduct(cmsProduct: CMSProduct): Product {
   const images: string[] = [];
   const videos: string[] = [];
 
-  // Collect all images
+  // Collect all images and remove duplicates
+  const seenImages = new Set<string>();
   for (let i = 1; i <= 10; i++) {
     const imageKey = `image-${i}` as keyof typeof cmsProduct.fieldData;
     const image = cmsProduct.fieldData[imageKey];
     if (image && typeof image === 'object' && 'url' in image) {
-      images.push(image.url);
+      // Only add if we haven't seen this URL before
+      if (!seenImages.has(image.url)) {
+        images.push(image.url);
+        seenImages.add(image.url);
+      }
     }
   }
 
-  // Collect all videos
+  // Collect all videos and remove duplicates
+  const seenVideos = new Set<string>();
   for (let i = 1; i <= 11; i++) {
     const videoKey = `video-${i}-url` as keyof typeof cmsProduct.fieldData;
     const video = cmsProduct.fieldData[videoKey];
     if (video && typeof video === 'string') {
-      videos.push(video);
+      // Only add if we haven't seen this URL before
+      if (!seenVideos.has(video)) {
+        videos.push(video);
+        seenVideos.add(video);
+      }
+    }
+  }
+
+  // Handle affiliate link - can be string or object with url property
+  let affiliateLink: string | undefined;
+  const linkField = cmsProduct.fieldData['product-offer-link'];
+  if (linkField) {
+    if (typeof linkField === 'string') {
+      affiliateLink = linkField;
+    } else if (typeof linkField === 'object' && 'url' in linkField) {
+      affiliateLink = linkField.url;
     }
   }
 
@@ -106,34 +127,44 @@ export function transformCMSProduct(cmsProduct: CMSProduct): Product {
     shopName: cmsProduct.fieldData['shop-name'],
     shopLocation: cmsProduct.fieldData['shop-location'],
     shopRating: cmsProduct.fieldData['shop-rating'],
-    affiliateLink: cmsProduct.fieldData['product-offer-link']?.url,
+    affiliateLink,
     createdOn: cmsProduct.fieldData['created-on'],
     updatedOn: cmsProduct.fieldData['updated-on'],
     publishedOn: cmsProduct.fieldData['published-on']
   };
 }
 
-// Helper to get all images as array
+// Helper to get all images as array (with deduplication)
 export function getAllImages(product: CMSProduct): string[] {
   const images: string[] = [];
+  const seen = new Set<string>();
+  
   for (let i = 1; i <= 10; i++) {
     const key = `image-${i}` as keyof typeof product.fieldData;
     const img = product.fieldData[key];
     if (img && typeof img === 'object' && 'url' in img) {
-      images.push(img.url);
+      if (!seen.has(img.url)) {
+        images.push(img.url);
+        seen.add(img.url);
+      }
     }
   }
   return images;
 }
 
-// Helper to get all videos as array
+// Helper to get all videos as array (with deduplication)
 export function getAllVideos(product: CMSProduct): string[] {
   const videos: string[] = [];
+  const seen = new Set<string>();
+  
   for (let i = 1; i <= 11; i++) {
     const key = `video-${i}-url` as keyof typeof product.fieldData;
     const video = product.fieldData[key];
     if (video && typeof video === 'string') {
-      videos.push(video);
+      if (!seen.has(video)) {
+        videos.push(video);
+        seen.add(video);
+      }
     }
   }
   return videos;

@@ -1,0 +1,915 @@
+{
+  "dayPrediction": {
+    "emotional": [
+      "Your emotions are balanced today - perfect for deep conversations",
+      "You're radiating positive energy - spread it around!",
+      "Feeling a bit sensitive today - be gentle with yourself",
+      "Your emotional intelligence is at peak today",
+      "Mixed emotions today - that's perfectly normal",
+      "You're in your power today - own it!",
+      "Reflective mood incoming - great for journaling",
+      "Your heart is open today - embrace vulnerability",
+      "Feeling grounded and centered - trust your instincts",
+      "Creative emotions flowing - express yourself!"
+    ],
+    "energy": [
+      "85% - High energy! Tackle your biggest goals",
+      "60% - Moderate energy - pace yourself",
+      "45% - Low energy - rest is productive too",
+      "92% - Peak energy! You're unstoppable today",
+      "55% - Average energy - focus on essentials",
+      "70% - Good energy - you can do more than you think",
+      "40% - Recharge mode - self-care is priority",
+      "88% - Strong energy - seize opportunities",
+      "65% - Steady energy - consistency wins",
+      "50% - Balanced energy - work smart, not hard"
+    ],
+    "luckyVibe": [
+      "Lucky in conversations today - speak up!",
+      "Creative luck is yours - start that project",
+      "Financial opportunities may appear - stay alert",
+      "Love energy is strong - open your heart",
+      "Career luck is high - take that leap",
+      "Random kindness will bless you today",
+      "Intuition is your superpower today",
+      "Connections are favored - network away",
+      "Artistic luck - create something beautiful",
+      "General good vibes - everything flows easily"
+    ]
+  },
+  "dailyAdvice": {
+    "life": [
+      "Sometimes the best decision is to not overthink it",
+      "Your pace is perfect - don't compare to others",
+      "Small progress is still progress - celebrate it",
+      "It's okay to rest without feeling guilty",
+      "Your boundaries are valid and necessary",
+      "Not everyone deserves access to you",
+      "Healing isn't linear - be patient with yourself",
+      "Your mental health is more important than productivity",
+      "Sometimes doing nothing is doing something",
+      "You don't need permission to prioritize yourself",
+      "Let go of what you can't control",
+      "Your worth isn't measured by your achievements",
+      "It's okay to change your mind",
+      "You're allowed to outgrow people and situations",
+      "Trust the timing of your life"
+    ],
+    "work": [
+      "Focus on one thing deeply rather than many things shallowly",
+      "Take breaks - your brain needs them to work better",
+      "Done is better than perfect today",
+      "Say no to tasks that don't align with your goals",
+      "Your value isn't just your productivity",
+      "Delegate when you can - collaboration is strength",
+      "Organize your workspace for a clearer mind",
+      "Start with the hardest task - get it over with",
+      "Your work-life balance matters - protect it",
+      "Learning is progress even if you're not 'producing'",
+      "Ask for help when you need it - it's not weakness",
+      "Celebrate small wins - they add up",
+      "Your skills are valuable - don't undersell yourself",
+      "Quality over quantity always",
+      "Rest is part of productivity, not the opposite"
+    ],
+    "love": [
+      "Love yourself first - everything else follows",
+      "Communication is everything - speak your truth",
+      "You can't force someone to choose you",
+      "Actions speak louder than words - watch what they do",
+      "Your standards are not 'too high' - keep them",
+      "Closure comes from within, not from them",
+      "Don't settle for breadcrumbs when you deserve a feast",
+      "The right person won't make you question their intentions",
+      "It's okay to be single and happy",
+      "Love should feel like peace, not chaos",
+      "You're not responsible for healing someone else",
+      "Trust your gut - if something feels off, it probably is",
+      "You deserve someone who's sure about you",
+      "Don't lose yourself trying to love someone else",
+      "Real love doesn't hurt - confusion isn't love"
+    ]
+  },
+  "moodInsights": {
+    "happy": {
+      "insight": [
+        "Your happiness is magnetic today - others feel it too",
+        "This joy is yours - protect it",
+        "You've earned this happiness - savor it",
+        "Your positive energy is creating ripples",
+        "Happiness looks good on you - keep going"
+      ],
+      "quote": [
+        "Happiness is not by chance, but by choice",
+        "Joy is the simplest form of gratitude",
+        "Your vibe attracts your tribe",
+        "Celebrate the small wins today",
+        "Happiness multiplies when shared"
+      ],
+      "action": [
+        "Share your good mood - text someone you care about",
+        "Do something creative while you're in flow",
+        "Take a photo - capture this feeling",
+        "Express gratitude for 3 things right now",
+        "Plan something fun for later - keep the energy going"
+      ]
+    },
+    "neutral": {
+      "insight": [
+        "Neutral is okay - not every day needs to be extreme",
+        "You're in observation mode - that's valuable",
+        "Being steady is underrated - it's a superpower",
+        "You're conserving energy - that's wise",
+        "Neutrality gives you clarity - use it"
+      ],
+      "quote": [
+        "Peace is found in balance, not extremes",
+        "Sometimes the best choice is to pause",
+        "Neutral is not negative - it's rest",
+        "Calm is a superpower in chaos",
+        "Not all days need to be extraordinary"
+      ],
+      "action": [
+        "Check in with yourself - what do you really need?",
+        "Do something routine - find comfort in normalcy",
+        "Observe rather than react today",
+        "Practice mindfulness for 5 minutes",
+        "Journal - sometimes clarity comes from reflection"
+      ]
+    },
+    "sad": {
+      "insight": [
+        "Your feelings are valid - don't rush past them",
+        "Sadness is not weakness - it's human",
+        "This feeling is temporary, even if it doesn't feel like it",
+        "You're processing something - that's growth",
+        "It's okay to not be okay right now"
+      ],
+      "quote": [
+        "This too shall pass",
+        "Tough times don't last, but tough people do",
+        "You're stronger than you think",
+        "Every storm runs out of rain",
+        "It's okay to fall apart sometimes - that's how the light gets in"
+      ],
+      "action": [
+        "Be gentle with yourself today - no pressure",
+        "Talk to someone who gets it",
+        "Do one small thing that feels good",
+        "Rest - your body and mind need it",
+        "Remember: this is temporary, you are resilient"
+      ]
+    }
+  },
+  "decision": {
+    "yes": [
+      "YES! The universe is giving you the green light",
+      "Absolutely YES - trust your instincts on this one",
+      "YES - but set clear boundaries",
+      "Go for it! This aligns with your path",
+      "YES - you'll regret it if you don't",
+      "GREEN LIGHT! This is your moment",
+      "YES - but prepare yourself first",
+      "Definitely YES - opportunity is knocking",
+      "YES! Your future self will thank you",
+      "100% YES - don't second-guess yourself"
+    ],
+    "no": [
+      "NO - trust your gut, something's off",
+      "Not today - timing isn't right",
+      "NO - protect your peace on this one",
+      "Hard NO - your instincts are warning you",
+      "NO - you already know the answer deep down",
+      "Pass on this one - better things coming",
+      "NO - your energy is better spent elsewhere",
+      "Respectfully decline - it's not aligned",
+      "NO - and don't feel guilty about it",
+      "Not worth it - save yourself the trouble"
+    ],
+    "maybe": [
+      "MAYBE - gather more information first",
+      "50/50 - sleep on it before deciding",
+      "MAYBE - wait for a clearer sign",
+      "It depends - trust the timing",
+      "MAYBE - what does your gut really say?",
+      "Neutral zone - no rush to decide now",
+      "MAYBE later - not right now",
+      "Proceed with caution - keep options open",
+      "MAYBE - ask yourself what you're afraid of",
+      "It's a MAYBE - and that's okay for now"
+    ]
+  },
+  "energyLevel": [
+    {
+      "score": 95,
+      "message": "Peak performance mode! Conquer the world today",
+      "tip": "Channel this into your biggest goal"
+    },
+    {
+      "score": 85,
+      "message": "High energy vibes! You're on fire",
+      "tip": "Tackle your hardest tasks first"
+    },
+    {
+      "score": 75,
+      "message": "Strong and steady - you've got this",
+      "tip": "Maintain your momentum with breaks"
+    },
+    {
+      "score": 65,
+      "message": "Good energy - productive day ahead",
+      "tip": "Focus on 3 key priorities"
+    },
+    {
+      "score": 55,
+      "message": "Moderate energy - pace yourself",
+      "tip": "Work in focused 25-minute blocks"
+    },
+    {
+      "score": 45,
+      "message": "Running on reserve - be strategic",
+      "tip": "Do essentials only, rest is okay"
+    },
+    {
+      "score": 35,
+      "message": "Low energy - self-care mode activated",
+      "tip": "Nothing wrong with taking it easy"
+    },
+    {
+      "score": 25,
+      "message": "Recharge needed - listen to your body",
+      "tip": "Rest guilt-free today"
+    },
+    {
+      "score": 15,
+      "message": "Battery critical - rest is priority",
+      "tip": "Tomorrow is a new day"
+    },
+    {
+      "score": 50,
+      "message": "Balanced energy - steady wins the race",
+      "tip": "Consistency over intensity today"
+    }
+  ],
+  "compliments": [
+    "Your energy today is unmatched - you're glowing",
+    "The way you handle challenges is inspiring",
+    "Your presence makes everything better",
+    "You're growing even when you don't see it",
+    "Your resilience is your superpower",
+    "You're exactly where you need to be right now",
+    "Your vibe is immaculate today",
+    "The world is better with you in it",
+    "You're doing better than you think",
+    "Your potential is limitless - never forget that",
+    "You light up every room you enter",
+    "Your kindness doesn't go unnoticed",
+    "You're stronger than your challenges",
+    "Your authenticity is refreshing",
+    "You make difficult things look easy",
+    "Your growth is beautiful to witness",
+    "You deserve all the good things coming your way",
+    "Your mind is brilliant - trust it",
+    "You're a whole vibe and people feel it",
+    "Everything you've survived has made you unstoppable"
+  ],
+  "messageInterpretation": {
+    "cold": [
+      "They're either busy or emotionally distant right now",
+      "They're probably not feeling the conversation - give them space",
+      "Low effort response = low interest. Don't chase it",
+      "They might be going through something - not about you",
+      "Cold vibes = protect your energy, don't overextend"
+    ],
+    "neutral": [
+      "They're keeping it casual - don't read too much into it",
+      "Neutral = safe zone. They're not opening up yet",
+      "They're responsive but not invested - mirror their energy",
+      "They're engaged but guarded - patience might help",
+      "Standard vibes - nothing to worry about, nothing to celebrate"
+    ],
+    "warm": [
+      "Green flag! They're interested and engaged",
+      "Warm vibes = they enjoy talking to you",
+      "They're making effort - that's a good sign!",
+      "They're comfortable with you - keep being yourself",
+      "Positive energy! They're genuinely interested"
+    ]
+  },
+  "thinkingAboutYou": [
+    "Most likely YES - the energy suggests they are",
+    "Probably thinking about you right now",
+    "YES - and it's making them smile",
+    "Maybe - but actions matter more than thoughts",
+    "If they wanted to reach out, they would",
+    "They might be, but don't wait around to find out",
+    "YES - but it doesn't mean they'll act on it",
+    "Focus on people who make it obvious, not people who keep you guessing",
+    "The real question: are YOU thinking about them too much?",
+    "Whether they are or not, focus on your own peace"
+  ],
+  "relationshipPower": {
+    "me": [
+      "YOU have the power - you're the catch here",
+      "You're in control - set the standards",
+      "Your energy is leading this - own it",
+      "You're the main character in this story",
+      "You hold the cards - play them wisely"
+    ],
+    "them": [
+      "They're leading - but is that what you want?",
+      "They have the upper hand - how do you feel about that?",
+      "They're in control - make sure you're okay with it",
+      "They're calling the shots - is it balanced?",
+      "They have power - but you always have choice"
+    ],
+    "balanced": [
+      "Perfectly balanced - as it should be",
+      "Equal power = healthy dynamic",
+      "You're both in this together - beautiful balance",
+      "No one's chasing, no one's running - ideal",
+      "Balanced energy = real connection"
+    ]
+  },
+  "vibeAttractiveness": [
+    {
+      "score": 95,
+      "message": "Your vibe is MAGNETIC today - pure main character energy",
+      "advice": "Own it! People are drawn to you"
+    },
+    {
+      "score": 85,
+      "message": "High attractiveness - you're radiating confidence",
+      "advice": "Use this energy to connect authentically"
+    },
+    {
+      "score": 75,
+      "message": "Very attractive vibe - you're glowing",
+      "advice": "Your authenticity is your power"
+    },
+    {
+      "score": 65,
+      "message": "Solid vibe - you're approachable and real",
+      "advice": "Keep being yourself, it's working"
+    },
+    {
+      "score": 55,
+      "message": "Good energy - subtly attractive",
+      "advice": "A little confidence boost wouldn't hurt"
+    },
+    {
+      "score": 45,
+      "message": "Neutral vibe - you're in your comfort zone",
+      "advice": "Step out a bit - shine brighter"
+    },
+    {
+      "score": 88,
+      "message": "Effortlessly attractive - people feel your energy",
+      "advice": "Don't dim yourself for anyone"
+    },
+    {
+      "score": 92,
+      "message": "You're giving main character vibes today",
+      "advice": "Trust your magnetism"
+    },
+    {
+      "score": 78,
+      "message": "Warm and inviting energy",
+      "advice": "Your presence is a gift"
+    },
+    {
+      "score": 70,
+      "message": "Attractive in a quiet, powerful way",
+      "advice": "Confidence is internal - you've got it"
+    }
+  ],
+  "weekPrediction": {
+    "luck": [
+      "High luck this week - seize opportunities",
+      "Moderate luck - stay alert for chances",
+      "Luck is neutral - create your own opportunities",
+      "Lucky in unexpected ways - stay open",
+      "Luck favors the prepared - do the work"
+    ],
+    "conflict": [
+      "Low conflict - smooth sailing ahead",
+      "Minor disagreements possible - stay calm",
+      "Potential conflict - choose your battles wisely",
+      "Conflict likely - but you'll handle it",
+      "Peace is your focus - avoid unnecessary drama"
+    ],
+    "career": [
+      "Career wins coming - stay focused",
+      "Steady career week - keep grinding",
+      "Opportunities to shine at work",
+      "Career challenges = growth opportunities",
+      "Network this week - connections matter"
+    ],
+    "love": [
+      "Love energy is strong - open your heart",
+      "Focus on self-love this week",
+      "Communication is key in relationships",
+      "Single? Your vibe is attractive right now",
+      "Relationships deepen through honesty this week"
+    ]
+  },
+  "personalityToday": [
+    "THE LEADER - You're taking charge today",
+    "THE THINKER - Deep thoughts and clarity",
+    "THE CREATOR - Artistic energy flowing",
+    "THE GHOSTER - You need space today",
+    "THE ROMANTIC - Love is in the air",
+    "THE REBEL - Breaking rules, making waves",
+    "THE HEALER - Nurturing energy today",
+    "THE ACHIEVER - Goals on your mind",
+    "THE DREAMER - Vision and imagination",
+    "THE WARRIOR - Fighting for what matters",
+    "THE SAGE - Wisdom and insight",
+    "THE SOCIAL BUTTERFLY - Connection vibes",
+    "THE MINIMALIST - Less is more today",
+    "THE ADVENTURER - Taking risks",
+    "THE PROTECTOR - Guarding your peace"
+  ],
+  "hiddenTalent": [
+    "Reading people's energy - your intuition is sharp",
+    "Making others feel comfortable - natural gift",
+    "Problem-solving under pressure - you thrive in chaos",
+    "Creative thinking - you see what others miss",
+    "Resilience - bouncing back is your superpower",
+    "Listening deeply - rare and valuable",
+    "Making people laugh - your humor is healing",
+    "Strategic thinking - you see the big picture",
+    "Adaptability - you flow with change",
+    "Inspiring others without trying - natural leadership",
+    "Emotional intelligence - you get people",
+    "Manifestation - your thoughts become reality",
+    "Pattern recognition - you connect the dots",
+    "Authenticity - being real is your strength",
+    "Calm in crisis - your peace is powerful"
+  ],
+  "dominantEmotion": [
+    "HOPE - You're optimistic about what's coming",
+    "PEACE - You're in a calm state today",
+    "DETERMINATION - Nothing stops you today",
+    "JOY - Happiness is your baseline today",
+    "CURIOSITY - You're eager to learn and explore",
+    "GRATITUDE - Appreciation fills your heart",
+    "ANXIETY - Your mind is racing a bit",
+    "CONTENTMENT - You're satisfied with now",
+    "AMBITION - You're hungry for success",
+    "NOSTALGIA - Reflecting on the past today",
+    "COURAGE - You're ready to face challenges",
+    "LOVE - Your heart is open today",
+    "FRUSTRATION - You're feeling blocked",
+    "EXCITEMENT - Anticipation is building",
+    "CLARITY - Everything makes sense today"
+  ],
+  "difficultyLevel": [
+    {
+      "level": "EASY",
+      "message": "Today is a breeze - enjoy the flow!",
+      "explanation": "Minimal challenges ahead. Use this energy to rest or prepare for busier days."
+    },
+    {
+      "level": "EASY",
+      "message": "Smooth sailing - nothing major today",
+      "explanation": "Low resistance day. Perfect for maintenance tasks and self-care."
+    },
+    {
+      "level": "MEDIUM",
+      "message": "Moderate challenges - you've got this",
+      "explanation": "Some obstacles but nothing you can't handle. Stay focused and pace yourself."
+    },
+    {
+      "level": "MEDIUM",
+      "message": "Standard difficulty - normal day vibes",
+      "explanation": "Average effort required. Balance work and rest effectively."
+    },
+    {
+      "level": "MEDIUM",
+      "message": "A few hurdles but manageable",
+      "explanation": "You'll need focus but nothing overwhelming. Trust your abilities."
+    },
+    {
+      "level": "HARD",
+      "message": "Boss level today - but you're the boss",
+      "explanation": "Tough day ahead. Prioritize, delegate, and don't be hard on yourself."
+    },
+    {
+      "level": "HARD",
+      "message": "Challenging day - survival mode activated",
+      "explanation": "High difficulty but temporary. Focus on essentials and ask for help if needed."
+    },
+    {
+      "level": "HARD",
+      "message": "Dark Souls difficulty - prepare yourself",
+      "explanation": "Very challenging day. Remember: you've survived 100% of your hardest days so far."
+    }
+  ],
+  "workMotivation": [
+    "Your work today creates your freedom tomorrow",
+    "Progress > Perfection. Start messy, refine later",
+    "Every expert was once a beginner. Keep going",
+    "Your future self is counting on your present actions",
+    "Done is better than perfect. Take action!",
+    "You didn't come this far to only come this far",
+    "Small daily efforts = massive long-term results",
+    "Your skills are valuable. Your time is precious. Act accordingly",
+    "Focus on progress, not perfection",
+    "The work you do today builds the life you want tomorrow",
+    "Discipline is choosing what you want most over what you want now",
+    "You're capable of more than you think. Prove it today",
+    "Excellence is a habit. Make today count",
+    "Your effort today is an investment in your future",
+    "Be so good they can't ignore you"
+  ],
+  "restOrWork": [
+    {
+      "decision": "REST",
+      "reason": "Your body needs recovery. Rest is productive",
+      "action": "Take a guilt-free break. Recharge your energy."
+    },
+    {
+      "decision": "REST",
+      "reason": "You've been pushing hard. Time to pause",
+      "action": "Burnout helps no one. Rest now, work better later."
+    },
+    {
+      "decision": "WORK",
+      "reason": "You have the energy. Channel it now!",
+      "action": "Your focus is sharp. Use this momentum."
+    },
+    {
+      "decision": "WORK",
+      "reason": "Momentum is on your side - ride the wave",
+      "action": "Strike while the iron is hot. Take action!"
+    },
+    {
+      "decision": "LIGHT WORK",
+      "reason": "Do easy tasks but don't push too hard",
+      "action": "Gentle productivity. Check off small wins."
+    },
+    {
+      "decision": "REST",
+      "reason": "Your mind is foggy. Rest clears it",
+      "action": "Mental clarity comes from rest. Take it easy."
+    },
+    {
+      "decision": "WORK",
+      "reason": "You'll regret not starting today",
+      "action": "Future you will thank present you. Begin now."
+    },
+    {
+      "decision": "WORK",
+      "reason": "Consistency compounds. Keep your streak",
+      "action": "Even 20 minutes of focused work counts."
+    }
+  ],
+  "taskPriority": [
+    "START WITH THE HARDEST TASK - Eat that frog first",
+    "TACKLE SOMETHING CREATIVE - Your mind is in flow",
+    "HANDLE COMMUNICATION FIRST - Clear your inbox",
+    "FOCUS ON MONEY-MAKING TASKS - Revenue first",
+    "DO SOMETHING YOU'VE BEEN AVOIDING - Get it over with",
+    "ORGANIZE BEFORE EXECUTING - Clarity creates speed",
+    "WORK ON YOUR BIGGEST GOAL - Long-term over urgent",
+    "FINISH WHAT YOU STARTED - Complete beats perfect",
+    "DELEGATE SOMETHING - Free up mental space",
+    "DO SOMETHING LEARNING-FOCUSED - Invest in skills",
+    "HANDLE QUICK WINS FIRST - Build momentum",
+    "FOCUS ON DEEP WORK - No distractions allowed",
+    "AUTOMATE OR ELIMINATE - Work smarter not harder",
+    "REVIEW YOUR GOALS - Make sure you're aligned",
+    "REST AND STRATEGIZE - Planning is productive too"
+  ],
+  "selfAwarenessLevel": [
+    {
+      "score": 90,
+      "insight": "Highly self-aware - you see yourself clearly",
+      "tip": "Use this clarity to make aligned decisions"
+    },
+    {
+      "score": 75,
+      "insight": "Strong self-awareness - you know your patterns",
+      "tip": "Keep journaling and reflecting"
+    },
+    {
+      "score": 60,
+      "insight": "Moderate awareness - you're learning about yourself",
+      "tip": "Ask yourself deeper questions today"
+    },
+    {
+      "score": 45,
+      "insight": "Developing awareness - be curious about your reactions",
+      "tip": "Notice your triggers without judgment"
+    },
+    {
+      "score": 85,
+      "insight": "Very self-aware - you catch yourself quickly",
+      "tip": "This is a powerful tool - keep using it"
+    },
+    {
+      "score": 70,
+      "insight": "Good self-awareness - you're honest with yourself",
+      "tip": "Your honesty is your growth tool"
+    },
+    {
+      "score": 55,
+      "insight": "Growing awareness - you're starting to see patterns",
+      "tip": "Reflection is your friend today"
+    },
+    {
+      "score": 95,
+      "insight": "Exceptional self-awareness - rare and valuable",
+      "tip": "Help others develop theirs"
+    }
+  ],
+  "emotionalMaturity": [
+    "HIGH - You respond, not react. That's growth",
+    "DEVELOPING - You're catching yourself more often",
+    "STRONG - You own your emotions and actions",
+    "EVOLVING - Progress, not perfection",
+    "SOLID - You handle tough emotions well",
+    "MATURING - You're learning to regulate better",
+    "ADVANCED - You process instead of project",
+    "GROWING - Awareness is the first step",
+    "HEALTHY - You balance emotion and logic",
+    "IMPRESSIVE - You pause before reacting"
+  ],
+  "overthinking": [
+    "YES - You're in analysis paralysis mode",
+    "PROBABLY - Your mind is spiraling a bit",
+    "DEFINITELY - Time to ground yourself",
+    "A LITTLE - Normal amount of thinking",
+    "YES - But that means you care deeply",
+    "OVERTHINKING ALERT - Simplify your thoughts",
+    "POSSIBLY - Check if you're avoiding action",
+    "YES - Write it down, clear your mind",
+    "ABSOLUTELY - You need a mental break",
+    "YES - But overthinking isn't the problem, under-acting is"
+  ],
+  "stressType": [
+    {
+      "type": "MENTAL",
+      "description": "Your mind is overwhelmed with thoughts",
+      "tip": "Brain dump everything on paper. External clarity helps."
+    },
+    {
+      "type": "PHYSICAL",
+      "description": "Your body is carrying tension",
+      "tip": "Move, stretch, or rest. Your body needs attention."
+    },
+    {
+      "type": "EMOTIONAL",
+      "description": "Your feelings are intense right now",
+      "tip": "Feel them without judgment. Emotion needs expression."
+    },
+    {
+      "type": "SOCIAL",
+      "description": "People are draining your energy",
+      "tip": "Set boundaries. Alone time is medicine."
+    },
+    {
+      "type": "FINANCIAL",
+      "description": "Money worries are weighing on you",
+      "tip": "Make a plan. Action reduces anxiety."
+    },
+    {
+      "type": "TIME",
+      "description": "You feel like there's never enough time",
+      "tip": "Prioritize ruthlessly. Not everything is urgent."
+    },
+    {
+      "type": "EXISTENTIAL",
+      "description": "Big questions about life and purpose",
+      "tip": "This is growth, not crisis. Be patient with yourself."
+    },
+    {
+      "type": "RELATIONAL",
+      "description": "Relationship stress is dominant",
+      "tip": "Communicate clearly. Assumptions create problems."
+    }
+  ],
+  "lifeStatus": {
+    "feeling": [
+      "Optimistic about what's ahead",
+      "Tired but still pushing",
+      "Grateful for small wins",
+      "Overwhelmed but handling it",
+      "Peaceful and content",
+      "Excited for what's coming",
+      "Reflective and introspective",
+      "Motivated and driven",
+      "Calm and centered",
+      "In transition and growing"
+    ],
+    "need": [
+      "More rest and self-care",
+      "Clear direction and focus",
+      "Connection and community",
+      "Space and solitude",
+      "Validation and support",
+      "Adventure and newness",
+      "Stability and routine",
+      "Growth and challenge",
+      "Peace and quiet",
+      "Purpose and meaning"
+    ],
+    "focusedOn": [
+      "Building better habits",
+      "Career and ambitions",
+      "Mental health and healing",
+      "Relationships and connection",
+      "Financial stability",
+      "Personal growth",
+      "Creative projects",
+      "Health and fitness",
+      "Finding balance",
+      "Creating a better future"
+    ]
+  },
+  "oneWord": [
+    "RESILIENT",
+    "EVOLVING",
+    "FOCUSED",
+    "BRAVE",
+    "UNSTOPPABLE",
+    "FIERCE",
+    "PEACEFUL",
+    "DETERMINED",
+    "AUTHENTIC",
+    "POWERFUL",
+    "GROWING",
+    "RISING",
+    "HEALING",
+    "SHINING",
+    "THRIVING",
+    "BECOMING",
+    "FEARLESS",
+    "INTENTIONAL",
+    "MAGNETIC",
+    "LIMITLESS"
+  ],
+  "vibeColor": [
+    {
+      "color": "GOLDEN",
+      "mood": "Confident and radiant",
+      "meaning": "You're in your power - shine bright"
+    },
+    {
+      "color": "BLUE",
+      "mood": "Calm and peaceful",
+      "meaning": "Tranquility is your superpower today"
+    },
+    {
+      "color": "RED",
+      "mood": "Passionate and energetic",
+      "meaning": "Your fire is lit - take action"
+    },
+    {
+      "color": "GREEN",
+      "mood": "Growing and healing",
+      "meaning": "You're evolving beautifully"
+    },
+    {
+      "color": "PURPLE",
+      "mood": "Creative and mystical",
+      "meaning": "Your imagination is powerful today"
+    },
+    {
+      "color": "ORANGE",
+      "mood": "Playful and enthusiastic",
+      "meaning": "Joy and energy flow through you"
+    },
+    {
+      "color": "PINK",
+      "mood": "Loving and gentle",
+      "meaning": "Softness is strength today"
+    },
+    {
+      "color": "BLACK",
+      "mood": "Mysterious and powerful",
+      "meaning": "Your depth is your power"
+    },
+    {
+      "color": "WHITE",
+      "mood": "Clear and pure",
+      "meaning": "Clarity and fresh starts await"
+    },
+    {
+      "color": "SILVER",
+      "mood": "Reflective and wise",
+      "meaning": "Your intuition is sharp today"
+    }
+  ],
+  "successBlocker": [
+    {
+      "blocker": "FEAR OF FAILURE",
+      "advice": "Failure is feedback, not final. Take the risk"
+    },
+    {
+      "blocker": "PERFECTIONISM",
+      "advice": "Done beats perfect. Lower the bar to start"
+    },
+    {
+      "blocker": "LACK OF CLARITY",
+      "advice": "Define your goal clearly. Clarity creates action"
+    },
+    {
+      "blocker": "SELF-DOUBT",
+      "advice": "Your doubts are liars. Trust your capabilities"
+    },
+    {
+      "blocker": "PROCRASTINATION",
+      "advice": "5-minute rule: just start. Momentum builds itself"
+    },
+    {
+      "blocker": "COMPARISON",
+      "advice": "Run your own race. Their timeline isn't yours"
+    },
+    {
+      "blocker": "LACK OF SUPPORT",
+      "advice": "Find your people. Community accelerates growth"
+    },
+    {
+      "blocker": "BURNOUT",
+      "advice": "Rest isn't quitting. Recharge to come back stronger"
+    },
+    {
+      "blocker": "POOR HABITS",
+      "advice": "Systems > Motivation. Build better routines"
+    },
+    {
+      "blocker": "OVERTHINKING",
+      "advice": "Thinking without action is just worrying. Move"
+    }
+  ],
+  "monthlyLesson": [
+    "LETTING GO - Release what no longer serves you",
+    "BOUNDARIES - Learn to say no without guilt",
+    "PATIENCE - Trust the timing of your life",
+    "SELF-WORTH - You're enough, exactly as you are",
+    "RESILIENCE - You're stronger than you think",
+    "AUTHENTICITY - Being real is your superpower",
+    "GRATITUDE - Appreciation shifts everything",
+    "ACTION - Planning without doing is just dreaming",
+    "SELF-LOVE - You can't pour from an empty cup",
+    "COURAGE - Do it scared, do it anyway",
+    "ACCEPTANCE - What is, is. Flow with it",
+    "GROWTH - Discomfort is where change happens",
+    "FORGIVENESS - Holding grudges hurts you most",
+    "CLARITY - Know what you want, then pursue it",
+    "TRUST - Have faith in your journey"
+  ],
+  "becoming": [
+    "Someone who chooses themselves first",
+    "A person who doesn't settle for less anymore",
+    "Someone unafraid of their own power",
+    "A version of yourself you'd be proud of",
+    "Someone who knows their worth deeply",
+    "A person who breaks generational patterns",
+    "Someone who acts despite fear",
+    "Your most authentic self",
+    "A person who creates, not just consumes",
+    "Someone who leads by example",
+    "A version that protects their peace fiercely",
+    "Someone impossible to dim",
+    "A person who invests in themselves",
+    "The main character of your own story",
+    "Someone who turns pain into power"
+  ],
+  "motivationalTap": [
+    "You've survived 100% of your hardest days. Keep going",
+    "Small steps every day = massive transformation",
+    "Your future self is cheering you on right now",
+    "Progress over perfection, always",
+    "You're closer than you think. Don't quit",
+    "Everything you want is on the other side of consistency",
+    "Your effort will never betray you",
+    "Believe in yourself - it's not optional, it's necessary",
+    "The only way out is through. Keep moving",
+    "You're building something beautiful, even if you can't see it yet",
+    "Rest if you need to, but don't quit",
+    "Your comeback will be bigger than your setback",
+    "Every expert was once a beginner like you",
+    "Trust the process, even when it's slow",
+    "You didn't come this far to only come this far"
+  ],
+  "confidenceBooster": [
+    "You're more capable than you give yourself credit for",
+    "Your presence alone adds value",
+    "You've overcome so much already - that's proof",
+    "People respect your energy, even if they don't say it",
+    "You're exactly who someone is praying to become",
+    "Your voice matters. Speak up",
+    "Confidence isn't 'they'll like me' - it's 'I'll be fine if they don't'",
+    "You're not for everyone, and that's your power",
+    "Your authenticity is magnetic",
+    "You've got this, because you ARE this",
+    "Walk in like you own the place - that's your energy today",
+    "Your vibe is unmatched when you believe in yourself",
+    "You don't need permission to take up space",
+    "Doubt less, trust more. You're ready",
+    "The world adjusts to confident people. Be one"
+  ]
+}

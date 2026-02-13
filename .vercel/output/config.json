@@ -36,7 +36,115 @@
 			"dest": "_render"
 		},
 		{
+			"src": "^/api/cpa-offers/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/blog/affordable-fashion-finds-shopee-closet-to-cart/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/blog/biggest-game-releases-november-2025/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/blog/declutter-closet-10-minutes-shopee/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/blog/deep-rock-galactic-survivor-mobile-2025/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/blog/free-psn-codes-shopee-tips/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/blog/how-to-get-free-roblox-robux-shopee-2025/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/blog/how-to-get-free-xbox-codes-shopee-2025/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/blog/how-to-spot-shopee-bestsellers-2025/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/blog/kitchen-gadgets-save-time-shopee/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/blog/maximize-small-spaces-home-living-hacks-shopee/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/blog/november-2025-game-releases-calendar/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/blog/optimize-desk-maximum-focus-shopee/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/blog/shopee-free-roblox-robux-claim-rewards/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/blog/shopee-free-shipping-voucher-guide/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/blog/shopee-free-voucher-discount-codes-2025/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/blog/shopee-hidden-vouchers-secret-codes/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/blog/shopee-roblox-robux-giveaway-2025/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/blog/smart-home-shopping-guide-budget-gadgets-shopee/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/blog/starter-kit-under-500-budget-shopping-shopee/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/blog/support-local-handmade-filipino-products-shopee/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/blog/this-week-mobile-games-november-13-2025/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/blog/top-10-eco-friendly-sustainable-products-shopee-ph-2025/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/blog/top-mobile-games-november-2025/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/blog/wellness-self-care-beauty-skincare-essentials-shopee-2025/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/blog/([^/]+?)/?$",
+			"dest": "_render"
+		},
+		{
 			"src": "^/blog/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/bonus/?$",
 			"dest": "_render"
 		},
 		{
@@ -45,6 +153,14 @@
 		},
 		{
 			"src": "^/contact/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/earn/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/jokes/?$",
 			"dest": "_render"
 		},
 		{
@@ -60,11 +176,27 @@
 			"dest": "_render"
 		},
 		{
+			"src": "^/product-details/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/product-details-demo/?$",
+			"dest": "_render"
+		},
+		{
 			"src": "^/products/?$",
 			"dest": "_render"
 		},
 		{
+			"src": "^/sitemap\\.xml/?$",
+			"dest": "_render"
+		},
+		{
 			"src": "^/terms/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/tiktok-viral/?$",
 			"dest": "_render"
 		},
 		{

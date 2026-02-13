@@ -67,7 +67,7 @@ const ContactForm: React.FC = () => {
             value={formData.name}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-[#FF6600]"
+            className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-brand"
             placeholder="Juan Dela Cruz"
           />
         </div>
@@ -84,7 +84,7 @@ const ContactForm: React.FC = () => {
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-[#FF6600]"
+            className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-brand"
             placeholder="juan@example.com"
           />
         </div>
@@ -100,7 +100,7 @@ const ContactForm: React.FC = () => {
             value={formData.subject}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-[#FF6600] appearance-none cursor-pointer"
+            className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-brand appearance-none cursor-pointer"
           >
             <option value="">Select a subject</option>
             <option value="partnership">Business Partnership</option>
@@ -124,7 +124,7 @@ const ContactForm: React.FC = () => {
             onChange={handleChange}
             required
             rows={6}
-            className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-[#FF6600] resize-none"
+            className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-brand resize-none"
             placeholder="Tell us more about your inquiry..."
           />
         </div>
@@ -133,7 +133,7 @@ const ContactForm: React.FC = () => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full flex items-center justify-center px-8 py-4 bg-[#FF6600] text-white font-bold rounded-full hover:bg-[#FF6600]/90 transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+          className="w-full flex items-center justify-center px-8 py-4 bg-brand text-white font-bold rounded-full hover:bg-brand/90 transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
         >
           {isSubmitting ? (
             <>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Facebook, Send, ShoppingBag } from 'lucide-react';
+import { Facebook, Send, ShoppingBag, Home, Mail, DollarSign } from 'lucide-react';
 import { baseUrl } from '../lib/base-url';
 
 const Footer: React.FC = () => {
@@ -7,56 +7,62 @@ const Footer: React.FC = () => {
 
   return (
     <>
-      {/* Sticky Footer Bar */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-[#FF6600] text-white shadow-lg md:hidden">
+      {/* Mobile Bottom Navigation Bar */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-brand text-white shadow-lg md:hidden">
         <div className="flex justify-around items-center py-3">
           <a
             href={baseUrl}
             className="flex flex-col items-center space-y-1 hover:opacity-80 transition-opacity"
           >
-            <ShoppingBag className="w-5 h-5" />
+            <Home className="w-5 h-5" />
             <span className="text-xs font-medium">Home</span>
           </a>
           <a
-            href={`${baseUrl}/blog`}
-            className="flex flex-col items-center space-y-1 hover:opacity-80 transition-opacity"
-          >
-            <Search className="w-5 h-5" />
-            <span className="text-xs font-medium">Browse</span>
-          </a>
-          <a
-            href="https://shopee.ph"
-            target="_blank"
-            rel="noopener noreferrer nofollow"
+            href={`${baseUrl}/products`}
             className="flex flex-col items-center space-y-1 hover:opacity-80 transition-opacity"
           >
             <ShoppingBag className="w-5 h-5" />
-            <span className="text-xs font-medium">Shopee</span>
+            <span className="text-xs font-medium">Products</span>
+          </a>
+          <a
+            href={`${baseUrl}/earn`}
+            className="flex flex-col items-center space-y-1 hover:opacity-80 transition-opacity"
+          >
+            <DollarSign className="w-5 h-5" />
+            <span className="text-xs font-medium">Earn</span>
+          </a>
+          <a
+            href={`${baseUrl}/contact`}
+            className="flex flex-col items-center space-y-1 hover:opacity-80 transition-opacity"
+          >
+            <Mail className="w-5 h-5" />
+            <span className="text-xs font-medium">Contact</span>
           </a>
         </div>
       </div>
 
       {/* Main Footer */}
-      <footer className="bg-[#2D3748] text-white mt-16 pb-16 md:pb-0">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <footer className="bg-[#1a202c] text-white pb-16 md:pb-0">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             {/* Brand */}
-            <div className="space-y-4">
+            <div className="space-y-5">
               <div className="flex items-center space-x-2">
-                <div className="w-10 h-10 bg-[#FF6600] rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-xl">S</span>
+                <div className="w-12 h-12 bg-brand rounded-xl flex items-center justify-center shadow-lg">
+                  <span className="text-white font-bold text-2xl">S</span>
                 </div>
-                <span className="text-xl font-bold">smartly.sale</span>
+                <span className="text-2xl font-bold">smartly.sale</span>
               </div>
-              <p className="text-gray-300 text-sm">
-                Your ultimate guide to finding the best viral and trending products from Shopee Philippines.
+              <p className="text-gray-400 text-sm leading-relaxed">
+                Your ultimate guide to discovering the best viral and trending products from Shopee Philippines.
               </p>
-              <div className="flex space-x-4">
+              <div className="flex space-x-3 pt-2">
                 <a
                   href="https://facebook.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#FF6600] transition-colors"
+                  className="w-11 h-11 bg-white/10 rounded-xl flex items-center justify-center hover:bg-brand transition-all duration-300 hover:scale-110"
+                  aria-label="Visit our Facebook page"
                 >
                   <Facebook className="w-5 h-5" />
                 </a>
@@ -64,7 +70,8 @@ const Footer: React.FC = () => {
                   href="https://tiktok.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#FF6600] transition-colors"
+                  className="w-11 h-11 bg-white/10 rounded-xl flex items-center justify-center hover:bg-brand transition-all duration-300 hover:scale-110"
+                  aria-label="Visit our TikTok page"
                 >
                   <Send className="w-5 h-5" />
                 </a>
@@ -72,7 +79,8 @@ const Footer: React.FC = () => {
                   href="https://shopee.ph"
                   target="_blank"
                   rel="noopener noreferrer nofollow"
-                  className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#FF6600] transition-colors"
+                  className="w-11 h-11 bg-white/10 rounded-xl flex items-center justify-center hover:bg-brand transition-all duration-300 hover:scale-110"
+                  aria-label="Visit Shopee Philippines"
                 >
                   <ShoppingBag className="w-5 h-5" />
                 </a>
@@ -81,26 +89,54 @@ const Footer: React.FC = () => {
 
             {/* Quick Links */}
             <div>
-              <h3 className="font-bold text-lg mb-4">Quick Links</h3>
-              <ul className="space-y-2">
+              <h3 className="font-bold text-white text-base uppercase tracking-wider">Quick Links</h3>
+              <ul className="space-y-3.5 mt-4">
                 <li>
-                  <a href={baseUrl} className="text-gray-300 hover:text-[#FF6600] transition-colors">
+                  <a 
+                    href={baseUrl} 
+                    className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
+                  >
                     Home
                   </a>
                 </li>
                 <li>
-                  <a href={`${baseUrl}/blog`} className="text-gray-300 hover:text-[#FF6600] transition-colors">
+                  <a 
+                    href={`${baseUrl}/products`} 
+                    className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
+                  >
+                    Products
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href={`${baseUrl}/earn`} 
+                    className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
+                  >
+                    Earn Money
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href={`${baseUrl}/blog`} 
+                    className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
+                  >
                     Blog
                   </a>
                 </li>
                 <li>
-                  <a href={`${baseUrl}/categories`} className="text-gray-300 hover:text-[#FF6600] transition-colors">
-                    Categories
+                  <a 
+                    href={`${baseUrl}/about`} 
+                    className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
+                  >
+                    About Us
                   </a>
                 </li>
                 <li>
-                  <a href={`${baseUrl}/about`} className="text-gray-300 hover:text-[#FF6600] transition-colors">
-                    About Us
+                  <a 
+                    href={`${baseUrl}/contact`} 
+                    className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
+                  >
+                    Contact Us
                   </a>
                 </li>
               </ul>
@@ -108,25 +144,37 @@ const Footer: React.FC = () => {
 
             {/* Categories */}
             <div>
-              <h3 className="font-bold text-lg mb-4">Popular Categories</h3>
-              <ul className="space-y-2">
+              <h3 className="font-bold text-white text-base uppercase tracking-wider">Categories</h3>
+              <ul className="space-y-3.5 mt-4">
                 <li>
-                  <a href={`${baseUrl}/blog?category=gadgets`} className="text-gray-300 hover:text-[#FF6600] transition-colors">
+                  <a 
+                    href={`${baseUrl}/products?search=gadgets`} 
+                    className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
+                  >
                     Budget Gadgets
                   </a>
                 </li>
                 <li>
-                  <a href={`${baseUrl}/blog?category=fashion`} className="text-gray-300 hover:text-[#FF6600] transition-colors">
+                  <a 
+                    href={`${baseUrl}/products?search=fashion`} 
+                    className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
+                  >
                     Fashion & Apparel
                   </a>
                 </li>
                 <li>
-                  <a href={`${baseUrl}/blog?category=home`} className="text-gray-300 hover:text-[#FF6600] transition-colors">
+                  <a 
+                    href={`${baseUrl}/products?search=home`} 
+                    className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
+                  >
                     Home & Living
                   </a>
                 </li>
                 <li>
-                  <a href={`${baseUrl}/blog?category=beauty`} className="text-gray-300 hover:text-[#FF6600] transition-colors">
+                  <a 
+                    href={`${baseUrl}/products?search=beauty`} 
+                    className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
+                  >
                     Beauty & Health
                   </a>
                 </li>
@@ -135,20 +183,29 @@ const Footer: React.FC = () => {
 
             {/* Legal */}
             <div>
-              <h3 className="font-bold text-lg mb-4">Legal</h3>
-              <ul className="space-y-2">
+              <h3 className="font-bold text-white text-base uppercase tracking-wider">Legal</h3>
+              <ul className="space-y-3.5 mt-4">
                 <li>
-                  <a href={`${baseUrl}/contact`} className="text-gray-300 hover:text-[#FF6600] transition-colors">
+                  <a 
+                    href={`${baseUrl}/contact`} 
+                    className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
+                  >
                     Contact Us
                   </a>
                 </li>
                 <li>
-                  <a href={`${baseUrl}/privacy`} className="text-gray-300 hover:text-[#FF6600] transition-colors">
+                  <a 
+                    href={`${baseUrl}/privacy`} 
+                    className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
+                  >
                     Privacy Policy
                   </a>
                 </li>
                 <li>
-                  <a href={`${baseUrl}/terms`} className="text-gray-300 hover:text-[#FF6600] transition-colors">
+                  <a 
+                    href={`${baseUrl}/terms`} 
+                    className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
+                  >
                     Terms of Service
                   </a>
                 </li>
@@ -157,35 +214,21 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Bottom Bar */}
-          <div className="border-t border-gray-600 mt-8 pt-8 text-center text-gray-400 text-sm">
-            <p className="mb-2">
-              <strong>Affiliate Disclosure:</strong> smartly.sale participates in affiliate marketing programs. 
-              We may earn a commission when you make purchases through our links at no additional cost to you.
-            </p>
-            <p>© {currentYear} smartly.sale. All rights reserved.</p>
+          <div className="border-t border-gray-700 pt-8 mt-8">
+            <div className="text-center space-y-3">
+              <p className="text-gray-400 text-sm leading-relaxed max-w-3xl mx-auto">
+                <strong className="text-gray-300">Affiliate Disclosure:</strong> smartly.sale participates in affiliate marketing programs. 
+                We may earn a commission when you make purchases through our links at no additional cost to you.
+              </p>
+              <p className="text-gray-500 text-sm">
+                © {currentYear} smartly.sale. All rights reserved.
+              </p>
+            </div>
           </div>
         </div>
       </footer>
     </>
   );
 };
-
-// Import Search icon
-const Search = ({ className }: { className?: string }) => (
-  <svg
-    className={className}
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-    />
-  </svg>
-);
 
 export default Footer;

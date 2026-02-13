@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product URL Generator - smartly.sale</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+        }
+        h1 {
+            color: #1a202c;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+        .subtitle {
+            color: #718096;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+        textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            resize: vertical;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .button-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 16px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+        .btn-secondary {
+            background: #edf2f7;
+            color: #2d3748;
+        }
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+        .btn-success {
+            background: #48bb78;
+            color: white;
+        }
+        .output {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+            margin-top: 20px;
+        }
+        .output-url {
+            word-break: break-all;
+            background: white;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e0;
+            font-family: monospace;
+            font-size: 13px;
+            margin: 10px 0;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+        .success {
+            background: #c6f6d5;
+            color: #22543d;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 10px 0;
+            display: none;
+        }
+        .error {
+            background: #fed7d7;
+            color: #742a2a;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 10px 0;
+            display: none;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-top: 12px;
+        }
+        .stat {
+            background: white;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: #718096;
+            margin-top: 4px;
+        }
+        .help-text {
+            background: #bee3f8;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 20px;
+            color: #2c5282;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Product URL Generator</h1>
+        <p class="subtitle">Generate dynamic product detail URLs for Facebook Ads</p>
+
+        <div class="section">
+            <label for="jsonInput">Paste your Shopee product JSON data:</label>
+            <textarea id="jsonInput" placeholder='Paste your JSON here, e.g.:
+{
+  "item_id": "22057240522",
+  "productOfferLink": "https://s.shopee.ph/...",
+  "batch_item_for_item_card_full": {
+    "name": "Product Name",
+    ...
+  }
+}'></textarea>
+        </div>
+
+        <div class="button-group">
+            <button class="btn-primary" onclick="generateURL()">✨ Generate URL</button>
+            <button class="btn-secondary" onclick="loadSample()">📋 Load Sample Data</button>
+            <button class="btn-secondary" onclick="clearAll()">🗑️ Clear</button>
+        </div>
+
+        <div id="success" class="success"></div>
+        <div id="error" class="error"></div>
+
+        <div id="output" class="output" style="display: none;">
+            <h3 style="margin-bottom: 12px;">📊 Generated URL:</h3>
+            <div id="generatedURL" class="output-url"></div>
+            <div class="button-group" style="margin-top: 12px;">
+                <button class="btn-success" onclick="copyURL()">📋 Copy URL</button>
+                <button class="btn-primary" onclick="openURL()">🔗 Open in New Tab</button>
+                <button class="btn-secondary" onclick="testLocally()">🧪 Test Locally</button>
+            </div>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-value" id="urlLength">0</div>
+                    <div class="stat-label">Characters</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="dataSize">0</div>
+                    <div class="stat-label">KB</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="help-text">
+            <strong>💡 How to use:</strong><br>
+            1. Get product data from Shopee Affiliate API<br>
+            2. Paste the JSON data above<br>
+            3. Click "Generate URL"<br>
+            4. Copy the URL and use it in your Facebook Ads!
+        </div>
+    </div>
+
+    <script>
+        let generatedURLText = '';
+
+        const sampleData = {
+            "item_id": "22057240522",
+            "productOfferLink": "https://s.shopee.ph/5L4KlPufIJ",
+            "batch_item_for_item_card_full": {
+                "itemid": "22057240522",
+                "shopid": "704270867",
+                "name": "5 in 1 Cute Stationery School Supplies Set Birthday Christmas Gift Ideas Giveaways for kids",
+                "image": "ph-11134207-7ra0o-mcg6ku6zzi1d9c",
+                "images": [
+                    "ph-11134207-7ra0o-mcg6ku6zzi1d9c",
+                    "ph-11134207-7r991-lmmt582otbwv1f"
+                ],
+                "price": "400000",
+                "price_min": "400000",
+                "price_max": "1300000",
+                "price_before_discount": "2000000",
+                "discount": "87%",
+                "stock": 586158,
+                "sold_text": "10K+",
+                "item_rating": {
+                    "rating_star": 4.8,
+                    "rating_count": [1804, 22, 6, 62, 125, 1589]
+                },
+                "shop_name": "writing notebook",
+                "shop_location": "Obando, Bulacan",
+                "shop_rating": 4.81,
+                "shopee_verified": true,
+                "can_use_cod": true
+            }
+        };
+
+        function loadSample() {
+            document.getElementById('jsonInput').value = JSON.stringify(sampleData, null, 2);
+            showSuccess('Sample data loaded! Click "Generate URL" to continue.');
+        }
+
+        function generateURL() {
+            const jsonText = document.getElementById('jsonInput').value.trim();
+            
+            if (!jsonText) {
+                showError('Please paste some JSON data first!');
+                return;
+            }
+
+            try {
+                const data = JSON.parse(jsonText);
+                
+                // Validate required fields
+                if (!data.batch_item_for_item_card_full) {
+                    showError('Invalid data: missing batch_item_for_item_card_full');
+                    return;
+                }
+
+                // Generate URL
+                const encodedData = encodeURIComponent(JSON.stringify(data));
+                const baseUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+                    ? `http://${window.location.host}`
+                    : 'https://smartly.sale';
+                generatedURLText = `${baseUrl}/product-details?data=${encodedData}`;
+
+                // Display
+                document.getElementById('generatedURL').textContent = generatedURLText;
+                document.getElementById('urlLength').textContent = generatedURLText.length.toLocaleString();
+                document.getElementById('dataSize').textContent = (new Blob([generatedURLText]).size / 1024).toFixed(2);
+                document.getElementById('output').style.display = 'block';
+                
+                showSuccess('✅ URL generated successfully! You can now copy or test it.');
+                
+                // Scroll to output
+                document.getElementById('output').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            } catch (e) {
+                showError('Invalid JSON format. Please check your data and try again. Error: ' + e.message);
+            }
+        }
+
+        function copyURL() {
+            navigator.clipboard.writeText(generatedURLText).then(() => {
+                showSuccess('✅ URL copied to clipboard!');
+            }).catch(() => {
+                // Fallback for older browsers
+                const textarea = document.createElement('textarea');
+                textarea.value = generatedURLText;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showSuccess('✅ URL copied to clipboard!');
+            });
+        }
+
+        function openURL() {
+            window.open(generatedURLText, '_blank');
+        }
+
+        function testLocally() {
+            const localURL = generatedURLText.replace('https://smartly.sale', window.location.origin);
+            window.open(localURL, '_blank');
+        }
+
+        function clearAll() {
+            document.getElementById('jsonInput').value = '';
+            document.getElementById('output').style.display = 'none';
+            hideMessages();
+        }
+
+        function showSuccess(message) {
+            const el = document.getElementById('success');
+            el.textContent = message;
+            el.style.display = 'block';
+            document.getElementById('error').style.display = 'none';
+        }
+
+        function showError(message) {
+            const el = document.getElementById('error');
+            el.textContent = message;
+            el.style.display = 'block';
+            document.getElementById('success').style.display = 'none';
+        }
+
+        function hideMessages() {
+            document.getElementById('success').style.display = 'none';
+            document.getElementById('error').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

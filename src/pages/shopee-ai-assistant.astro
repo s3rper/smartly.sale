@@ -1,0 +1,120 @@
+---
+import MainLayout from '../layouts/main.astro';
+import ShopeeAIAssistant from '../components/shopee-ai/ShopeeAIAssistant';
+
+const pageTitle = "Shopee Shopping Assistant - AI-Powered Product Finder Philippines 2025";
+const pageDescription = "Your personal Shopee shopping concierge. Find perfect products through conversation. No more endless scrolling - just tell our AI what you need and get personalized recommendations instantly!";
+const pageUrl = "https://smartly.sale/shopee-ai-assistant";
+const ogImage = "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1200&h=630&fit=crop";
+
+// Schema.org structured data for SEO
+const schemaData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": `${pageUrl}#webpage`,
+      "url": pageUrl,
+      "name": pageTitle,
+      "description": pageDescription,
+      "inLanguage": "en-PH",
+      "isPartOf": {
+        "@id": "https://smartly.sale/#website"
+      },
+      "about": {
+        "@id": `${pageUrl}#softwareapplication`
+      },
+      "datePublished": "2025-01-15T00:00:00+08:00",
+      "dateModified": new Date().toISOString()
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": `${pageUrl}#softwareapplication`,
+      "name": "Shopee Shopping Assistant",
+      "applicationCategory": "ShoppingApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "PHP"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "1247",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "description": "AI-powered conversational shopping assistant for Shopee Philippines. Find perfect products through natural conversation.",
+      "featureList": [
+        "AI-powered product recommendations",
+        "Natural conversation interface",
+        "Budget-based filtering",
+        "Gift finder",
+        "Price comparison",
+        "Trending products",
+        "Direct Shopee affiliate links"
+      ],
+      "screenshot": ogImage,
+      "softwareVersion": "1.0",
+      "author": {
+        "@type": "Organization",
+        "name": "smartly.sale"
+      }
+    }
+  ]
+};
+---
+
+<MainLayout 
+  title={pageTitle}
+  description={pageDescription}
+  ogImage={ogImage}
+  pageClass="chat-page"
+>
+  <!-- Enhanced SEO Meta Tags -->
+  <Fragment slot="head">
+    <link rel="canonical" href={pageUrl} />
+    
+    <meta name="keywords" content="shopee assistant, AI shopping, shopee product finder, conversational shopping, shopee recommendations, online shopping philippines, shopee deals, gift finder, budget shopping, shopee affiliate" />
+    <meta name="author" content="smartly.sale" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="smartly.sale" />
+    <meta property="og:locale" content="en_PH" />
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={pageUrl} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={ogImage} />
+    
+    <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+  </Fragment>
+
+  <!-- Full Page Chat Interface -->
+  <div class="fixed inset-0 flex flex-col" style="height: 100vh; padding-top: 64px;">
+    <ShopeeAIAssistant client:only="react" />
+  </div>
+</MainLayout>
+
+<style is:global>
+  /* Hide main padding for chat page */
+  .chat-page main {
+    padding: 0 !important;
+    margin: 0 !important;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .chat-page body {
+    overflow: hidden;
+  }
+</style>

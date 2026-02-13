@@ -1,0 +1,141 @@
+---
+import MainLayout from '../layouts/main.astro';
+import { Card } from '../components/ui/card';
+import { Button } from '../components/ui/button';
+
+const pageTitle = 'Product Details - Demo & URL Generator | smartly.sale';
+const pageDescription = 'Learn how to use the dynamic product details page for Facebook Ads and external campaigns.';
+---
+
+<MainLayout title={pageTitle} description={pageDescription}>
+  <div class="container mx-auto px-4 py-12">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-4xl font-bold mb-4">Dynamic Product Details - Demo</h1>
+      <p class="text-lg text-muted-foreground mb-8">
+        This page demonstrates how to use the dynamic product details page with URL parameters, 
+        perfect for Facebook Ads and external campaigns.
+      </p>
+
+      <Card className="p-6 mb-8">
+        <h2 class="text-2xl font-bold mb-4">How It Works</h2>
+        <div class="space-y-4 text-muted-foreground">
+          <p>
+            <strong>1. Get Product Data:</strong> Fetch product information from Shopee API or your affiliate dashboard.
+          </p>
+          <p>
+            <strong>2. Encode as URL Parameter:</strong> Convert the JSON data to a URL parameter using the helper function.
+          </p>
+          <p>
+            <strong>3. Share the Link:</strong> Use this link in Facebook Ads, emails, or social media posts.
+          </p>
+          <p>
+            <strong>4. Dynamic Display:</strong> The page automatically displays the product with all details, images, and affiliate links.
+          </p>
+        </div>
+      </Card>
+
+      <Card className="p-6 mb-8 bg-muted">
+        <h2 class="text-2xl font-bold mb-4">Example URL Format</h2>
+        <div class="bg-background p-4 rounded-lg font-mono text-sm break-all mb-4">
+          https://smartly.sale/product-details?data=%7B%22item_id%22%3A%2222057240522%22%2C...%7D
+        </div>
+        <p class="text-sm text-muted-foreground">
+          The <code class="bg-background px-2 py-1 rounded">data</code> parameter contains URL-encoded JSON 
+          with all product information.
+        </p>
+      </Card>
+
+      <Card className="p-6 mb-8">
+        <h2 class="text-2xl font-bold mb-4">Try the Demo</h2>
+        <p class="mb-4 text-muted-foreground">
+          Click the button below to see a working example with sample product data:
+        </p>
+        <a 
+          href="/product-details?data=%7B%22item_id%22%3A%2222057240522%22%2C%22long_link%22%3A%22https%3A%2F%2Fshopee.ph%2Funiversal-link%2Fproduct%2F704270867%2F22057240522%22%2C%22product_link%22%3A%22https%3A%2F%2Fshopee.ph%2Fproduct%2F704270867%2F22057240522%22%2C%22batch_item_for_item_card_full%22%3A%7B%22itemid%22%3A%2222057240522%22%2C%22shopid%22%3A%22704270867%22%2C%22name%22%3A%225%20in%201%20Cute%20Stationery%20School%20Supplies%20Set%20Birthday%20Christmas%20Gift%20Ideas%20Giveaways%20for%20kids%22%2C%22image%22%3A%22ph-11134207-7ra0o-mcg6ku6zzi1d9c%22%2C%22images%22%3A%5B%22ph-11134207-7ra0o-mcg6ku6zzi1d9c%22%2C%22ph-11134207-7r991-lmmt582otbwv1f%22%5D%2C%22price%22%3A%22400000%22%2C%22price_min%22%3A%22400000%22%2C%22price_max%22%3A%221300000%22%2C%22price_before_discount%22%3A%222000000%22%2C%22discount%22%3A%2287%25%22%2C%22stock%22%3A586158%2C%22sold%22%3A10000%2C%22sold_text%22%3A%2210K%2B%22%2C%22item_rating%22%3A%7B%22rating_star%22%3A4.8%2C%22rating_count%22%3A%5B1804%2C22%2C6%2C62%2C125%2C1589%5D%7D%2C%22shop_name%22%3A%22writing%20notebook%22%2C%22shop_location%22%3A%22Obando%2C%20Bulacan%22%2C%22shop_rating%22%3A4.81%2C%22shopee_verified%22%3Atrue%2C%22is_official_shop%22%3Afalse%2C%22can_use_cod%22%3Atrue%2C%22show_free_shipping%22%3Afalse%7D%2C%22productOfferLink%22%3A%22https%3A%2F%2Fs.shopee.ph%2F5L4KlPufIJ%22%7D"
+          class="inline-block"
+        >
+          <Button size="lg" className="bg-brand hover:bg-brand-hover text-white">
+            View Sample Product
+          </Button>
+        </a>
+      </Card>
+
+      <Card className="p-6 mb-8">
+        <h2 class="text-2xl font-bold mb-4">For Developers</h2>
+        <p class="mb-4 text-muted-foreground">
+          Use the helper functions in <code class="bg-muted px-2 py-1 rounded">src/lib/product-url-helper.ts</code>:
+        </p>
+        <div class="bg-muted p-4 rounded-lg mb-4">
+          <pre class="text-sm overflow-x-auto"><code>{`import { generateProductDetailsUrl } from '@/lib/product-url-helper';
+
+// Generate URL from Shopee API response
+const productUrl = generateProductDetailsUrl(shopeeApiData);
+
+// Use in Facebook Ads or campaigns
+console.log(productUrl);
+// Output: https://smartly.sale/product-details?data=...`}</code></pre>
+        </div>
+      </Card>
+
+      <Card className="p-6 bg-gradient-to-r from-brand/10 to-brand/5">
+        <h2 class="text-2xl font-bold mb-4">Benefits</h2>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-3">
+            <div class="w-6 h-6 rounded-full bg-brand text-white flex items-center justify-center flex-shrink-0 mt-0.5">
+              ✓
+            </div>
+            <div>
+              <strong>SEO Optimized:</strong> Each product page has unique meta tags based on the product data
+            </div>
+          </li>
+          <li class="flex items-start gap-3">
+            <div class="w-6 h-6 rounded-full bg-brand text-white flex items-center justify-center flex-shrink-0 mt-0.5">
+              ✓
+            </div>
+            <div>
+              <strong>Fast Loading:</strong> No database queries needed, data comes from URL
+            </div>
+          </li>
+          <li class="flex items-start gap-3">
+            <div class="w-6 h-6 rounded-full bg-brand text-white flex items-center justify-center flex-shrink-0 mt-0.5">
+              ✓
+            </div>
+            <div>
+              <strong>Conversion Tracking:</strong> Built-in Facebook Pixel tracking for purchases
+            </div>
+          </li>
+          <li class="flex items-start gap-3">
+            <div class="w-6 h-6 rounded-full bg-brand text-white flex items-center justify-center flex-shrink-0 mt-0.5">
+              ✓
+            </div>
+            <div>
+              <strong>Mobile Responsive:</strong> Beautiful design on all devices
+            </div>
+          </li>
+          <li class="flex items-start gap-3">
+            <div class="w-6 h-6 rounded-full bg-brand text-white flex items-center justify-center flex-shrink-0 mt-0.5">
+              ✓
+            </div>
+            <div>
+              <strong>Affiliate Ready:</strong> Direct affiliate links with tracking
+            </div>
+          </li>
+        </ul>
+      </Card>
+
+      <div class="mt-8 text-center">
+        <a href="/" class="text-brand hover:underline">← Back to Home</a>
+      </div>
+    </div>
+  </div>
+</MainLayout>
+
+<style>
+  .container {
+    max-width: 1280px;
+  }
+  
+  code {
+    font-family: 'Courier New', monospace;
+  }
+</style>

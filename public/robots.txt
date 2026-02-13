@@ -1,0 +1,24 @@
+# robots.txt for smartly.sale
+
+User-agent: *
+Allow: /
+
+# Priority pages
+Allow: /products
+Allow: /product/
+Allow: /earn
+Allow: /about
+Allow: /contact
+
+# Sitemaps
+Sitemap: https://smartly.sale/sitemap.xml
+
+# Crawl delay for politeness
+Crawl-delay: 1
+
+# Block specific bots if needed (currently allowing all)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
