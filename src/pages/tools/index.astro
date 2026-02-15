@@ -1,0 +1,241 @@
+---
+import MainLayout from '../../layouts/main.astro';
+
+const toolCategories = [
+  {
+    name: 'Text Processing Tools',
+    tools: [
+      { id: 'character-frequency', name: 'Character Frequency Analyzer', description: 'Shows which characters/words appear most in text', status: 'coming-soon' },
+      { id: 'text-diff', name: 'Text Diff Tool', description: 'Compare two text blocks, highlight differences', status: 'coming-soon' },
+      { id: 'case-converter', name: 'Case Converter', description: 'camelCase, snake_case, PascalCase, kebab-case conversions', status: 'coming-soon' },
+      { id: 'lorem-ipsum', name: 'Lorem Ipsum Generator', description: 'Themed placeholder text (Pirate, Corporate, Gaming, etc.)', status: 'coming-soon' },
+      { id: 'text-reverser', name: 'Text Reverser & Flipper', description: 'Reverse text, flip upside down, mirror transformations', status: 'coming-soon' },
+      { id: 'duplicate-remover', name: 'Duplicate Line Remover', description: 'Remove duplicate lines from text', status: 'coming-soon' },
+      { id: 'line-sorter', name: 'Line Sorter', description: 'Sort lines alphabetically, by length, randomly', status: 'coming-soon' },
+      { id: 'word-counter', name: 'Word Counter', description: 'Advanced stats: word count, reading time, unique words', status: 'coming-soon' },
+      { id: 'text-encoder', name: 'Text to Binary/Hex/Base64', description: 'Convert text to various encoding formats', status: 'coming-soon' },
+      { id: 'invisible-char', name: 'Invisible Character Detector', description: 'Detect and remove hidden characters', status: 'coming-soon' },
+    ]
+  },
+  {
+    name: 'Code Tools',
+    tools: [
+      { id: 'json-formatter', name: 'JSON Formatter & Validator', description: 'Beautify, minify, validate JSON', status: 'available', url: '/tools/json-formatter' },
+      { id: 'html-entity', name: 'HTML Entity Encoder/Decoder', description: 'Convert HTML entities', status: 'available', url: '/tools/html-entity' },
+      { id: 'css-minifier', name: 'CSS Minifier/Beautifier', description: 'Compress or format CSS', status: 'available', url: '/tools/css-minifier' },
+      { id: 'color-converter', name: 'Color Converter', description: 'HEX ↔ RGB ↔ HSL ↔ CMYK conversions', status: 'available', url: '/tools/color-converter' },
+      { id: 'base64-image', name: 'Base64 Image Encoder', description: 'Convert images to base64 strings', status: 'available', url: '/tools/base64-image' },
+      { id: 'unicode-finder', name: 'Unicode Character Finder', description: 'Search and copy Unicode symbols', status: 'coming-soon' },
+      { id: 'html-table', name: 'HTML Table Generator', description: 'Visual grid editor for HTML tables', status: 'coming-soon' },
+      { id: 'css-gradient', name: 'CSS Gradient Generator', description: 'Visual gradient editor with CSS output', status: 'coming-soon' },
+      { id: 'box-shadow', name: 'Box Shadow Generator', description: 'Visual box shadow editor', status: 'coming-soon' },
+      { id: 'border-radius', name: 'Border Radius Generator', description: 'Visual border radius editor', status: 'coming-soon' },
+    ]
+  },
+  {
+    name: 'Calculation Tools',
+    tools: [
+      { id: 'percentage', name: 'Percentage Calculator', description: 'All types of percentage calculations', status: 'coming-soon' },
+      { id: 'time-duration', name: 'Time Duration Calculator', description: 'Calculate time between dates and durations', status: 'coming-soon' },
+      { id: 'unit-converter', name: 'Unit Converter', description: 'Length, weight, volume, temperature conversions', status: 'coming-soon' },
+      { id: 'tip-calculator', name: 'Tip Calculator', description: 'Split bills and calculate tips', status: 'coming-soon' },
+      { id: 'grade-calculator', name: 'Grade Calculator', description: 'Weighted grades and GPA calculator', status: 'coming-soon' },
+      { id: 'roman-numeral', name: 'Roman Numeral Converter', description: 'Numbers ↔ Roman numerals', status: 'coming-soon' },
+      { id: 'fraction-calculator', name: 'Fraction Calculator', description: 'Add, subtract, multiply, divide fractions', status: 'coming-soon' },
+      { id: 'loan-calculator', name: 'Loan Calculator', description: 'Calculate monthly payments and amortization', status: 'coming-soon' },
+    ]
+  },
+  {
+    name: 'File/Format Tools',
+    tools: [
+      { id: 'csv-viewer', name: 'CSV to Table Viewer', description: 'View CSV as formatted table', status: 'coming-soon' },
+      { id: 'markdown-preview', name: 'Markdown Previewer', description: 'Live markdown to HTML preview', status: 'coming-soon' },
+      { id: 'qr-code', name: 'QR Code Generator', description: 'Generate QR codes from text/URLs', status: 'coming-soon' },
+      { id: 'barcode', name: 'Barcode Generator', description: 'Generate various barcode formats', status: 'coming-soon' },
+      { id: 'handwriting-font', name: 'Text to Handwriting', description: 'Convert text to handwriting font', status: 'coming-soon' },
+    ]
+  },
+  {
+    name: 'Privacy/Security Tools',
+    tools: [
+      { id: 'password-gen', name: 'Password Generator', description: 'Generate strong passwords', status: 'coming-soon' },
+      { id: 'hash-gen', name: 'Hash Generator', description: 'MD5, SHA-1, SHA-256 hash generation', status: 'coming-soon' },
+      { id: 'text-encrypt', name: 'Text Encryptor/Decryptor', description: 'Simple cipher encryption (educational)', status: 'coming-soon' },
+    ]
+  },
+  {
+    name: 'Design/Visual Tools',
+    tools: [
+      { id: 'ascii-art', name: 'ASCII Art Generator', description: 'Text to ASCII art', status: 'coming-soon' },
+      { id: 'color-palette', name: 'Color Palette Generator', description: 'Generate complementary color schemes', status: 'coming-soon' },
+      { id: 'svg-path', name: 'SVG Path Visualizer', description: 'Visualize and edit SVG paths', status: 'coming-soon' },
+      { id: 'pixel-art', name: 'Pixel Art Grid Maker', description: 'Create pixel art with CSS/SVG export', status: 'coming-soon' },
+      { id: 'aspect-ratio', name: 'Aspect Ratio Calculator', description: 'Calculate aspect ratios and dimensions', status: 'coming-soon' },
+      { id: 'contrast-checker', name: 'Contrast Ratio Checker', description: 'WCAG accessibility contrast checker', status: 'coming-soon' },
+    ]
+  },
+  {
+    name: 'Data/List Tools',
+    tools: [
+      { id: 'random-picker', name: 'Random Name Picker', description: 'Pick random items from a list', status: 'coming-soon' },
+      { id: 'list-randomizer', name: 'List Randomizer', description: 'Shuffle list items randomly', status: 'coming-soon' },
+      { id: 'venn-diagram', name: 'Venn Diagram Generator', description: 'Show overlaps between lists', status: 'coming-soon' },
+      { id: 'alphabetizer', name: 'Alphabetizer', description: 'Sort lists alphabetically', status: 'coming-soon' },
+      { id: 'numbered-list', name: 'Numbered List Generator', description: 'Convert to numbered lists', status: 'coming-soon' },
+    ]
+  },
+  {
+    name: 'Formatting Tools',
+    tools: [
+      { id: 'whitespace-remover', name: 'Whitespace Remover', description: 'Remove extra spaces and tabs', status: 'coming-soon' },
+      { id: 'quote-formatter', name: 'Quote Formatter', description: 'Convert to curly quotes and proper punctuation', status: 'coming-soon' },
+      { id: 'text-wrapper', name: 'Text Wrapper', description: 'Wrap text at specified column width', status: 'coming-soon' },
+    ]
+  },
+  {
+    name: 'Unique/Niche Tools',
+    tools: [
+      { id: 'placeholder-image', name: 'Placeholder Image Generator', description: 'Generate colored placeholder images', status: 'coming-soon' },
+      { id: 'themed-text', name: 'Themed Lorem Generator', description: 'Generate themed placeholder text', status: 'coming-soon' },
+      { id: 'timezone-decoder', name: 'Timezone Abbreviation Decoder', description: 'Decode timezone abbreviations', status: 'coming-soon' },
+      { id: 'emoji-combiner', name: 'Emoji Combiner', description: 'Combine emojis visually', status: 'coming-soon' },
+      { id: 'strikethrough', name: 'Strikethrough Text Generator', description: 'Create formatted text for social media', status: 'coming-soon' },
+      { id: 'blank-space', name: 'Blank Space Generator', description: 'Generate invisible characters', status: 'coming-soon' },
+      { id: 'keyboard-layout', name: 'Keyboard Layout Converter', description: 'Convert between keyboard layouts', status: 'coming-soon' },
+      { id: 'tab-space', name: 'Tab to Space Converter', description: 'Convert tabs to spaces and vice versa', status: 'coming-soon' },
+      { id: 'line-numbers', name: 'Line Number Adder', description: 'Add line numbers to text', status: 'coming-soon' },
+      { id: 'text-stats', name: 'Text Statistics Dashboard', description: 'Detailed text analysis and readability scores', status: 'coming-soon' },
+    ]
+  },
+  {
+    name: 'Finance Tools',
+    tools: [
+      { id: 'cash-tracker', name: 'Cash Tracker', description: 'Track and manage cash with approval system', status: 'available', url: '/tools/cash-tracker' },
+    ]
+  }
+];
+
+const totalTools = toolCategories.reduce((acc, cat) => acc + cat.tools.length, 0);
+const availableTools = toolCategories.reduce((acc, cat) =>
+  acc + cat.tools.filter(t => t.status === 'available').length, 0
+);
+---
+
+<MainLayout
+  title="Free Online Tools - Smartly.sale"
+  description="Collection of 60+ free online tools for text processing, code formatting, calculations, and more. All tools run in your browser - no signup required."
+  pageClass="tools-page"
+>
+  <div class="min-h-screen bg-gradient-to-br from-brand/10 via-background to-background">
+    <!-- Hero Section -->
+    <div class="relative bg-gradient-to-br from-brand/10 via-background to-background py-16 px-4">
+      <div class="max-w-6xl mx-auto text-center">
+        <div class="inline-flex items-center space-x-2 bg-brand/10 text-brand px-4 py-2 rounded-full text-sm font-medium mb-6">
+          <span>Free Online Tools</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl font-bold mb-4 text-foreground">
+          Powerful <span class="text-brand">Browser Tools</span>
+        </h1>
+        <p class="text-xl sm:text-2xl mb-6 text-muted-foreground">
+          {totalTools} powerful tools, all free and browser-based
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div class="bg-card backdrop-blur-sm rounded-lg px-6 py-3 border border-border shadow-sm">
+            <span class="text-3xl font-bold text-brand">{availableTools}</span>
+            <span class="text-muted-foreground ml-2">Available Now</span>
+          </div>
+          <div class="bg-card backdrop-blur-sm rounded-lg px-6 py-3 border border-border shadow-sm">
+            <span class="text-3xl font-bold text-brand">{totalTools - availableTools}</span>
+            <span class="text-muted-foreground ml-2">Coming Soon</span>
+          </div>
+        </div>
+        <p class="mt-6 text-muted-foreground">
+          No signup required • Privacy-focused • Lightning fast
+        </p>
+      </div>
+
+      <!-- Decorative Elements -->
+      <div class="absolute top-0 right-0 w-64 h-64 bg-brand/5 rounded-full blur-3xl -z-10" aria-hidden="true"></div>
+      <div class="absolute bottom-0 left-0 w-64 h-64 bg-brand/5 rounded-full blur-3xl -z-10" aria-hidden="true"></div>
+    </div>
+
+    <!-- Tools Grid -->
+    <div class="max-w-7xl mx-auto px-4 py-12">
+      {toolCategories.map((category) => (
+        <section class="mb-12">
+          <h2 class="text-2xl sm:text-3xl font-bold text-foreground mb-6 flex items-center gap-3 flex-wrap">
+            <span class="bg-brand text-white rounded-lg px-4 py-2">
+              {category.name}
+            </span>
+            <span class="text-sm text-muted-foreground">
+              ({category.tools.length} tools)
+            </span>
+          </h2>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {category.tools.map((tool) => (
+              <a
+                href={tool.status === 'available' ? tool.url : '#'}
+                class={`block rounded-lg border-2 p-5 transition-all ${
+                  tool.status === 'available'
+                    ? 'bg-card border-border hover:border-brand hover:shadow-lg cursor-pointer'
+                    : 'bg-muted border-border cursor-not-allowed opacity-60'
+                }`}
+              >
+                <div class="flex items-start justify-between mb-2">
+                  <h3 class="font-semibold text-foreground text-lg">
+                    {tool.name}
+                  </h3>
+                  {tool.status === 'available' ? (
+                    <span class="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 text-xs px-2 py-1 rounded-full font-medium flex-shrink-0 ml-2">
+                      Available
+                    </span>
+                  ) : (
+                    <span class="bg-muted text-muted-foreground text-xs px-2 py-1 rounded-full font-medium flex-shrink-0 ml-2">
+                      Soon
+                    </span>
+                  )}
+                </div>
+                <p class="text-sm text-muted-foreground">
+                  {tool.description}
+                </p>
+                {tool.status === 'available' && (
+                  <div class="mt-3 text-brand text-sm font-medium flex items-center gap-1">
+                    Open Tool →
+                  </div>
+                )}
+              </a>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+
+    <!-- CTA Section -->
+    <div class="relative bg-brand/5 py-12 px-4 mt-12 border-t border-border">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-4 text-foreground">More Tools Coming Soon!</h2>
+        <p class="text-xl text-muted-foreground mb-6">
+          We're actively building new tools. Check back regularly for updates.
+        </p>
+        <div class="bg-card border border-border rounded-lg p-6 max-w-2xl mx-auto shadow-sm">
+          <h3 class="font-semibold mb-3 text-lg text-foreground">Why Our Tools?</h3>
+          <ul class="text-left space-y-2 text-muted-foreground">
+            <li>100% Free - No hidden costs or premium tiers</li>
+            <li>Privacy First - All processing happens in your browser</li>
+            <li>No Signup - Use immediately, no account needed</li>
+            <li>Fast & Reliable - Client-side processing for instant results</li>
+            <li>Mobile Friendly - Works on all devices</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</MainLayout>
+
+<style>
+  .tools-page {
+    min-height: 100vh;
+  }
+</style>

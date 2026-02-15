@@ -1,0 +1,45 @@
+---
+import MainLayout from '../../layouts/main.astro';
+---
+
+<MainLayout
+  title="JSON Formatter & Validator - Free Online Tool | Smartly.sale"
+  description="Format, beautify, minify, and validate JSON data online. Free JSON formatter with syntax validation, indentation options, and error detection. No signup required."
+  pageClass="tool-page"
+>
+  <div class="min-h-screen bg-gradient-to-br from-brand/10 via-background to-background py-4 sm:py-8 px-3 sm:px-4">
+    <div class="max-w-4xl mx-auto">
+      <!-- Back to Tools -->
+      <div class="mb-4">
+        <a
+          href="/tools"
+          class="inline-flex items-center gap-2 text-brand hover:text-brand/80 text-sm font-medium"
+        >
+          ← Back to All Tools
+        </a>
+      </div>
+
+      <!-- Tool Component Root -->
+      <div id="tool-root"></div>
+    </div>
+  </div>
+
+  <!-- Load the React component -->
+  <script>
+    import { createRoot } from 'react-dom/client';
+    import { createElement } from 'react';
+    import JsonFormatter from '../../components/tools/JsonFormatter';
+
+    const container = document.getElementById('tool-root');
+    if (container) {
+      const root = createRoot(container);
+      root.render(createElement(JsonFormatter));
+    }
+  </script>
+</MainLayout>
+
+<style>
+  .tool-page {
+    min-height: 100vh;
+  }
+</style>

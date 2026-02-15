@@ -8,13 +8,24 @@
   },
   "transactions": [
     {
+      "id": "1770969127848",
+      "date": "2026-02-13T07:52:07.848Z",
+      "description": "Aljun Apartment Materials & Others",
+      "amount": 95000,
+      "status": "approved",
+      "notes": "",
+      "requestedBy": "admin",
+      "approvedDate": "2026-02-13T07:52:28.227Z"
+    },
+    {
       "id": "1770512971292",
       "date": "2026-02-08T01:09:31.292Z",
       "description": "Aljun Cash Advance",
       "amount": 5000,
-      "status": "pending",
+      "status": "approved",
       "notes": "",
-      "requestedBy": "admin"
+      "requestedBy": "admin",
+      "approvedDate": "2026-02-13T07:52:24.349Z"
     }
   ]
 }

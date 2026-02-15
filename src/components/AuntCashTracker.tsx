@@ -173,7 +173,7 @@ const AuntCashTracker = () => {
       setCurrentUser('approver');
       localStorage.setItem('aunt-tracker-user', 'approver');
       setPinInput('');
-      showAlert('success', `Welcome, ${settings.approvalName}! 👋`);
+      showAlert('success', `Welcome, ${settings.approverName}! 👋`);
     } else {
       showAlert('error', 'Incorrect PIN');
       setPinInput('');
@@ -324,7 +324,7 @@ const AuntCashTracker = () => {
     const transaction = transactions.find(t => t.id === id);
     if (!transaction) return;
 
-    const approverName = currentUser === 'admin' ? settings.adminName : settings.approvalName;
+    const approverName = currentUser === 'admin' ? settings.adminName : settings.approverName;
 
     const updatedTransactions = transactions.map(t => 
       t.id === id 
@@ -348,7 +348,7 @@ const AuntCashTracker = () => {
 
   // Reject transaction
   const handleReject = async (id: string) => {
-    const rejecterName = currentUser === 'admin' ? settings.adminName : settings.approvalName;
+    const rejecterName = currentUser === 'admin' ? settings.adminName : settings.approverName;
     
     const updatedTransactions = transactions.map(t => 
       t.id === id 
@@ -384,7 +384,7 @@ const AuntCashTracker = () => {
       exportText += `   ${t.description}\n`;
       exportText += `   Amount: ₱${t.amount.toLocaleString()}\n`;
       exportText += `   Status: ${t.status.toUpperCase()}\n`;
-      exportText += `   Requested by: ${t.requestedBy === 'admin' ? settings.adminName : settings.approvalName}\n`;
+      exportText += `   Requested by: ${t.requestedBy === 'admin' ? settings.adminName : settings.approverName}\n`;
       if (t.notes) exportText += `   Notes: ${t.notes}\n`;
       if (t.approvedBy) exportText += `   Approved by: ${t.approvedBy} on ${new Date(t.approvedDate!).toLocaleString()}\n`;
       if (t.rejectedBy) exportText += `   Rejected by: ${t.rejectedBy} on ${new Date(t.rejectedDate!).toLocaleString()}\n`;
@@ -456,11 +456,11 @@ const AuntCashTracker = () => {
   // Login screen
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-[80vh]">
+      <div className="flex items-center justify-center min-h-[80vh] px-4">
         <Card className="w-full max-w-md shadow-lg">
-          <CardContent className="py-12 text-center">
+          <CardContent className="py-12 text-center px-4">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
-            <p className="text-gray-600">Loading Cash Tracker...</p>
+            <p className="text-sm sm:text-base text-gray-600">Loading Cash Tracker...</p>
           </CardContent>
         </Card>
       </div>
@@ -469,18 +469,18 @@ const AuntCashTracker = () => {
 
   if (!currentUser) {
     return (
-      <div className="flex items-center justify-center min-h-[80vh]">
+      <div className="flex items-center justify-center min-h-[80vh] px-4">
         <Card className="w-full max-w-md shadow-lg">
-          <CardHeader className="text-center">
+          <CardHeader className="text-center px-4 sm:px-6">
             <div className="mx-auto w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-4">
               <Wallet className="w-8 h-8 text-brand-orange" />
             </div>
-            <CardTitle className="text-2xl">Cash Tracker</CardTitle>
-            <CardDescription>Enter your PIN to continue</CardDescription>
+            <CardTitle className="text-xl sm:text-2xl">Cash Tracker</CardTitle>
+            <CardDescription className="text-sm">Enter your PIN to continue</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-4 px-4 sm:px-6">
             <div className="space-y-2">
-              <Label htmlFor="pin">PIN Code</Label>
+              <Label htmlFor="pin" className="text-sm">PIN Code</Label>
               <Input
                 id="pin"
                 type="password"
@@ -489,21 +489,21 @@ const AuntCashTracker = () => {
                 value={pinInput}
                 onChange={(e) => setPinInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
-                className="text-center text-2xl tracking-widest"
+                className="text-center text-xl sm:text-2xl tracking-widest"
                 maxLength={4}
               />
             </div>
-            <Button 
-              onClick={handleLogin} 
-              className="w-full text-lg py-6"
+            <Button
+              onClick={handleLogin}
+              className="w-full text-base sm:text-lg py-5 sm:py-6"
               size="lg"
             >
               Login
             </Button>
 
-            <div className="text-xs text-center text-muted-foreground space-y-1">
+            <div className="text-xs text-center text-muted-foreground space-y-1 pt-2">
               <p>👤 {settings.adminName} PIN: 1234</p>
-              <p>👵 {settings.approvalName} PIN: 5678</p>
+              <p>👵 {settings.approverName} PIN: 5678</p>
               <p className="text-blue-600 mt-2">Both users can request & approve!</p>
             </div>
           </CardContent>
@@ -514,7 +514,7 @@ const AuntCashTracker = () => {
 
   // Main app
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Alert */}
       {alert && (
         <Alert className={alert.type === 'success' ? 'bg-green-50 border-green-300' : 'bg-red-50 border-red-300'}>
@@ -524,16 +524,16 @@ const AuntCashTracker = () => {
       )}
 
       {/* Header */}
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
             💰 Cash Tracker
           </h1>
           <p className="text-sm text-gray-600 dark:text-gray-400">
-            Logged in as: {currentUser === 'admin' ? `👤 ${settings.adminName}` : `👵 ${settings.approvalName}`}
+            Logged in as: {currentUser === 'admin' ? `👤 ${settings.adminName}` : `👵 ${settings.approverName}`}
           </p>
         </div>
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-2 items-center flex-wrap">
           {isSaving && (
             <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-300">
               <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-blue-600 mr-2"></div>
@@ -551,53 +551,53 @@ const AuntCashTracker = () => {
 
       {/* Balance Card */}
       <Card className="bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-xl">
-        <CardContent className="pt-6">
-          <div className="flex justify-between items-start mb-4">
-            <div>
+        <CardContent className="pt-6 px-4 sm:px-6">
+          <div className="flex flex-col sm:flex-row justify-between items-start gap-3 sm:gap-0 mb-4">
+            <div className="flex-1">
               <p className="text-white/90 text-sm font-medium">Current Balance</p>
               <div className="flex items-center gap-2 mt-1">
                 {showBalance ? (
-                  <h2 className="text-4xl font-bold text-white">{formatCurrency(currentBalance)}</h2>
+                  <h2 className="text-3xl sm:text-4xl font-bold text-white break-all">{formatCurrency(currentBalance)}</h2>
                 ) : (
-                  <h2 className="text-4xl font-bold text-white">₱ • • • • •</h2>
+                  <h2 className="text-3xl sm:text-4xl font-bold text-white">₱ • • • • •</h2>
                 )}
                 <button
                   onClick={() => setShowBalance(!showBalance)}
-                  className="text-white/80 hover:text-white transition-colors"
+                  className="text-white/80 hover:text-white transition-colors flex-shrink-0"
                 >
                   {showBalance ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
               </div>
             </div>
-            <div className="text-right">
+            <div className="text-left sm:text-right">
               <p className="text-white/90 text-xs">Starting</p>
-              <p className="text-white font-semibold">{formatCurrency(settings.startingBalance)}</p>
+              <p className="text-white font-semibold text-sm sm:text-base">{formatCurrency(settings.startingBalance)}</p>
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-4 pt-4 border-t border-white/30">
+          <div className="grid grid-cols-3 gap-2 sm:gap-4 pt-4 border-t border-white/30">
             <div>
               <p className="text-white/90 text-xs">Pending</p>
-              <p className="text-xl font-bold text-white">{pendingCount}</p>
+              <p className="text-lg sm:text-xl font-bold text-white">{pendingCount}</p>
             </div>
             <div>
               <p className="text-white/90 text-xs">Approved</p>
-              <p className="text-xl font-bold text-white">{approvedCount}</p>
+              <p className="text-lg sm:text-xl font-bold text-white">{approvedCount}</p>
             </div>
             <div>
-              <p className="text-white/90 text-xs">Deducted</p>
-              <p className="text-xl font-bold text-white">{formatCurrency(totalDeducted)}</p>
+              <p className="text-white/90 text-xs truncate">Deducted</p>
+              <p className="text-sm sm:text-lg font-bold text-white truncate">{formatCurrency(totalDeducted)}</p>
             </div>
           </div>
         </CardContent>
       </Card>
 
       {/* Action Buttons */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
         <Button
           onClick={() => setShowForm(!showForm)}
           size="lg"
-          className="w-full text-lg py-6"
+          className="w-full text-base sm:text-lg py-5 sm:py-6"
         >
           <TrendingDown className="w-5 h-5 mr-2" />
           {showForm ? 'Cancel' : 'Request Deduction'}
@@ -606,7 +606,7 @@ const AuntCashTracker = () => {
           onClick={handleExport}
           variant="outline"
           size="lg"
-          className="text-lg py-6"
+          className="text-base sm:text-lg py-5 sm:py-6"
         >
           <Download className="w-5 h-5 mr-2" />
           Export Report
@@ -616,47 +616,49 @@ const AuntCashTracker = () => {
       {/* Add Transaction Form */}
       {showForm && (
         <Card className="border-2 border-orange-300">
-          <CardHeader>
-            <CardTitle>Request New Deduction</CardTitle>
-            <CardDescription>Submit for the other person to approve</CardDescription>
+          <CardHeader className="px-4 sm:px-6">
+            <CardTitle className="text-lg sm:text-xl">Request New Deduction</CardTitle>
+            <CardDescription className="text-sm">Submit for the other person to approve</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-4 px-4 sm:px-6">
             <div className="space-y-2">
-              <Label htmlFor="amount">Amount (₱) *</Label>
+              <Label htmlFor="amount" className="text-sm">Amount (₱) *</Label>
               <Input
                 id="amount"
                 type="number"
                 placeholder="0.00"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
-                className="text-xl"
+                className="text-base sm:text-xl"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="description">Description / Purpose *</Label>
+              <Label htmlFor="description" className="text-sm">Description / Purpose *</Label>
               <Input
                 id="description"
                 placeholder="e.g., Water bill, Groceries"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
+                className="text-sm sm:text-base"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="notes">Notes (Optional)</Label>
+              <Label htmlFor="notes" className="text-sm">Notes (Optional)</Label>
               <Textarea
                 id="notes"
                 placeholder="Add any additional details or paste Facebook message..."
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 rows={3}
+                className="text-sm"
               />
             </div>
 
-            <Button 
+            <Button
               onClick={handleAddTransaction}
-              className="w-full text-lg py-6"
+              className="w-full text-base sm:text-lg py-5 sm:py-6"
               size="lg"
             >
               Submit for Approval
@@ -667,20 +669,20 @@ const AuntCashTracker = () => {
 
       {/* Transaction History */}
       <Card>
-        <CardHeader>
+        <CardHeader className="px-4 sm:px-6">
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle className="flex items-center gap-2">
-                <History className="w-5 h-5" />
+              <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
+                <History className="w-4 h-4 sm:w-5 sm:h-5" />
                 Transaction History
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="text-xs sm:text-sm">
                 {transactions.length} total transaction{transactions.length !== 1 ? 's' : ''}
               </CardDescription>
             </div>
           </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="px-4 sm:px-6">
           {transactions.length === 0 ? (
             <div className="text-center py-12 text-gray-500">
               <History className="w-12 h-12 mx-auto mb-3 opacity-50" />
@@ -688,27 +690,27 @@ const AuntCashTracker = () => {
               <p className="text-sm">Add your first deduction to get started</p>
             </div>
           ) : (
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {transactions.map((transaction) => (
                 <div
                   key={transaction.id}
-                  className="border rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                  className="border rounded-lg p-3 sm:p-4 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                 >
-                  <div className="flex justify-between items-start mb-2">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-1 flex-wrap">
-                        <h4 className="font-semibold text-lg">{transaction.description}</h4>
+                  <div className="flex flex-col sm:flex-row justify-between items-start gap-2 sm:gap-0 mb-2">
+                    <div className="flex-1 w-full">
+                      <div className="flex items-start sm:items-center gap-2 mb-1 flex-wrap">
+                        <h4 className="font-semibold text-base sm:text-lg break-words">{transaction.description}</h4>
                         {getStatusBadge(transaction.status)}
                       </div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                      <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
                         {formatDate(transaction.date)}
                       </p>
                       <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
-                        Requested by: {transaction.requestedBy === 'admin' ? settings.adminName : settings.approvalName}
+                        Requested by: {transaction.requestedBy === 'admin' ? settings.adminName : settings.approverName}
                       </p>
                     </div>
-                    <div className="text-right">
-                      <p className="text-2xl font-bold text-red-600">
+                    <div className="text-left sm:text-right w-full sm:w-auto">
+                      <p className="text-xl sm:text-2xl font-bold text-red-600">
                         -{formatCurrency(transaction.amount)}
                       </p>
                     </div>
@@ -734,11 +736,11 @@ const AuntCashTracker = () => {
 
                   {/* Action buttons - can approve other person's pending requests */}
                   {canApprove(transaction) && (
-                    <div className="flex gap-2 mt-4">
+                    <div className="flex flex-col sm:flex-row gap-2 mt-3 sm:mt-4">
                       <Button
                         onClick={() => handleEditTransaction(transaction)}
                         variant="outline"
-                        className="flex-1"
+                        className="w-full sm:flex-1"
                         size="lg"
                       >
                         <Edit className="w-4 h-4 mr-2" />
@@ -746,7 +748,7 @@ const AuntCashTracker = () => {
                       </Button>
                       <Button
                         onClick={() => handleApprove(transaction.id)}
-                        className="flex-1 bg-green-600 hover:bg-green-700 text-white"
+                        className="w-full sm:flex-1 bg-green-600 hover:bg-green-700 text-white"
                         size="lg"
                       >
                         <CheckCircle className="w-4 h-4 mr-2" />
@@ -755,7 +757,7 @@ const AuntCashTracker = () => {
                       <Button
                         onClick={() => handleReject(transaction.id)}
                         variant="destructive"
-                        className="flex-1"
+                        className="w-full sm:flex-1"
                         size="lg"
                       >
                         <XCircle className="w-4 h-4 mr-2" />
@@ -772,26 +774,26 @@ const AuntCashTracker = () => {
 
       {/* Settings Dialog */}
       <Dialog open={showSettings} onOpenChange={setShowSettings}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="max-w-md sm:max-w-lg mx-4">
           <DialogHeader>
-            <DialogTitle>⚙️ Settings</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-lg sm:text-xl">⚙️ Settings</DialogTitle>
+            <DialogDescription className="text-sm">
               Manage starting balance and reset data
             </DialogDescription>
           </DialogHeader>
-          
+
           <div className="space-y-4 py-4">
             <div className="space-y-2">
-              <Label htmlFor="newBalance">Update Starting Balance</Label>
+              <Label htmlFor="newBalance" className="text-sm">Update Starting Balance</Label>
               <Input
                 id="newBalance"
                 type="number"
                 placeholder={settings.startingBalance.toString()}
                 value={newBalance}
                 onChange={(e) => setNewBalance(e.target.value)}
-                className="text-lg"
+                className="text-base sm:text-lg"
               />
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-gray-500 break-words">
                 Current starting balance: {formatCurrency(settings.startingBalance)}
               </p>
             </div>
@@ -799,7 +801,7 @@ const AuntCashTracker = () => {
             <div className="flex gap-2">
               <Button
                 onClick={handleUpdateBalance}
-                className="flex-1"
+                className="flex-1 text-sm sm:text-base"
                 disabled={!newBalance}
               >
                 <Settings className="w-4 h-4 mr-2" />
@@ -808,11 +810,11 @@ const AuntCashTracker = () => {
             </div>
 
             <div className="border-t pt-4 mt-4">
-              <h4 className="font-semibold text-red-600 mb-2">⚠️ Danger Zone</h4>
+              <h4 className="font-semibold text-red-600 mb-2 text-sm sm:text-base">⚠️ Danger Zone</h4>
               <Button
                 onClick={handleReset}
                 variant="destructive"
-                className="w-full"
+                className="w-full text-sm sm:text-base"
                 size="lg"
               >
                 <RefreshCw className="w-4 h-4 mr-2" />
@@ -828,51 +830,53 @@ const AuntCashTracker = () => {
 
       {/* Edit Transaction Dialog */}
       <Dialog open={!!editingTransaction} onOpenChange={() => setEditingTransaction(null)}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="max-w-md sm:max-w-lg mx-4">
           <DialogHeader>
-            <DialogTitle>✏️ Edit Transaction</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-lg sm:text-xl">✏️ Edit Transaction</DialogTitle>
+            <DialogDescription className="text-sm">
               Correct the amount or description before approving
             </DialogDescription>
           </DialogHeader>
-          
+
           <div className="space-y-4 py-4">
             <div className="space-y-2">
-              <Label htmlFor="editAmount">Amount (₱)</Label>
+              <Label htmlFor="editAmount" className="text-sm">Amount (₱)</Label>
               <Input
                 id="editAmount"
                 type="number"
                 value={editAmount}
                 onChange={(e) => setEditAmount(e.target.value)}
-                className="text-xl"
+                className="text-base sm:text-xl"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="editDescription">Description</Label>
+              <Label htmlFor="editDescription" className="text-sm">Description</Label>
               <Input
                 id="editDescription"
                 value={editDescription}
                 onChange={(e) => setEditDescription(e.target.value)}
+                className="text-sm sm:text-base"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="editNotes">Notes (Optional)</Label>
+              <Label htmlFor="editNotes" className="text-sm">Notes (Optional)</Label>
               <Textarea
                 id="editNotes"
                 value={editNotes}
                 onChange={(e) => setEditNotes(e.target.value)}
                 rows={3}
+                className="text-sm"
               />
             </div>
           </div>
 
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setEditingTransaction(null)}>
+          <DialogFooter className="flex-col sm:flex-row gap-2">
+            <Button variant="outline" onClick={() => setEditingTransaction(null)} className="w-full sm:w-auto">
               Cancel
             </Button>
-            <Button onClick={handleSaveEdit}>
+            <Button onClick={handleSaveEdit} className="w-full sm:w-auto">
               Save Changes
             </Button>
           </DialogFooter>
@@ -881,10 +885,10 @@ const AuntCashTracker = () => {
 
       {/* Footer Info */}
       <Card className="bg-blue-50 dark:bg-blue-900/20 border-blue-200">
-        <CardContent className="pt-6">
-          <div className="flex items-start gap-3">
-            <AlertCircle className="w-5 h-5 text-blue-600 mt-0.5" />
-            <div className="text-sm text-blue-900 dark:text-blue-100">
+        <CardContent className="pt-6 px-4 sm:px-6">
+          <div className="flex items-start gap-2 sm:gap-3">
+            <AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 mt-0.5 flex-shrink-0" />
+            <div className="text-xs sm:text-sm text-blue-900 dark:text-blue-100">
               <p className="font-semibold mb-1">💡 How it works:</p>
               <ul className="space-y-1 text-blue-800 dark:text-blue-200">
                 <li>• Both users can request deductions</li>

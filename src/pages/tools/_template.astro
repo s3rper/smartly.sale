@@ -1,0 +1,65 @@
+---
+/**
+ * Tool Page Template
+ *
+ * This is a template for creating new tool pages.
+ *
+ * How to use:
+ * 1. Copy this file to create a new tool page (e.g., character-frequency.astro)
+ * 2. Update the title and description
+ * 3. Import your custom tool component
+ * 4. Update the SEO meta tags
+ * 5. Add your custom icon if desired
+ */
+
+import MainLayout from '../../layouts/main.astro';
+import ToolTemplate from '../../components/tools/ToolTemplate';
+---
+
+<MainLayout
+  title="Tool Name - Free Online Tool"
+  description="Tool description for SEO - make this descriptive and keyword-rich"
+  pageClass="tool-page"
+>
+  <div class="min-h-screen bg-gradient-to-br from-brand/10 via-background to-background py-4 sm:py-8 px-3 sm:px-4">
+    <div class="max-w-4xl mx-auto">
+      <!-- Back to Tools -->
+      <div class="mb-4">
+        <a
+          href="/tools"
+          class="inline-flex items-center gap-2 text-brand hover:text-brand/80 text-sm font-medium"
+        >
+          ← Back to All Tools
+        </a>
+      </div>
+
+      <!-- Tool Component Root -->
+      <div id="tool-root"></div>
+    </div>
+  </div>
+
+  <!-- Load the React component -->
+  <script>
+    import { createRoot } from 'react-dom/client';
+    import { createElement } from 'react';
+    import ToolTemplate from '../../components/tools/ToolTemplate';
+
+    const container = document.getElementById('tool-root');
+    if (container) {
+      const root = createRoot(container);
+      root.render(
+        createElement(ToolTemplate, {
+          title: 'Tool Name',
+          description: 'Tool description',
+          // icon: createElement(YourIcon, { className: 'w-10 h-10 text-blue-600' })
+        })
+      );
+    }
+  </script>
+</MainLayout>
+
+<style>
+  .tool-page {
+    min-height: 100vh;
+  }
+</style>

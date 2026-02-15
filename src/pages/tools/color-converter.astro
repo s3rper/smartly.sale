@@ -1,0 +1,45 @@
+---
+import MainLayout from '../../layouts/main.astro';
+---
+
+<MainLayout
+  title="Color Converter - HEX, RGB, HSL, CMYK | Free Online Tool"
+  description="Convert colors between HEX, RGB, HSL, and CMYK formats instantly. Free online color converter with visual picker, presets, and one-click copy. Perfect for designers and developers."
+  pageClass="tool-page"
+>
+  <div class="min-h-screen bg-gradient-to-br from-brand/10 via-background to-background py-4 sm:py-8 px-3 sm:px-4">
+    <div class="max-w-4xl mx-auto">
+      <!-- Back to Tools -->
+      <div class="mb-4">
+        <a
+          href="/tools"
+          class="inline-flex items-center gap-2 text-brand hover:text-brand/80 text-sm font-medium"
+        >
+          ← Back to All Tools
+        </a>
+      </div>
+
+      <!-- Tool Component Root -->
+      <div id="tool-root"></div>
+    </div>
+  </div>
+
+  <!-- Load the React component -->
+  <script>
+    import { createRoot } from 'react-dom/client';
+    import { createElement } from 'react';
+    import ColorConverter from '../../components/tools/ColorConverter';
+
+    const container = document.getElementById('tool-root');
+    if (container) {
+      const root = createRoot(container);
+      root.render(createElement(ColorConverter));
+    }
+  </script>
+</MainLayout>
+
+<style>
+  .tool-page {
+    min-height: 100vh;
+  }
+</style>

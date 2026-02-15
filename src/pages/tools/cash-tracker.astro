@@ -1,14 +1,24 @@
 ---
-import MainLayout from '../layouts/main.astro';
+import MainLayout from '../../layouts/main.astro';
 ---
 
-<MainLayout 
+<MainLayout
   title="Cash Tracker - Family Finance Manager"
   description="Track and manage cash with approval system"
-  pageClass="aunt-tracker-page"
+  pageClass="cash-tracker-page"
 >
-  <div class="min-h-screen bg-gradient-to-br from-orange-50 to-orange-100 dark:from-gray-900 dark:to-gray-800 py-8 px-4">
+  <div class="min-h-screen bg-gradient-to-br from-brand/10 via-background to-background py-4 sm:py-8 px-3 sm:px-4">
     <div class="max-w-4xl mx-auto">
+      <!-- Back to Tools -->
+      <div class="mb-4">
+        <a
+          href="/tools"
+          class="inline-flex items-center gap-2 text-brand hover:text-brand/80 text-sm font-medium"
+        >
+          ← Back to All Tools
+        </a>
+      </div>
+
       <!-- Cash Tracker Component -->
       <div id="cash-tracker-root"></div>
     </div>
@@ -18,7 +28,7 @@ import MainLayout from '../layouts/main.astro';
   <script>
     import { createRoot } from 'react-dom/client';
     import { createElement } from 'react';
-    import AuntCashTracker from '../components/AuntCashTracker';
+    import AuntCashTracker from '../../components/AuntCashTracker';
 
     const container = document.getElementById('cash-tracker-root');
     if (container) {
@@ -29,7 +39,7 @@ import MainLayout from '../layouts/main.astro';
 </MainLayout>
 
 <style>
-  .aunt-tracker-page {
+  .cash-tracker-page {
     min-height: 100vh;
   }
 </style>
