@@ -160,38 +160,89 @@ For featuredImage pick the most relevant:
 
   console.log('Calling Claude claude-sonnet-4-5 with web search...');
 
-  let response;
-  try {
-    response = await client.messages.create({
-      model: 'claude-sonnet-4-5',
-      max_tokens: 8192,
+  // Run the agentic loop — web_search is a server-side tool that may cause
+  // pause_turn if it hits the 10-iteration limit; we must continue until end_turn.
+  const MODEL = 'claude-sonnet-4-5';
+  const MAX_TOKENS = 16000;
+  const MAX_CONTINUATIONS = 5;
+
+  async function runWithWebSearch() {
+    const messages = [{ role: 'user', content: user }];
+    const allTextBlocks = [];
+    let continuations = 0;
+
+    let response = await client.messages.create({
+      model: MODEL,
+      max_tokens: MAX_TOKENS,
       system,
       tools: [{ type: 'web_search_20250305', name: 'web_search' }],
-      messages: [{ role: 'user', content: user }],
+      messages,
     });
+
+    while (true) {
+      // Collect text from this turn
+      const textBlocks = response.content.filter(b => b.type === 'text');
+      allTextBlocks.push(...textBlocks);
+
+      console.log(`  stop_reason: ${response.stop_reason} | text blocks: ${textBlocks.length} | total text blocks so far: ${allTextBlocks.length}`);
+
+      if (response.stop_reason === 'end_turn') break;
+
+      if (response.stop_reason === 'pause_turn') {
+        // Server-side tool hit its iteration limit — append and continue
+        if (++continuations > MAX_CONTINUATIONS) {
+          console.warn('  Max continuations reached, using text collected so far');
+          break;
+        }
+        messages.push({ role: 'assistant', content: response.content });
+        response = await client.messages.create({
+          model: MODEL,
+          max_tokens: MAX_TOKENS,
+          system,
+          tools: [{ type: 'web_search_20250305', name: 'web_search' }],
+          messages,
+        });
+        continue;
+      }
+
+      // Any other stop reason (max_tokens, stop_sequence) — use what we have
+      console.warn(`  Unexpected stop_reason: ${response.stop_reason}, using text collected so far`);
+      break;
+    }
+
+    return allTextBlocks.map(b => b.text).join('\n');
+  }
+
+  let fullText;
+  try {
+    fullText = await runWithWebSearch();
   } catch (err) {
-    console.warn('  Web search unavailable, falling back to headlines only:', err.message);
-    response = await client.messages.create({
-      model: 'claude-sonnet-4-5',
-      max_tokens: 8192,
+    console.warn('  Web search failed, falling back to headlines only:', err.message);
+    const response = await client.messages.create({
+      model: MODEL,
+      max_tokens: MAX_TOKENS,
       system,
       messages: [{ role: 'user', content: user }],
     });
+    fullText = response.content
+      .filter(b => b.type === 'text')
+      .map(b => b.text)
+      .join('\n');
   }
 
-  // Collect all text blocks
-  const fullText = response.content
-    .filter(b => b.type === 'text')
-    .map(b => b.text)
-    .join('\n');
+  // Debug: show how much text we got and whether the blocks are present
+  console.log(`  Total response text length: ${fullText.length} chars`);
+  console.log(`  Has <META>: ${fullText.includes('<META>')}`);
+  console.log(`  Has <CONTENT>: ${fullText.includes('<CONTENT>')}`);
+  console.log(`  Has <FAQS>: ${fullText.includes('<FAQS>')}`);
 
   // Extract each block
-  const metaRaw    = extractBlock(fullText, 'META');
-  const content    = extractBlock(fullText, 'CONTENT');
-  const faqsRaw    = extractBlock(fullText, 'FAQS');
+  const metaRaw = extractBlock(fullText, 'META');
+  const content = extractBlock(fullText, 'CONTENT');
+  const faqsRaw = extractBlock(fullText, 'FAQS');
 
   if (!metaRaw) throw new Error('No <META> block found in response');
-  if (!content)  throw new Error('No <CONTENT> block found in response');
+  if (!content) throw new Error('No <CONTENT> block found in response');
 
   let meta;
   try {
