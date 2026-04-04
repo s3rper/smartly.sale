@@ -73,3 +73,13 @@ jobs:
           git push
 
           echo "✅ Blog post committed and pushed — Vercel will redeploy automatically"
+
+      # ── 6. Submit to Google Indexing API ─────────────────────────────────────
+      - name: Submit new post to Google Indexing API
+        env:
+          GOOGLE_INDEXING_SA_JSON: ${{ secrets.GOOGLE_INDEXING_SA_JSON }}
+        run: |
+          # Wait 60s for Vercel to finish deploying before pinging Google
+          echo "⏳ Waiting 60s for Vercel to redeploy..."
+          sleep 60
+          node scripts/submit-to-google.mjs
