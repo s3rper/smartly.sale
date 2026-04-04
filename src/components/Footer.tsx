@@ -1,5 +1,11 @@
 import React from 'react';
-import { Facebook, Send, ShoppingBag, Home, Mail, DollarSign } from 'lucide-react';
+import { Facebook, ShoppingBag, Home, Mail, MapPin } from 'lucide-react';
+
+const TikTokIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5" aria-hidden="true">
+    <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V9.12a8.19 8.19 0 004.78 1.52V7.19a4.86 4.86 0 01-1.02-.5z"/>
+  </svg>
+);
 import { baseUrl } from '../lib/base-url';
 
 const Footer: React.FC = () => {
@@ -25,11 +31,11 @@ const Footer: React.FC = () => {
             <span className="text-xs font-medium">Products</span>
           </a>
           <a
-            href={`${baseUrl}/earn`}
+            href={`${baseUrl}/cheapest-near-me`}
             className="flex flex-col items-center space-y-1 hover:opacity-80 transition-opacity"
           >
-            <DollarSign className="w-5 h-5" />
-            <span className="text-xs font-medium">Earn</span>
+            <MapPin className="w-5 h-5" />
+            <span className="text-xs font-medium">Near Me</span>
           </a>
           <a
             href={`${baseUrl}/contact`}
@@ -67,13 +73,13 @@ const Footer: React.FC = () => {
                   <Facebook className="w-5 h-5" />
                 </a>
                 <a
-                  href="https://tiktok.com"
+                  href="https://tiktok.com/@smartlysale"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-11 h-11 bg-white/10 rounded-xl flex items-center justify-center hover:bg-brand transition-all duration-300 hover:scale-110"
                   aria-label="Visit our TikTok page"
                 >
-                  <Send className="w-5 h-5" />
+                  <TikTokIcon />
                 </a>
                 <a
                   href="https://shopee.ph"
@@ -92,48 +98,56 @@ const Footer: React.FC = () => {
               <h3 className="font-bold text-white text-base uppercase tracking-wider">Quick Links</h3>
               <ul className="space-y-3.5 mt-4">
                 <li>
-                  <a 
-                    href={baseUrl} 
+                  <a
+                    href={baseUrl}
                     className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
                   >
                     Home
                   </a>
                 </li>
                 <li>
-                  <a 
-                    href={`${baseUrl}/products`} 
+                  <a
+                    href={`${baseUrl}/products`}
                     className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
                   >
                     Products
                   </a>
                 </li>
                 <li>
-                  <a 
-                    href={`${baseUrl}/earn`} 
+                  <a
+                    href={`${baseUrl}/cheapest-near-me`}
+                    className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
+                  >
+                    Cheapest Near Me
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`${baseUrl}/earn`}
                     className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
                   >
                     Earn Money
                   </a>
                 </li>
                 <li>
-                  <a 
-                    href={`${baseUrl}/blog`} 
+                  <a
+                    href={`${baseUrl}/blog`}
                     className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
                   >
                     Blog
                   </a>
                 </li>
                 <li>
-                  <a 
-                    href={`${baseUrl}/about`} 
+                  <a
+                    href={`${baseUrl}/about`}
                     className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
                   >
                     About Us
                   </a>
                 </li>
                 <li>
-                  <a 
-                    href={`${baseUrl}/contact`} 
+                  <a
+                    href={`${baseUrl}/contact`}
                     className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
                   >
                     Contact Us
@@ -220,7 +234,7 @@ const Footer: React.FC = () => {
                 <strong className="text-gray-300">Affiliate Disclosure:</strong> smartly.sale participates in affiliate marketing programs. 
                 We may earn a commission when you make purchases through our links at no additional cost to you.
               </p>
-              <p className="text-gray-500 text-sm">
+              <p className="text-gray-400 text-sm">
                 © {currentYear} smartly.sale. All rights reserved.
               </p>
             </div>

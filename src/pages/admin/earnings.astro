@@ -1,0 +1,242 @@
+---
+/**
+ * Earnings Dashboard — /admin/earnings
+ * Simple password-protected admin page showing CPABuild conversion tracking.
+ * Protected by ADMIN_PASSWORD env var checked via query param or basic auth.
+ *
+ * Access: https://smartly.sale/admin/earnings?key=YOUR_ADMIN_PASSWORD
+ */
+
+// Admin password check
+const adminPassword = import.meta.env.ADMIN_PASSWORD ?? process.env.ADMIN_PASSWORD ?? '';
+const key = Astro.url.searchParams.get('key') ?? '';
+
+if (adminPassword && key !== adminPassword) {
+  return new Response('Unauthorized — append ?key=YOUR_ADMIN_PASSWORD to the URL', {
+    status: 401,
+    headers: { 'Content-Type': 'text/plain' },
+  });
+}
+
+// Fetch live offer stats from CPABuild API
+interface CPAOffer {
+  id: string | number;
+  name: string;
+  payout?: number;
+  user_payout?: number;
+  anchor?: string;
+  conversion?: string;
+  epc?: number;
+}
+
+let offers: CPAOffer[] = [];
+let offersError = '';
+try {
+  const runtimeEnv = (Astro.locals as any)?.runtime?.env;
+  const userId = runtimeEnv?.CPABUILD_USER_ID ?? import.meta.env.CPABUILD_USER_ID ?? process.env.CPABUILD_USER_ID ?? '48201';
+  const apiKey = runtimeEnv?.CPABUILD_API_KEY ?? import.meta.env.CPABUILD_API_KEY ?? process.env.CPABUILD_API_KEY ?? '';
+
+  if (apiKey) {
+    const feedUrl = new URL('https://d2dzcaq3bhqk1m.cloudfront.net/public/offers/feed.php');
+    feedUrl.searchParams.set('user_id', userId);
+    feedUrl.searchParams.set('api_key', apiKey);
+    feedUrl.searchParams.set('s1', 'admin-dashboard');
+
+    const res = await fetch(feedUrl.toString(), {
+      headers: { Accept: 'application/json' },
+      signal: AbortSignal.timeout(8_000),
+    });
+    const text = await res.text();
+    const raw = JSON.parse(text.trim());
+    offers = Array.isArray(raw) ? raw : (raw.offers ?? raw.data ?? []);
+  } else {
+    offersError = 'CPABUILD_API_KEY not set';
+  }
+} catch (e) {
+  offersError = e instanceof Error ? e.message : String(e);
+}
+
+const totalPayout = offers.reduce((sum, o) => sum + (o.user_payout ?? 0), 0);
+const avgPayout = offers.length ? totalPayout / offers.length : 0;
+const today = new Date().toLocaleDateString('en-PH', { dateStyle: 'full' });
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Earnings Dashboard — Smartly.Sale Admin</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-950 text-gray-100 min-h-screen p-6">
+  <div class="max-w-5xl mx-auto">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h1 class="text-2xl font-bold text-white">Smartly.Sale — Admin Dashboard</h1>
+        <p class="text-gray-400 text-sm mt-0.5">{today}</p>
+      </div>
+      <a href="/" class="text-purple-400 hover:text-purple-300 text-sm">← Back to site</a>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+      <div class="bg-gray-900 rounded-2xl p-5 border border-gray-800">
+        <p class="text-xs text-gray-400 uppercase tracking-wide mb-1">Active Offers</p>
+        <p class="text-3xl font-bold text-white">{offers.length}</p>
+      </div>
+      <div class="bg-gray-900 rounded-2xl p-5 border border-gray-800">
+        <p class="text-xs text-gray-400 uppercase tracking-wide mb-1">Avg Payout</p>
+        <p class="text-3xl font-bold text-green-400">${avgPayout.toFixed(3)}</p>
+      </div>
+      <div class="bg-gray-900 rounded-2xl p-5 border border-gray-800">
+        <p class="text-xs text-gray-400 uppercase tracking-wide mb-1">Top Payout</p>
+        <p class="text-3xl font-bold text-yellow-400">
+          ${Math.max(...offers.map((o) => o.user_payout ?? 0), 0).toFixed(3)}
+        </p>
+      </div>
+      <div class="bg-gray-900 rounded-2xl p-5 border border-gray-800">
+        <p class="text-xs text-gray-400 uppercase tracking-wide mb-1">Network</p>
+        <p class="text-3xl font-bold text-purple-400">CPABuild</p>
+      </div>
+    </div>
+
+    <!-- Automation Status -->
+    <div class="bg-gray-900 rounded-2xl p-6 border border-gray-800 mb-8">
+      <h2 class="text-sm font-bold text-gray-400 uppercase tracking-wide mb-4">Automation Status</h2>
+      <div class="grid sm:grid-cols-2 gap-3">
+        {[
+          { name: 'Daily Broadcast (Claude AI)', path: '/api/daily-broadcast', desc: 'Posts to Telegram, Facebook, Pinterest + Email — 9AM PH daily' },
+          { name: 'Telegram Notify', path: '/api/telegram-notify', desc: 'Standalone Telegram bot — 9AM PH daily' },
+          { name: 'Facebook CAPI', path: '/api/capi', desc: 'Server-side pixel for better ad attribution' },
+          { name: 'CPABuild Postback', path: '/api/cpabuild-postback', desc: 'S2S conversion webhook — set in CPABuild dashboard' },
+          { name: 'Google Indexing', path: '/api/google-index', desc: 'Submits SEO pages to Google — weekly cron' },
+          { name: 'Email Subscribe', path: '/api/subscribe', desc: 'Brevo subscriber capture endpoint' },
+        ].map(({ name, path, desc }) => (
+          <div class="flex items-start gap-3 bg-gray-800 rounded-xl p-4">
+            <span class="h-2.5 w-2.5 rounded-full bg-emerald-400 mt-1.5 flex-shrink-0 animate-pulse"></span>
+            <div class="min-w-0">
+              <p class="font-semibold text-sm text-white">{name}</p>
+              <p class="text-xs text-gray-400 mt-0.5">{desc}</p>
+              <a href={path} target="_blank"
+                 class="text-xs text-purple-400 hover:text-purple-300 font-mono mt-1 inline-block">
+                {path}
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Postback Setup Instructions -->
+    <div class="bg-gray-900 rounded-2xl p-6 border border-yellow-800/30 mb-8">
+      <h2 class="text-sm font-bold text-yellow-400 uppercase tracking-wide mb-3">
+        ⚙️ CPABuild Postback Setup
+      </h2>
+      <p class="text-gray-300 text-sm mb-3">
+        Set this URL in your CPABuild dashboard → Settings → Global Postback URL:
+      </p>
+      <code class="block bg-gray-800 text-green-400 text-xs p-3 rounded-lg font-mono break-all">
+        https://smartly.sale/api/cpabuild-postback?payout={'{payout}'}&s1={'{s1}'}&s2={'{s2}'}&offer_id={'{offer_id}'}&status={'{status}'}
+      </code>
+      <p class="text-gray-500 text-xs mt-2">
+        Optional: add &token=YOUR_SECRET to verify postback authenticity (set CPABUILD_POSTBACK_SECRET env var)
+      </p>
+    </div>
+
+    <!-- Env Vars Status -->
+    <div class="bg-gray-900 rounded-2xl p-6 border border-gray-800 mb-8">
+      <h2 class="text-sm font-bold text-gray-400 uppercase tracking-wide mb-4">Environment Variables</h2>
+      <div class="grid sm:grid-cols-2 gap-2 text-sm font-mono">
+        {[
+          { key: 'CPABUILD_API_KEY', label: 'CPABuild API Key' },
+          { key: 'ANTHROPIC_API_KEY', label: 'Anthropic (Claude)' },
+          { key: 'TELEGRAM_BOT_TOKEN', label: 'Telegram Bot' },
+          { key: 'TELEGRAM_CHANNEL_ID', label: 'Telegram Channel' },
+          { key: 'FB_PAGE_ID', label: 'Facebook Page ID' },
+          { key: 'FB_PAGE_ACCESS_TOKEN', label: 'Facebook Page Token' },
+          { key: 'FB_ACCESS_TOKEN', label: 'Facebook CAPI Token' },
+          { key: 'BREVO_API_KEY', label: 'Brevo Email' },
+          { key: 'BREVO_LIST_ID', label: 'Brevo List ID' },
+          { key: 'PINTEREST_ACCESS_TOKEN', label: 'Pinterest Token' },
+          { key: 'PINTEREST_BOARD_ID', label: 'Pinterest Board ID' },
+          { key: 'GOOGLE_INDEXING_SA_JSON', label: 'Google Indexing SA' },
+          { key: 'CRON_SECRET', label: 'Cron Secret' },
+          { key: 'ADMIN_PASSWORD', label: 'Admin Password' },
+        ].map(({ key: k, label }) => {
+          const val = import.meta.env[k] ?? process.env[k] ?? '';
+          const configured = !!val;
+          return (
+            <div class="flex items-center gap-2">
+              <span class={configured ? 'text-emerald-400' : 'text-red-400'}>
+                {configured ? '✓' : '✗'}
+              </span>
+              <span class={configured ? 'text-gray-300' : 'text-gray-600'}>{label}</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+
+    <!-- Active Offers Table -->
+    {offersError ? (
+      <div class="bg-red-900/30 border border-red-700 rounded-2xl p-5 mb-8">
+        <p class="text-red-400 text-sm">Error loading offers: {offersError}</p>
+      </div>
+    ) : (
+      <div class="bg-gray-900 rounded-2xl border border-gray-800 overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-800">
+          <h2 class="text-sm font-bold text-gray-400 uppercase tracking-wide">
+            Active CPABuild Offers ({offers.length})
+          </h2>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="text-left text-xs text-gray-500 uppercase tracking-wide border-b border-gray-800">
+                <th class="px-6 py-3">Offer Name</th>
+                <th class="px-6 py-3">Description</th>
+                <th class="px-6 py-3 text-right">Your Payout</th>
+                <th class="px-6 py-3 text-right">EPC</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-800">
+              {offers.map((offer) => (
+                <tr class="hover:bg-gray-800/50 transition-colors">
+                  <td class="px-6 py-4 font-medium text-white">{offer.name}</td>
+                  <td class="px-6 py-4 text-gray-400 max-w-xs truncate">
+                    {offer.anchor ?? offer.conversion ?? '—'}
+                  </td>
+                  <td class="px-6 py-4 text-right text-green-400 font-semibold">
+                    ${(offer.user_payout ?? 0).toFixed(3)}
+                  </td>
+                  <td class="px-6 py-4 text-right text-gray-400">
+                    ${(offer.epc ?? 0).toFixed(3)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    )}
+
+    <!-- Quick Links -->
+    <div class="mt-8 flex flex-wrap gap-3">
+      {[
+        { href: 'https://cpabuild.com/dashboard', label: 'CPABuild Dashboard' },
+        { href: 'https://app.brevo.com', label: 'Brevo Email' },
+        { href: 'https://vercel.com/dashboard', label: 'Vercel Logs' },
+        { href: 'https://developers.facebook.com/tools/explorer/', label: 'FB Graph Explorer' },
+      ].map(({ href, label }) => (
+        <a href={href} target="_blank" rel="noopener"
+           class="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 text-sm rounded-lg transition-colors">
+          {label} ↗
+        </a>
+      ))}
+    </div>
+  </div>
+</body>
+</html>

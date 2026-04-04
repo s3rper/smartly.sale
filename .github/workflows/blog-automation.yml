@@ -1,0 +1,75 @@
+name: 🎮 Gaming Blog Auto-Generator
+
+on:
+  schedule:
+    # Mon, Wed, Fri at 02:00 UTC = 10:00 AM Philippines time
+    # 3 posts/week — proven safe cadence, Google never flags this as spam
+    - cron: '0 2 * * 1,3,5'
+
+  # Allow manual trigger from GitHub Actions tab
+  workflow_dispatch:
+    inputs:
+      debug:
+        description: 'Enable debug output'
+        required: false
+        default: 'false'
+
+jobs:
+  generate-blog-post:
+    name: Generate & Publish Blog Post
+    runs-on: ubuntu-latest
+
+    # Needs write permission to commit back to the repo
+    permissions:
+      contents: write
+
+    steps:
+      # ── 1. Checkout ──────────────────────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Use GITHUB_TOKEN so the push triggers Vercel redeploy
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
+
+      # ── 2. Node.js ───────────────────────────────────────────────────────────
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # ── 3. Install dependencies ──────────────────────────────────────────────
+      - name: Install dependencies
+        run: npm ci --prefer-offline
+
+      # ── 4. Generate blog post ────────────────────────────────────────────────
+      - name: Generate blog post with Claude
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scripts/generate-blog.mjs
+
+      # ── 5. Commit & push ─────────────────────────────────────────────────────
+      - name: Commit and push new blog post
+        run: |
+          git config --global user.name  "smartly.sale Bot"
+          git config --global user.email "bot@smartly.sale"
+
+          git add src/data/blog-posts.json
+
+          # Only commit if there are actual changes
+          if git diff --staged --quiet; then
+            echo "⚠️  No changes to commit (post may already exist)"
+            exit 0
+          fi
+
+          # Get post title from the new JSON entry for a descriptive commit
+          TITLE=$(node -e "
+            const data = JSON.parse(require('fs').readFileSync('src/data/blog-posts.json','utf8'));
+            console.log(data[0]?.title ?? 'Gaming blog post');
+          ")
+
+          git commit -m "🎮 Blog: ${TITLE} [skip ci]"
+          git push
+
+          echo "✅ Blog post committed and pushed — Vercel will redeploy automatically"

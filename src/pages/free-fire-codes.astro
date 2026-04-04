@@ -1,0 +1,209 @@
+---
+import MainLayout from '../layouts/main.astro';
+import ContentLockerGate from '../components/ContentLockerGate';
+import EmailCapturePopup from '../components/EmailCapturePopup';
+
+const pageTitle       = 'Free Fire Redeem Codes Philippines Today 2026 — Working Codes + How to Redeem';
+const pageDescription = 'Looking for the latest Free Fire redeem codes in the Philippines? Unlock our daily code list plus a step-by-step guide on how to redeem them fast before they expire.';
+const pageUrl         = 'https://smartly.sale/free-fire-codes';
+const today           = new Date().toISOString().split('T')[0];
+
+// ── SSR pre-fetch ──────────────────────────────────────────────────────────────
+let initialOffers: unknown[] = [];
+try {
+  const runtimeEnv = (Astro.locals as any)?.runtime?.env;
+  const userId = runtimeEnv?.CPABUILD_USER_ID ?? import.meta.env.CPABUILD_USER_ID ?? process.env.CPABUILD_USER_ID ?? '48201';
+  const apiKey = runtimeEnv?.CPABUILD_API_KEY ?? import.meta.env.CPABUILD_API_KEY ?? process.env.CPABUILD_API_KEY ?? '';
+  if (apiKey) {
+    const clientIp = Astro.request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || '';
+    const feedUrl  = new URL('https://d2dzcaq3bhqk1m.cloudfront.net/public/offers/feed.php');
+    feedUrl.searchParams.set('user_id', userId);
+    feedUrl.searchParams.set('api_key', apiKey);
+    feedUrl.searchParams.set('s1', 'free-fire-codes');
+    feedUrl.searchParams.set('s2', 'organic');
+    const h: Record<string, string> = { 'Accept': 'application/json, */*' };
+    if (clientIp) h['X-Forwarded-For'] = clientIp;
+    const res = await fetch(feedUrl.toString(), { headers: h, signal: AbortSignal.timeout(8_000) });
+    if (res.ok) {
+      const raw = JSON.parse((await res.text()).trim());
+      initialOffers = Array.isArray(raw) ? raw : (raw.offers ?? raw.data ?? []);
+    }
+  }
+} catch { /* fallback */ }
+
+const unlockedItems = [
+  { icon: '🔥', title: `Today's Active Codes (${today})`, body: 'Garena regularly releases redeem codes. Check the official Free Fire social media pages (Facebook, Instagram) every morning for the latest codes — they typically have a validity of 12–18 hours.' },
+  { icon: '⚡', title: 'How to Redeem Codes (Step-by-Step)', body: '1. Go to reward.ff.garena.com. 2. Log in with your Free Fire account (Facebook, Google, or VK). 3. Enter the 12-character redeem code. 4. Click Confirm. 5. Collect your reward in the in-game mailbox.' },
+  { icon: '📅', title: 'When Are New Codes Released?', body: 'Garena releases new codes during special events — weekends, anniversaries, and major game updates. Follow the Free Fire Philippines Facebook page to stay updated.' },
+  { icon: '🎁', title: 'What Can You Get from Redeem Codes?', body: 'Diamond vouchers, character skins, weapon skins, emotes, pets, and Gold. The biggest rewards are usually reserved for limited-time event codes.' },
+  { icon: '💡', title: 'Tips to Maximize Your Rewards', body: 'Participate in in-game events like Rampage, Anniversary, and Booyah Day — these give more free items than regular redeem codes. Complete daily missions for consistent rewards.' },
+  { icon: '🏆', title: 'Free Fire Partner / Content Creator Program', body: 'If you have a large social media following, apply for the Free Fire Creator Program. Approved creators get exclusive rewards, early event access, and can earn from their content.' },
+];
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": pageTitle,
+  "description": pageDescription,
+  "image": "https://smartly.sale/og-image.jpg",
+  "author": { "@type": "Organization", "name": "smartly.sale" },
+  "publisher": { "@type": "Organization", "name": "smartly.sale", "logo": { "@type": "ImageObject", "url": "https://smartly.sale/og-image.jpg" } },
+  "datePublished": "2026-01-01",
+  "dateModified": today,
+  "mainEntityOfPage": { "@type": "WebPage", "@id": pageUrl }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://smartly.sale" },
+    { "@type": "ListItem", "position": 2, "name": "Free Fire Codes Philippines", "item": pageUrl }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Where can I get legit Free Fire redeem codes?", "acceptedAnswer": { "@type": "Answer", "text": "The official sources are the Free Fire Philippines Facebook page, the official website, and in-game events. Third-party sites claiming to always have new codes are usually unreliable." } },
+    { "@type": "Question", "name": "How do I redeem a Free Fire code?", "acceptedAnswer": { "@type": "Answer", "text": "Go to reward.ff.garena.com → Log in with your Free Fire account → Enter the 12-character code → Confirm → Collect in your in-game mailbox." } },
+    { "@type": "Question", "name": "How long before Free Fire codes expire?", "acceptedAnswer": { "@type": "Answer", "text": "Codes typically expire within 12 to 18 hours. Redeem them as soon as you see a new code posted." } },
+    { "@type": "Question", "name": "Is Free Fire free to play?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, the game is free. Some premium items require Diamonds, but you can get many free items through events and redeem codes." } },
+  ]
+};
+---
+
+<MainLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalUrl={pageUrl}
+  keywords="free fire redeem codes Philippines today, free fire codes 2026, garena free fire codes Philippines, FF redeem codes working, free fire diamonds Philippines"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+
+  <!-- ── Hero ──────────────────────────────────────────────────────────────── -->
+  <section class="bg-gradient-to-br from-[#7f1d1d] via-[#b91c1c] to-[#ef4444] text-white py-14 px-4">
+    <div class="max-w-3xl mx-auto text-center">
+      <div class="inline-flex items-center gap-2 bg-white/15 border border-white/25 rounded-full px-4 py-1.5 text-xs font-semibold tracking-wide mb-5 uppercase">
+        🔥 Free Fire Codes — Updated {today}
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold leading-tight mb-4">
+        Free Fire Redeem Codes<br class="hidden sm:block" />
+        <span class="text-yellow-300">Philippines — Today's List</span>
+      </h1>
+      <p class="text-red-100 text-base sm:text-lg max-w-xl mx-auto mb-6">
+        Unlock our daily code list and complete redeem guide.
+        Complete 1 offer to access today's working codes.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4 text-sm text-red-100">
+        <span>✅ Working codes updated daily</span>
+        <span>⚡ 12-hour validity</span>
+        <span>🎁 Diamonds, skins & more</span>
+        <span>🔒 Safe — no password needed</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Breadcrumb ─────────────────────────────────────────────────────────── -->
+  <nav class="max-w-3xl mx-auto px-4 py-3 text-xs text-gray-400" aria-label="Breadcrumb">
+    <a href="/" class="hover:text-gray-600">Home</a>
+    <span class="mx-2">›</span>
+    <span class="text-gray-700 font-medium">Free Fire Codes Philippines</span>
+  </nav>
+
+  <!-- ── Intro ──────────────────────────────────────────────────────────────── -->
+  <article class="max-w-3xl mx-auto px-4 pb-6">
+    <h2 class="text-xl font-bold text-gray-900 mt-4 mb-3">Why Are Free Fire Codes Always in Demand?</h2>
+    <p class="text-gray-600 leading-relaxed mb-4">
+      <strong>Garena Free Fire</strong> is one of the most popular mobile games in the Philippines —
+      and because of this, thousands of players search for <strong>free redeem codes</strong> every day.
+      These codes unlock exclusive items like weapon skins, character costumes,
+      diamonds, and other premium rewards at no cost.
+    </p>
+    <p class="text-gray-600 leading-relaxed mb-4">
+      The challenge is that <strong>codes expire fast</strong> — usually within 12 to 18 hours.
+      That's why you need to stay updated and redeem them as soon as you see a new code.
+      Our guide shows you how to always be first in line for the latest working codes.
+    </p>
+
+    <!-- Steps preview -->
+    <div class="grid sm:grid-cols-3 gap-3 mb-6">
+      {[
+        { n: '1', icon: '🔓', title: 'Unlock the Guide', body: 'Complete 1 offer to access our code list.' },
+        { n: '2', icon: '📋', title: 'Copy the Code', body: 'Pick a code and copy it.' },
+        { n: '3', icon: '🎁', title: 'Redeem on FF', body: 'Go to reward.ff.garena.com and enter the code.' },
+      ].map(({ n, icon, title, body }) => (
+        <div class="bg-red-50 border border-red-100 rounded-xl p-4 text-center">
+          <div class="w-8 h-8 rounded-full bg-red-600 text-white text-sm font-bold flex items-center justify-center mx-auto mb-2">{n}</div>
+          <div class="text-xl mb-1">{icon}</div>
+          <p class="font-bold text-gray-900 text-xs mb-0.5">{title}</p>
+          <p class="text-[11px] text-gray-500 leading-relaxed">{body}</p>
+        </div>
+      ))}
+    </div>
+  </article>
+
+  <!-- ── Content Locker ─────────────────────────────────────────────────────── -->
+  <div class="max-w-3xl mx-auto px-4 mb-10">
+    <ContentLockerGate
+      client:visible
+      initialOffers={initialOffers}
+      s1="free-fire-codes"
+      s2="organic"
+      accent="orange"
+      lockedEmoji="🔥"
+      lockedLabel={`Free Fire Codes + Redeem Guide — ${today}`}
+      lockedDescription="Complete 1 offer to unlock today's working codes and the step-by-step redeem guide."
+      unlockedTitle="🔥 Your Free Fire Code Guide is Unlocked!"
+      unlockedItems={unlockedItems}
+    />
+  </div>
+
+  <!-- ── FAQ ────────────────────────────────────────────────────────────────── -->
+  <section class="max-w-3xl mx-auto px-4 pb-12">
+    <h2 class="text-xl font-bold text-gray-900 mb-5">Frequently Asked Questions</h2>
+    <div class="space-y-4">
+      {[
+        { q: 'Where can I get legit Free Fire redeem codes?', a: 'The official sources are the Free Fire Philippines Facebook page, the official website, and in-game events. Third-party sites are usually unreliable.' },
+        { q: 'How do I redeem a Free Fire code?', a: 'Go to reward.ff.garena.com → Log in → Enter the 12-character code → Confirm → Collect in your in-game mailbox.' },
+        { q: 'How long before codes expire?', a: 'Codes typically expire within 12 to 18 hours. Redeem them as soon as you see a new one posted.' },
+        { q: 'Is Free Fire free to play?', a: 'Yes, the game is free. Some premium items require Diamonds, but you can get many free items through events and codes.' },
+      ].map(({ q, a }) => (
+        <details class="group border border-gray-200 rounded-xl overflow-hidden">
+          <summary class="flex items-center justify-between gap-3 px-5 py-4 cursor-pointer font-semibold text-sm text-gray-900 hover:bg-gray-50 select-none">
+            {q}
+            <span class="text-gray-400 group-open:rotate-180 transition-transform text-lg leading-none">›</span>
+          </summary>
+          <div class="px-5 pb-4 text-sm text-gray-600 leading-relaxed border-t border-gray-100 pt-3">{a}</div>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <EmailCapturePopup client:load source="free-fire-codes" />
+
+  <!-- ── Internal Links ─────────────────────────────────────────────────────── -->
+  <section class="bg-gray-50 border-t border-gray-100 py-8 px-4">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-sm font-bold text-gray-700 mb-4 uppercase tracking-wide">More Free Rewards</h2>
+      <div class="flex flex-wrap gap-3">
+        {[
+          { href: '/free-mlbb-diamonds',          label: '💎 Free MLBB Diamonds' },
+          { href: '/free-gaming-credits',         label: '🎮 Free Gaming Credits' },
+          { href: '/earn-gcash',                  label: '💰 Earn GCash Online' },
+          { href: '/free-gift-cards-philippines', label: '🎁 Free Gift Cards' },
+          { href: '/online-contests-philippines', label: '🏆 Online Contests' },
+        ].map(({ href, label }) => (
+          <a href={href} class="inline-flex items-center px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-700 hover:border-red-300 hover:text-red-700 transition-colors">
+            {label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</MainLayout>

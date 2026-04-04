@@ -1,0 +1,55 @@
+[
+  {
+    "itemName": "Gasoline",
+    "variant": "Diesel",
+    "price": 83,
+    "unit": "liters",
+    "storeName": "Green Oil",
+    "address": "Green Oil, Doña Lourdes Street, Lourdes, Waling-Waling, Zone II, Koronadal, South Cotabato, Soccsksargen, 9506, Philippines",
+    "location": {
+      "latitude": 6.497690225653679,
+      "longitude": 124.85557436943054,
+      "accuracy": 0
+    },
+    "reportedBy": "user-1773041738800-ho4ihckin",
+    "id": "report-1773532654589-pnobht3ac",
+    "reportedAt": "2026-03-14T23:57:34.589Z",
+    "confirmedBy": []
+  },
+  {
+    "itemName": "Gasoline",
+    "variant": "Unleaded",
+    "price": 72,
+    "unit": "liters",
+    "storeName": "Green Oil",
+    "address": "Green Oil, Doña Lourdes Street, Lourdes, Waling-Waling, Zone II, Koronadal, South Cotabato, Soccsksargen, 9506, Philippines",
+    "location": {
+      "latitude": 6.4976683393595795,
+      "longitude": 124.85559582710268,
+      "accuracy": 0
+    },
+    "reportedBy": "user-1773041738800-ho4ihckin",
+    "id": "report-1773532503127-f8gf95m4j",
+    "reportedAt": "2026-03-14T23:55:03.127Z",
+    "confirmedBy": [
+      "user-1773041738800-ho4ihckin"
+    ]
+  },
+  {
+    "itemName": "Rice",
+    "variant": "RC160",
+    "price": 53,
+    "unit": "kg",
+    "storeName": "Venus Sari-Sari Store",
+    "address": "Hechanova Street, Pantua, Masagana 1, Zone III, Koronadal, South Cotabato, Soccsksargen, 9506, Philippines",
+    "location": {
+      "latitude": 6.494969561207164,
+      "longitude": 124.84428495168687,
+      "accuracy": 0
+    },
+    "reportedBy": "user-1773041738800-ho4ihckin",
+    "id": "report-1773616541435-3ogz4f52l",
+    "reportedAt": "2026-03-15T23:15:41.435Z",
+    "confirmedBy": []
+  }
+]

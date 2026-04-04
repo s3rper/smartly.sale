@@ -1,154 +1,122 @@
 ---
 import MainLayout from '../../layouts/main.astro';
 import ProductDetail from '../../components/ProductDetail';
+import { fetchProductBySlug } from '../../lib/products';
+import { transformCMSProduct } from '../../types/product';
 
-// Get the slug from the URL
 const { slug } = Astro.params;
 
-// Specific OG image for lampein-baby-diaper-medium-60s
-const specificOgImage = slug === 'lampein-baby-diaper-medium-60s' 
-  ? 'https://cdn.prod.website-files.com/662c296bd4d3a8028c713c69/691e7b8e236a7ab9aec48ef2_unnamed.jpg'
-  : 'https://smartly.sale/og-image.jpg';
+// Fetch product server-side for real SEO meta
+let product = null;
+try {
+  const runtime = (Astro.locals as any)?.runtime;
+  const token = runtime?.env?.WEBFLOW_CMS_SITE_API_TOKEN ||
+                import.meta.env.WEBFLOW_CMS_SITE_API_TOKEN;
+  if (token) {
+    const apiBaseUrl = runtime?.env?.WEBFLOW_API_HOST ||
+                       import.meta.env.WEBFLOW_API_HOST;
+    const cmsProduct = await fetchProductBySlug(slug!, token, apiBaseUrl);
+    if (cmsProduct) {
+      product = transformCMSProduct(cmsProduct);
+    }
+  }
+} catch (_e) {
+  // Fall back to generic meta
+}
 
-// Generate basic SEO metadata (will be enhanced by client-side)
-const pageTitle = `Product Details - Best Shopee Deals | smartly.sale`;
-const pageDescription = `Discover amazing deals on Shopee Philippines. Check out this trending product and shop smart with smartly.sale.`;
-const pageKeywords = `Shopee Philippines, viral products, online shopping, trending deals, smartly.sale, ${slug}`;
+const productName = product?.name ?? slug?.replace(/-/g, ' ');
+const productPrice = product ? `${product.currency}${product.price}` : null;
+const productImage = product?.images[0] ?? 'https://smartly.sale/og-image.jpg';
+const shopName = product?.shopName;
+const discount = product?.discount;
+const soldText = product?.soldText;
 
-// Generate canonical URL
+const pageTitle = product
+  ? `${product.name} - Buy on Shopee Philippines | smartly.sale`
+  : `Product Details - Best Shopee Deals | smartly.sale`;
+
+const pageDescription = product
+  ? [
+      `Buy ${product.name} on Shopee Philippines.`,
+      shopName ? `Sold by ${shopName}.` : '',
+      productPrice ? `Price: ${productPrice}.` : '',
+      discount ? `Get ${discount} off!` : '',
+      soldText ? `${soldText} sold.` : '',
+      'Fast shipping & trusted seller. Shop smart with smartly.sale.'
+    ].filter(Boolean).join(' ')
+  : 'Discover amazing deals on Shopee Philippines. Check out this trending product and shop smart with smartly.sale.';
+
+const pageKeywords = [
+  productName,
+  'Shopee Philippines',
+  'buy online Philippines',
+  'Shopee deals',
+  shopName ?? '',
+  'smartly.sale',
+  'affiliate shopping'
+].filter(Boolean).join(', ');
+
 const canonicalUrl = `https://smartly.sale/product/${slug}`;
 
-// Basic breadcrumb structured data
+// Breadcrumb schema
 const breadcrumbData = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://smartly.sale"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Products",
-      "item": "https://smartly.sale/products"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "Product Details",
-      "item": canonicalUrl
-    }
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://smartly.sale" },
+    { "@type": "ListItem", "position": 2, "name": "Products", "item": "https://smartly.sale/products" },
+    { "@type": "ListItem", "position": 3, "name": productName, "item": canonicalUrl }
   ]
 };
+
+// Product schema (only when we have real product data)
+const productSchema = product ? {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": product.name,
+  "image": product.images,
+  "description": pageDescription,
+  "url": canonicalUrl,
+  ...(shopName && {
+    "brand": { "@type": "Brand", "name": shopName }
+  }),
+  "offers": {
+    "@type": "Offer",
+    "url": product.affiliateLink ?? canonicalUrl,
+    "priceCurrency": "PHP",
+    "price": product.price.replace(/[^0-9.]/g, '') || "0",
+    "priceValidUntil": new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+    "availability": "https://schema.org/InStock",
+    "seller": {
+      "@type": "Organization",
+      "name": shopName ?? "Shopee Philippines"
+    }
+  },
+  ...(product.shopRating && product.shopRating > 0 && {
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": product.shopRating.toFixed(1),
+      "bestRating": "5",
+      "worstRating": "1",
+      "ratingCount": "1"
+    }
+  })
+} : null;
 ---
 
-<MainLayout 
+<MainLayout
   title={pageTitle}
   description={pageDescription}
   keywords={pageKeywords}
   canonicalUrl={canonicalUrl}
-  ogImage={specificOgImage}
+  ogImage={productImage}
 >
-  <!-- Structured Data for SEO -->
-  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbData)} slot="head" />
-
-  <!-- Additional Meta Tags -->
   <Fragment slot="head">
-    <!-- Product page meta -->
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbData)} />
+    {productSchema && <script type="application/ld+json" set:html={JSON.stringify(productSchema)} />}
     <meta property="og:type" content="product" />
-    
-    <!-- Pinterest Rich Pins -->
-    <meta name="pinterest-rich-pin" content="true" />
   </Fragment>
-
-  <!-- Static SEO Headers (hidden but accessible to search engines) -->
-  <h1 class="seo-header">
-    Best Shopee Deals and Viral Products in the Philippines
-  </h1>
-  <h2 class="seo-header">
-    Trending Product from Shopee Philippines with Exclusive Discounts
-  </h2>
-  <h3 class="seo-header">
-    Shop Smart and Save Money with smartly.sale - Your Trusted Shopee Affiliate
-  </h3>
 
   <!-- Product Detail Component -->
   <ProductDetail client:only="react" />
-
-  <!-- Client-side script to update title and meta tags -->
-  <script is:inline define:vars={{ slug, specificOgImage }}>
-    // This will update the page title once the product loads
-    window.addEventListener('productLoaded', (event) => {
-      const product = event.detail;
-      if (product) {
-        // Update document title
-        document.title = `${product.name} - Best Shopee Deals | smartly.sale`;
-        
-        // Update meta description
-        const metaDescription = document.querySelector('meta[name="description"]');
-        if (metaDescription) {
-          metaDescription.setAttribute('content', 
-            `Buy ${product.name} on Shopee Philippines. ${product.shopName ? `From ${product.shopName}. ` : ''}${product.discount ? `Get ${product.discount} discount!` : ''} Check out viral products and exclusive deals at smartly.sale.`
-          );
-        }
-
-        // Update OG tags
-        const ogTitle = document.querySelector('meta[property="og:title"]');
-        if (ogTitle) {
-          ogTitle.setAttribute('content', `${product.name} - Best Shopee Deals | smartly.sale`);
-        }
-
-        const ogDescription = document.querySelector('meta[property="og:description"]');
-        if (ogDescription) {
-          ogDescription.setAttribute('content', 
-            `Buy ${product.name} on Shopee Philippines. ${product.discount ? `Get ${product.discount} discount!` : ''}`
-          );
-        }
-
-        const ogImage = document.querySelector('meta[property="og:image"]');
-        if (ogImage) {
-          // Use specific OG image for lampein-baby-diaper-medium-60s, otherwise use product image
-          if (slug === 'lampein-baby-diaper-medium-60s') {
-            ogImage.setAttribute('content', specificOgImage);
-          } else if (product.images && product.images.length > 0) {
-            ogImage.setAttribute('content', product.images[0]);
-          }
-        }
-
-        // Update Twitter Card tags
-        const twitterTitle = document.querySelector('meta[name="twitter:title"]');
-        if (twitterTitle) {
-          twitterTitle.setAttribute('content', `${product.name} - Best Shopee Deals | smartly.sale`);
-        }
-
-        const twitterImage = document.querySelector('meta[name="twitter:image"]');
-        if (twitterImage) {
-          // Use specific OG image for lampein-baby-diaper-medium-60s, otherwise use product image
-          if (slug === 'lampein-baby-diaper-medium-60s') {
-            twitterImage.setAttribute('content', specificOgImage);
-          } else if (product.images && product.images.length > 0) {
-            twitterImage.setAttribute('content', product.images[0]);
-          }
-        }
-      }
-    });
-  </script>
 </MainLayout>
-
-<style>
-  /* SEO header class - hidden but accessible to search engines */
-  .seo-header {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-  }
-</style>

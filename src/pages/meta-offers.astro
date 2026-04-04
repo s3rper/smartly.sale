@@ -1,0 +1,117 @@
+---
+import Layout from '../layouts/main.astro';
+import CPAOffersWall from '../components/CPAOffersWall';
+
+// ── UTM → CPABuild sub-IDs ────────────────────────────────────────────────────
+const utm_campaign = Astro.url.searchParams.get('utm_campaign') ?? '';
+const utm_content  = Astro.url.searchParams.get('utm_content')  ?? '';
+const utm_source   = Astro.url.searchParams.get('utm_source')   ?? '';
+const s1 = utm_campaign || utm_source;
+const s2 = utm_content;
+
+// ── SSR: pre-fetch offers with the visitor's real IP ─────────────────────────
+// This prevents a loading flash on first paint — critical for paid ad traffic.
+let initialOffers: unknown[] = [];
+try {
+  const clientIp =
+    Astro.request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+    Astro.request.headers.get('x-real-ip') ||
+    '';
+
+  const runtimeEnv = (Astro.locals as any)?.runtime?.env;
+  const userId = runtimeEnv?.CPABUILD_USER_ID ?? import.meta.env.CPABUILD_USER_ID ?? process.env.CPABUILD_USER_ID ?? '48201';
+  const apiKey = runtimeEnv?.CPABUILD_API_KEY ?? import.meta.env.CPABUILD_API_KEY ?? process.env.CPABUILD_API_KEY ?? '';
+
+  if (apiKey) {
+    const feedUrl = new URL('https://d2dzcaq3bhqk1m.cloudfront.net/public/offers/feed.php');
+    feedUrl.searchParams.set('user_id', userId);
+    feedUrl.searchParams.set('api_key', apiKey);
+    feedUrl.searchParams.set('s1', s1);
+    feedUrl.searchParams.set('s2', s2);
+
+    const fetchHeaders: Record<string, string> = { 'Accept': 'application/json, */*' };
+    if (clientIp) fetchHeaders['X-Forwarded-For'] = clientIp;
+
+    const res = await fetch(feedUrl.toString(), { headers: fetchHeaders, signal: AbortSignal.timeout(8_000) });
+    if (res.ok) {
+      const text = await res.text();
+      const raw = JSON.parse(text.trim());
+      initialOffers = Array.isArray(raw) ? raw : (raw.offers ?? raw.data ?? []);
+    }
+  }
+} catch {
+  // Silently fallback — CPAOffersWall fetches client-side on mount
+}
+
+const pageTitle       = 'Exclusive Prizes & Rewards Available in Your Area';
+const pageDescription = 'Win real prizes and claim exclusive rewards available near you. New geo-targeted offers updated daily — complete simple tasks and enter to win today.';
+const pageUrl         = 'https://smartly.sale/meta-offers';
+const pageImage       = 'https://smartly.sale/og-image.jpg';
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  ogImage={pageImage}
+  canonicalUrl={pageUrl}
+  keywords="earn rewards online, exclusive prizes, win prizes online, free rewards, claim reward, online contest Philippines, earn money online"
+>
+  <Fragment slot="head">
+    <!-- Ad landing page: block indexing but allow social crawlers for sharing -->
+    <meta name="robots" content="noindex, nofollow" />
+
+    <!-- Open Graph (for when ad is shared organically) -->
+    <meta property="og:type"        content="website" />
+    <meta property="og:title"       content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:image"       content={pageImage} />
+    <meta property="og:url"         content={pageUrl} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image"       content={pageImage} />
+
+    <!-- JSON-LD: ItemList of offers for rich structured data -->
+    {initialOffers.length > 0 && (
+      <script type="application/ld+json" set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": pageTitle,
+        "description": pageDescription,
+        "url": pageUrl,
+        "numberOfItems": initialOffers.length,
+        "itemListElement": (initialOffers as any[]).map((o: any, i: number) => ({
+          "@type": "ListItem",
+          "position": i + 1,
+          "name": o.name ?? o.anchor ?? 'Exclusive Offer',
+          "url": o.url ?? o.link ?? pageUrl,
+        }))
+      })} />
+    )}
+
+    <!-- Meta Pixel: fire ViewContent as soon as fbq is ready -->
+    <script is:inline>
+      (function () {
+        function fire() {
+          window.fbq && window.fbq('track', 'ViewContent', {
+            content_name: 'meta-offers',
+            content_type: 'product',
+          });
+        }
+        var n = 0, t = setInterval(function () {
+          if (window.fbq) { fire(); clearInterval(t); }
+          else if (++n >= 20) clearInterval(t);
+        }, 300);
+      })();
+    </script>
+  </Fragment>
+
+  <CPAOffersWall
+    client:load
+    initialOffers={initialOffers}
+    s1={s1}
+    s2={s2}
+  />
+</Layout>

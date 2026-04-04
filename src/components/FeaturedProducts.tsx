@@ -4,50 +4,54 @@ import { baseUrl } from '../lib/base-url';
 import type { Product, CMSProduct } from '../types/product';
 import { transformCMSProduct } from '../types/product';
 
-const FeaturedProducts: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
+interface Props {
+  initialProducts?: CMSProduct[];
+}
+
+const FeaturedProducts: React.FC<Props> = ({ initialProducts }) => {
+  // Initialize from server-side data (no shuffle — shuffle in useEffect to avoid hydration mismatch)
+  const [products, setProducts] = useState<Product[]>(() => {
+    if (initialProducts && initialProducts.length > 0) {
+      return initialProducts
+        .filter((item) => !item.fieldData._draft && !item.fieldData._archived)
+        .map((item) => transformCMSProduct(item));
+    }
+    return [];
+  });
+  const [loading, setLoading] = useState(() => !initialProducts || initialProducts.length === 0);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // If server-side data was provided, just shuffle and we're done
+    if (initialProducts && initialProducts.length > 0) {
+      setProducts(prev => [...prev].sort(() => Math.random() - 0.5));
+      return;
+    }
+
+    // Fallback: fetch from client-side API
     const fetchProducts = async () => {
       try {
         setLoading(true);
         setError(null);
-        
-        console.log('Fetching products from:', `${baseUrl}/api/cms/products?limit=100`);
-        const response = await fetch(`${baseUrl}/api/cms/products?limit=100`);
-        
-        console.log('Response status:', response.status);
-        
+
+        const response = await fetch(`${baseUrl}/api/cms/products?limit=20`);
+
         if (!response.ok) {
-          const errorText = await response.text();
-          console.error('Response error:', errorText);
           throw new Error(`Failed to fetch products: ${response.status} ${response.statusText}`);
         }
 
-        const data = await response.json();
-        console.log('Received data:', data);
-        
+        const data = await response.json() as { items?: CMSProduct[] };
+
         if (!data.items || !Array.isArray(data.items)) {
-          console.error('Invalid data structure:', data);
           throw new Error('Invalid data structure received from API');
         }
 
         const transformedProducts = data.items
           .filter((item: CMSProduct) => !item.fieldData._draft && !item.fieldData._archived)
-          .map((item: CMSProduct) => {
-            console.log('Transforming item:', item.fieldData.name);
-            return transformCMSProduct(item);
-          });
-        
-        // Shuffle the products array randomly
-        const shuffledProducts = transformedProducts.sort(() => Math.random() - 0.5);
-        
-        console.log('Transformed and shuffled products:', shuffledProducts.length);
-        setProducts(shuffledProducts);
+          .map((item: CMSProduct) => transformCMSProduct(item));
+
+        setProducts(transformedProducts.sort(() => Math.random() - 0.5));
       } catch (err) {
-        console.error('Error fetching products:', err);
         setError(err instanceof Error ? err.message : 'Failed to load products. Please try again later.');
       } finally {
         setLoading(false);
@@ -154,27 +158,11 @@ const FeaturedProducts: React.FC = () => {
   }
 
   return (
-    <section 
-      id="products" 
+    <section
+      id="products"
       className="py-16 bg-background"
       style={{ minHeight: '800px', contain: 'layout style' }}
     >
-      <style>{`
-        .product-card-title {
-          font-size: 1.125em !important;
-          line-height: 1.3 !important;
-        }
-        @media (min-width: 1024px) {
-          .product-card-title {
-            font-size: 1.125rem !important;
-            line-height: 1.5 !important;
-          }
-        }
-        /* Optimize images for performance */
-        .product-image {
-          content-visibility: auto;
-        }
-      `}</style>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-12">

@@ -1,6 +1,6 @@
-import { e as createComponent, k as renderComponent, r as renderTemplate, m as maybeRenderHead, u as unescapeHTML } from '../chunks/astro/server_B7CNsfjb.mjs';
+import { e as createComponent, k as renderComponent, r as renderTemplate, m as maybeRenderHead, u as unescapeHTML } from '../chunks/astro/server_QTRnay6T.mjs';
 import 'kleur/colors';
-import { $ as $$Main } from '../chunks/main__TEui6ED.mjs';
+import { $ as $$Main } from '../chunks/main_U5mpiJ65.mjs';
 export { renderers } from '../renderers.mjs';
 
 var __freeze = Object.freeze;
@@ -73,10 +73,10 @@ Absolutely! We love hearing from our community. Send us your product suggestions
         "availableLanguage": ["en", "tl"]
       }
     }
-  })), maybeRenderHead(), renderComponent($$result2, "ContactForm", null, { "client:only": "react", "client:component-hydration": "only", "client:component-path": "/app/src/components/ContactForm", "client:component-export": "default" })) })}`;
-}, "/app/src/pages/contact.astro", void 0);
+  })), maybeRenderHead(), renderComponent($$result2, "ContactForm", null, { "client:only": "react", "client:component-hydration": "only", "client:component-path": "/Users/kirbydimsontompong/smartly.sale/src/components/ContactForm", "client:component-export": "default" })) })}`;
+}, "/Users/kirbydimsontompong/smartly.sale/src/pages/contact.astro", void 0);
 
-const $$file = "/app/src/pages/contact.astro";
+const $$file = "/Users/kirbydimsontompong/smartly.sale/src/pages/contact.astro";
 const $$url = "/contact";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

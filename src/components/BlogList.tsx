@@ -74,69 +74,58 @@ export default function BlogList() {
   };
 
   return (
-    <div>
-      {/* Categories Filter */}
-      <section className="pb-12">
+    <div className="py-10">
+      {/* Category filter */}
+      <section className="pb-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap gap-3 justify-center">
-            <button
-              onClick={() => handleCategoryChange('all')}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                selectedCategory === 'all'
-                  ? 'bg-brand !text-white'
-                  : 'bg-white text-gray-700 border border-gray-300 hover:border-brand hover:text-brand'
-              }`}
-            >
-              All Posts
-            </button>
-            {blogCategories.map(category => (
-              <button
-                key={category.slug}
-                onClick={() => handleCategoryChange(category.slug)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  selectedCategory === category.slug
-                    ? 'bg-brand !text-white'
-                    : 'bg-white text-gray-700 border border-gray-300 hover:border-brand hover:text-brand'
-                }`}
-              >
-                {category.name}
-              </button>
-            ))}
+          <div className="flex flex-wrap gap-2 justify-center">
+            {[{ slug: 'all', name: 'All Posts' }, ...blogCategories].map(cat => {
+              const active = selectedCategory === cat.slug;
+              return (
+                <button
+                  key={cat.slug}
+                  onClick={() => handleCategoryChange(cat.slug)}
+                  className="px-4 py-2 rounded-full text-sm font-medium border transition-all duration-200"
+                  style={active
+                    ? { background: '#f97316', color: '#fff', borderColor: '#f97316' }
+                    : { background: 'transparent', color: 'var(--muted-foreground)', borderColor: 'var(--border)' }
+                  }
+                >
+                  {cat.name}
+                </button>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Blog Posts Grid */}
+      {/* Grid */}
       <section className="pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Results count */}
-          <div className="mb-6 text-center text-gray-600">
-            <p className="text-sm">
-              Showing {startIndex + 1}-{Math.min(endIndex, filteredPosts.length)} of {filteredPosts.length} {filteredPosts.length === 1 ? 'post' : 'posts'}
-              {selectedCategory !== 'all' && (
-                <span>
-                  {' '}in <span className="font-semibold text-brand">
-                    {blogCategories.find(c => c.slug === selectedCategory)?.name}
-                  </span>
-                </span>
-              )}
-            </p>
-          </div>
+          <p className="text-sm text-muted-foreground text-center mb-8">
+            Showing {startIndex + 1}–{Math.min(endIndex, filteredPosts.length)} of {filteredPosts.length} posts
+            {selectedCategory !== 'all' && (
+              <> in <span className="font-semibold" style={{ color: '#f97316' }}>
+                {blogCategories.find(c => c.slug === selectedCategory)?.name}
+              </span></>
+            )}
+          </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {currentPosts.map(post => (
               <BlogCard key={post.id} post={post} />
             ))}
           </div>
 
           {filteredPosts.length === 0 && (
-            <div className="text-center py-16">
-              <p className="text-gray-500 text-lg mb-16">
-                No blog posts found in this category. Check back soon for new content!
+            <div className="text-center py-20">
+              <p className="text-muted-foreground text-lg mb-6">
+                No posts in this category yet. Check back soon!
               </p>
               <button
                 onClick={() => handleCategoryChange('all')}
-                className="inline-flex items-center justify-center px-6 py-3 bg-brand !text-white font-bold rounded-full hover:opacity-90 transition-colors"
+                className="px-6 py-3 rounded-full text-white font-bold hover:opacity-90 transition-opacity"
+                style={{ background: '#f97316' }}
               >
                 View All Posts
               </button>
@@ -147,64 +136,50 @@ export default function BlogList() {
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <section className="pb-20">
+        <section className="pb-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-center gap-2">
-              {/* Previous Button */}
+            <div className="flex items-center justify-center gap-1.5">
               <button
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
-                className={`p-2 rounded-lg transition-colors ${
-                  currentPage === 1
-                    ? 'text-gray-400 cursor-not-allowed'
-                    : 'text-gray-700 hover:bg-gray-100'
-                }`}
+                className="p-2 rounded-lg border border-border transition-colors disabled:opacity-30 disabled:cursor-not-allowed hover:bg-muted"
                 aria-label="Previous page"
               >
-                <ChevronLeft className="w-5 h-5" />
+                <ChevronLeft className="w-4 h-4" />
               </button>
 
-              {/* Page Numbers */}
-              <div className="flex items-center gap-1">
-                {getPageNumbers().map((page, index) => (
-                  <div key={index}>
-                    {page === '...' ? (
-                      <span className="px-3 py-2 text-gray-500">...</span>
-                    ) : (
-                      <button
-                        onClick={() => handlePageChange(page as number)}
-                        className={`min-w-[40px] px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                          currentPage === page
-                            ? 'bg-brand !text-white'
-                            : 'text-gray-700 hover:bg-gray-100'
-                        }`}
-                      >
-                        {page}
-                      </button>
-                    )}
-                  </div>
-                ))}
-              </div>
+              {getPageNumbers().map((page, index) => (
+                <div key={index}>
+                  {page === '...' ? (
+                    <span className="px-3 py-2 text-muted-foreground text-sm">…</span>
+                  ) : (
+                    <button
+                      onClick={() => handlePageChange(page as number)}
+                      className="min-w-[36px] h-9 px-3 rounded-lg text-sm font-medium transition-all border"
+                      style={currentPage === page
+                        ? { background: '#f97316', color: '#fff', borderColor: '#f97316' }
+                        : { background: 'transparent', color: 'var(--foreground)', borderColor: 'var(--border)' }
+                      }
+                    >
+                      {page}
+                    </button>
+                  )}
+                </div>
+              ))}
 
-              {/* Next Button */}
               <button
                 onClick={() => handlePageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
-                className={`p-2 rounded-lg transition-colors ${
-                  currentPage === totalPages
-                    ? 'text-gray-400 cursor-not-allowed'
-                    : 'text-gray-700 hover:bg-gray-100'
-                }`}
+                className="p-2 rounded-lg border border-border transition-colors disabled:opacity-30 disabled:cursor-not-allowed hover:bg-muted"
                 aria-label="Next page"
               >
-                <ChevronRight className="w-5 h-5" />
+                <ChevronRight className="w-4 h-4" />
               </button>
             </div>
 
-            {/* Mobile Page Info */}
-            <div className="mt-4 text-center text-sm text-gray-600 md:hidden">
+            <p className="mt-3 text-center text-xs text-muted-foreground md:hidden">
               Page {currentPage} of {totalPages}
-            </div>
+            </p>
           </div>
         </section>
       )}

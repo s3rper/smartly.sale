@@ -1,7 +1,9 @@
 import React from 'react';
 import { Search, Eye, ShoppingCart, ThumbsUp } from 'lucide-react';
+import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 const HowItWorks: React.FC = () => {
+  const { ref, isVisible } = useScrollAnimation();
   const steps = [
     {
       icon: <Search className="w-12 h-12" strokeWidth={2.5} />,
@@ -30,10 +32,10 @@ const HowItWorks: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 bg-background">
+    <section className="py-16 bg-background" ref={ref}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-12">
+        <div className={`text-center mb-12 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
             How <span className="text-brand">It Works</span>
           </h2>
@@ -45,7 +47,7 @@ const HowItWorks: React.FC = () => {
         {/* Steps */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
           {steps.map((item, index) => (
-            <div key={index} className="relative">
+            <div key={index} className={`relative ${isVisible ? `animate-fade-in-up animate-delay-${(index + 1) * 100}` : 'opacity-0'}`}>
               {/* Connector Line (hidden on mobile, last item) */}
               {index < steps.length - 1 && (
                 <div className="hidden lg:block absolute top-16 left-1/2 w-full h-0.5 bg-gradient-to-r from-brand to-brand/20 -z-10"></div>

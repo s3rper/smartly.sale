@@ -1,0 +1,136 @@
+---
+import MainLayout from '../layouts/main.astro';
+import { AegixHero } from '../components/aegix/AegixHero';
+import { AegixTargetAudience } from '../components/aegix/AegixTargetAudience';
+import { AegixPhilosophy } from '../components/aegix/AegixPhilosophy';
+import { AegixRegistration } from '../components/aegix/AegixRegistration';
+
+const pageTitle = "The Hacker's Favorite Target - Cybersecurity for Founders | Aegix";
+const pageDescription = "Free non-technical webinar for founders and business owners. Learn why unprepared businesses are hackers' favorite targets and how to protect your company.";
+---
+
+<MainLayout
+  title={pageTitle}
+  description={pageDescription}
+  ogImage="/og-image.jpg"
+>
+  <!-- SEO Schema Markup for Event Page -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "The Hacker's Favorite Target: Unprepared Founders & Business Owners",
+    "description": pageDescription,
+    "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "url": "https://smartly.sale/aegix",
+    "image": "https://smartly.sale/og-image.jpg",
+    "organizer": {
+      "@type": "Organization",
+      "name": "Aegix",
+      "url": "https://smartly.sale/aegix"
+    },
+    "performer": {
+      "@type": "Person",
+      "name": "René Bos",
+      "jobTitle": "Cyber Resilience Expert"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "validFrom": new Date().toISOString(),
+      "url": "https://smartly.sale/aegix#register"
+    }
+  })} />
+
+  <!-- Hero Section -->
+  <AegixHero client:only="react" />
+
+  <!-- Problem Statement Section -->
+  <section class="py-16 md:py-24 bg-card">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="prose prose-lg max-w-none">
+        <p class="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-6">
+          Most founders think cybersecurity is an IT problem. They believe their tech team or antivirus software will handle it.
+          <span class="text-foreground font-semibold">But the reality is different.</span>
+        </p>
+
+        <div class="bg-background border-l-4 border-brand p-8 rounded-lg my-8">
+          <p class="text-lg text-foreground italic mb-4">
+            Imagine this: It's Saturday afternoon. You're at a BBQ with friends. Your phone rings.
+            It's your IT person, and they sound stressed.
+          </p>
+          <p class="text-lg text-foreground italic">
+            "We've been breached. Customer data might be exposed. What do we do?"
+          </p>
+        </div>
+
+        <p class="text-xl text-foreground leading-relaxed mb-6">
+          In that moment, <span class="text-brand font-bold">cybersecurity stops being an IT topic</span>.
+          It becomes a leadership problem. A decision-making problem. A "what happens next" problem.
+        </p>
+
+        <p class="text-xl text-muted-foreground leading-relaxed">
+          And if you haven't thought about it before, you're making it up on the spot—under pressure,
+          with potentially massive consequences.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Target Audience Section -->
+  <AegixTargetAudience client:only="react" />
+
+  <!-- Philosophy Section -->
+  <AegixPhilosophy client:only="react" />
+
+  <!-- Registration Section -->
+  <AegixRegistration client:only="react" />
+
+  <!-- Additional Context Section -->
+  <section class="py-16 md:py-20 bg-background">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-foreground mb-6">
+        What You'll Learn
+      </h2>
+      <div class="grid md:grid-cols-3 gap-8 mt-12">
+        <div class="bg-card border border-border rounded-2xl p-6">
+          <div class="w-12 h-12 bg-brand rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-foreground mb-3">Risk Assessment</h3>
+          <p class="text-muted-foreground">
+            Understand which risks matter for your specific business and which ones you can accept.
+          </p>
+        </div>
+
+        <div class="bg-card border border-border rounded-2xl p-6">
+          <div class="w-12 h-12 bg-brand rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-foreground mb-3">Practical Preparation</h3>
+          <p class="text-muted-foreground">
+            Build simple, actionable plans that protect your business without requiring technical expertise.
+          </p>
+        </div>
+
+        <div class="bg-card border border-border rounded-2xl p-6">
+          <div class="w-12 h-12 bg-brand rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-foreground mb-3">Response Ownership</h3>
+          <p class="text-muted-foreground">
+            Know exactly who's responsible for what when an incident happens—no confusion, no delays.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</MainLayout>

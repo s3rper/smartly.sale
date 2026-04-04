@@ -3,23 +3,73 @@ import MainLayout from '../../layouts/main.astro';
 import PostContent from '../../components/PostContent';
 import { blogPosts } from '../../lib/blog-data';
 
-export function getStaticPaths() {
-  return blogPosts.map(post => ({
-    params: { slug: post.slug },
-    props: { post }
-  }));
-}
+// SSR dynamic route — works for both hardcoded and auto-generated posts
+const { slug } = Astro.params;
+const post = blogPosts.find(p => p.slug === slug);
 
-const { post } = Astro.props;
+if (!post) {
+  return Astro.redirect('/blog');
+}
 
 const pageTitle = post.metaTitle || `${post.title} - smartly.sale`;
 const pageDescription = post.metaDescription || post.excerpt;
+const canonicalUrl = `https://smartly.sale/post/${post.slug}`;
+const keywords = post.keywords?.join(', ') || undefined;
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": post.title,
+  "description": post.metaDescription || post.excerpt,
+  "image": post.featuredImage,
+  "url": canonicalUrl,
+  "datePublished": post.publishDate,
+  "dateModified": post.publishDate,
+  "author": {
+    "@type": "Person",
+    "name": post.author
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "smartly.sale",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://smartly.sale/og-image.jpg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": canonicalUrl
+  }
+};
+
+const breadcrumbData = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://smartly.sale" },
+    { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://smartly.sale/blog" },
+    { "@type": "ListItem", "position": 3, "name": post.title, "item": canonicalUrl }
+  ]
+};
 ---
 
-<MainLayout 
+<MainLayout
   title={pageTitle}
   description={pageDescription}
   ogImage={post.featuredImage}
+  keywords={keywords}
+  canonicalUrl={canonicalUrl}
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbData)} />
+    <meta property="og:type" content="article" />
+    <meta property="article:published_time" content={post.publishDate} />
+    <meta property="article:author" content={post.author} />
+    <meta property="article:section" content={post.category} />
+    {post.tags?.map(tag => <meta property="article:tag" content={tag} />)}
+  </Fragment>
+
   <PostContent client:only="react" post={post} />
 </MainLayout>

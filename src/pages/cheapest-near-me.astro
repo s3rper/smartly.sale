@@ -1,0 +1,12 @@
+---
+import Layout from '../layouts/main.astro';
+import CheapestNearMeApp from '../components/CheapestNearMe/CheapestNearMeApp';
+---
+
+<Layout
+  title="Cheapest Near Me - Find Best Prices Near You"
+  description="Community-powered price comparison app. Find the cheapest prices for everyday items at physical stores near you."
+  viewport="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+>
+  <CheapestNearMeApp client:load />
+</Layout>

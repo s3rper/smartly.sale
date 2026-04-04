@@ -1,6 +1,6 @@
-import { e as createComponent, k as renderComponent, r as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_B7CNsfjb.mjs';
+import { e as createComponent, k as renderComponent, r as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_QTRnay6T.mjs';
 import 'kleur/colors';
-import { $ as $$Main } from '../chunks/main__TEui6ED.mjs';
+import { $ as $$Main } from '../chunks/main_U5mpiJ65.mjs';
 export { renderers } from '../renderers.mjs';
 
 const $$Categories = createComponent(($$result, $$props, $$slots) => {
@@ -10,10 +10,10 @@ const $$Categories = createComponent(($$result, $$props, $$slots) => {
 Shop by Category
 </h1> <p class="text-xl text-muted-foreground max-w-2xl mx-auto">
 Find exactly what you're looking for in our organized categories
-</p> </div>  ${renderComponent($$result2, "CategoryGrid", null, { "client:only": "react", "client:component-hydration": "only", "client:component-path": "/app/src/components/CategoryGrid", "client:component-export": "default" })} </div> ` })}`;
-}, "/app/src/pages/categories.astro", void 0);
+</p> </div>  ${renderComponent($$result2, "CategoryGrid", null, { "client:only": "react", "client:component-hydration": "only", "client:component-path": "/Users/kirbydimsontompong/smartly.sale/src/components/CategoryGrid", "client:component-export": "default" })} </div> ` })}`;
+}, "/Users/kirbydimsontompong/smartly.sale/src/pages/categories.astro", void 0);
 
-const $$file = "/app/src/pages/categories.astro";
+const $$file = "/Users/kirbydimsontompong/smartly.sale/src/pages/categories.astro";
 const $$url = "/categories";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

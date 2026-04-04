@@ -1,0 +1,204 @@
+---
+import MainLayout from '../layouts/main.astro';
+import ContentLockerGate from '../components/ContentLockerGate';
+import EmailCapturePopup from '../components/EmailCapturePopup';
+
+const pageTitle       = 'Free Robux Philippines 2026 — Legit & Safe Methods (No Scam Generators)';
+const pageDescription = 'Looking for free Robux in the Philippines? Learn the legit and verified ways to get Robux for free — no scams, no fake generators. Unlock the guide now!';
+const pageUrl         = 'https://smartly.sale/free-robux-philippines';
+const today           = new Date().toISOString().split('T')[0];
+
+// ── SSR pre-fetch ──────────────────────────────────────────────────────────────
+let initialOffers: unknown[] = [];
+try {
+  const runtimeEnv = (Astro.locals as any)?.runtime?.env;
+  const userId = runtimeEnv?.CPABUILD_USER_ID ?? import.meta.env.CPABUILD_USER_ID ?? process.env.CPABUILD_USER_ID ?? '48201';
+  const apiKey = runtimeEnv?.CPABUILD_API_KEY ?? import.meta.env.CPABUILD_API_KEY ?? process.env.CPABUILD_API_KEY ?? '';
+  if (apiKey) {
+    const clientIp = Astro.request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || '';
+    const feedUrl  = new URL('https://d2dzcaq3bhqk1m.cloudfront.net/public/offers/feed.php');
+    feedUrl.searchParams.set('user_id', userId);
+    feedUrl.searchParams.set('api_key', apiKey);
+    feedUrl.searchParams.set('s1', 'free-robux');
+    feedUrl.searchParams.set('s2', 'organic');
+    const h: Record<string, string> = { 'Accept': 'application/json, */*' };
+    if (clientIp) h['X-Forwarded-For'] = clientIp;
+    const res = await fetch(feedUrl.toString(), { headers: h, signal: AbortSignal.timeout(8_000) });
+    if (res.ok) {
+      const raw = JSON.parse((await res.text()).trim());
+      initialOffers = Array.isArray(raw) ? raw : (raw.offers ?? raw.data ?? []);
+    }
+  }
+} catch { /* fallback */ }
+
+const unlockedItems = [
+  { icon: '🏪', title: 'Roblox Premium Membership (Most Direct)', body: 'Roblox Premium gives you a monthly Robux stipend — PHP 149/month = 450 Robux, PHP 299/month = 1,000 Robux. This is the most official and guaranteed method.' },
+  { icon: '🎮', title: 'Create and Sell Your Own Items', body: 'If you\'re an artist or developer, you can create clothing, accessories, or game passes on Roblox. When people buy your creations, you earn Robux that can be converted to cash.' },
+  { icon: '🎁', title: 'Roblox Gift Cards (Win Through Contests)', body: 'Roblox Gift Cards are available at SM, Robinsons, and online. GCash rewards from online contests can be converted to buy Roblox gift cards.' },
+  { icon: '📢', title: 'Microsoft Rewards Program', body: 'Use Microsoft Edge and Bing for daily searches — you earn points that can be redeemed as Roblox gift cards. This program is available in the Philippines.' },
+  { icon: '🏆', title: 'Roblox Affiliate Program', body: 'Share a Roblox game link and when someone signs up and makes a purchase through your link, you earn a commission. This works especially well if you have a social media audience.' },
+  { icon: '⚠️', title: 'Why "Robux Generators" Never Work', body: 'Every "free Robux generator" online is a scam. They ask for your username, password, or personal information — then they hack your account or sell your data. Never use them.' },
+];
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": pageTitle,
+  "description": pageDescription,
+  "image": "https://smartly.sale/og-image.jpg",
+  "author": { "@type": "Organization", "name": "smartly.sale" },
+  "publisher": { "@type": "Organization", "name": "smartly.sale", "logo": { "@type": "ImageObject", "url": "https://smartly.sale/og-image.jpg" } },
+  "datePublished": "2026-01-01",
+  "dateModified": today,
+  "mainEntityOfPage": { "@type": "WebPage", "@id": pageUrl }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://smartly.sale" },
+    { "@type": "ListItem", "position": 2, "name": "Free Robux Philippines", "item": pageUrl }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Are there legit ways to get free Robux?", "acceptedAnswer": { "@type": "Answer", "text": "There are limited official ways to get free Robux. The most legitimate are Roblox Premium membership, creating and selling items, and the Roblox affiliate program." } },
+    { "@type": "Question", "name": "Are free Robux generators real?", "acceptedAnswer": { "@type": "Answer", "text": "No. All 'free Robux generator' sites are scams. Never give your Roblox password to any third-party site." } },
+    { "@type": "Question", "name": "How much does Robux cost in the Philippines?", "acceptedAnswer": { "@type": "Answer", "text": "400 Robux costs approximately PHP 149–199. Payment is available via GCash, Maya, and credit cards." } },
+    { "@type": "Question", "name": "Can Filipinos earn Robux?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — through the Roblox Developer Exchange (DevEx), developers can convert Robux into cash. A minimum of 30,000 Robux is required to cash out." } },
+  ]
+};
+---
+
+<MainLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalUrl={pageUrl}
+  keywords="free Robux Philippines, free Robux 2026, how to get free Robux Philippines safe, Robux generator Philippines scam, free Roblox Philippines"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+
+  <!-- ── Hero ──────────────────────────────────────────────────────────────── -->
+  <section class="bg-gradient-to-br from-[#065f46] via-[#047857] to-[#059669] text-white py-14 px-4">
+    <div class="max-w-3xl mx-auto text-center">
+      <div class="inline-flex items-center gap-2 bg-white/15 border border-white/25 rounded-full px-4 py-1.5 text-xs font-semibold tracking-wide mb-5 uppercase">
+        🟢 Legit Only — No Scam Generators — Updated {today}
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold leading-tight mb-4">
+        Free Robux Philippines —<br class="hidden sm:block" />
+        <span class="text-yellow-300">Legit Methods, No Scams</span>
+      </h1>
+      <p class="text-green-100 text-base sm:text-lg max-w-xl mx-auto mb-6">
+        Tired of fake Robux generators? Unlock our guide of legit and verified
+        ways to get Robux for free or cheap in the Philippines.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4 text-sm text-green-100">
+        <span>✅ 100% Scam-free methods</span>
+        <span>🔒 Safe — no password needed</span>
+        <span>📱 Works on any device</span>
+        <span>🇵🇭 Philippines-specific tips</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Breadcrumb ─────────────────────────────────────────────────────────── -->
+  <nav class="max-w-3xl mx-auto px-4 py-3 text-xs text-gray-400" aria-label="Breadcrumb">
+    <a href="/" class="hover:text-gray-600">Home</a>
+    <span class="mx-2">›</span>
+    <span class="text-gray-700 font-medium">Free Robux Philippines</span>
+  </nav>
+
+  <!-- ── Intro ──────────────────────────────────────────────────────────────── -->
+  <article class="max-w-3xl mx-auto px-4 pb-6">
+    <h2 class="text-xl font-bold text-gray-900 mt-4 mb-3">Why Are There So Many Fake "Free Robux" Sites?</h2>
+    <p class="text-gray-600 leading-relaxed mb-4">
+      <strong>Roblox</strong> has 4 million downloads in the Philippines and is one of the most popular
+      platforms among young people. Because of this, the internet is flooded with "free Robux" scams —
+      fake generators, phishing sites, and apps that ask for your login credentials.
+    </p>
+    <p class="text-gray-600 leading-relaxed mb-4">
+      The truth is: <strong>there is no legit "Robux generator"</strong> that gives Robux for free
+      without any effort on your part. But there are <strong>real methods</strong> to grow your
+      Robux balance — and we cover all of them in our guide.
+    </p>
+
+    <!-- Scam warning -->
+    <div class="bg-red-50 border border-red-200 rounded-xl p-4 mb-4">
+      <p class="text-sm font-bold text-red-700 mb-2">🚨 Red Flags of Fake Robux Sites</p>
+      <ul class="text-xs text-red-600 space-y-1">
+        <li>❌ They ask for your Roblox password</li>
+        <li>❌ It happens "instantly" — no verification required</li>
+        <li>❌ They ask for payment before delivering Robux</li>
+        <li>❌ No clear terms of service</li>
+        <li>❌ Uses the words "hack" or "exploit"</li>
+      </ul>
+    </div>
+  </article>
+
+  <!-- ── Content Locker ─────────────────────────────────────────────────────── -->
+  <div class="max-w-3xl mx-auto px-4 mb-10">
+    <ContentLockerGate
+      client:visible
+      initialOffers={initialOffers}
+      s1="free-robux"
+      s2="organic"
+      accent="green"
+      lockedEmoji="🟢"
+      lockedLabel="Legit Free Robux Methods Philippines (No Scam Guide)"
+      lockedDescription="Complete 1 offer to unlock our 6 legit methods for Robux — no generators, no scams."
+      unlockedTitle="🟢 Your Legit Robux Guide is Unlocked!"
+      unlockedItems={unlockedItems}
+    />
+  </div>
+
+  <!-- ── FAQ ────────────────────────────────────────────────────────────────── -->
+  <section class="max-w-3xl mx-auto px-4 pb-12">
+    <h2 class="text-xl font-bold text-gray-900 mb-5">Frequently Asked Questions</h2>
+    <div class="space-y-4">
+      {[
+        { q: 'Are there legit ways to get free Robux?', a: 'There are limited official ways to get free Robux. The most legitimate are Roblox Premium membership, creating and selling items, and the Roblox affiliate program.' },
+        { q: 'Are free Robux generators real?', a: 'No. All "free Robux generator" sites are scams. Never give your Roblox password to any third-party site.' },
+        { q: 'How much does Robux cost in the Philippines?', a: '400 Robux costs approximately PHP 149–199. Payment is available via GCash, Maya, and credit cards.' },
+        { q: 'Can Filipinos earn Robux?', a: 'Yes — through the Roblox Developer Exchange (DevEx), developers can convert Robux into cash. A minimum of 30,000 Robux is required to cash out.' },
+      ].map(({ q, a }) => (
+        <details class="group border border-gray-200 rounded-xl overflow-hidden">
+          <summary class="flex items-center justify-between gap-3 px-5 py-4 cursor-pointer font-semibold text-sm text-gray-900 hover:bg-gray-50 select-none">
+            {q}
+            <span class="text-gray-400 group-open:rotate-180 transition-transform text-lg leading-none">›</span>
+          </summary>
+          <div class="px-5 pb-4 text-sm text-gray-600 leading-relaxed border-t border-gray-100 pt-3">{a}</div>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <EmailCapturePopup client:load source="free-robux" />
+
+  <!-- ── Internal Links ─────────────────────────────────────────────────────── -->
+  <section class="bg-gray-50 border-t border-gray-100 py-8 px-4">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-sm font-bold text-gray-700 mb-4 uppercase tracking-wide">More Free Rewards</h2>
+      <div class="flex flex-wrap gap-3">
+        {[
+          { href: '/free-mlbb-diamonds',          label: '💎 Free MLBB Diamonds' },
+          { href: '/free-fire-codes',             label: '🔥 Free Fire Codes' },
+          { href: '/free-gaming-credits',         label: '🎮 Free Gaming Credits' },
+          { href: '/earn-gcash',                  label: '💰 Earn GCash Online' },
+          { href: '/free-gift-cards-philippines', label: '🎁 Free Gift Cards' },
+        ].map(({ href, label }) => (
+          <a href={href} class="inline-flex items-center px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-700 hover:border-green-300 hover:text-green-700 transition-colors">
+            {label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</MainLayout>

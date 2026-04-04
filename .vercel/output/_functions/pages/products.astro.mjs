@@ -1,6 +1,6 @@
-import { e as createComponent, k as renderComponent, r as renderTemplate, m as maybeRenderHead, u as unescapeHTML } from '../chunks/astro/server_B7CNsfjb.mjs';
+import { e as createComponent, k as renderComponent, r as renderTemplate, m as maybeRenderHead, u as unescapeHTML } from '../chunks/astro/server_QTRnay6T.mjs';
 import 'kleur/colors';
-import { $ as $$Main } from '../chunks/main__TEui6ED.mjs';
+import { $ as $$Main } from '../chunks/main_U5mpiJ65.mjs';
 export { renderers } from '../renderers.mjs';
 
 var __freeze = Object.freeze;
@@ -34,10 +34,10 @@ const $$Products = createComponent(($$result, $$props, $$slots) => {
         }
       ]
     }
-  })), maybeRenderHead(), renderComponent($$result2, "AllProductsList", null, { "client:only": "react", "client:component-hydration": "only", "client:component-path": "/app/src/components/AllProductsList", "client:component-export": "default" })) })}`;
-}, "/app/src/pages/products.astro", void 0);
+  })), maybeRenderHead(), renderComponent($$result2, "AllProductsList", null, { "client:only": "react", "client:component-hydration": "only", "client:component-path": "/Users/kirbydimsontompong/smartly.sale/src/components/AllProductsList", "client:component-export": "default" })) })}`;
+}, "/Users/kirbydimsontompong/smartly.sale/src/pages/products.astro", void 0);
 
-const $$file = "/app/src/pages/products.astro";
+const $$file = "/Users/kirbydimsontompong/smartly.sale/src/pages/products.astro";
 const $$url = "/products";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

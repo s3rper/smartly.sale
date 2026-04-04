@@ -19,8 +19,8 @@ const Newsletter: React.FC = () => {
   return (
     <section className="py-16 bg-brand relative overflow-hidden">
       {/* Decorative Elements */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+      <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl" aria-hidden="true"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl" aria-hidden="true"></div>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-8">
@@ -33,7 +33,7 @@ const Newsletter: React.FC = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
             Never Miss a Viral Deal!
           </h2>
-          <p className="text-white/90 text-lg max-w-2xl mx-auto">
+          <p className="text-white text-lg max-w-2xl mx-auto">
             Get the hottest Shopee finds and exclusive deals delivered straight to your inbox. 
             Join 10,000+ smart shoppers today!
           </p>
@@ -60,7 +60,7 @@ const Newsletter: React.FC = () => {
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
-            <p className="text-white/70 text-sm text-center" style={{ marginTop: '16px' }}>
+            <p className="text-white text-sm text-center" style={{ marginTop: '16px' }}>
               🔒 We respect your privacy. Unsubscribe anytime.
             </p>
           </form>
@@ -73,7 +73,7 @@ const Newsletter: React.FC = () => {
               <h3 className="text-2xl font-bold text-white mb-4">
                 You're All Set! 🎉
               </h3>
-              <p className="text-white/90">
+              <p className="text-white">
                 Check your email to confirm your subscription and start receiving exclusive deals.
               </p>
             </div>
@@ -89,7 +89,7 @@ const Newsletter: React.FC = () => {
           ].map((benefit, index) => (
             <div
               key={index}
-              className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20"
+              className="bg-black/30 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20"
             >
               <div className="text-3xl mb-4">{benefit.emoji}</div>
               <div className="text-white font-semibold">{benefit.text}</div>

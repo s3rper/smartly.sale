@@ -1,0 +1,259 @@
+---
+import MainLayout from '../layouts/main.astro';
+import CPAOffersWall from '../components/CPAOffersWall';
+import EmailCapturePopup from '../components/EmailCapturePopup';
+
+const pageTitle       = 'Online Contests & Giveaways Philippines 2025 — Legit & Active';
+const pageDescription = 'Find legit online contests and giveaways in the Philippines updated daily. Win cash prizes, gadgets, and gift cards. Free to join — claim your entry now!';
+const pageUrl         = 'https://smartly.sale/online-contests-philippines';
+const today           = new Date().toISOString().split('T')[0];
+
+// ── SSR pre-fetch ─────────────────────────────────────────────────────────────
+let initialOffers: unknown[] = [];
+try {
+  const runtimeEnv = (Astro.locals as any)?.runtime?.env;
+  const userId = runtimeEnv?.CPABUILD_USER_ID ?? import.meta.env.CPABUILD_USER_ID ?? process.env.CPABUILD_USER_ID ?? '48201';
+  const apiKey = runtimeEnv?.CPABUILD_API_KEY ?? import.meta.env.CPABUILD_API_KEY ?? process.env.CPABUILD_API_KEY ?? '';
+  if (apiKey) {
+    const clientIp = Astro.request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || '';
+    const feedUrl  = new URL('https://d2dzcaq3bhqk1m.cloudfront.net/public/offers/feed.php');
+    feedUrl.searchParams.set('user_id', userId);
+    feedUrl.searchParams.set('api_key', apiKey);
+    feedUrl.searchParams.set('s1', 'online-contests-ph');
+    feedUrl.searchParams.set('s2', 'organic');
+    const h: Record<string, string> = { 'Accept': 'application/json, */*' };
+    if (clientIp) h['X-Forwarded-For'] = clientIp;
+    const res = await fetch(feedUrl.toString(), { headers: h, signal: AbortSignal.timeout(8_000) });
+    if (res.ok) {
+      const raw = JSON.parse((await res.text()).trim());
+      initialOffers = Array.isArray(raw) ? raw : (raw.offers ?? raw.data ?? []);
+    }
+  }
+} catch { /* fallback */ }
+
+const collectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": pageTitle,
+  "description": pageDescription,
+  "url": pageUrl,
+  "publisher": { "@type": "Organization", "name": "smartly.sale" },
+  "dateModified": today
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home",                         "item": "https://smartly.sale" },
+    { "@type": "ListItem", "position": 2, "name": "Online Contests Philippines",  "item": pageUrl }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Saan makakakita ng legit na online contests sa Pilipinas?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Makakakita ka ng verified at active na contests sa page na ito. Lahat ng listings ay galing sa trusted advertiser networks na may proven track record ng pagbibigay ng tunay na premyo sa mga nanalo." }
+    },
+    {
+      "@type": "Question",
+      "name": "Paano malalaman kung legit ang isang online contest?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Ang legit na contest ay may malinaw na mechanics, walang required na bayad, may real na contact information ang organizer, at may transparent na selection process para sa winner." }
+    },
+    {
+      "@type": "Question",
+      "name": "Libre ba ang pagsali sa mga online contest dito?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Oo, libre ang lahat ng contests na nakalista dito. Hindi kailanman hihilingin ang bayad para sumali o para ma-claim ang premyo." }
+    },
+    {
+      "@type": "Question",
+      "name": "Gaano kadalas na nag-a-update ang listahan ng contests?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Ang mga available na contests ay awtomatikong nag-u-update batay sa iyong lokasyon. Ang CPABuild network na pinagkukunan ng mga offers ay nagdadagdag ng bagong campaigns araw-araw." }
+    }
+  ]
+};
+
+const prizeTypes = [
+  { icon: '📱', label: 'Smartphones', desc: 'iPhone, Samsung, at iba pa' },
+  { icon: '💳', label: 'Gift Cards',  desc: 'Visa, GCash, e-wallet' },
+  { icon: '🎮', label: 'Gaming',      desc: 'PlayStation, gaming credits' },
+  { icon: '🎧', label: 'Gadgets',     desc: 'AirPods, headphones, at iba pa' },
+];
+---
+
+<MainLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalUrl={pageUrl}
+  keywords="online contests Philippines 2025, free giveaway Philippines, join online raffle Philippines, legit contest Philippines, online contest mechanics Philippines, free prizes online"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(collectionSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+
+  <!-- ── Hero ──────────────────────────────────────────────────────────────── -->
+  <section class="bg-gradient-to-br from-[#7c3aed] via-[#6d28d9] to-[#4c1d95] text-white py-14 px-4">
+    <div class="max-w-3xl mx-auto text-center">
+      <div class="inline-flex items-center gap-2 bg-white/15 border border-white/25 rounded-full px-4 py-1.5 text-xs font-semibold tracking-wide mb-5 uppercase">
+        🏆 Live Contests — Updated {today}
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold leading-tight mb-4">
+        Online Contests & Giveaways<br class="hidden sm:block" />
+        <span class="text-yellow-300">Philippines 2025 — Legit & Active</span>
+      </h1>
+      <p class="text-purple-200 text-base sm:text-lg max-w-xl mx-auto mb-8">
+        I-curate ang lahat ng active na online contests available sa Pilipinas.
+        Verified, libre, at updated araw-araw.
+      </p>
+
+      <!-- Prize type pills -->
+      <div class="flex flex-wrap justify-center gap-3">
+        {prizeTypes.map(({ icon, label, desc }) => (
+          <div class="flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-2 backdrop-blur-sm">
+            <span class="text-lg">{icon}</span>
+            <div class="text-left">
+              <p class="text-xs font-bold text-white">{label}</p>
+              <p class="text-[10px] text-purple-200">{desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Breadcrumb ─────────────────────────────────────────────────────────── -->
+  <nav class="max-w-3xl mx-auto px-4 py-3 text-xs text-gray-400" aria-label="Breadcrumb">
+    <a href="/" class="hover:text-gray-600">Home</a>
+    <span class="mx-2">›</span>
+    <span class="text-gray-700 font-medium">Online Contests Philippines 2025</span>
+  </nav>
+
+  <!-- ── Content ───────────────────────────────────────────────────────────── -->
+  <article class="max-w-3xl mx-auto px-4 pb-6">
+    <h2 class="text-xl font-bold text-gray-900 mt-4 mb-3">Legit na Online Contests sa Pilipinas</h2>
+    <p class="text-gray-600 leading-relaxed mb-4">
+      Sa dami ng scam at fake giveaway sa internet, mahirap nang magtiwala. Pero ang totoo,
+      marami pa ring <strong>legit na online contests at prize draws</strong> na available sa Pilipinas —
+      kailangan lang malaman kung saan hahanapin. Ang mga companies at brands ay regular na nagbibigay ng
+      mga premyo bilang bahagi ng kanilang <strong>marketing campaigns</strong>.
+    </p>
+    <p class="text-gray-600 leading-relaxed mb-4">
+      Ang mga offer na nakalista dito ay galing sa <strong>CPABuild</strong>, isang kilalang advertiser
+      network na nagko-connect ng mga users sa legitimate na prize at reward programs worldwide.
+      Lahat ng contests ay <strong>geo-targeted</strong> — ibig sabihin, relevant ang mga ito sa inyong
+      lokasyon at talaga namang available sa Pilipinas.
+    </p>
+
+    <!-- How to spot legit contests -->
+    <h2 class="text-xl font-bold text-gray-900 mb-4">Paano Matukoy ang Legit na Online Contest?</h2>
+    <div class="grid sm:grid-cols-2 gap-4 mb-6">
+      {[
+        { icon: '✅', title: 'May Malinaw na Mechanics', body: 'Ang legit na contest ay may detalyadong mechanics — alam mo kung paano manalo at kailan ibibigay ang premyo.' },
+        { icon: '✅', title: 'Libre Sumali', body: 'Walang bayad para sumali. Kung kailangan mong magbayad bago mo ma-claim ang premyo, iyon ay scam.' },
+        { icon: '✅', title: 'May Real na Organizer', body: 'May malinaw na pangalan at contact information ang nagre-run ng contest.' },
+        { icon: '✅', title: 'Transparent ang Winner Selection', body: 'Ang proseso ng pagpili ng winner ay malinaw at fair — random draw, first come first served, o batay sa criteria.' },
+      ].map(({ icon, title, body }) => (
+        <div class="flex gap-3 p-4 bg-green-50 rounded-xl border border-green-100">
+          <span class="text-lg flex-shrink-0">{icon}</span>
+          <div>
+            <h3 class="font-semibold text-gray-900 text-sm">{title}</h3>
+            <p class="text-xs text-gray-500 mt-0.5 leading-relaxed">{body}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </article>
+
+  <!-- ── Offer Wall ─────────────────────────────────────────────────────────── -->
+  <div class="max-w-3xl mx-auto px-4 mb-2">
+    <div class="flex items-center gap-3 mb-1">
+      <h2 class="text-lg font-bold text-gray-900">Live Contests Available Near You</h2>
+      <span class="relative flex h-2.5 w-2.5">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
+      </span>
+    </div>
+    <p class="text-sm text-gray-500 mb-4">Verified offers. I-claim ang iyong entry bago mapuno ang slots.</p>
+  </div>
+
+  <div class="max-w-3xl mx-auto px-4">
+    <CPAOffersWall
+      client:visible
+      initialOffers={initialOffers}
+      s1="online-contests-ph"
+      s2="organic"
+    />
+  </div>
+
+  <!-- ── Scam Warning ───────────────────────────────────────────────────────── -->
+  <section class="max-w-3xl mx-auto px-4 py-10">
+    <div class="bg-red-50 border border-red-200 rounded-2xl p-6">
+      <h2 class="text-lg font-bold text-red-800 mb-3 flex items-center gap-2">
+        <span>🚨</span> Paano Makilala ang mga Fake Giveaway
+      </h2>
+      <div class="space-y-3 text-sm text-red-700">
+        {[
+          'Hinahanap ang iyong credit card number o bank details — SCAM ito.',
+          'Nagrereklamo ng "shipping fee" o "processing fee" para mapadala ang premyo — SCAM.',
+          'Ang prize ay "guaranteed" kahit hindi ka pa nagsumite ng entry — SCAM.',
+          'Ginagamit ang pangalan ng kilalang brands nang walang opisyal na link — SCAM.',
+          'Ang website ay may maraming typos at hindi propesyonal ang hitsura — RED FLAG.',
+        ].map(text => (
+          <p class="flex items-start gap-2">
+            <span class="flex-shrink-0">❌</span>
+            <span>{text}</span>
+          </p>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ────────────────────────────────────────────────────────────────── -->
+  <section class="max-w-3xl mx-auto px-4 pb-12">
+    <h2 class="text-xl font-bold text-gray-900 mb-5">Mga Madalas na Tanong</h2>
+    <div class="space-y-4">
+      {[
+        { q: 'Saan makakakita ng legit na online contests sa Pilipinas?', a: 'Makakakita ka ng verified at active na contests sa page na ito. Lahat ng listings ay galing sa trusted advertiser networks na may proven track record.' },
+        { q: 'Paano malalaman kung legit ang isang online contest?', a: 'Ang legit na contest ay may malinaw na mechanics, walang required na bayad, may real na contact information ang organizer, at may transparent na selection process.' },
+        { q: 'Libre ba ang pagsali sa mga online contest dito?', a: 'Oo, libre ang lahat ng contests na nakalista dito. Hindi kailanman hihilingin ang bayad para sumali o para ma-claim ang premyo.' },
+        { q: 'Gaano kadalas na nag-a-update ang listahan ng contests?', a: 'Ang mga available na contests ay awtomatikong nag-u-update batay sa iyong lokasyon at nag-a-update araw-araw.' },
+      ].map(({ q, a }) => (
+        <details class="group border border-gray-200 rounded-xl overflow-hidden">
+          <summary class="flex items-center justify-between gap-3 px-5 py-4 cursor-pointer font-semibold text-sm text-gray-900 hover:bg-gray-50 select-none">
+            {q}
+            <span class="text-gray-400 group-open:rotate-180 transition-transform text-lg leading-none">›</span>
+          </summary>
+          <div class="px-5 pb-4 text-sm text-gray-600 leading-relaxed border-t border-gray-100 pt-3">{a}</div>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <EmailCapturePopup client:load source="online-contests-ph" />
+
+  <!-- ── Internal Links ─────────────────────────────────────────────────────── -->
+  <section class="bg-gray-50 border-t border-gray-100 py-8 px-4">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-sm font-bold text-gray-700 mb-4 uppercase tracking-wide">Explore More</h2>
+      <div class="flex flex-wrap gap-3">
+        {[
+          { href: '/earn-gcash',                  label: '💰 Earn GCash Online' },
+          { href: '/win-free-phone',              label: '📱 Win a Free Phone' },
+          { href: '/free-gift-cards-philippines', label: '🎁 Free Gift Cards' },
+          { href: '/earn',                        label: '💸 More Ways to Earn' },
+          { href: '/products',                    label: '🛍️ Best Deals' },
+        ].map(({ href, label }) => (
+          <a href={href} class="inline-flex items-center px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-700 hover:border-purple-300 hover:text-purple-700 transition-colors">
+            {label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</MainLayout>

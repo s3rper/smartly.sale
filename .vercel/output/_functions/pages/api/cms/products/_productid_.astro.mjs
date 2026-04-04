@@ -2,12 +2,11 @@ import { WebflowClient } from 'webflow-api';
 export { renderers } from '../../../../renderers.mjs';
 
 const GET = async ({ params, locals }) => {
-  const token = locals?.runtime?.env?.WEBFLOW_CMS_SITE_API_TOKEN || process.env.WEBFLOW_CMS_SITE_API_TOKEN;
-  if (!token) return new Response("Missing token", { status: 500 });
-  const baseUrl = locals?.runtime?.env?.WEBFLOW_API_HOST || process.env.WEBFLOW_API_HOST;
+  const token = locals?.runtime?.env?.WEBFLOW_CMS_SITE_API_TOKEN || "4ef8f1b1fec9c33d3c8dd01de18ae1e5aaa91fbedd605fdd5dd8a0fe99ba43b7";
+  const baseUrl = locals?.runtime?.env?.WEBFLOW_API_HOST || "https://api-cdn.webflow.com/v2";
   const client = new WebflowClient({
     accessToken: token,
-    ...baseUrl && { baseUrl }
+    ...{ baseUrl }
   });
   const { productId } = params;
   if (!productId) {

@@ -10,70 +10,88 @@ title?: string;
 description?: string;
 ogImage?: string;
 pageClass?: string;
+viewport?: string;
+keywords?: string;
+canonicalUrl?: string;
 }
 
-const { 
+const {
 title = 'smartly.sale - Best Shopee Deals & Viral Products Philippines 2025',
 description = 'Discover trending Shopee products, viral finds, budget gadgets, and exclusive deals in the Philippines. Smart shopping made easy with curated reviews and affiliate links.',
 ogImage = 'https://smartly.sale/og-image.jpg',
-pageClass = ''
+pageClass = '',
+viewport = 'width=device-width, initial-scale=1.0',
+keywords,
+canonicalUrl
 } = Astro.props;
+
+const resolvedCanonical = canonicalUrl ?? `https://smartly.sale${Astro.url.pathname}`;
 ---
 
-<html lang="en" class={pageClass}>
+<html lang="en-PH" class={pageClass}>
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-BWPR8CV7BR"></script>
+<meta charset="utf-8" />
+<!-- dataLayer queue init — must be first so deferred GTM picks up early pushes -->
+<script is:inline>window.dataLayer=window.dataLayer||[];</script>
+
+<!-- Defer all analytics until page is interactive (reduces TBT/LCP on mobile) -->
 <script is:inline>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
+(function(){
+  function loadAnalytics(){
+    if(window._analyticsLoaded)return;
+    window._analyticsLoaded=true;
 
-gtag('config', 'G-BWPR8CV7BR');
-</script>
+    /* Google Tag Manager — handles GA4 internally, no separate gtag script needed */
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-PXRK86GQ');
 
-<!-- Google Tag Manager -->
-<script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PXRK86GQ');</script>
-<!-- End Google Tag Manager -->
+    /* Facebook Pixel */
+    if(!window._fbqLoaded){window._fbqLoaded=true;
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window,document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init','849998290917290');fbq('track','PageView');}
 
-<!-- Meta Pixel Code -->
-<script is:inline>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '849998290917290');
-fbq('track', 'PageView');
+    /* ShareThis */
+    var st=document.createElement('script');st.async=true;
+    st.src='https://platform-api.sharethis.com/js/sharethis.js#property=691e9ef6247a56d61d0bb8a3&product=sop';
+    document.head.appendChild(st);
+  }
+
+  if('requestIdleCallback' in window){
+    requestIdleCallback(loadAnalytics,{timeout:4000});
+  } else {
+    window.addEventListener('load',function(){setTimeout(loadAnalytics,1500)});
+  }
+})();
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=849998290917290&ev=PageView&noscript=1"
 /></noscript>
-<!-- End Meta Pixel Code -->
 
-<!-- ShareThis Social Sharing -->
-<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=691e9ef6247a56d61d0bb8a3&product=sop' async='async'></script>
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4578835227737176" crossorigin="anonymous"></script>
 
-<meta charset="utf-8" />
 <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content={viewport} />
 <meta name="generator" content={Astro.generator} />
 
 <!-- SEO Meta Tags -->
 <title>{title}</title>
 <meta name="description" content={description} />
-<meta name="keywords" content="Shopee Philippines, viral products, budget gadgets, trending deals, affiliate shopping, smartly.sale, Shopee finds, best Shopee products, Philippine online shopping, Shopee reviews" />
+<meta name="keywords" content={keywords ?? "Shopee Philippines, viral products, budget gadgets, trending deals, affiliate shopping, smartly.sale, Shopee finds, best Shopee products, Philippine online shopping, Shopee reviews"} />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
-<meta property="og:url" content={`https://smartly.sale${Astro.url.pathname}`} />
+<meta property="og:url" content={resolvedCanonical} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={ogImage} />
@@ -85,7 +103,7 @@ src="https://www.facebook.com/tr?id=849998290917290&ev=PageView&noscript=1"
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:url" content={`https://smartly.sale${Astro.url.pathname}`} />
+<meta name="twitter:url" content={resolvedCanonical} />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
@@ -93,12 +111,102 @@ src="https://www.facebook.com/tr?id=849998290917290&ev=PageView&noscript=1"
 
 <!-- Performance Optimization -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://buttons-config.sharethis.com" crossorigin />
+<link rel="preconnect" href="https://platform-cdn.sharethis.com" crossorigin />
+<link rel="dns-prefetch" href="https://l.sharethis.com" />
+<link rel="dns-prefetch" href="https://count-server.sharethis.com" />
 <link rel="dns-prefetch" href="https://shopee.ph" />
+<!-- Non-blocking load for critical fonts (Inter + Poppins) — runs parallel to CSS bundle -->
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" as="style" crossorigin onload="this.onload=null;this.rel='stylesheet'" />
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" /></noscript>
 
 <!-- Canonical URL -->
-<link rel="canonical" href={`https://smartly.sale${Astro.url.pathname}`} />
+<link rel="canonical" href={resolvedCanonical} />
+
+<!-- OneSignal Web Push — only initialises when app ID is configured -->
+{import.meta.env.PUBLIC_ONESIGNAL_APP_ID && (
+  <script is:inline define:vars={{ _osAppId: import.meta.env.PUBLIC_ONESIGNAL_APP_ID }}>
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    OneSignalDeferred.push(function(OneSignal) {
+      OneSignal.init({
+        appId: _osAppId,
+        notifyButton: { enable: false },
+        promptOptions: {
+          slidedown: {
+            prompts: [{
+              type: "push",
+              autoPrompt: true,
+              text: {
+                actionMessage: "Get notified about new FREE prizes and giveaways available in your area!",
+                acceptButton: "Yes, Alert Me!",
+                cancelButton: "No thanks"
+              },
+              delay: { pageViews: 1, timeDelay: 8 }
+            }]
+          }
+        }
+      });
+    });
+    (function(){
+      var s = document.createElement('script');
+      s.src  = 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js';
+      s.defer = true;
+      document.head.appendChild(s);
+    })();
+  </script>
+)}
+
+<!-- Facebook CAPI — fire server-side ViewContent on each page view for better attribution -->
+<script is:inline>
+(function(){
+  function fireCAPI(){
+    try {
+      var fbp = document.cookie.match(/_fbp=([^;]+)/);
+      var fbc = document.cookie.match(/_fbc=([^;]+)/);
+      var fbclid = new URLSearchParams(window.location.search).get('fbclid');
+      fetch('/api/capi', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        keepalive: true,
+        body: JSON.stringify({
+          eventName: 'ViewContent',
+          eventId: 'pv-' + Date.now() + '-' + Math.random().toString(36).slice(2),
+          url: window.location.href,
+          userAgent: navigator.userAgent,
+          fbp: fbp ? fbp[1] : undefined,
+          fbc: fbc ? fbc[1] : undefined,
+          fbclid: fbclid || undefined,
+        }),
+      }).catch(function(){});
+    } catch(e){}
+  }
+  if(document.readyState === 'complete') {
+    setTimeout(fireCAPI, 500);
+  } else {
+    window.addEventListener('load', function(){ setTimeout(fireCAPI, 500); });
+  }
+})();
+</script>
+
+<!-- Page-specific structured data / meta injected by individual pages -->
+<slot name="head" />
+
+<!-- Organization Structured Data -->
+<script type="application/ld+json" is:inline>{JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "smartly.sale",
+  "url": "https://smartly.sale",
+  "logo": "https://smartly.sale/og-image.jpg",
+  "description": "Discover trending Shopee products, viral finds, and budget gadgets in the Philippines.",
+  "sameAs": [
+    "https://www.facebook.com/smartlysale",
+    "https://www.tiktok.com/@smartlysale"
+  ]
+})}</script>
 </head>
-<body class="__DARK_MODE_CLASS__ min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col">
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PXRK86GQ"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -121,5 +229,10 @@ scroll-behavior: smooth;
 
 body {
 overflow-x: hidden;
+}
+
+/* Hide ShareThis social sharing widget */
+.st-sticky-share-buttons {
+display: none !important;
 }
 </style>

@@ -1,4 +1,5 @@
 import type { BlogPost, BlogCategory } from '../types/blog';
+import generatedPosts from '../data/blog-posts.json';
 
 export const blogCategories: BlogCategory[] = [
   {
@@ -108,8 +109,9 @@ export const blogCategories: BlogCategory[] = [
   }
 ];
 
-// Sample blog posts - In production, these would be generated dynamically from your CMS products
-export const blogPosts: BlogPost[] = [
+// Auto-generated posts come first (newest first), then hardcoded posts below.
+// The GitHub Actions cron prepends to src/data/blog-posts.json on every run.
+const _hardcodedPosts: BlogPost[] = [
   {
     id: '30',
     slug: 'top-10-eco-friendly-sustainable-products-shopee-ph-2025',
@@ -807,6 +809,12 @@ export const blogPosts: BlogPost[] = [
     keywords: ['shopee haul ideas 2025', 'shopping haul philippines', 'what to buy shopee', 'shopee shopping ideas'],
     views: 1720
   }
+];
+
+// Merge: auto-generated posts (newest first) + hardcoded posts
+export const blogPosts: BlogPost[] = [
+  ...(generatedPosts as unknown as BlogPost[]),
+  ..._hardcodedPosts,
 ];
 
 // Helper function to get posts by category

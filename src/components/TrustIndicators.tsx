@@ -1,7 +1,9 @@
 import React from 'react';
 import { Users, ShoppingBag, Star, TrendingUp } from 'lucide-react';
+import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 const TrustIndicators: React.FC = () => {
+  const { ref, isVisible } = useScrollAnimation();
   const stats = [
     {
       icon: <Users className="w-8 h-8" />,
@@ -30,14 +32,14 @@ const TrustIndicators: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 bg-gradient-to-br from-brand/5 to-background relative overflow-hidden">
+    <section className="py-16 bg-gradient-to-br from-brand/5 to-background relative overflow-hidden" ref={ref}>
       {/* Decorative Background */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-brand/5 rounded-full blur-3xl -z-10"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-brand/5 rounded-full blur-3xl -z-10"></div>
+      <div className="absolute top-0 left-0 w-96 h-96 bg-brand/5 rounded-full blur-3xl -z-10" aria-hidden="true"></div>
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-brand/5 rounded-full blur-3xl -z-10" aria-hidden="true"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-12">
+        <div className={`text-center mb-12 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
             Trusted by <span className="text-brand">Thousands</span>
           </h2>
@@ -51,7 +53,7 @@ const TrustIndicators: React.FC = () => {
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="bg-card rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-border text-center group hover:scale-105"
+              className={`bg-card rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-border text-center group hover:scale-105 ${isVisible ? `animate-fade-in-up animate-delay-${(index + 1) * 100}` : 'opacity-0'}`}
             >
               <div className={`w-16 h-16 bg-gradient-to-br ${stat.color} rounded-2xl flex items-center justify-center text-white mb-4 mx-auto group-hover:rotate-6 transition-transform duration-300`}>
                 {stat.icon}

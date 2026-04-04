@@ -29,38 +29,43 @@ const pageDescription = 'Discover expert product reviews, buying guides, and sho
     }
   })} />
 
-  <div class="bg-gradient-to-b from-orange-50 to-white">
-    <!-- Hero Section -->
-    <section class="py-16 md:py-24">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-          Smart Shopping Blog
-        </h1>
-        <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-          Expert reviews, buying guides, and insider tips to help you shop smarter on Shopee Philippines
-        </p>
-      </div>
-    </section>
+  <!-- Hero -->
+  <section class="relative overflow-hidden py-20 md:py-28" style="background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);">
+    <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 20% 50%, #f97316 0%, transparent 50%), radial-gradient(circle at 80% 20%, #7c3aed 0%, transparent 40%);"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <span class="inline-block text-xs font-bold uppercase tracking-widest text-orange-400 mb-4 px-3 py-1 rounded-full border border-orange-400/30 bg-orange-400/10">
+        Gaming &amp; Deals
+      </span>
+      <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight" style="letter-spacing: -0.02em;">
+        The smartly.sale Blog
+      </h1>
+      <p class="text-lg md:text-xl text-white/70 max-w-2xl mx-auto">
+        Latest gaming news, tips, free credits, and deals — updated weekly for Filipino gamers and beyond.
+      </p>
+    </div>
+  </section>
 
-    <!-- Blog List with Filters -->
+  <!-- Blog List with Filters -->
+  <div class="bg-background">
     <BlogList client:load />
-
-    <!-- CTA Section -->
-    <section class="py-16 bg-brand">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
-          Never Miss a Deal or Review
-        </h2>
-        <p class="text-white/90 text-lg mb-8">
-          Subscribe to our newsletter for the latest product reviews, buying guides, and exclusive Shopee deals.
-        </p>
-        <a
-          href={`${baseUrl}/contact`}
-          class="inline-flex items-center justify-center px-8 py-4 bg-white text-brand font-bold rounded-full hover:bg-gray-100 transition-colors"
-        >
-          Subscribe Now
-        </a>
-      </div>
-    </section>
   </div>
+
+  <!-- CTA -->
+  <section class="py-16 border-t border-border bg-muted/30">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl md:text-3xl font-bold text-foreground mb-4">
+        Never Miss a Post
+      </h2>
+      <p class="text-muted-foreground text-lg mb-8">
+        New gaming guides and deals drop every week. Stay in the loop.
+      </p>
+      <a
+        href={`${baseUrl}/contact`}
+        class="inline-flex items-center justify-center px-8 py-3.5 text-white font-bold rounded-full hover:opacity-90 transition-opacity"
+        style="background: #f97316;"
+      >
+        Get in Touch
+      </a>
+    </div>
+  </section>
 </MainLayout>

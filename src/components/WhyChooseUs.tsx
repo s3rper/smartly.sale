@@ -1,7 +1,10 @@
 import React from 'react';
 import { CheckCircle, Shield, Zap, ThumbsUp } from 'lucide-react';
+import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 const WhyChooseUs: React.FC = () => {
+  const { ref, isVisible } = useScrollAnimation();
+
   const features = [
     {
       icon: <CheckCircle className="w-12 h-12 text-brand" />,
@@ -26,9 +29,9 @@ const WhyChooseUs: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 bg-muted">
+    <section className="py-16 bg-muted" ref={ref}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
+        <div className={`text-center mb-12 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
             Why Choose smartly.sale?
           </h2>
@@ -41,7 +44,7 @@ const WhyChooseUs: React.FC = () => {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="bg-background p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1 text-center"
+              className={`bg-background p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1 text-center ${isVisible ? `animate-fade-in-up animate-delay-${(index + 1) * 100}` : 'opacity-0'}`}
             >
               <div className="flex justify-center mb-4">
                 {feature.icon}

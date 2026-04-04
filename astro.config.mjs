@@ -47,8 +47,12 @@ function injectDevScript(options = {}) {
 export default defineConfig({
   base: '',
   output: 'server',
+  compressHTML: true,
   devToolbar: {
     enabled: false,
+  },
+  build: {
+    inlineStylesheets: 'auto',
   },
   server: {
     port: 3000,

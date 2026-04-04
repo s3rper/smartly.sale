@@ -1,0 +1,16 @@
+{
+  "crons": [
+    {
+      "path": "/api/daily-broadcast",
+      "schedule": "0 1 * * *"
+    },
+    {
+      "path": "/api/telegram-notify",
+      "schedule": "0 1 * * *"
+    },
+    {
+      "path": "/api/google-index",
+      "schedule": "0 2 * * 1"
+    }
+  ]
+}

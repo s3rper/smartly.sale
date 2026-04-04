@@ -1,0 +1,267 @@
+---
+import MainLayout from '../layouts/main.astro';
+import CPAOffersWall from '../components/CPAOffersWall';
+import EmailCapturePopup from '../components/EmailCapturePopup';
+
+const pageTitle       = 'Free Gift Cards Philippines 2025 — Win Visa, GCash & More Online';
+const pageDescription = 'Win free gift cards online in the Philippines — Visa $500, GCash credits, and e-wallet rewards. Verified offers, libre sumali, updated daily. Claim yours now!';
+const pageUrl         = 'https://smartly.sale/free-gift-cards-philippines';
+const today           = new Date().toISOString().split('T')[0];
+
+// ── SSR pre-fetch ─────────────────────────────────────────────────────────────
+let initialOffers: unknown[] = [];
+try {
+  const runtimeEnv = (Astro.locals as any)?.runtime?.env;
+  const userId = runtimeEnv?.CPABUILD_USER_ID ?? import.meta.env.CPABUILD_USER_ID ?? process.env.CPABUILD_USER_ID ?? '48201';
+  const apiKey = runtimeEnv?.CPABUILD_API_KEY ?? import.meta.env.CPABUILD_API_KEY ?? process.env.CPABUILD_API_KEY ?? '';
+  if (apiKey) {
+    const clientIp = Astro.request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || '';
+    const feedUrl  = new URL('https://d2dzcaq3bhqk1m.cloudfront.net/public/offers/feed.php');
+    feedUrl.searchParams.set('user_id', userId);
+    feedUrl.searchParams.set('api_key', apiKey);
+    feedUrl.searchParams.set('s1', 'free-gift-cards-ph');
+    feedUrl.searchParams.set('s2', 'organic');
+    const h: Record<string, string> = { 'Accept': 'application/json, */*' };
+    if (clientIp) h['X-Forwarded-For'] = clientIp;
+    const res = await fetch(feedUrl.toString(), { headers: h, signal: AbortSignal.timeout(8_000) });
+    if (res.ok) {
+      const raw = JSON.parse((await res.text()).trim());
+      initialOffers = Array.isArray(raw) ? raw : (raw.offers ?? raw.data ?? []);
+    }
+  }
+} catch { /* fallback */ }
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": pageTitle,
+  "description": pageDescription,
+  "image": "https://smartly.sale/og-image.jpg",
+  "author": { "@type": "Organization", "name": "smartly.sale" },
+  "publisher": { "@type": "Organization", "name": "smartly.sale", "logo": { "@type": "ImageObject", "url": "https://smartly.sale/og-image.jpg" } },
+  "datePublished": "2025-01-15",
+  "dateModified": today,
+  "mainEntityOfPage": { "@type": "WebPage", "@id": pageUrl }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home",              "item": "https://smartly.sale" },
+    { "@type": "ListItem", "position": 2, "name": "Free Gift Cards PH", "item": pageUrl }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Saan makakakuha ng libreng gift cards sa Pilipinas?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Makakakuha ka ng libreng gift cards sa pamamagitan ng pagsali sa verified na online prize draws at reward programs. Ang mga offer na nakalista dito ay galing sa trusted advertiser networks na nagbibigay ng Visa gift cards, GCash credits, at iba pang e-wallet rewards." }
+    },
+    {
+      "@type": "Question",
+      "name": "Pwede bang gamitin ang Visa gift card sa Shopee at Lazada?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Oo, ang mga Visa prepaid gift cards ay maaaring gamitin sa karamihan ng online stores tulad ng Shopee, Lazada, at international sites na tumatanggap ng Visa payment." }
+    },
+    {
+      "@type": "Question",
+      "name": "Gaano katagal bago makatanggap ng gift card?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Depende sa offer at advertiser. Karamihan ay nagpapadala ng digital gift card sa loob ng 24–72 oras pagkatapos ma-verify ang iyong entry. Ang iba ay nagbibigay ng instant na code." }
+    },
+    {
+      "@type": "Question",
+      "name": "May expiry ba ang mga gift cards na mananalo?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Karamihan ng Visa prepaid gift cards ay may 1–3 taon na validity. Ang GCash at e-wallet credits naman ay karaniwang walang expiry o may mahabang validity period." }
+    }
+  ]
+};
+
+const cardTypes = [
+  { icon: '💳', name: 'Visa $500',      desc: 'Prepaid card', color: 'from-blue-600 to-blue-800' },
+  { icon: '📱', name: 'GCash Credits',  desc: 'Instant reload', color: 'from-sky-500 to-blue-600' },
+  { icon: '🎮', name: 'Game Credits',   desc: 'Gaming rewards', color: 'from-purple-600 to-indigo-700' },
+  { icon: '🛍️', name: 'E-wallet',       desc: 'Digital rewards', color: 'from-emerald-500 to-teal-600' },
+];
+---
+
+<MainLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalUrl={pageUrl}
+  keywords="free gift cards Philippines, win gift card online Philippines, libreng gift card legit, free Visa gift card Philippines, GCash gift card free, win gift card 2025"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+
+  <!-- ── Hero ──────────────────────────────────────────────────────────────── -->
+  <section class="bg-gradient-to-br from-[#064e3b] via-[#065f46] to-[#047857] text-white py-14 px-4">
+    <div class="max-w-3xl mx-auto text-center">
+      <div class="inline-flex items-center gap-2 bg-white/15 border border-white/25 rounded-full px-4 py-1.5 text-xs font-semibold tracking-wide mb-5 uppercase">
+        🎁 Free Gift Cards — Verified Offers
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold leading-tight mb-4">
+        Win Free Gift Cards<br class="hidden sm:block" />
+        <span class="text-yellow-300">Philippines 2025 — Verified & Libre</span>
+      </h1>
+      <p class="text-green-200 text-base sm:text-lg max-w-xl mx-auto mb-8">
+        Manalo ng Visa gift cards, GCash credits, at iba pang digital rewards.
+        Libre sumali — available sa iyong lokasyon ngayon.
+      </p>
+
+      <!-- Card type showcase -->
+      <div class="flex flex-wrap justify-center gap-3">
+        {cardTypes.map(({ icon, name, desc, color }) => (
+          <div class={`bg-gradient-to-br ${color} rounded-2xl px-5 py-3 text-center shadow-lg`}>
+            <div class="text-2xl mb-1">{icon}</div>
+            <p class="font-bold text-white text-sm">{name}</p>
+            <p class="text-[11px] text-green-100 mt-0.5">{desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Breadcrumb ─────────────────────────────────────────────────────────── -->
+  <nav class="max-w-3xl mx-auto px-4 py-3 text-xs text-gray-400" aria-label="Breadcrumb">
+    <a href="/" class="hover:text-gray-600">Home</a>
+    <span class="mx-2">›</span>
+    <span class="text-gray-700 font-medium">Free Gift Cards Philippines 2025</span>
+  </nav>
+
+  <!-- ── Educational Content ───────────────────────────────────────────────── -->
+  <article class="max-w-3xl mx-auto px-4 pb-6">
+    <h2 class="text-xl font-bold text-gray-900 mt-4 mb-3">Paano Makakuha ng Libreng Gift Card sa Pilipinas?</h2>
+    <p class="text-gray-600 leading-relaxed mb-4">
+      Ang <strong>gift cards</strong> — lalo na ang Visa prepaid cards at GCash credits — ay isa sa mga
+      pinaka-useful na digital rewards na maaari mong manalo online. Maaari itong gamitin para mag-shop sa
+      <strong>Shopee, Lazada</strong>, mag-bayad ng bills, o mag-withdraw ng cash.
+    </p>
+    <p class="text-gray-600 leading-relaxed mb-4">
+      Maraming brands at companies ang nag-o-offer ng gift cards bilang premyo sa kanilang marketing campaigns.
+      Sa pamamagitan ng verified advertiser networks, maaari kang sumali sa mga aktibong prize draws na
+      <strong>specifically available sa Pilipinas</strong> — at ang lahat ay libre.
+    </p>
+
+    <!-- Gift card comparison table -->
+    <h2 class="text-xl font-bold text-gray-900 mb-4">Mga Uri ng Gift Cards na Maaari Mong Manalo</h2>
+    <div class="overflow-x-auto mb-6">
+      <table class="w-full text-sm border-collapse">
+        <thead>
+          <tr class="bg-gray-100 text-gray-700">
+            <th class="text-left px-4 py-3 rounded-tl-xl">Uri ng Gift Card</th>
+            <th class="text-left px-4 py-3">Halaga</th>
+            <th class="text-left px-4 py-3">Saan Magagamit</th>
+            <th class="text-left px-4 py-3 rounded-tr-xl">Validity</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          {[
+            { type: 'Visa Prepaid Card', value: '$500 (~₱28,000)', use: 'Anywhere Visa is accepted', validity: '1-3 taon' },
+            { type: 'GCash Credits',     value: 'Variable',        use: 'GCash, Shopee, bills',      validity: 'Walang expiry' },
+            { type: 'Game Credits',      value: 'Variable',        use: 'Mobile at online games',    validity: '6-12 buwan' },
+            { type: 'E-wallet Bonus',    value: 'Variable',        use: 'Online shopping, transfer', validity: '30-180 araw' },
+          ].map(({ type, value, use, validity }) => (
+            <tr class="hover:bg-gray-50">
+              <td class="px-4 py-3 font-medium text-gray-800">{type}</td>
+              <td class="px-4 py-3 text-emerald-600 font-semibold">{value}</td>
+              <td class="px-4 py-3 text-gray-600">{use}</td>
+              <td class="px-4 py-3 text-gray-500">{validity}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </article>
+
+  <!-- ── Offer Wall ─────────────────────────────────────────────────────────── -->
+  <div class="max-w-3xl mx-auto px-4 mb-2">
+    <div class="flex items-center gap-3 mb-1">
+      <h2 class="text-lg font-bold text-gray-900">Active Gift Card Offers Near You</h2>
+      <span class="relative flex h-2.5 w-2.5">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
+      </span>
+    </div>
+    <p class="text-sm text-gray-500 mb-4">Verified at geo-targeted para sa inyong rehiyon. Mag-claim na bago maubusan.</p>
+  </div>
+
+  <div class="max-w-3xl mx-auto px-4">
+    <CPAOffersWall
+      client:visible
+      initialOffers={initialOffers}
+      s1="free-gift-cards-ph"
+      s2="organic"
+    />
+  </div>
+
+  <!-- ── How to Redeem ──────────────────────────────────────────────────────── -->
+  <section class="max-w-3xl mx-auto px-4 py-10">
+    <h2 class="text-xl font-bold text-gray-900 mb-5">Paano I-redeem ang Gift Card Pagkatapos Manalo?</h2>
+    <div class="space-y-4">
+      {[
+        { step: '1', icon: '📧', title: 'Hintayin ang Confirmation Email', body: 'Pagkatapos kumpletuhin ang mechanics, makakatanggap ka ng email confirmation mula sa advertiser.' },
+        { step: '2', icon: '💳', title: 'I-receive ang Gift Card Code', body: 'Ang digital gift card code o voucher ay ipapadala sa iyong email o contact number sa loob ng 24–72 oras.' },
+        { step: '3', icon: '🛍️', title: 'I-redeem Online', body: 'I-enter ang code sa checkout ng iyong preferred online store — Shopee, Lazada, o kahit saan na tumatanggap ng Visa.' },
+        { step: '4', icon: '✅', title: 'I-enjoy ang Reward', body: 'Gamitin ang iyong reward para mag-shopping, mag-load, o mag-transfer ng funds.' },
+      ].map(({ step, icon, title, body }) => (
+        <div class="flex gap-4 items-start p-4 bg-gray-50 rounded-xl border border-gray-100">
+          <div class="w-8 h-8 rounded-full bg-emerald-600 text-white text-xs font-bold flex items-center justify-center flex-shrink-0">{step}</div>
+          <div>
+            <h3 class="font-semibold text-gray-900 text-sm flex items-center gap-2">{icon} {title}</h3>
+            <p class="text-xs text-gray-500 mt-0.5 leading-relaxed">{body}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── FAQ ────────────────────────────────────────────────────────────────── -->
+  <section class="max-w-3xl mx-auto px-4 pb-12">
+    <h2 class="text-xl font-bold text-gray-900 mb-5">Mga Madalas na Tanong</h2>
+    <div class="space-y-4">
+      {[
+        { q: 'Saan makakakuha ng libreng gift cards sa Pilipinas?', a: 'Makakakuha ka ng libreng gift cards sa pamamagitan ng pagsali sa verified na online prize draws at reward programs sa page na ito. Galing sa trusted advertiser networks ang lahat ng offers.' },
+        { q: 'Pwede bang gamitin ang Visa gift card sa Shopee at Lazada?', a: 'Oo, ang mga Visa prepaid gift cards ay maaaring gamitin sa karamihan ng online stores tulad ng Shopee, Lazada, at international sites na tumatanggap ng Visa payment.' },
+        { q: 'Gaano katagal bago makatanggap ng gift card?', a: 'Depende sa offer. Karamihan ay nagpapadala sa loob ng 24–72 oras pagkatapos ma-verify ang entry. Ang iba ay nagbibigay ng instant na code.' },
+        { q: 'May expiry ba ang mga gift cards na mananalo?', a: 'Karamihan ng Visa prepaid gift cards ay may 1–3 taon na validity. Ang GCash at e-wallet credits naman ay karaniwang walang expiry o may mahabang validity period.' },
+      ].map(({ q, a }) => (
+        <details class="group border border-gray-200 rounded-xl overflow-hidden">
+          <summary class="flex items-center justify-between gap-3 px-5 py-4 cursor-pointer font-semibold text-sm text-gray-900 hover:bg-gray-50 select-none">
+            {q}
+            <span class="text-gray-400 group-open:rotate-180 transition-transform text-lg leading-none">›</span>
+          </summary>
+          <div class="px-5 pb-4 text-sm text-gray-600 leading-relaxed border-t border-gray-100 pt-3">{a}</div>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <EmailCapturePopup client:load source="free-gift-cards-ph" />
+
+  <!-- ── Internal Links ─────────────────────────────────────────────────────── -->
+  <section class="bg-gray-50 border-t border-gray-100 py-8 px-4">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-sm font-bold text-gray-700 mb-4 uppercase tracking-wide">Explore More</h2>
+      <div class="flex flex-wrap gap-3">
+        {[
+          { href: '/earn-gcash',                  label: '💰 Earn GCash Online' },
+          { href: '/win-free-phone',              label: '📱 Win a Free Phone' },
+          { href: '/online-contests-philippines', label: '🏆 Online Contests PH' },
+          { href: '/earn',                        label: '💸 More Ways to Earn' },
+          { href: '/products',                    label: '🛍️ Best Deals' },
+        ].map(({ href, label }) => (
+          <a href={href} class="inline-flex items-center px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-700 hover:border-emerald-300 hover:text-emerald-700 transition-colors">
+            {label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</MainLayout>

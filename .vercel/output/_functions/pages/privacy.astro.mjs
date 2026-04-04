@@ -1,6 +1,6 @@
-import { e as createComponent, k as renderComponent, r as renderTemplate, m as maybeRenderHead, u as unescapeHTML } from '../chunks/astro/server_B7CNsfjb.mjs';
+import { e as createComponent, k as renderComponent, r as renderTemplate, m as maybeRenderHead, u as unescapeHTML } from '../chunks/astro/server_QTRnay6T.mjs';
 import 'kleur/colors';
-import { $ as $$Main } from '../chunks/main__TEui6ED.mjs';
+import { $ as $$Main } from '../chunks/main_U5mpiJ65.mjs';
 /* empty css                                   */
 export { renderers } from '../renderers.mjs';
 
@@ -87,9 +87,9 @@ Back to Homepage
       ]
     }
   })), maybeRenderHead(), (/* @__PURE__ */ new Date()).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })) })} `;
-}, "/app/src/pages/privacy.astro", void 0);
+}, "/Users/kirbydimsontompong/smartly.sale/src/pages/privacy.astro", void 0);
 
-const $$file = "/app/src/pages/privacy.astro";
+const $$file = "/Users/kirbydimsontompong/smartly.sale/src/pages/privacy.astro";
 const $$url = "/privacy";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
