@@ -7,22 +7,23 @@ export const GET: APIRoute = async ({ locals }) => {
   const today = new Date().toISOString().split('T')[0];
 
   const staticPages = [
-    { url: '', priority: '1.0', changefreq: 'daily' },
-    { url: '/products', priority: '0.9', changefreq: 'daily' },
-    { url: '/blog', priority: '0.8', changefreq: 'daily' },
-    { url: '/categories', priority: '0.7', changefreq: 'weekly' },
-    { url: '/earn-gcash',                  priority: '0.8', changefreq: 'daily' },
-    { url: '/win-free-phone',              priority: '0.8', changefreq: 'daily' },
-    { url: '/online-contests-philippines', priority: '0.8', changefreq: 'daily' },
-    { url: '/free-gift-cards-philippines', priority: '0.8', changefreq: 'daily' },
-    { url: '/free-mlbb-diamonds',          priority: '0.8', changefreq: 'daily' },
-    { url: '/free-fire-codes',             priority: '0.8', changefreq: 'daily' },
-    { url: '/free-robux-philippines',      priority: '0.8', changefreq: 'daily' },
-    { url: '/free-gaming-credits',         priority: '0.8', changefreq: 'daily' },
-    { url: '/about', priority: '0.6', changefreq: 'monthly' },
-    { url: '/contact', priority: '0.6', changefreq: 'monthly' },
-    { url: '/privacy', priority: '0.4', changefreq: 'yearly' },
-    { url: '/terms', priority: '0.4', changefreq: 'yearly' },
+    { url: '',                             priority: '1.0', changefreq: 'daily'   },
+    { url: '/products',                    priority: '0.9', changefreq: 'daily'   },
+    { url: '/blog',                        priority: '0.8', changefreq: 'daily'   },
+    { url: '/categories',                  priority: '0.7', changefreq: 'weekly'  },
+    { url: '/earn-gcash',                  priority: '0.8', changefreq: 'daily'   },
+    { url: '/win-free-phone',              priority: '0.8', changefreq: 'daily'   },
+    { url: '/online-contests-philippines', priority: '0.8', changefreq: 'daily'   },
+    { url: '/free-gift-cards-philippines', priority: '0.8', changefreq: 'daily'   },
+    { url: '/free-mlbb-diamonds',          priority: '0.8', changefreq: 'daily'   },
+    { url: '/free-fire-codes',             priority: '0.8', changefreq: 'daily'   },
+    { url: '/free-robux-philippines',      priority: '0.8', changefreq: 'daily'   },
+    { url: '/free-gaming-credits',         priority: '0.8', changefreq: 'daily'   },
+    { url: '/cheapest-near-me',            priority: '0.7', changefreq: 'weekly'  },
+    { url: '/about',                       priority: '0.6', changefreq: 'monthly' },
+    { url: '/contact',                     priority: '0.6', changefreq: 'monthly' },
+    { url: '/privacy',                     priority: '0.4', changefreq: 'yearly'  },
+    { url: '/terms',                       priority: '0.4', changefreq: 'yearly'  },
   ];
 
   // Fetch live products for dynamic URLs
@@ -63,15 +64,21 @@ export const GET: APIRoute = async ({ locals }) => {
   </url>`;
   }).join('\n');
 
-  const blogXml = blogPosts.map(post => `  <url>
-    <loc>${baseUrl}/post/${post.slug}</loc>
-    <lastmod>${post.publishDate ? post.publishDate.split('T')[0] : today}</lastmod>
+  // Generated posts live at /post/slug; hardcoded posts live at /blog/slug
+  const blogXml = blogPosts.map(post => {
+    const path    = (post as any).generated ? `/post/${post.slug}` : `/blog/${post.slug}`;
+    const lastmod = post.publishDate ? post.publishDate.split('T')[0] : today;
+    return `  <url>
+    <loc>${baseUrl}${path}</loc>
+    <lastmod>${lastmod}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-  </url>`).join('\n');
+  </url>`;
+  }).join('\n');
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${staticXml}
 ${productXml}
 ${blogXml}
