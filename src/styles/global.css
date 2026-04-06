@@ -743,3 +743,41 @@ opacity: 0;
 .animate-delay-200 { animation-delay: 0.2s; }
 .animate-delay-300 { animation-delay: 0.3s; }
 .animate-delay-400 { animation-delay: 0.4s; }
+
+/* ═══════════════════════════════════════════════════════
+   aegixcyber.com-inspired animations
+═══════════════════════════════════════════════════════ */
+
+/* Hero glow — slow opacity pulse on the radial gradient layer */
+@keyframes hero-glow-pulse {
+  0%, 100% { opacity: 0.75; }
+  50%       { opacity: 1.0;  }
+}
+
+/* Floating particles — scale in from bottom, drift upward, fade out */
+@keyframes hero-float-particle {
+  0%   { transform: translateY(0)      scale(0);   opacity: 0; }
+  6%   { transform: translateY(-5vh)   scale(1);   opacity: 1; }
+  88%  { transform: translateY(-88vh)  scale(0.7); opacity: 0.55; }
+  100% { transform: translateY(-100vh) scale(0.4); opacity: 0; }
+}
+
+/* Scroll indicator chevron bounce */
+@keyframes hero-chevron-bounce {
+  0%, 100% { transform: translateY(0);  opacity: 0.45; }
+  50%       { transform: translateY(7px); opacity: 1;  }
+}
+
+/* Scroll progress bar — placed in <head> via main.astro */
+#scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: var(--brand-orange);
+  z-index: 9999;
+  pointer-events: none;
+  transition: width 80ms linear;
+  box-shadow: 0 0 8px rgba(194,79,0,0.6);
+}

@@ -15,6 +15,13 @@ if (!post) {
 const relatedPosts = getRelatedPosts(post.id, 3);
 const fullUrl = `https://smartly.sale/blog/${post.slug}`;
 
+function jsonLd(obj: unknown): string {
+  return JSON.stringify(obj)
+    .replace(/</g, '\\u003c')
+    .replace(/>/g, '\\u003e')
+    .replace(/&/g, '\\u0026');
+}
+
 const articleSchema = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
@@ -51,8 +58,8 @@ const breadcrumbSchema = {
   ogImage={post.featuredImage}
 >
   <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={jsonLd(articleSchema)} />
+    <script type="application/ld+json" set:html={jsonLd(breadcrumbSchema)} />
     <meta name="keywords" content={post.keywords.join(', ')} />
     <meta name="author" content={post.author} />
     <meta property="og:type" content="article" />

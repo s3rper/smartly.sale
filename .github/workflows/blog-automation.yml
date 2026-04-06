@@ -75,7 +75,7 @@ jobs:
           echo "✅ Blog post committed and pushed — Vercel will redeploy automatically"
 
       # ── 6. Submit to Google Indexing API ─────────────────────────────────────
-      - name: Submit new post to Google Indexing API
+      - name: Submit new post to Google (IndexNow + Indexing API + status check)
         env:
           GOOGLE_INDEXING_SA_JSON: ${{ secrets.GOOGLE_INDEXING_SA_JSON }}
         run: |
@@ -83,3 +83,12 @@ jobs:
           echo "⏳ Waiting 60s for Vercel to redeploy..."
           sleep 60
           node scripts/submit-to-google.mjs
+
+      # ── 7. Re-check indexing status after 10 minutes ──────────────────────
+      - name: Re-check indexing status (10 min after submission)
+        env:
+          GOOGLE_INDEXING_SA_JSON: ${{ secrets.GOOGLE_INDEXING_SA_JSON }}
+        run: |
+          echo "⏳ Waiting 10 minutes for Google to process crawl request..."
+          sleep 600
+          node scripts/submit-to-google.mjs --check

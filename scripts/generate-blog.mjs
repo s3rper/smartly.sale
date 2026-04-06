@@ -31,24 +31,165 @@ const RSS_FEEDS = [
   { url: 'https://www.pcgamer.com/rss/',               source: 'PC Gamer' },
 ];
 
-// Topic -> image mapping
-const TOPIC_IMAGES = {
-  roblox:      'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=1200&h=630&fit=crop&q=80',
-  playstation: 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=1200&h=630&fit=crop&q=80',
-  xbox:        'https://images.unsplash.com/photo-1621259182978-fbf93132d53d?w=1200&h=630&fit=crop&q=80',
-  nintendo:    'https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=1200&h=630&fit=crop&q=80',
-  minecraft:   'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&h=630&fit=crop&q=80',
-  mobile:      'https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=1200&h=630&fit=crop&q=80',
-  esports:     'https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?w=1200&h=630&fit=crop&q=80',
-  default:     'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200&h=630&fit=crop&q=80',
+// Large curated pools per topic — each post draws from the pool using its
+// slug hash so the same post always gets the same image but different posts
+// (even on the same topic) get different images.
+const TOPIC_IMAGE_POOLS = {
+  playstation: [
+    'photo-1606144042614-b2417e99c4e3',
+    'photo-1592155931584-901ac15763e3',
+    'photo-1526374965328-7f61d4dc18c5',
+    'photo-1601743279870-35b5b6baebe7',
+  ],
+  xbox: [
+    'photo-1621259182978-fbf93132d53d',
+    'photo-1580234831941-0ad2e0b80bec',
+    'photo-1553481187-be93c21490a9',
+    'photo-1560419015-7c427e8ae5ba',
+  ],
+  nintendo: [
+    'photo-1612287230202-1ff1d85d1bdf',
+    'photo-1598550476439-6847ef8edd6e',
+    'photo-1585620385456-4759f9b5c7d9',
+  ],
+  roblox: [
+    'photo-1633356122544-f134324a6cee',
+    'photo-1640955014216-75201056c829',
+    'photo-1591391273702-e09e6eb5a73e',
+  ],
+  minecraft: [
+    'photo-1558618666-fcd25c85cd64',
+    'photo-1607853202273-797f1c22a38e',
+    'photo-1548686304-89d188a80029',
+  ],
+  mobile: [
+    'photo-1552820728-8b83bb6b773f',
+    'photo-1617267655105-b61f0e77e7e6',
+    'photo-1512941937669-90a1b58e7e9c',
+    'photo-1485827404703-89b55fcc595e',
+  ],
+  esports: [
+    'photo-1593642702821-c8da6771f0c6',
+    'photo-1546519638-68e109498ffc',
+    'photo-1542751110-97427bbecf20',
+    'photo-1551698618-1dfe5d97d256',
+  ],
+  fortnite: [
+    'photo-1580234831941-0ad2e0b80bec',
+    'photo-1616588589676-62b3bd4ff6d2',
+    'photo-1493711662062-fa541adb3fc8',
+  ],
+  valorant: [
+    'photo-1535223289429-462ea9301402',
+    'photo-1542751371-adc38448a05e',
+    'photo-1597872200969-2b65d56bd16b',
+  ],
+  gta: [
+    'photo-1612287230202-1ff1d85d1bdf',
+    'photo-1550745165-9bc0b252726f',
+    'photo-1493711662062-fa541adb3fc8',
+  ],
+  default: [
+    'photo-1542751371-adc38448a05e',
+    'photo-1511512578047-ab3e0e22b469',
+    'photo-1493711662062-fa541adb3fc8',
+    'photo-1550745165-9bc0b252726f',
+    'photo-1486572788966-cfd3df1f5b42',
+    'photo-1614294149010-950b698f72c0',
+    'photo-1563207153-f403bf289096',
+    'photo-1551103782-8ab07afd45c1',
+    'photo-1625895197185-efcec01cffe0',
+    'photo-1616588589676-62b3bd4ff6d2',
+    'photo-1535223289429-462ea9301402',
+    'photo-1574170609006-7a5f2a6c0ab5',
+  ],
 };
 
-function getFallbackImage(title = '', content = '') {
+// Build the Unsplash URL from a photo ID
+function unsplashUrl(photoId) {
+  return `https://images.unsplash.com/${photoId}?w=1200&h=630&fit=crop&q=80`;
+}
+
+// Pick from a pool using the slug hash — same slug always → same image,
+// different slugs → different images even within the same topic pool.
+function pickFromPool(pool, slug) {
+  const hashHex = createHash('md5').update(slug || 'default').digest('hex');
+  const idx = parseInt(hashHex.slice(0, 6), 16) % pool.length;
+  return unsplashUrl(pool[idx]);
+}
+
+function getFallbackImage(title = '', content = '', slug = '') {
   const text = (title + ' ' + content).toLowerCase();
-  for (const [key, url] of Object.entries(TOPIC_IMAGES)) {
-    if (key !== 'default' && text.includes(key)) return url;
+  const topicMatch = Object.keys(TOPIC_IMAGE_POOLS).find(
+    key => key !== 'default' && text.includes(key)
+  );
+  const pool = TOPIC_IMAGE_POOLS[topicMatch] ?? TOPIC_IMAGE_POOLS.default;
+  return pickFromPool(pool, slug);
+}
+
+// Validate that Claude returned a real Unsplash photo URL (not the hardcoded fallback)
+function isValidUnsplashUrl(url) {
+  return (
+    typeof url === 'string' &&
+    url.startsWith('https://images.unsplash.com/photo-') &&
+    url.length > 60
+  );
+}
+
+// Use Claude + web_search to find a topic-specific Unsplash image for the article
+async function searchUnsplashImage(title, slug, client) {
+  const topic = title.replace(/[^a-zA-Z0-9 ]/g, ' ').trim();
+  try {
+    const response = await client.messages.create({
+      model: 'claude-sonnet-4-5',
+      max_tokens: 512,
+      tools: [{ type: 'web_search_20250305', name: 'web_search' }],
+      messages: [{
+        role: 'user',
+        content: `Search Unsplash for a high-quality photo relevant to this gaming article: "${topic}"
+
+Search for: site:unsplash.com "${topic.split(' ').slice(0, 3).join(' ')}" gaming photo
+
+Find a real Unsplash photo URL and return it in this exact format:
+https://images.unsplash.com/photo-XXXXXXXXXXXXXXXXX?w=1200&h=630&fit=crop&q=80
+
+Return ONLY the URL, nothing else. The photo ID after "photo-" must be real.`
+      }],
+    });
+
+    // Collect all text from the response (handles pause_turn too)
+    let fullText = response.content.filter(b => b.type === 'text').map(b => b.text).join('\n');
+
+    // Handle pause_turn
+    if (response.stop_reason === 'pause_turn') {
+      const msgs = [
+        { role: 'user', content: `Search for Unsplash photo for: "${topic}"` },
+        { role: 'assistant', content: response.content },
+      ];
+      const cont = await client.messages.create({
+        model: 'claude-sonnet-4-5',
+        max_tokens: 512,
+        tools: [{ type: 'web_search_20250305', name: 'web_search' }],
+        messages: msgs,
+      });
+      fullText += cont.content.filter(b => b.type === 'text').map(b => b.text).join('\n');
+    }
+
+    // Extract an Unsplash URL from the response
+    const match = fullText.match(/https:\/\/images\.unsplash\.com\/photo-[a-zA-Z0-9_-]+[^"\s]*/);
+    if (match) {
+      // Normalise to our preferred query params
+      const photoId = match[0].split('?')[0];
+      const url = `${photoId}?w=1200&h=630&fit=crop&q=80`;
+      if (isValidUnsplashUrl(url)) {
+        console.log(`  Found Unsplash image: ${url}`);
+        return url;
+      }
+    }
+  } catch (err) {
+    console.warn(`  Image search failed: ${err.message}`);
   }
-  return TOPIC_IMAGES.default;
+  return null;
 }
 
 // Fetch RSS and extract article titles/descriptions
@@ -140,7 +281,7 @@ RESPONSE FORMAT -- use these exact tags (this prevents JSON escaping issues with
   "category": "gaming-news",
   "tags": ["tag1", "tag2", "tag3", "tag4", "tag5"],
   "keywords": ["primary keyword", "secondary keyword", "long-tail phrase"],
-  "featuredImage": "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200&h=630&fit=crop&q=80"
+  "featuredImage": ""
 }
 </META>
 <CONTENT>
@@ -150,13 +291,7 @@ RESPONSE FORMAT -- use these exact tags (this prevents JSON escaping issues with
 [{"q": "Question 1?", "a": "Answer 1."}, {"q": "Question 2?", "a": "Answer 2."}, {"q": "Question 3?", "a": "Answer 3."}, {"q": "Question 4?", "a": "Answer 4."}, {"q": "Question 5?", "a": "Answer 5."}]
 </FAQS>
 
-For featuredImage pick the most relevant:
-- General gaming: https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200&h=630&fit=crop&q=80
-- Roblox/Kids: https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=1200&h=630&fit=crop&q=80
-- PlayStation: https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=1200&h=630&fit=crop&q=80
-- Xbox: https://images.unsplash.com/photo-1621259182978-fbf93132d53d?w=1200&h=630&fit=crop&q=80
-- Mobile gaming: https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=1200&h=630&fit=crop&q=80
-- Esports: https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?w=1200&h=630&fit=crop&q=80`;
+Leave featuredImage as an empty string -- the system will automatically select a unique image based on the article topic and slug.`;
 
   console.log('Calling Claude claude-sonnet-4-5 with web search...');
 
@@ -288,6 +423,7 @@ async function main() {
   const articles = await getLatestNews();
   console.log(`Found ${articles.length} headlines from ${RSS_FEEDS.length} feeds`);
 
+  const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
   const raw = await generatePost(articles);
 
   // Clean and dedupe slug
@@ -304,6 +440,13 @@ async function main() {
     console.log(`  Slug conflict resolved: ${slug}`);
   }
 
+  // Search for a topic-specific image using web_search, fall back to pool selection
+  console.log('\nSearching for topic-specific image...');
+  const searchedImage = await searchUnsplashImage(raw.title, slug, client);
+  const featuredImage = searchedImage
+    || (isValidUnsplashUrl(raw.featuredImage) ? raw.featuredImage : null)
+    || getFallbackImage(raw.title, raw.content, slug);
+
   const now = new Date().toISOString();
   const post = {
     id:              createHash('md5').update(slug).digest('hex').slice(0, 8),
@@ -313,7 +456,7 @@ async function main() {
     metaDescription: raw.metaDescription || '',
     excerpt:         raw.excerpt || '',
     content:         raw.content,
-    featuredImage:   raw.featuredImage || getFallbackImage(raw.title, raw.content),
+    featuredImage,
     category:        raw.category || 'gaming-news',
     tags:            Array.isArray(raw.tags) ? raw.tags : [],
     keywords:        Array.isArray(raw.keywords) ? raw.keywords : [],
@@ -330,6 +473,7 @@ async function main() {
   console.log(`  Category: ${post.category}`);
   console.log(`  Words:    ${post.wordCount}`);
   console.log(`  Read:     ${post.readingTime} min`);
+  console.log(`  Image:    ${post.featuredImage}`);
 
   // Newest first, cap at 300
   const updated = [post, ...existing].slice(0, 300);

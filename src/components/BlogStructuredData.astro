@@ -22,6 +22,13 @@ const {
 } = Astro.props;
 
 const siteUrl = "https://smartly.sale";
+
+function jsonLd(obj: unknown): string {
+  return JSON.stringify(obj)
+    .replace(/</g, '\\u003c')
+    .replace(/>/g, '\\u003e')
+    .replace(/&/g, '\\u0026');
+}
 const articleUrl = slug ? `${siteUrl}/blog/${slug}` : `${siteUrl}${Astro.url.pathname}`;
 
 // Article Schema
@@ -80,5 +87,5 @@ const breadcrumbSchema = {
 ---
 
 <!-- Structured Data for SEO -->
-<script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
-<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+<script type="application/ld+json" set:html={jsonLd(articleSchema)} />
+<script type="application/ld+json" set:html={jsonLd(breadcrumbSchema)} />

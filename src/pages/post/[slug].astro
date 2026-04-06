@@ -16,6 +16,16 @@ const pageDescription = post.metaDescription || post.excerpt;
 const canonicalUrl = `https://smartly.sale/post/${post.slug}`;
 const keywords = post.keywords?.join(', ') || undefined;
 
+// Safely serialize JSON for embedding in <script> tags.
+// JSON.stringify alone doesn't escape < > & — the browser HTML parser can
+// truncate the block on </script> or other sequences, producing invalid JSON.
+function jsonLd(obj: unknown): string {
+  return JSON.stringify(obj)
+    .replace(/</g, '\\u003c')
+    .replace(/>/g, '\\u003e')
+    .replace(/&/g, '\\u0026');
+}
+
 const articleSchema = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
@@ -62,8 +72,8 @@ const breadcrumbData = {
   canonicalUrl={canonicalUrl}
 >
   <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbData)} />
+    <script type="application/ld+json" set:html={jsonLd(articleSchema)} />
+    <script type="application/ld+json" set:html={jsonLd(breadcrumbData)} />
     <meta property="og:type" content="article" />
     <meta property="article:published_time" content={post.publishDate} />
     <meta property="article:author" content={post.author} />

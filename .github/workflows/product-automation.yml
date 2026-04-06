@@ -1,0 +1,44 @@
+name: 🛍️ Shopee Product Auto-Generator
+
+on:
+  schedule:
+    # Every Sunday at 02:00 UTC = 10:00 AM Philippines time
+    - cron: '0 2 * * 0'
+
+  # Allow manual trigger from GitHub Actions tab
+  workflow_dispatch:
+    inputs:
+      debug:
+        description: 'Enable debug output'
+        required: false
+        default: 'false'
+
+jobs:
+  generate-products:
+    name: Research & Publish Shopee Products
+    runs-on: ubuntu-latest
+
+    steps:
+      # ── 1. Checkout ──────────────────────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      # ── 2. Node.js ───────────────────────────────────────────────────────────
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # ── 3. Install dependencies ──────────────────────────────────────────────
+      - name: Install dependencies
+        run: npm ci --prefer-offline
+
+      # ── 4. Generate and publish products ─────────────────────────────────────
+      - name: Research and publish Shopee products
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          WEBFLOW_CMS_SITE_API_TOKEN: ${{ secrets.WEBFLOW_CMS_SITE_API_TOKEN }}
+        run: node scripts/generate-products.mjs

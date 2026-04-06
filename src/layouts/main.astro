@@ -212,6 +212,20 @@ src="https://www.facebook.com/tr?id=849998290917290&ev=PageView&noscript=1"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
+<!-- Scroll progress bar -->
+<div id="scroll-progress-bar" aria-hidden="true"></div>
+<script is:inline>
+(function(){
+  var bar = document.getElementById('scroll-progress-bar');
+  if (!bar) return;
+  window.addEventListener('scroll', function(){
+    var st = document.documentElement.scrollTop || document.body.scrollTop;
+    var sh = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    bar.style.width = (sh > 0 ? (st / sh) * 100 : 0) + '%';
+  }, { passive: true });
+})();
+</script>
+
 <Navbar client:only="react" />
 
 <main class="flex-grow">
