@@ -31,31 +31,29 @@ const RSS_FEEDS = [
   { url: 'https://www.pcgamer.com/rss/',               source: 'PC Gamer' },
 ];
 
-// Large curated pools per topic — each post draws from the pool using its
-// slug hash so the same post always gets the same image but different posts
-// (even on the same topic) get different images.
+// Curated pools — all IDs verified 200 OK as of 2026-04-07.
+// Each post picks from its topic pool using slug-hash so the same slug
+// always gets the same image; different slugs get different images.
 const TOPIC_IMAGE_POOLS = {
   playstation: [
-    'photo-1606144042614-b2417e99c4e3',
+    'photo-1606144042614-b2417e99c4e3', // PS controller
     'photo-1592155931584-901ac15763e3',
     'photo-1526374965328-7f61d4dc18c5',
-    'photo-1601743279870-35b5b6baebe7',
+    'photo-1553481187-be93c21490a9',    // gamepad
   ],
   xbox: [
-    'photo-1621259182978-fbf93132d53d',
-    'photo-1580234831941-0ad2e0b80bec',
+    'photo-1621259182978-fbf93132d53d', // Xbox Series X
     'photo-1553481187-be93c21490a9',
     'photo-1560419015-7c427e8ae5ba',
   ],
   nintendo: [
     'photo-1612287230202-1ff1d85d1bdf',
-    'photo-1598550476439-6847ef8edd6e',
     'photo-1585620385456-4759f9b5c7d9',
+    'photo-1558618666-fcd25c85cd64',
   ],
   roblox: [
     'photo-1633356122544-f134324a6cee',
     'photo-1640955014216-75201056c829',
-    'photo-1591391273702-e09e6eb5a73e',
   ],
   minecraft: [
     'photo-1558618666-fcd25c85cd64',
@@ -63,45 +61,66 @@ const TOPIC_IMAGE_POOLS = {
     'photo-1548686304-89d188a80029',
   ],
   mobile: [
-    'photo-1552820728-8b83bb6b773f',
-    'photo-1617267655105-b61f0e77e7e6',
+    'photo-1552820728-8b83bb6b773f',    // mobile gaming
     'photo-1512941937669-90a1b58e7e9c',
     'photo-1485827404703-89b55fcc595e',
   ],
   esports: [
-    'photo-1593642702821-c8da6771f0c6',
+    'photo-1593642702821-c8da6771f0c6', // esports arena
     'photo-1546519638-68e109498ffc',
     'photo-1542751110-97427bbecf20',
     'photo-1551698618-1dfe5d97d256',
   ],
   fortnite: [
-    'photo-1580234831941-0ad2e0b80bec',
     'photo-1616588589676-62b3bd4ff6d2',
     'photo-1493711662062-fa541adb3fc8',
+    'photo-1542751371-adc38448a05e',
   ],
   valorant: [
-    'photo-1535223289429-462ea9301402',
-    'photo-1542751371-adc38448a05e',
+    'photo-1542751110-97427bbecf20',
     'photo-1597872200969-2b65d56bd16b',
+    'photo-1593642702821-c8da6771f0c6',
   ],
   gta: [
     'photo-1612287230202-1ff1d85d1bdf',
     'photo-1550745165-9bc0b252726f',
     'photo-1493711662062-fa541adb3fc8',
   ],
-  default: [
-    'photo-1542751371-adc38448a05e',
-    'photo-1511512578047-ab3e0e22b469',
-    'photo-1493711662062-fa541adb3fc8',
-    'photo-1550745165-9bc0b252726f',
-    'photo-1486572788966-cfd3df1f5b42',
+  genshin: [
     'photo-1614294149010-950b698f72c0',
-    'photo-1563207153-f403bf289096',
-    'photo-1551103782-8ab07afd45c1',
     'photo-1625895197185-efcec01cffe0',
-    'photo-1616588589676-62b3bd4ff6d2',
-    'photo-1535223289429-462ea9301402',
-    'photo-1574170609006-7a5f2a6c0ab5',
+    'photo-1551103782-8ab07afd45c1',
+    'photo-1563207153-f403bf289096',
+  ],
+  pokemon: [
+    'photo-1612287230202-1ff1d85d1bdf',
+    'photo-1633356122544-f134324a6cee',
+    'photo-1585620385456-4759f9b5c7d9',
+  ],
+  callofduty: [
+    'photo-1542751110-97427bbecf20',
+    'photo-1546519638-68e109498ffc',
+    'photo-1551698618-1dfe5d97d256',
+  ],
+  apex: [
+    'photo-1593642702821-c8da6771f0c6',
+    'photo-1542751110-97427bbecf20',
+    'photo-1597872200969-2b65d56bd16b',
+  ],
+  // default pool — wide variety of verified gaming photos
+  default: [
+    'photo-1542751371-adc38448a05e',    // dark gaming desk
+    'photo-1493711662062-fa541adb3fc8', // gaming setup
+    'photo-1550745165-9bc0b252726f',    // gaming monitors
+    'photo-1486572788966-cfd3df1f5b42', // gaming keyboard
+    'photo-1614294149010-950b698f72c0', // gaming chair glow
+    'photo-1563207153-f403bf289096',    // gaming headset
+    'photo-1551103782-8ab07afd45c1',    // controller closeup
+    'photo-1625895197185-efcec01cffe0', // gaming room
+    'photo-1616588589676-62b3bd4ff6d2', // neon gaming
+    'photo-1597872200969-2b65d56bd16b', // gaming mouse
+    'photo-1612287230202-1ff1d85d1bdf', // handheld gaming
+    'photo-1560419015-7c427e8ae5ba',    // gaming setup wide
   ],
 };
 
@@ -118,78 +137,36 @@ function pickFromPool(pool, slug) {
   return unsplashUrl(pool[idx]);
 }
 
+// Maps keyword phrases (checked against title) to pool keys
+const TOPIC_KEYWORDS = [
+  ['genshin', 'genshin'],
+  ['call of duty', 'callofduty'], ['cod ', 'callofduty'], ['warzone', 'callofduty'],
+  ['apex legends', 'apex'], ['apex ', 'apex'],
+  ['pokemon', 'pokemon'], ['pokémon', 'pokemon'],
+  ['fortnite', 'fortnite'],
+  ['valorant', 'valorant'],
+  ['roblox', 'roblox'],
+  ['minecraft', 'minecraft'],
+  ['grand theft auto', 'gta'], ['gta', 'gta'],
+  ['playstation', 'playstation'], ['ps5', 'playstation'], ['ps4', 'playstation'],
+  ['xbox', 'xbox'],
+  ['nintendo', 'nintendo'], ['switch', 'nintendo'], ['mario', 'nintendo'], ['zelda', 'nintendo'],
+  ['mobile legends', 'mobile'], ['free fire', 'mobile'], ['pubg mobile', 'mobile'],
+  ['esports', 'esports'], ['tournament', 'esports'], ['championship', 'esports'],
+];
+
 function getFallbackImage(title = '', content = '', slug = '') {
-  const text = (title + ' ' + content).toLowerCase();
-  const topicMatch = Object.keys(TOPIC_IMAGE_POOLS).find(
-    key => key !== 'default' && text.includes(key)
-  );
-  const pool = TOPIC_IMAGE_POOLS[topicMatch] ?? TOPIC_IMAGE_POOLS.default;
-  return pickFromPool(pool, slug);
-}
-
-// Validate that Claude returned a real Unsplash photo URL (not the hardcoded fallback)
-function isValidUnsplashUrl(url) {
-  return (
-    typeof url === 'string' &&
-    url.startsWith('https://images.unsplash.com/photo-') &&
-    url.length > 60
-  );
-}
-
-// Use Claude + web_search to find a topic-specific Unsplash image for the article
-async function searchUnsplashImage(title, slug, client) {
-  const topic = title.replace(/[^a-zA-Z0-9 ]/g, ' ').trim();
-  try {
-    const response = await client.messages.create({
-      model: 'claude-sonnet-4-5',
-      max_tokens: 512,
-      tools: [{ type: 'web_search_20250305', name: 'web_search' }],
-      messages: [{
-        role: 'user',
-        content: `Search Unsplash for a high-quality photo relevant to this gaming article: "${topic}"
-
-Search for: site:unsplash.com "${topic.split(' ').slice(0, 3).join(' ')}" gaming photo
-
-Find a real Unsplash photo URL and return it in this exact format:
-https://images.unsplash.com/photo-XXXXXXXXXXXXXXXXX?w=1200&h=630&fit=crop&q=80
-
-Return ONLY the URL, nothing else. The photo ID after "photo-" must be real.`
-      }],
-    });
-
-    // Collect all text from the response (handles pause_turn too)
-    let fullText = response.content.filter(b => b.type === 'text').map(b => b.text).join('\n');
-
-    // Handle pause_turn
-    if (response.stop_reason === 'pause_turn') {
-      const msgs = [
-        { role: 'user', content: `Search for Unsplash photo for: "${topic}"` },
-        { role: 'assistant', content: response.content },
-      ];
-      const cont = await client.messages.create({
-        model: 'claude-sonnet-4-5',
-        max_tokens: 512,
-        tools: [{ type: 'web_search_20250305', name: 'web_search' }],
-        messages: msgs,
-      });
-      fullText += cont.content.filter(b => b.type === 'text').map(b => b.text).join('\n');
-    }
-
-    // Extract an Unsplash URL from the response
-    const match = fullText.match(/https:\/\/images\.unsplash\.com\/photo-[a-zA-Z0-9_-]+[^"\s]*/);
-    if (match) {
-      // Normalise to our preferred query params
-      const photoId = match[0].split('?')[0];
-      const url = `${photoId}?w=1200&h=630&fit=crop&q=80`;
-      if (isValidUnsplashUrl(url)) {
-        console.log(`  Found Unsplash image: ${url}`);
-        return url;
-      }
-    }
-  } catch (err) {
-    console.warn(`  Image search failed: ${err.message}`);
+  const titleLower = title.toLowerCase();
+  // Check title first (higher signal than body)
+  for (const [keyword, pool] of TOPIC_KEYWORDS) {
+    if (titleLower.includes(keyword)) return pickFromPool(TOPIC_IMAGE_POOLS[pool], slug);
   }
-  return null;
+  // Fall back to body text check
+  const bodyLower = content.toLowerCase().slice(0, 500);
+  for (const [keyword, pool] of TOPIC_KEYWORDS) {
+    if (bodyLower.includes(keyword)) return pickFromPool(TOPIC_IMAGE_POOLS[pool], slug);
+  }
+  return pickFromPool(TOPIC_IMAGE_POOLS.default, slug);
 }
 
 // Fetch RSS and extract article titles/descriptions
@@ -423,7 +400,6 @@ async function main() {
   const articles = await getLatestNews();
   console.log(`Found ${articles.length} headlines from ${RSS_FEEDS.length} feeds`);
 
-  const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
   const raw = await generatePost(articles);
 
   // Clean and dedupe slug
@@ -440,12 +416,8 @@ async function main() {
     console.log(`  Slug conflict resolved: ${slug}`);
   }
 
-  // Search for a topic-specific image using web_search, fall back to pool selection
-  console.log('\nSearching for topic-specific image...');
-  const searchedImage = await searchUnsplashImage(raw.title, slug, client);
-  const featuredImage = searchedImage
-    || (isValidUnsplashUrl(raw.featuredImage) ? raw.featuredImage : null)
-    || getFallbackImage(raw.title, raw.content, slug);
+  // Pick topic-specific image from verified pool using slug hash
+  const featuredImage = getFallbackImage(raw.title, raw.content, slug);
 
   const now = new Date().toISOString();
   const post = {
