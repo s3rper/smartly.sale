@@ -157,7 +157,6 @@ async function submitGoogleIndexingApi(urls, sa) {
 
 async function submitSitemap(sa) {
   const sitemapUrl    = `${BASE_URL}/sitemap.xml`;
-  const encodedSite   = encodeURIComponent(SITE_URL);
   const encodedSitemap = encodeURIComponent(sitemapUrl);
 
   console.log('\n[Search Console Sitemaps API] Submitting sitemap...');
@@ -171,6 +170,11 @@ async function submitSitemap(sa) {
     console.warn(`  ⚠️  Token error: ${err.message}`);
     return;
   }
+
+  // Auto-detect the correct GSC property format (URL prefix vs sc-domain:)
+  const resolvedSite  = await resolveGscSiteUrl(token);
+  const encodedSite   = encodeURIComponent(resolvedSite);
+  console.log(`  Site: ${resolvedSite}`);
 
   const res = await fetch(
     `https://www.googleapis.com/webmasters/v3/sites/${encodedSite}/sitemaps/${encodedSitemap}`,
