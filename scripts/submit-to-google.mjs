@@ -203,7 +203,7 @@ async function submitSitemap(sa) {
 
 // ── Method 4: Google URL Inspection API ─────────────────────────────────────
 // Checks actual indexing status — same data as manual Search Console inspection.
-// Scope: webmasters.readonly (read-only, same service account)
+// Auto-discovers the correct siteUrl format (URL prefix vs Domain property).
 
 const VERDICT_ICON = {
   PASS:    '✅',
@@ -225,18 +225,51 @@ const COVERAGE_NOTES = {
   'Server error (5xx)':                  '❌ Server error',
 };
 
+// Fetch all GSC properties the service account can access, pick the one
+// that matches smartly.sale. This handles both:
+//   URL prefix property : https://smartly.sale/
+//   Domain property     : sc-domain:smartly.sale
+async function resolveGscSiteUrl(token) {
+  const res = await fetch(
+    'https://www.googleapis.com/webmasters/v3/sites',
+    { headers: { Authorization: `Bearer ${token}` }, signal: AbortSignal.timeout(10_000) }
+  ).catch(() => null);
+
+  if (!res?.ok) return SITE_URL; // fall back to hardcoded value
+
+  const data = await res.json().catch(() => ({}));
+  const sites = data.siteEntry ?? [];
+
+  console.log(`  GSC properties accessible: ${sites.map(s => s.siteUrl).join(', ') || 'none'}`);
+
+  // Prefer the exact SITE_URL match, then domain property, then any match
+  const exact  = sites.find(s => s.siteUrl === SITE_URL);
+  const domain = sites.find(s => s.siteUrl === `sc-domain:smartly.sale`);
+  const any    = sites.find(s => s.siteUrl.includes('smartly.sale'));
+
+  const resolved = (exact ?? domain ?? any)?.siteUrl ?? SITE_URL;
+  if (resolved !== SITE_URL) {
+    console.log(`  ℹ️  Using GSC property: ${resolved} (not the hardcoded ${SITE_URL})`);
+  }
+  return resolved;
+}
+
 async function checkUrlInspection(urls, sa) {
   console.log('\n[URL Inspection API] Checking indexing status...');
-  console.log(`  Site: ${SITE_URL}`);
 
   let token;
   try {
-    token = await getGoogleToken(sa, 'https://www.googleapis.com/auth/webmasters.readonly');
+    // Use full webmasters scope — readonly sometimes causes 403 for URL Inspection
+    token = await getGoogleToken(sa, 'https://www.googleapis.com/auth/webmasters');
     console.log('  ✅ Access token obtained');
   } catch (err) {
     console.warn(`  ⚠️  Token error: ${err.message}`);
     return;
   }
+
+  // Auto-detect correct siteUrl format from the service account's property list
+  const siteUrl = await resolveGscSiteUrl(token);
+  console.log(`  Site: ${siteUrl}`);
 
   for (const url of urls) {
     const res = await fetch(
@@ -244,7 +277,7 @@ async function checkUrlInspection(urls, sa) {
       {
         method:  'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-        body:    JSON.stringify({ inspectionUrl: url, siteUrl: SITE_URL }),
+        body:    JSON.stringify({ inspectionUrl: url, siteUrl }),
         signal:  AbortSignal.timeout(15_000),
       }
     ).catch(err => ({ ok: false, _err: err.message }));
@@ -257,9 +290,9 @@ async function checkUrlInspection(urls, sa) {
       if (data.error?.code === 403) {
         console.warn('');
         console.warn('  ── ACTION REQUIRED ─────────────────────────────────────────');
-        console.warn('  Service account needs at least "Full" access in Search Console.');
-        console.warn('  Steps: Search Console → Settings → Users and permissions → Add user');
-        console.warn(`  Email: ${sa.client_email}  |  Role: Full (or Owner)`);
+        console.warn(`  Service account (${sa.client_email}) needs Full or Owner access.`);
+        console.warn('  Search Console → Settings → Users and permissions → Add user');
+        console.warn(`  Role: Owner  (Full sometimes still 403s for URL Inspection)`);
         console.warn('  ─────────────────────────────────────────────────────────────');
       }
       continue;
@@ -286,8 +319,6 @@ async function checkUrlInspection(urls, sa) {
     if (canonical && canonical !== url) {
       console.log(`     ⚠️  Google canonical differs: ${canonical}`);
     }
-
-    // Actionable advice
     if (coverage.includes('not indexed')) {
       console.log(`     💡 Not indexed yet — normal if recently submitted. Re-check in a few hours.`);
     }
