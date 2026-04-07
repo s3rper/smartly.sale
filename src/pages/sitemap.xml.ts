@@ -19,7 +19,6 @@ export const GET: APIRoute = async ({ locals }) => {
     { url: '/free-fire-codes',             priority: '0.8', changefreq: 'daily'   },
     { url: '/free-robux-philippines',      priority: '0.8', changefreq: 'daily'   },
     { url: '/free-gaming-credits',         priority: '0.8', changefreq: 'daily'   },
-    { url: '/cheapest-near-me',            priority: '0.7', changefreq: 'weekly'  },
     { url: '/about',                       priority: '0.6', changefreq: 'monthly' },
     { url: '/contact',                     priority: '0.6', changefreq: 'monthly' },
     { url: '/privacy',                     priority: '0.4', changefreq: 'yearly'  },

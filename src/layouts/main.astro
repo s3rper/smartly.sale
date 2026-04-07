@@ -13,6 +13,7 @@ pageClass?: string;
 viewport?: string;
 keywords?: string;
 canonicalUrl?: string;
+noindex?: boolean;
 }
 
 const {
@@ -22,7 +23,8 @@ ogImage = 'https://smartly.sale/og-image.jpg',
 pageClass = '',
 viewport = 'width=device-width, initial-scale=1.0',
 keywords,
-canonicalUrl
+canonicalUrl,
+noindex = false,
 } = Astro.props;
 
 const resolvedCanonical = canonicalUrl ?? `https://smartly.sale${Astro.url.pathname}`;
@@ -86,6 +88,7 @@ src="https://www.facebook.com/tr?id=849998290917290&ev=PageView&noscript=1"
 
 <!-- SEO Meta Tags -->
 <title>{title}</title>
+{noindex && <meta name="robots" content="noindex, nofollow" />}
 <meta name="description" content={description} />
 <meta name="keywords" content={keywords ?? "Shopee Philippines, viral products, budget gadgets, trending deals, affiliate shopping, smartly.sale, Shopee finds, best Shopee products, Philippine online shopping, Shopee reviews"} />
 
