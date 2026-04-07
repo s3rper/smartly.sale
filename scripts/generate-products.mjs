@@ -17,6 +17,12 @@
 
 import Anthropic from '@anthropic-ai/sdk';
 import { WebflowClient } from 'webflow-api';
+import { readFileSync, existsSync } from 'fs';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+const __dirname   = dirname(fileURLToPath(import.meta.url));
+const PRODUCTS_FILE = join(__dirname, '..', 'src/data/shopee-products.json');
 
 const COLLECTION_ID = '69158c209e29b59a86d4b534';
 
@@ -305,20 +311,32 @@ async function main() {
 
   let products;
 
-  if (shopeeToken) {
-    // ── Primary: real Shopee affiliate API ──
-    console.log('SHOPEE_AFFILIATE_TOKEN found — using Shopee Affiliate API');
+  // ── Priority 1: pre-fetched JSON from local script ──────────────────────────
+  if (existsSync(PRODUCTS_FILE)) {
+    try {
+      const data = JSON.parse(readFileSync(PRODUCTS_FILE, 'utf-8'));
+      if (Array.isArray(data.products) && data.products.length) {
+        products = data.products;
+        console.log(`Using pre-fetched Shopee products from file (${data.count} products, fetched ${data.fetchedAt})`);
+      }
+    } catch (err) {
+      console.warn(`Could not read ${PRODUCTS_FILE}: ${err.message}`);
+    }
+  }
+
+  // ── Priority 2: live Shopee Affiliate API (PH IP required) ─────────────────
+  if (!products && shopeeToken) {
+    console.log('SHOPEE_AFFILIATE_TOKEN found — trying Shopee Affiliate API...');
     try {
       products = await fetchShopeeProducts(shopeeToken);
       console.log(`  ${products.length} products with affiliate links`);
     } catch (err) {
       console.warn(`Shopee API failed (${err.message}), falling back to Claude web_search`);
-      products = null;
     }
   }
 
+  // ── Priority 3: Claude + web_search ────────────────────────────────────────
   if (!products) {
-    // ── Fallback: Claude + web_search ──
     if (!process.env.ANTHROPIC_API_KEY) throw new Error('ANTHROPIC_API_KEY not set (needed for fallback)');
     const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
     products = await researchProductsWithClaude(anthropic);
