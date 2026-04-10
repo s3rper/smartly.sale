@@ -131,7 +131,16 @@ const allOffers: ShopeeOffer[] = Object.values(rawFiles).flatMap((file) => {
   return Array.isArray(data) ? (data as ShopeeOffer[]) : [];
 });
 
+// Deduplicate by item_id — first occurrence wins if the same product appears
+// in multiple JSON files (e.g. overlapping exports from the affiliate portal)
+const seenIds = new Set<string>();
+const uniqueOffers = allOffers.filter((offer) => {
+  if (seenIds.has(offer.item_id)) return false;
+  seenIds.add(offer.item_id);
+  return true;
+});
+
 /** All products from every /shopee/*.json file, as CMSProduct objects */
-export const shopeeProducts: CMSProduct[] = allOffers.map(shopeeOfferToCMSProduct);
+export const shopeeProducts: CMSProduct[] = uniqueOffers.map(shopeeOfferToCMSProduct);
 
 export const shopeeProductCount = shopeeProducts.length;
