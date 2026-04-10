@@ -23,7 +23,7 @@ const AllProductsList: React.FC = () => {
         setError(null);
         
         console.log('Fetching all products from:', `${baseUrl}/api/cms/products?limit=100`);
-        const response = await fetch(`${baseUrl}/api/cms/products?limit=100`);
+        const response = await fetch(`${baseUrl}/api/cms/products?limit=5000`);
         
         if (!response.ok) {
           throw new Error(`Failed to fetch products: ${response.status}`);

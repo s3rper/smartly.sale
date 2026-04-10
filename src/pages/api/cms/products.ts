@@ -4,7 +4,7 @@ import { fetchProductsFromWebflow } from '../../../lib/products';
 export const GET: APIRoute = async ({ request }) => {
   try {
     const url = new URL(request.url);
-    const limit = Math.min(Number(url.searchParams.get('limit') ?? 20), 100);
+    const limit = Math.min(Number(url.searchParams.get('limit') ?? 20), 5000);
     const offset = Number(url.searchParams.get('offset') ?? 0);
 
     const res = await fetchProductsFromWebflow(undefined, limit, offset);
