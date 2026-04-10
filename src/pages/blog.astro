@@ -5,12 +5,15 @@ import { baseUrl } from '../lib/base-url';
 
 const pageTitle = 'Blog - Expert Reviews, Guides & Tips | smartly.sale';
 const pageDescription = 'Discover expert product reviews, buying guides, and shopping tips. Stay updated with the latest trends and deals from Shopee Philippines.';
+const pageKeywords = 'smartly sale blog, Shopee product reviews, shopping guides Philippines, viral products 2026, earn gcash tips, free gaming credits guide';
 ---
 
-<MainLayout 
+<MainLayout
   title={pageTitle}
   description={pageDescription}
   ogImage="/images/blog-og.jpg"
+  canonicalUrl="https://smartly.sale/blog"
+  keywords={pageKeywords}
 >
   <!-- Schema Markup for Blog -->
   <script type="application/ld+json" set:html={JSON.stringify({

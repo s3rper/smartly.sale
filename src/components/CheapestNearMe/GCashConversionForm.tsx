@@ -238,7 +238,8 @@ export default function GCashConversionForm({ userPoints, onClose, darkMode }: G
             <button
               type="submit"
               disabled={!isFormValid || isSubmitting}
-              className={`w-full py-3 rounded-xl font-bold text-white transition-all ${
+              style={{ color: '#ffffff' }}
+              className={`w-full py-3 rounded-xl font-bold transition-all ${
                 !isFormValid || isSubmitting
                   ? 'bg-gray-400 cursor-not-allowed'
                   : 'bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 shadow-lg hover:shadow-xl'

@@ -4,12 +4,15 @@ import ContactForm from '../components/ContactForm';
 
 const pageTitle = "Contact Us - Get in Touch with smartly.sale | Philippines";
 const pageDescription = "Have questions about our Shopee deals, product reviews, or partnerships? Contact smartly.sale today. We're here to help with all your smart shopping needs!";
+const pageKeywords = "contact smartly.sale, smartly sale support, Shopee deals contact, Philippines shopping help";
 ---
 
-<MainLayout 
+<MainLayout
   title={pageTitle}
   description={pageDescription}
   ogImage="/og-image.jpg"
+  canonicalUrl="https://smartly.sale/contact"
+  keywords={pageKeywords}
 >
   <!-- SEO Schema Markup for Contact Page -->
   <script type="application/ld+json" set:html={JSON.stringify({
@@ -68,7 +71,7 @@ const pageDescription = "Have questions about our Shopee deals, product reviews,
         <h2 class="text-2xl font-bold text-foreground mb-6">
           Send Us a Message
         </h2>
-        <ContactForm client:only="react" />
+        <ContactForm client:load />
       </div>
 
       <!-- Contact Information -->

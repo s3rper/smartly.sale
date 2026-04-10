@@ -167,10 +167,11 @@ function OfferCard({
       <div className="px-5 pb-5">
         <button
           onClick={onClaim}
+          style={{ color: '#ffffff' }}
           className={`w-full py-3 rounded-xl text-sm font-bold tracking-wide transition-all duration-150 active:scale-[0.98]
             ${isTop
-              ? 'bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 text-white shadow-md shadow-amber-200'
-              : 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-md shadow-indigo-200/50'
+              ? 'bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 shadow-md shadow-amber-200'
+              : 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 shadow-md shadow-indigo-200/50'
             }`}
         >
           {claimed ? '✓ Claimed' : 'Claim Reward →'}
@@ -380,7 +381,7 @@ export default function CPAOffersWall({ initialOffers = [], s1 = '', s2 = '' }: 
               </div>
             ))}
           </div>
-          <p className="text-center text-[11px] text-gray-300 leading-relaxed">
+          <p className="text-center text-[11px] text-gray-400 leading-relaxed">
             Rewards and prizes are provided by third-party advertisers via CPABuild network.
             Availability varies by region. Terms and conditions apply to each individual offer.
           </p>

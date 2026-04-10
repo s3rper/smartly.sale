@@ -65,11 +65,17 @@ const Hero: React.FC = () => {
     setTimeout(() => setCountersOn(true), 900);
   }, []);
 
-  // Inline style helper for staged entrance
+  // Inline style helper for staged entrance (decorative elements: badge, stats, trust strip)
   const entrance = (delay: number) => ({
     opacity:    show ? 1 : 0,
     transform:  show ? 'translateY(0)' : 'translateY(22px)',
     transition: `opacity 0.65s ease-out ${delay}ms, transform 0.65s ease-out ${delay}ms`,
+  } as React.CSSProperties);
+
+  // LCP-safe entrance: transform only — element is visible from first paint for LCP scoring
+  const entranceSolid = (delay: number) => ({
+    transform:  show ? 'translateY(0)' : 'translateY(22px)',
+    transition: `transform 0.65s ease-out ${delay}ms`,
   } as React.CSSProperties);
 
   return (
@@ -141,10 +147,10 @@ const Hero: React.FC = () => {
             </div>
           </div>
 
-          {/* Headline */}
+          {/* Headline — uses entranceSolid so it's visible from first paint (LCP) */}
           <h1
             className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight"
-            style={{ color: '#ffffff', ...entrance(150) }}
+            style={{ color: '#ffffff', ...entranceSolid(150) }}
           >
             Discover Viral{' '}
             <span style={{ color: '#FF7A33' }}>Shopee Finds</span>
@@ -153,7 +159,7 @@ const Hero: React.FC = () => {
           {/* Subheadline */}
           <p
             className="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed"
-            style={{ color: 'rgba(255,255,255,0.62)', ...entrance(300) }}
+            style={{ color: 'rgba(255,255,255,0.62)', ...entranceSolid(300) }}
           >
             From budget gadgets to must-have fashion items, we curate the best trending products
             that Filipinos are loving right now. Shop smart, save more!
@@ -162,7 +168,7 @@ const Hero: React.FC = () => {
           {/* CTA Buttons */}
           <div
             className="flex flex-col sm:flex-row justify-center items-center gap-3 pt-2"
-            style={entrance(500)}
+            style={entranceSolid(500)}
           >
             <a
               href={`${baseUrl}/products`}

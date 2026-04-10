@@ -1,5 +1,4 @@
 ---
-import '../../generated/fonts.css';
 import '../site-components/global.css';
 import '../styles/global.css';
 import Navbar from '../components/Navbar';
@@ -66,6 +65,11 @@ const resolvedCanonical = canonicalUrl ?? `https://smartly.sale${Astro.url.pathn
     var st=document.createElement('script');st.async=true;
     st.src='https://platform-api.sharethis.com/js/sharethis.js#property=691e9ef6247a56d61d0bb8a3&product=sop';
     document.head.appendChild(st);
+
+    /* Google AdSense — deferred to reduce TBT/LCP impact */
+    var as=document.createElement('script');as.async=true;as.crossOrigin='anonymous';
+    as.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4578835227737176';
+    document.head.appendChild(as);
   }
 
   if('requestIdleCallback' in window){
@@ -78,9 +82,6 @@ const resolvedCanonical = canonicalUrl ?? `https://smartly.sale${Astro.url.pathn
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=849998290917290&ev=PageView&noscript=1"
 /></noscript>
-
-<!-- Google AdSense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4578835227737176" crossorigin="anonymous"></script>
 
 <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 <meta name="viewport" content={viewport} />
@@ -116,10 +117,14 @@ src="https://www.facebook.com/tr?id=849998290917290&ev=PageView&noscript=1"
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preconnect" href="https://buttons-config.sharethis.com" crossorigin />
-<link rel="preconnect" href="https://platform-cdn.sharethis.com" crossorigin />
+<!-- platform-cdn.sharethis.com serves images (no crossorigin) — fixed to avoid duplicate connections -->
+<link rel="preconnect" href="https://platform-cdn.sharethis.com" />
 <link rel="dns-prefetch" href="https://l.sharethis.com" />
 <link rel="dns-prefetch" href="https://count-server.sharethis.com" />
 <link rel="dns-prefetch" href="https://shopee.ph" />
+<!-- Deferred analytics — pre-resolve DNS so they start faster after idle callback fires -->
+<link rel="dns-prefetch" href="https://connect.facebook.net" />
+<link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
 <!-- Non-blocking load for critical fonts (Inter + Poppins) — runs parallel to CSS bundle -->
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" as="style" crossorigin onload="this.onload=null;this.rel='stylesheet'" />
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" /></noscript>
@@ -160,7 +165,7 @@ src="https://www.facebook.com/tr?id=849998290917290&ev=PageView&noscript=1"
   </script>
 )}
 
-<!-- Facebook CAPI — fire server-side ViewContent on each page view for better attribution -->
+<!-- Facebook CAPI — deferred until idle so it doesn't impact TBT/LCP -->
 <script is:inline>
 (function(){
   function fireCAPI(){
@@ -184,10 +189,10 @@ src="https://www.facebook.com/tr?id=849998290917290&ev=PageView&noscript=1"
       }).catch(function(){});
     } catch(e){}
   }
-  if(document.readyState === 'complete') {
-    setTimeout(fireCAPI, 500);
+  if('requestIdleCallback' in window){
+    requestIdleCallback(fireCAPI, { timeout: 5000 });
   } else {
-    window.addEventListener('load', function(){ setTimeout(fireCAPI, 500); });
+    window.addEventListener('load', function(){ setTimeout(fireCAPI, 2000); });
   }
 })();
 </script>
@@ -196,7 +201,7 @@ src="https://www.facebook.com/tr?id=849998290917290&ev=PageView&noscript=1"
 <slot name="head" />
 
 <!-- Organization Structured Data -->
-<script type="application/ld+json" is:inline>{JSON.stringify({
+<script type="application/ld+json" set:html={JSON.stringify({
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "smartly.sale",
@@ -207,7 +212,7 @@ src="https://www.facebook.com/tr?id=849998290917290&ev=PageView&noscript=1"
     "https://www.facebook.com/smartlysale",
     "https://www.tiktok.com/@smartlysale"
   ]
-})}</script>
+})} />
 </head>
 <body class="min-h-screen flex flex-col">
 <!-- Google Tag Manager (noscript) -->
@@ -229,13 +234,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 })();
 </script>
 
-<Navbar client:only="react" />
+<Navbar client:load />
 
 <main class="flex-grow">
 <slot />
 </main>
 
-<Footer client:only="react" />
+<Footer client:load />
 </body>
 </html>
 

@@ -70,6 +70,16 @@ export default defineConfig({
     optimizeDeps: {
       force: false, // Don't force re-optimization on every restart
     },
+    build: {
+      rollupOptions: {
+        output: {
+          // Bundle all Lucide icons into one chunk — reduces 8+ HTTP round-trips on slow 4G
+          manualChunks(id) {
+            if (id.includes('lucide-react')) return 'icons';
+          },
+        },
+      },
+    },
     server: {
       watch: {
         usePolling: true, // Enable polling for file watching in Docker

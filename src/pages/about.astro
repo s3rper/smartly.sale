@@ -1,14 +1,17 @@
 ---
 import MainLayout from '../layouts/main.astro';
 
-const pageTitle = "About smartly.sale - Your Trusted Shopee Shopping Guide Philippines 2025";
-const pageDescription = "Learn about smartly.sale, your go-to source for viral Shopee products, honest reviews, and exclusive deals in the Philippines. Smart shopping made easy since 2025.";
+const pageTitle = "About smartly.sale - Your Trusted Shopee Shopping Guide Philippines";
+const pageDescription = "Learn about smartly.sale, your go-to source for viral Shopee products, honest reviews, and exclusive deals in the Philippines. Smart shopping made easy.";
+const pageKeywords = "about smartly.sale, smartly sale Philippines, Shopee deals guide, trusted shopping site Philippines, viral product reviews";
 ---
 
-<MainLayout 
+<MainLayout
   title={pageTitle}
   description={pageDescription}
   ogImage="/og-image.jpg"
+  canonicalUrl="https://smartly.sale/about"
+  keywords={pageKeywords}
 >
   <!-- SEO Schema Markup for About Page -->
   <script type="application/ld+json" set:html={JSON.stringify({

@@ -3,11 +3,11 @@ import MainLayout from '../layouts/main.astro';
 import FeaturedProducts from '../components/FeaturedProducts';
 import Newsletter from '../components/Newsletter';
 
-const pageTitle = "TikTok Viral Finds 2025 - Trending Shopee Products Philippines | smartly.sale";
+const pageTitle = "TikTok Viral Finds 2026 - Trending Shopee Products Philippines | smartly.sale";
 const pageDescription = "Discover the hottest TikTok viral products trending in the Philippines! From viral kitchen gadgets to beauty tools, find what everyone's buying on Shopee. Updated weekly!";
 const ogImage = "https://smartly.sale/og-image.jpg";
 
-// SEO Keywords: TikTok viral finds, viral products Philippines, trending Shopee 2025, TikTok made me buy it, viral gadgets
+// SEO Keywords: TikTok viral finds, viral products Philippines, trending Shopee 2026, TikTok made me buy it, viral gadgets
 ---
 
 <MainLayout 
@@ -23,7 +23,7 @@ const ogImage = "https://smartly.sale/og-image.jpg";
           🔥 Updated Weekly
         </div>
         <h1 class="font-heading font-bold text-foreground mb-6" style="font-size: 2.5em; line-height: 1.2;">
-          TikTok Viral Finds 2025
+          TikTok Viral Finds 2026
         </h1>
         <p class="text-xl text-muted-foreground mb-8 leading-relaxed">
           The products that broke TikTok Philippines! From genius home hacks to must-have beauty tools, discover what everyone's adding to cart.
@@ -50,7 +50,7 @@ const ogImage = "https://smartly.sale/og-image.jpg";
         </p>
       </div>
       
-      <FeaturedProducts client:only="react" />
+      <FeaturedProducts client:visible />
       
       <div class="text-center mt-12">
         <a 
@@ -316,13 +316,13 @@ const ogImage = "https://smartly.sale/og-image.jpg";
   </section>
 
   <!-- Newsletter -->
-  <Newsletter client:only="react" />
+  <Newsletter client:visible />
 
   <!-- Schema Markup for SEO -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "name": "TikTok Viral Finds 2025 - Trending Shopee Products Philippines",
+    "name": "TikTok Viral Finds 2026 - Trending Shopee Products Philippines",
     "description": pageDescription,
     "url": "https://smartly.sale/tiktok-viral",
     "image": ogImage,
@@ -331,6 +331,6 @@ const ogImage = "https://smartly.sale/og-image.jpg";
       "name": "smartly.sale",
       "url": "https://smartly.sale"
     },
-    "keywords": "TikTok viral finds, viral products Philippines, trending Shopee 2025, TikTok made me buy it, viral gadgets, trending products, viral home hacks, viral kitchen gadgets, viral beauty tools"
+    "keywords": "TikTok viral finds, viral products Philippines, trending Shopee 2026, TikTok made me buy it, viral gadgets, trending products, viral home hacks, viral kitchen gadgets, viral beauty tools"
   })} />
 </MainLayout>

@@ -102,12 +102,12 @@ const FeaturedProducts: React.FC<Props> = ({ initialProducts }) => {
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
               Featured <span className="text-brand">Viral Products</span>
             </h2>
-            <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-6 max-w-2xl mx-auto">
-              <p className="text-destructive text-lg mb-4">{error}</p>
-              <p className="text-muted-foreground text-sm mb-4">
+            <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-2xl mx-auto dark:bg-red-950/30 dark:border-red-800">
+              <p className="text-red-900 dark:text-red-300 text-lg mb-4">{error}</p>
+              <p className="text-red-800 dark:text-red-400 text-sm mb-4">
                 Please make sure:
               </p>
-              <ul className="text-left text-muted-foreground text-sm space-y-2 max-w-md mx-auto">
+              <ul className="text-left text-red-800 dark:text-red-400 text-sm space-y-2 max-w-md mx-auto">
                 <li>• Products are added to the Affiliate Products CMS collection</li>
                 <li>• Products are published (not in draft mode)</li>
                 <li>• API credentials are properly configured</li>
@@ -187,7 +187,6 @@ const FeaturedProducts: React.FC<Props> = ({ initialProducts }) => {
               <div
                 key={product.id}
                 className="bg-card rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 border border-border group"
-                style={{ willChange: 'transform' }}
               >
                 {/* Product Image */}
                 <div className="relative aspect-square overflow-hidden">

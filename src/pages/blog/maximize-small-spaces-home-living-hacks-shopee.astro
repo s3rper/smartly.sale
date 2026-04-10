@@ -462,5 +462,5 @@ const content = `
   ogImage={post.image}
 >
   <BlogStructuredData post={post} slug={post.slug} />
-  <PostContent client:only="react" post={post} content={content} />
+  <PostContent client:load post={post} content={content} />
 </MainLayout>

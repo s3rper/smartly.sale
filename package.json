@@ -9,9 +9,11 @@
     "preview": "astro build && wrangler dev",
     "astro": "astro",
     "cf-typegen": "wrangler types",
-    "blog:generate": "node scripts/generate-blog.mjs",
-    "products:generate": "node scripts/generate-products.mjs",
-    "products:fetch": "node scripts/fetch-products-local.mjs"
+    "blog:generate": "node --env-file=.env scripts/generate-blog.mjs",
+    "products:generate": "node --env-file=.env scripts/generate-products.mjs",
+    "products:fetch": "node --env-file=.env scripts/fetch-products-local.mjs",
+    "gsc:check": "node --env-file=.env scripts/submit-to-google.mjs --check",
+    "gsc:submit": "node --env-file=.env scripts/submit-to-google.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.82.0",

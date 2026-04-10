@@ -81,5 +81,5 @@ const breadcrumbData = {
     {post.tags?.map(tag => <meta property="article:tag" content={tag} />)}
   </Fragment>
 
-  <PostContent client:only="react" post={post} />
+  <PostContent client:load post={post} />
 </MainLayout>

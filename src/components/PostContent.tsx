@@ -66,13 +66,15 @@ const PostContent: React.FC<{ post: Post }> = ({ post }) => {
       </div>
 
       <article ref={articleRef}>
-        {/* ── Hero ── */}
-        <div className="relative w-full overflow-hidden" style={{ maxHeight: '520px', minHeight: '320px' }}>
+        {/* ── Hero ── aspect-ratio reserves space before image loads, preventing CLS */}
+        <div className="relative w-full overflow-hidden" style={{ aspectRatio: '21/9', maxHeight: '520px' }}>
           <img
             src={post.featuredImage}
             alt={post.featuredImageAlt || post.title}
-            className="w-full object-cover"
-            style={{ maxHeight: '520px', minHeight: '320px', objectPosition: 'center' }}
+            className="absolute inset-0 w-full h-full object-cover"
+            fetchPriority="high"
+            decoding="async"
+            style={{ objectPosition: 'center' }}
           />
           {/* Gradient overlay */}
           <div

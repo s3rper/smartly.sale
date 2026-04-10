@@ -1,24 +1,48 @@
 # robots.txt for smartly.sale
+# Updated: 2026-04-08
 
 User-agent: *
 Allow: /
 
-# Priority pages
+# ── Public pages ──────────────────────────────────────────────────────────────
 Allow: /products
 Allow: /product/
-Allow: /earn
+Allow: /blog
+Allow: /blog/
+Allow: /post/
+Allow: /categories
+Allow: /earn-gcash
+Allow: /win-free-phone
+Allow: /online-contests-philippines
+Allow: /free-gift-cards-philippines
+Allow: /free-mlbb-diamonds
+Allow: /free-fire-codes
+Allow: /free-robux
+Allow: /free-imvu-credits
+Allow: /free-gaming-credits
+Allow: /shopee-ai-assistant
 Allow: /about
 Allow: /contact
+Allow: /privacy
+Allow: /terms
 
-# Sitemaps
-Sitemap: https://smartly.sale/sitemap.xml
+# ── Exclude admin and utility pages ───────────────────────────────────────────
+Disallow: /admin/
+Disallow: /api/
+Disallow: /meta-offers
 
-# Crawl delay for politeness
-Crawl-delay: 1
-
-# Block specific bots if needed (currently allowing all)
+# ── AI crawlers welcome ────────────────────────────────────────────────────────
 User-agent: GPTBot
 Allow: /
 
 User-agent: ChatGPT-User
 Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+# ── Sitemaps ───────────────────────────────────────────────────────────────────
+Sitemap: https://smartly.sale/sitemap.xml

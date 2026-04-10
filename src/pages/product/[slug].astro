@@ -117,6 +117,6 @@ const productSchema = product ? {
     <meta property="og:type" content="product" />
   </Fragment>
 
-  <!-- Product Detail Component -->
-  <ProductDetail client:only="react" />
+  <!-- ProductDetail: client:load SSR-renders the skeleton; initialProduct skips the client-side API call -->
+  <ProductDetail client:load initialProduct={product ?? undefined} />
 </MainLayout>

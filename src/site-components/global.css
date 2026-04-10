@@ -1,6 +1,6 @@
 /* Fonts */
-
-@import url('https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic|Open+Sans:300,400,600,700,800,300italic,400italic,600italic,700italic,800italic|ABeeZee:300,400,500,600,700|Inter:300,400,500,600,700|Poppins:300,400,500,600,700&subset=latin');
+/* NOTE: Google Fonts are loaded non-blocking via <link rel="preload"> in main.astro.
+   The @import url() was removed here to eliminate a render-blocking request. */
 
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 /**
@@ -205,13 +205,19 @@ samp {
  * 2. Correct font properties not being inherited.
  * 3. Address margins set differently in Firefox 4+, Safari, and Chrome.
  */
-button,
 input,
 optgroup,
 select,
 textarea {
   color: inherit;
   /* 1 */
+  font: inherit;
+  /* 2 */
+  margin: 0;
+  /* 3 */
+}
+button {
+  /* color intentionally NOT set here — allows Tailwind text-color utilities to work correctly */
   font: inherit;
   /* 2 */
   margin: 0;

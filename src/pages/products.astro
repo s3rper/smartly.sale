@@ -7,10 +7,11 @@ const pageDescription = "Browse our complete catalog of viral Shopee products, b
 const pageKeywords = "Shopee products, all Shopee deals, product catalog, budget gadgets Philippines, viral products list, Shopee finds, online shopping catalog";
 ---
 
-<MainLayout 
+<MainLayout
   title={pageTitle}
   description={pageDescription}
   ogImage="/og-products.jpg"
+  canonicalUrl="https://smartly.sale/products"
   keywords={pageKeywords}
 >
   <!-- SEO Schema Markup for Product Collection -->
@@ -51,6 +52,6 @@ const pageKeywords = "Shopee products, all Shopee deals, product catalog, budget
     </div>
   </div>
 
-  <!-- Products List Component -->
-  <AllProductsList client:only="react" />
+  <!-- client:load SSR-renders the loading skeleton immediately, then React hydrates and fetches -->
+  <AllProductsList client:load />
 </MainLayout>

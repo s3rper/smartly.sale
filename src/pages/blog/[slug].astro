@@ -82,8 +82,8 @@ const breadcrumbSchema = {
     </div>
   </div>
 
-  <!-- Post content (same component as auto-generated posts) -->
-  <PostContent client:only="react" post={post} />
+  <!-- Post content — client:load so article HTML is server-rendered (SEO + LCP) -->
+  <PostContent client:load post={post} />
 
   <!-- Related posts -->
   {relatedPosts.length > 0 && (

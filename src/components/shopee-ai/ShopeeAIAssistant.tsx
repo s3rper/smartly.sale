@@ -395,7 +395,8 @@ export default function ShopeeAIAssistant() {
                         
                         <Button
                           onClick={() => handleProductClick(product)}
-                          className="w-full mt-3 bg-gradient-to-r from-[#EE4D2D] to-[#FF6B45] hover:from-[#FF6B45] hover:to-[#EE4D2D] text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                          style={{ color: '#ffffff' }}
+                          className="w-full mt-3 bg-gradient-to-r from-[#EE4D2D] to-[#FF6B45] hover:from-[#FF6B45] hover:to-[#EE4D2D] font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                         >
                           <ShoppingBag className="w-4 h-4 mr-2" />
                           {product.cmsOfferLink ? 'View Affiliate Offer' : 'View on Shopee'}
@@ -523,7 +524,8 @@ export default function ShopeeAIAssistant() {
             <Button
               onClick={() => handleSendMessage()}
               disabled={!inputValue.trim() || isTyping}
-              className="bg-gradient-to-r from-[#EE4D2D] to-[#FF6B45] hover:from-[#FF6B45] hover:to-[#EE4D2D] text-white px-6 h-11 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+              style={{ color: '#ffffff' }}
+              className="bg-gradient-to-r from-[#EE4D2D] to-[#FF6B45] hover:from-[#FF6B45] hover:to-[#EE4D2D] px-6 h-11 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Send className="w-5 h-5" />
             </Button>

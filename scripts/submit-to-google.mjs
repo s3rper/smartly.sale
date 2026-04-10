@@ -347,6 +347,14 @@ async function main() {
 
   urls.push(`${BASE_URL}/blog`);
 
+  // Fixed pages — notify Google after deploy so it can re-evaluate coverage issues
+  const fixedUrls = [
+    `${BASE_URL}/earn-gcash`,
+    `${BASE_URL}/free-robux`,
+    `${BASE_URL}/blog/shopee-free-shipping-voucher-guide`,
+  ];
+  fixedUrls.forEach(u => { if (!urls.includes(u)) urls.push(u); });
+
   const saJson = process.env.GOOGLE_INDEXING_SA_JSON;
   let sa = null;
   if (saJson) {

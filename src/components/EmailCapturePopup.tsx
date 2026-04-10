@@ -149,14 +149,15 @@ export default function EmailCapturePopup({ source = 'cpa-page' }: Props) {
                 <button
                   type="submit"
                   disabled={status === 'loading'}
-                  className="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold text-sm rounded-xl transition-all active:scale-[0.98] disabled:opacity-60"
+                  style={{ color: '#ffffff' }}
+                  className="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 font-bold text-sm rounded-xl transition-all active:scale-[0.98] disabled:opacity-60"
                 >
                   {status === 'loading' ? 'Subscribing…' : '🔔 Yes, Alert Me About Free Prizes!'}
                 </button>
               </form>
 
-              <p className="text-center text-[11px] text-gray-300 mt-3">
-                No spam. Unsubscribe anytime. 100% free.
+              <p className="text-center text-[11px] text-gray-400 mt-3">
+                🔒 No spam. Unsubscribe anytime. 100% free.
               </p>
             </>
           )}

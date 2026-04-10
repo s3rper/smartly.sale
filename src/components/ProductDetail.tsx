@@ -4,14 +4,21 @@ import { baseUrl } from '../lib/base-url';
 import type { Product, CMSProduct } from '../types/product';
 import { transformCMSProduct } from '../types/product';
 
-const ProductDetail: React.FC = () => {
-  const [product, setProduct] = useState<Product | null>(null);
-  const [loading, setLoading] = useState(true);
+interface Props {
+  initialProduct?: Product;
+}
+
+const ProductDetail: React.FC<Props> = ({ initialProduct }) => {
+  const [product, setProduct] = useState<Product | null>(initialProduct ?? null);
+  const [loading, setLoading] = useState(!initialProduct);
   const [error, setError] = useState<string | null>(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [showVideo, setShowVideo] = useState(false);
 
   useEffect(() => {
+    // Server-side data provided — skip client-side fetch entirely
+    if (initialProduct) return;
+
     const fetchProduct = async () => {
       try {
         setLoading(true);
@@ -165,6 +172,8 @@ const ProductDetail: React.FC = () => {
                   src={mainImageUrl}
                   alt={product.name}
                   className="w-full h-full object-cover"
+                  fetchPriority="high"
+                  decoding="async"
                   onError={(e) => {
                     // If image fails to load, replace with placeholder
                     const target = e.currentTarget;
@@ -236,6 +245,8 @@ const ProductDetail: React.FC = () => {
                           src={image}
                           alt={`${product.name} - Image ${index + 1}`}
                           className="w-full h-full object-cover"
+                          loading="lazy"
+                          decoding="async"
                           onError={(e) => {
                             const target = e.currentTarget;
                             target.style.display = 'none';

@@ -10,8 +10,9 @@ import { fetchProductsFromWebflow } from '../lib/products';
 import type { CMSProduct } from '../types/product';
 import { transformCMSProduct } from '../types/product';
 
-const pageTitle = "smartly.sale - Best Shopee Deals & Viral Products Philippines 2025";
+const pageTitle = "smartly.sale - Best Shopee Deals & Viral Products Philippines 2026";
 const pageDescription = "Discover trending Shopee products, viral finds, budget gadgets, and exclusive deals in the Philippines. Smart shopping made easy with curated reviews and affiliate links.";
+const pageKeywords = "Shopee Philippines 2026, viral Shopee products, budget gadgets Philippines, best Shopee deals, online shopping Philippines, trending products Shopee, earn GCash online";
 
 // Fetch products server-side — eliminates client-side waterfall for initial render
 let initialProducts: CMSProduct[] = [];
@@ -74,6 +75,8 @@ const itemListSchema = featuredForSchema.length > 0 ? {
 title={pageTitle}
 description={pageDescription}
 ogImage="/og-image.jpg"
+canonicalUrl="https://smartly.sale"
+keywords={pageKeywords}
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
