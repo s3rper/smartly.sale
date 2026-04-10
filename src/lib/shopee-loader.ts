@@ -43,6 +43,7 @@ interface ShopeeItemCard {
 
 interface ShopeeOffer {
   item_id: string;
+  productOfferLink?: string;
   long_link?: string;
   product_link?: string;
   batch_item_for_item_card_full: ShopeeItemCard;
@@ -103,7 +104,7 @@ function shopeeOfferToCMSProduct(offer: ShopeeOffer): CMSProduct {
     stock: d.stock != null ? String(d.stock) : undefined,
     'sold-text': d.sold_text ?? d.historical_sold_text ?? String(d.sold ?? ''),
     'shop-rating': d.item_rating?.rating_star,
-    'product-offer-link': offer.long_link ?? offer.product_link ?? '',
+    'product-offer-link': offer.productOfferLink ?? offer.long_link ?? offer.product_link ?? '',
     _archived: false,
     _draft: false,
     'created-on': d.ctime ? new Date(d.ctime * 1000).toISOString() : new Date().toISOString(),
