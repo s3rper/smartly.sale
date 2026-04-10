@@ -1,7 +1,32 @@
 ---
 import MainLayout from '../layouts/main.astro';
+import CPAOffersWall from '../components/CPAOffersWall';
+import EmailCapturePopup from '../components/EmailCapturePopup';
 
 const pageTitle = "10 Proven Ways to Earn Money Online in the Philippines 2026 | smartly.sale";
+
+// ── SSR pre-fetch CPABuild offers ─────────────────────────────────────────────
+let initialOffers: unknown[] = [];
+try {
+  const runtimeEnv = (Astro.locals as any)?.runtime?.env;
+  const userId = runtimeEnv?.CPABUILD_USER_ID ?? import.meta.env.CPABUILD_USER_ID ?? process.env.CPABUILD_USER_ID ?? '48201';
+  const apiKey = runtimeEnv?.CPABUILD_API_KEY ?? import.meta.env.CPABUILD_API_KEY ?? process.env.CPABUILD_API_KEY ?? '';
+  if (apiKey) {
+    const clientIp = Astro.request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || '';
+    const feedUrl  = new URL('https://d2dzcaq3bhqk1m.cloudfront.net/public/offers/feed.php');
+    feedUrl.searchParams.set('user_id', userId);
+    feedUrl.searchParams.set('api_key', apiKey);
+    feedUrl.searchParams.set('s1', 'earn-online');
+    feedUrl.searchParams.set('s2', 'organic');
+    const h: Record<string, string> = { 'Accept': 'application/json, */*' };
+    if (clientIp) h['X-Forwarded-For'] = clientIp;
+    const res = await fetch(feedUrl.toString(), { headers: h, signal: AbortSignal.timeout(8_000) });
+    if (res.ok) {
+      const raw = JSON.parse((await res.text()).trim());
+      initialOffers = Array.isArray(raw) ? raw : (raw.offers ?? raw.data ?? []);
+    }
+  }
+} catch { /* fallback to client-side */ }
 const pageDescription = "Discover legitimate ways to earn extra income online in the Philippines. From freelancing to surveys, learn proven methods to make money from home in 2026.";
 
 // Article structured data for SEO
@@ -317,6 +342,16 @@ const earningMethods = [
       </div>
     </section>
 
+    <!-- ── Live CPA Offers Wall ─────────────────────────────────────────────── -->
+    <section style="padding: 0 0 20px;">
+      <CPAOffersWall
+        client:visible
+        initialOffers={initialOffers as any}
+        s1="earn-online"
+        s2="organic"
+      />
+    </section>
+
     <!-- Conclusion -->
     <section class="conclusion-section">
       <div class="container">
@@ -347,25 +382,39 @@ const earningMethods = [
     <!-- Related Articles -->
     <section class="related-section">
       <div class="container">
-        <h2 class="section-title">Related Articles</h2>
+        <h2 class="section-title">More Ways to Earn & Win</h2>
         <div class="related-grid">
-          <a href="/products" class="related-card">
-            <h3>Best Budget Gadgets Under 1000 Pesos</h3>
-            <p>Discover affordable tech products that won't break the bank</p>
+          <a href="/earn-gcash" class="related-card">
+            <h3>💰 Earn GCash Online — Free Rewards</h3>
+            <p>Complete offers and earn real GCash cash — no invite needed</p>
           </a>
-          <a href="/about" class="related-card">
-            <h3>About smartly.sale</h3>
-            <p>Learn more about our mission to help Filipinos shop smarter</p>
+          <a href="/online-contests-philippines" class="related-card">
+            <h3>🏆 Online Contests Philippines 2026</h3>
+            <p>Join live online contests and win prizes from your phone</p>
           </a>
-          <a href="/contact" class="related-card">
-            <h3>Get in Touch</h3>
-            <p>Have questions? We're here to help!</p>
+          <a href="/win-free-phone" class="related-card">
+            <h3>📱 Win a Free Phone</h3>
+            <p>Legit ways to win or get a free smartphone in the Philippines</p>
+          </a>
+          <a href="/free-gaming-credits" class="related-card">
+            <h3>🕹️ Free Gaming Credits</h3>
+            <p>Get free MLBB, Free Fire, and Roblox credits without spending</p>
+          </a>
+          <a href="/free-gift-cards-philippines" class="related-card">
+            <h3>🎁 Free Gift Cards Philippines</h3>
+            <p>Legitimate ways to earn free Amazon, Google Play & more gift cards</p>
+          </a>
+          <a href="/blog" class="related-card">
+            <h3>📰 Shopping & Earning Blog</h3>
+            <p>Guides, tips, and the latest deals for savvy Filipino shoppers</p>
           </a>
         </div>
       </div>
     </section>
 
   </article>
+
+  <EmailCapturePopup client:load source="earn" />
 </MainLayout>
 
 <style>

@@ -3,6 +3,10 @@ import MainLayout from '../layouts/main.astro';
 import ContentLockerGate from '../components/ContentLockerGate';
 import EmailCapturePopup from '../components/EmailCapturePopup';
 
+// ── Bot detection: show guide content directly to crawlers ───────────────────
+const userAgent = Astro.request.headers.get('user-agent') ?? '';
+const isBot = /googlebot|bingbot|yandexbot|twitterbot|facebookexternalhit|linkedinbot|slackbot/i.test(userAgent);
+
 const pageTitle       = 'Free Robux 2026 — Legit & Safe Methods (No Fake Generators)';
 const pageDescription = 'Looking for free Robux? Learn the legit and verified ways to get Robux for free in 2026 — no scams, no fake generators, no password required. Unlock the guide now!';
 const pageUrl         = 'https://smartly.sale/free-robux';
@@ -205,20 +209,33 @@ const faqSchema = {
     </div>
   </article>
 
-  <!-- ── Content Locker ─────────────────────────────────────────────────────── -->
+  <!-- ── Content Locker / Bot-visible guide ────────────────────────────────── -->
   <div class="max-w-3xl mx-auto px-4 mb-10">
-    <ContentLockerGate
-      client:visible
-      initialOffers={initialOffers}
-      s1="free-robux"
-      s2="organic"
-      accent="green"
-      lockedEmoji="🟢"
-      lockedLabel="Legit Free Robux Methods — 6 Working Methods (No Scam)"
-      lockedDescription="Complete 1 offer to unlock our 6 legit methods for getting Robux — no generators, no scams."
-      unlockedTitle="🟢 Your Legit Robux Guide is Unlocked!"
-      unlockedItems={unlockedItems}
-    />
+    {isBot ? (
+      <!-- Search crawlers see the full guide directly for indexing -->
+      <article class="space-y-6">
+        <h2 class="text-xl font-bold text-gray-900">6 Legit Ways to Get Free Robux (2026)</h2>
+        {unlockedItems.map((item) => (
+          <section>
+            <h3 class="text-base font-bold text-gray-800 mb-1">{item.icon} {item.title}</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">{item.body}</p>
+          </section>
+        ))}
+      </article>
+    ) : (
+      <ContentLockerGate
+        client:visible
+        initialOffers={initialOffers}
+        s1="free-robux"
+        s2="organic"
+        accent="green"
+        lockedEmoji="🟢"
+        lockedLabel="Legit Free Robux Methods — 6 Working Methods (No Scam)"
+        lockedDescription="Complete 1 offer to unlock our 6 legit methods for getting Robux — no generators, no scams."
+        unlockedTitle="🟢 Your Legit Robux Guide is Unlocked!"
+        unlockedItems={unlockedItems}
+      />
+    )}
   </div>
 
   <!-- ── FAQ ────────────────────────────────────────────────────────────────── -->

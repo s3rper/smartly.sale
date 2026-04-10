@@ -1,0 +1,50 @@
+---
+/**
+ * AdUnit.astro — Google AdSense responsive ad unit
+ *
+ * SETUP REQUIRED:
+ * 1. Go to https://www.google.com/adsense → Ads → By ad unit → Create new ad unit
+ * 2. Create one "Display ad" (Responsive) and note the data-ad-slot ID
+ * 3. Replace the slot prop value wherever this component is used, or set a
+ *    default below. You can reuse one responsive slot ID across all placements.
+ *
+ * The AdSense script is already loaded globally in main.astro.
+ * adsbygoogle.push({}) queues the request; AdSense processes it when it loads.
+ */
+
+interface Props {
+  /** AdSense ad slot ID from your AdSense dashboard (e.g. "1234567890") */
+  slot?: string;
+  /** ad format — "auto" for responsive, "rectangle" or "leaderboard" for fixed */
+  format?: 'auto' | 'rectangle' | 'leaderboard';
+  /** extra CSS classes on the wrapper */
+  class?: string;
+}
+
+const {
+  slot = import.meta.env.PUBLIC_ADSENSE_SLOT ?? '1234567890',
+  format = 'auto',
+  class: cls = '',
+} = Astro.props;
+
+const CLIENT = 'ca-pub-4578835227737176';
+
+// Reserve minimum height to prevent CLS
+const minHeight = format === 'leaderboard' ? '90px' : format === 'rectangle' ? '250px' : '100px';
+---
+
+<div
+  class={`ad-unit-wrapper overflow-hidden text-center ${cls}`}
+  style={`min-height:${minHeight};`}
+  aria-label="Advertisement"
+>
+  <ins
+    class="adsbygoogle"
+    style="display:block;"
+    data-ad-client={CLIENT}
+    data-ad-slot={slot}
+    data-ad-format={format}
+    data-full-width-responsive="true"
+  ></ins>
+  <script is:inline>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>

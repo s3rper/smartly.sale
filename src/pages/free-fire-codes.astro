@@ -4,6 +4,11 @@ import ContentLockerGate from '../components/ContentLockerGate';
 import EmailCapturePopup from '../components/EmailCapturePopup';
 
 const pageTitle       = 'Free Fire Redeem Codes Philippines Today 2026 — Working Codes + How to Redeem';
+
+// ── Bot detection: show guide content directly to crawlers ───────────────────
+const userAgent = Astro.request.headers.get('user-agent') ?? '';
+const isBot = /googlebot|bingbot|yandexbot|twitterbot|facebookexternalhit|linkedinbot|slackbot/i.test(userAgent);
+
 const pageDescription = 'Looking for the latest Free Fire redeem codes in the Philippines? Unlock our daily code list plus a step-by-step guide on how to redeem them fast before they expire.';
 const pageUrl         = 'https://smartly.sale/free-fire-codes';
 const today           = new Date().toISOString().split('T')[0];
@@ -148,20 +153,32 @@ const faqSchema = {
     </div>
   </article>
 
-  <!-- ── Content Locker ─────────────────────────────────────────────────────── -->
+  <!-- ── Content Locker / Bot-visible guide ────────────────────────────────── -->
   <div class="max-w-3xl mx-auto px-4 mb-10">
-    <ContentLockerGate
-      client:visible
-      initialOffers={initialOffers}
-      s1="free-fire-codes"
-      s2="organic"
-      accent="orange"
-      lockedEmoji="🔥"
-      lockedLabel={`Free Fire Codes + Redeem Guide — ${today}`}
-      lockedDescription="Complete 1 offer to unlock today's working codes and the step-by-step redeem guide."
-      unlockedTitle="🔥 Your Free Fire Code Guide is Unlocked!"
-      unlockedItems={unlockedItems}
-    />
+    {isBot ? (
+      <article class="space-y-6">
+        <h2 class="text-xl font-bold text-gray-900">6 Legit Ways to Get Free Fire Codes & Diamonds</h2>
+        {unlockedItems.map((item) => (
+          <section>
+            <h3 class="text-base font-bold text-gray-800 mb-1">{item.icon} {item.title}</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">{item.body}</p>
+          </section>
+        ))}
+      </article>
+    ) : (
+      <ContentLockerGate
+        client:visible
+        initialOffers={initialOffers}
+        s1="free-fire-codes"
+        s2="organic"
+        accent="orange"
+        lockedEmoji="🔥"
+        lockedLabel={`Free Fire Codes + Redeem Guide — ${today}`}
+        lockedDescription="Complete 1 offer to unlock today's working codes and the step-by-step redeem guide."
+        unlockedTitle="🔥 Your Free Fire Code Guide is Unlocked!"
+        unlockedItems={unlockedItems}
+      />
+    )}
   </div>
 
   <!-- ── FAQ ────────────────────────────────────────────────────────────────── -->

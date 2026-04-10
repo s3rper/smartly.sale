@@ -4,6 +4,11 @@ import ContentLockerGate from '../components/ContentLockerGate';
 import EmailCapturePopup from '../components/EmailCapturePopup';
 
 const pageTitle       = 'Free IMVU Credits 2026 — Legit Methods to Get Credits Fast (No Fake Generators)';
+
+// ── Bot detection: show guide content directly to crawlers ───────────────────
+const userAgent = Astro.request.headers.get('user-agent') ?? '';
+const isBot = /googlebot|bingbot|yandexbot|twitterbot|facebookexternalhit|linkedinbot|slackbot/i.test(userAgent);
+
 const pageDescription = 'Want free IMVU Credits? Unlock our complete guide — 7 real, working methods to earn credits in IMVU without spending money. Complete 1 offer to access the full guide.';
 const pageUrl         = 'https://smartly.sale/free-imvu-credits';
 const today           = new Date().toISOString().split('T')[0];
@@ -216,20 +221,32 @@ const faqSchema = {
     </div>
   </article>
 
-  <!-- ── Content Locker ─────────────────────────────────────────────────────── -->
+  <!-- ── Content Locker / Bot-visible guide ────────────────────────────────── -->
   <div class="max-w-3xl mx-auto px-4 mb-10">
-    <ContentLockerGate
-      client:visible
-      initialOffers={initialOffers}
-      s1="imvu-credits"
-      s2="organic"
-      accent="purple"
-      lockedEmoji="💜"
-      lockedLabel="Free IMVU Credits Guide (7 Legit Methods)"
-      lockedDescription="Complete 1 offer below to unlock all 7 working methods — no generators, no scams, 100% safe."
-      unlockedTitle="💜 Your Free IMVU Credits Guide is Unlocked!"
-      unlockedItems={unlockedItems}
-    />
+    {isBot ? (
+      <article class="space-y-6">
+        <h2 class="text-xl font-bold text-gray-900">7 Legit Ways to Get Free IMVU Credits</h2>
+        {unlockedItems.map((item) => (
+          <section>
+            <h3 class="text-base font-bold text-gray-800 mb-1">{item.icon} {item.title}</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">{item.body}</p>
+          </section>
+        ))}
+      </article>
+    ) : (
+      <ContentLockerGate
+        client:visible
+        initialOffers={initialOffers}
+        s1="imvu-credits"
+        s2="organic"
+        accent="purple"
+        lockedEmoji="💜"
+        lockedLabel="Free IMVU Credits Guide (7 Legit Methods)"
+        lockedDescription="Complete 1 offer below to unlock all 7 working methods — no generators, no scams, 100% safe."
+        unlockedTitle="💜 Your Free IMVU Credits Guide is Unlocked!"
+        unlockedItems={unlockedItems}
+      />
+    )}
   </div>
 
   <!-- ── What Are IMVU Credits Section ──────────────────────────────────────── -->

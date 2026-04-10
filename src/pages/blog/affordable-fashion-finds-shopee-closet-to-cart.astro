@@ -2,6 +2,8 @@
 import MainLayout from '../../layouts/main.astro';
 import PostContent from '../../components/PostContent';
 import BlogStructuredData from '../../components/BlogStructuredData.astro';
+import ShopeeAffiliateCTA from '../../components/ShopeeAffiliateCTA.astro';
+import RelatedOffers from '../../components/RelatedOffers.astro';
 
 const post = {
   title: "From Closet to Cart: Affordable Fashion Finds on Shopee You Shouldn't Miss",
@@ -484,4 +486,6 @@ const content = `
 >
   <BlogStructuredData post={post} slug={post.slug} />
   <PostContent client:load post={post} content={content} />
+  <ShopeeAffiliateCTA keyword="affordable fashion Philippines" label="Shop Affordable Fashion on Shopee" />
+  <RelatedOffers category="shopping" />
 </MainLayout>

@@ -2,6 +2,8 @@
 import MainLayout from '../../layouts/main.astro';
 import PostContent from '../../components/PostContent';
 import BlogStructuredData from '../../components/BlogStructuredData.astro';
+import ShopeeAffiliateCTA from '../../components/ShopeeAffiliateCTA.astro';
+import RelatedOffers from '../../components/RelatedOffers.astro';
 
 const post = {
   title: "Wellness & Self-Care: Beauty and Skincare Essentials from Shopee 2025",
@@ -556,4 +558,6 @@ const content = `
 >
   <BlogStructuredData post={post} slug={post.slug} />
   <PostContent client:load post={post} content={content} />
+  <ShopeeAffiliateCTA keyword="skincare set Philippines" label="Shop Skincare Essentials on Shopee" />
+  <RelatedOffers category="shopping" />
 </MainLayout>

@@ -4,6 +4,11 @@ import ContentLockerGate from '../components/ContentLockerGate';
 import EmailCapturePopup from '../components/EmailCapturePopup';
 
 const pageTitle       = 'Free MLBB Diamonds Philippines 2026 — Legit Diamond Farming Guide';
+
+// ── Bot detection: show guide content directly to crawlers ───────────────────
+const userAgent = Astro.request.headers.get('user-agent') ?? '';
+const isBot = /googlebot|bingbot|yandexbot|twitterbot|facebookexternalhit|linkedinbot|slackbot/i.test(userAgent);
+
 const pageDescription = 'Want free MLBB diamonds? Unlock our complete Diamond Farming Guide — complete 1 offer and start using these proven, legit methods today!';
 const pageUrl         = 'https://smartly.sale/free-mlbb-diamonds';
 const today           = new Date().toISOString().split('T')[0];
@@ -143,20 +148,32 @@ const faqSchema = {
     </div>
   </article>
 
-  <!-- ── Content Locker ─────────────────────────────────────────────────────── -->
+  <!-- ── Content Locker / Bot-visible guide ────────────────────────────────── -->
   <div class="max-w-3xl mx-auto px-4 mb-10">
-    <ContentLockerGate
-      client:visible
-      initialOffers={initialOffers}
-      s1="mlbb-diamonds"
-      s2="organic"
-      accent="blue"
-      lockedEmoji="💎"
-      lockedLabel="Free MLBB Diamond Farming Guide (6 Methods)"
-      lockedDescription="Complete 1 offer to unlock our full guide — 100% legit, no account hacking required."
-      unlockedTitle="💎 Your Diamond Farming Guide is Unlocked!"
-      unlockedItems={unlockedItems}
-    />
+    {isBot ? (
+      <article class="space-y-6">
+        <h2 class="text-xl font-bold text-gray-900">6 Legit Ways to Get Free MLBB Diamonds</h2>
+        {unlockedItems.map((item) => (
+          <section>
+            <h3 class="text-base font-bold text-gray-800 mb-1">{item.icon} {item.title}</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">{item.body}</p>
+          </section>
+        ))}
+      </article>
+    ) : (
+      <ContentLockerGate
+        client:visible
+        initialOffers={initialOffers}
+        s1="mlbb-diamonds"
+        s2="organic"
+        accent="blue"
+        lockedEmoji="💎"
+        lockedLabel="Free MLBB Diamond Farming Guide (6 Methods)"
+        lockedDescription="Complete 1 offer to unlock our full guide — 100% legit, no account hacking required."
+        unlockedTitle="💎 Your Diamond Farming Guide is Unlocked!"
+        unlockedItems={unlockedItems}
+      />
+    )}
   </div>
 
   <!-- ── FAQ ────────────────────────────────────────────────────────────────── -->

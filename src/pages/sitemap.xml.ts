@@ -68,12 +68,18 @@ export const GET: APIRoute = async ({ locals }) => {
   // Generated posts live at /post/slug; hardcoded posts live at /blog/slug
   const blogXml = blogPosts.map(post => {
     const path    = (post as any).generated ? `/post/${post.slug}` : `/blog/${post.slug}`;
-    const lastmod = post.publishDate ? post.publishDate.split('T')[0] : today;
+    const lastmod = today; // SSR renders today's date = always fresh for Google
+    // Differentiate priority by category and content depth
+    const cat = ((post as any).category ?? '').toLowerCase();
+    const wc  = (post as any).wordCount ?? 0;
+    let priority = '0.7';
+    if (cat.includes('gaming') || cat.includes('game')) priority = '0.8';
+    else if (wc < 800) priority = '0.6';
     return `  <url>
     <loc>${baseUrl}${path}</loc>
     <lastmod>${lastmod}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <changefreq>weekly</changefreq>
+    <priority>${priority}</priority>
   </url>`;
   }).join('\n');
 

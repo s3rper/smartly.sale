@@ -4,6 +4,11 @@ import ContentLockerGate from '../components/ContentLockerGate';
 import EmailCapturePopup from '../components/EmailCapturePopup';
 
 const pageTitle       = 'Free Gaming Credits Philippines 2026 — MLBB, Free Fire, Roblox & More';
+
+// ── Bot detection: show guide content directly to crawlers ───────────────────
+const userAgent = Astro.request.headers.get('user-agent') ?? '';
+const isBot = /googlebot|bingbot|yandexbot|twitterbot|facebookexternalhit|linkedinbot|slackbot/i.test(userAgent);
+
 const pageDescription = 'Want free gaming credits for MLBB, Free Fire, Roblox, and other games? Unlock our complete guide to legit and working methods in the Philippines!';
 const pageUrl         = 'https://smartly.sale/free-gaming-credits';
 const today           = new Date().toISOString().split('T')[0];
@@ -153,20 +158,32 @@ const faqSchema = {
     </div>
   </article>
 
-  <!-- ── Content Locker ─────────────────────────────────────────────────────── -->
+  <!-- ── Content Locker / Bot-visible guide ────────────────────────────────── -->
   <div class="max-w-3xl mx-auto px-4 mb-10">
-    <ContentLockerGate
-      client:visible
-      initialOffers={initialOffers}
-      s1="free-gaming-credits"
-      s2="organic"
-      accent="purple"
-      lockedEmoji="🎮"
-      lockedLabel="Complete Free Gaming Credits Guide (All Games)"
-      lockedDescription="Complete 1 offer to unlock our master guide for free credits across every game."
-      unlockedTitle="🎮 Your Gaming Credits Guide is Unlocked!"
-      unlockedItems={unlockedItems}
-    />
+    {isBot ? (
+      <article class="space-y-6">
+        <h2 class="text-xl font-bold text-gray-900">6 Legit Ways to Get Free Gaming Credits</h2>
+        {unlockedItems.map((item) => (
+          <section>
+            <h3 class="text-base font-bold text-gray-800 mb-1">{item.icon} {item.title}</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">{item.body}</p>
+          </section>
+        ))}
+      </article>
+    ) : (
+      <ContentLockerGate
+        client:visible
+        initialOffers={initialOffers}
+        s1="free-gaming-credits"
+        s2="organic"
+        accent="purple"
+        lockedEmoji="🎮"
+        lockedLabel="Complete Free Gaming Credits Guide (All Games)"
+        lockedDescription="Complete 1 offer to unlock our master guide for free credits across every game."
+        unlockedTitle="🎮 Your Gaming Credits Guide is Unlocked!"
+        unlockedItems={unlockedItems}
+      />
+    )}
   </div>
 
   <!-- ── FAQ ────────────────────────────────────────────────────────────────── -->

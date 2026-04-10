@@ -2,6 +2,8 @@
 import MainLayout from '../../layouts/main.astro';
 import PostContent from '../../components/PostContent';
 import BlogCard from '../../components/BlogCard';
+import AdUnit from '../../components/AdUnit.astro';
+import RelatedOffers from '../../components/RelatedOffers.astro';
 import { blogPosts, getRelatedPosts } from '../../lib/blog-data';
 import { baseUrl } from '../../lib/base-url';
 
@@ -30,8 +32,8 @@ const articleSchema = {
   "image": post.featuredImage,
   "url": fullUrl,
   "datePublished": post.publishDate,
-  "dateModified": post.publishDate,
-  "author": { "@type": "Organization", "name": post.author },
+  "dateModified": new Date().toISOString().split('T')[0],
+  "author": { "@type": "Person", "name": post.author, "url": "https://smartly.sale/about" },
   "publisher": {
     "@type": "Organization",
     "name": "smartly.sale",
@@ -82,8 +84,21 @@ const breadcrumbSchema = {
     </div>
   </div>
 
+  <!-- Ad unit between breadcrumb and article -->
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+    <AdUnit format="auto" />
+  </div>
+
   <!-- Post content — client:load so article HTML is server-rendered (SEO + LCP) -->
   <PostContent client:load post={post} />
+
+  <!-- Ad unit after article, before related posts -->
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <AdUnit format="auto" />
+  </div>
+
+  <!-- Internal links to revenue pages -->
+  <RelatedOffers category={post.category?.toLowerCase().includes('gaming') ? 'gaming' : 'shopping'} />
 
   <!-- Related posts -->
   {relatedPosts.length > 0 && (

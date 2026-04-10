@@ -1,0 +1,56 @@
+---
+/**
+ * RelatedOffers.astro
+ * Pill-link row at the bottom of blog posts linking readers to revenue pages.
+ * Pass category="gaming" | "shopping" | "earning" to get the right set of links.
+ */
+interface Props {
+  category?: 'gaming' | 'shopping' | 'earning';
+  heading?: string;
+}
+
+const { category = 'shopping', heading = 'More Free Rewards & Deals' } = Astro.props;
+
+const links: Record<string, { href: string; label: string }[]> = {
+  gaming: [
+    { href: '/free-robux',           label: '🎮 Free Robux'          },
+    { href: '/free-mlbb-diamonds',   label: '💎 Free MLBB Diamonds'  },
+    { href: '/free-gaming-credits',  label: '🕹️ Free Gaming Credits' },
+    { href: '/free-fire-codes',      label: '🔥 Free Fire Codes'     },
+    { href: '/free-imvu-credits',    label: '💜 Free IMVU Credits'   },
+    { href: '/earn-gcash',           label: '💰 Earn GCash'          },
+  ],
+  shopping: [
+    { href: '/products',             label: '🛍️ Browse Deals'        },
+    { href: '/earn-gcash',           label: '💰 Earn GCash Online'   },
+    { href: '/earn',                 label: '💼 Ways to Earn'        },
+    { href: '/free-gift-cards-philippines', label: '🎁 Free Gift Cards' },
+    { href: '/win-free-phone',       label: '📱 Win a Free Phone'    },
+  ],
+  earning: [
+    { href: '/earn-gcash',           label: '💰 Earn GCash Online'   },
+    { href: '/online-contests-philippines', label: '🏆 Online Contests' },
+    { href: '/win-free-phone',       label: '📱 Win a Free Phone'    },
+    { href: '/free-gaming-credits',  label: '🕹️ Free Gaming Credits' },
+    { href: '/free-gift-cards-philippines', label: '🎁 Free Gift Cards' },
+  ],
+};
+
+const items = links[category] ?? links['shopping'];
+---
+
+<section class="bg-gray-50 border-t border-gray-100 py-8 px-4 mt-8">
+  <div class="max-w-3xl mx-auto">
+    <h2 class="text-sm font-bold text-gray-700 mb-4 uppercase tracking-wide">{heading}</h2>
+    <div class="flex flex-wrap gap-3">
+      {items.map(({ href, label }) => (
+        <a
+          href={href}
+          class="inline-flex items-center px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-700 hover:border-orange-300 hover:text-orange-700 transition-colors"
+        >
+          {label}
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

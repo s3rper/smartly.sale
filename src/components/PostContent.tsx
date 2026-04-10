@@ -149,6 +149,24 @@ const PostContent: React.FC<{ post: Post }> = ({ post }) => {
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
 
+          {/* ── Shopee affiliate banner ── */}
+          <div className="my-8 rounded-2xl border border-orange-200 bg-gradient-to-r from-orange-50 to-amber-50 p-4 flex items-center gap-4 shadow-sm">
+            <span className="text-3xl flex-shrink-0">🛍️</span>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-gray-800 mb-0.5">Shop the products mentioned in this article</p>
+              <p className="text-xs text-gray-500">Best prices · Fast shipping · Authentic items on Shopee</p>
+            </div>
+            <a
+              href={`https://shopee.ph/search?keyword=${encodeURIComponent(post.tags?.[0] ?? 'Philippines')}&af_id=13391000172&af_siteid=smartly_sale&smtt=1`}
+              target="_blank"
+              rel="noopener noreferrer sponsored"
+              className="flex-shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-white text-xs font-bold hover:opacity-90 transition-opacity whitespace-nowrap"
+              style={{ background: '#ee4d2d' }}
+            >
+              Shop Now →
+            </a>
+          </div>
+
           {/* ── FAQs (if separate from content) ── */}
           {post.faqs && post.faqs.length > 0 && (
             <section className="mt-12 pt-10 border-t border-border">

@@ -2,6 +2,8 @@
 import MainLayout from '../../layouts/main.astro';
 import PostContent from '../../components/PostContent';
 import BlogStructuredData from '../../components/BlogStructuredData.astro';
+import ShopeeAffiliateCTA from '../../components/ShopeeAffiliateCTA.astro';
+import RelatedOffers from '../../components/RelatedOffers.astro';
 
 const post = {
   title: "How to Spot Shopee Bestsellers: What's Flying Off the Shelves in 2025",
@@ -505,4 +507,6 @@ const content = `
 >
   <BlogStructuredData post={post} slug={post.slug} />
   <PostContent client:load post={post} content={content} />
+  <ShopeeAffiliateCTA keyword="Shopee bestsellers Philippines" label="Browse Shopee Bestsellers Now" />
+  <RelatedOffers category="shopping" />
 </MainLayout>

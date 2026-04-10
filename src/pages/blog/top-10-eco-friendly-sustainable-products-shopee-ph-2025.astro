@@ -2,6 +2,7 @@
 import MainLayout from '../../layouts/main.astro';
 import PostContent from '../../components/PostContent';
 import BlogStructuredData from '../../components/BlogStructuredData.astro';
+import RelatedOffers from '../../components/RelatedOffers.astro';
 
 const post = {
   title: "Top 10 Eco-Friendly & Sustainable Products Trending on Shopee PH (2025 Edition)",
@@ -366,4 +367,5 @@ const content = `
 >
   <BlogStructuredData post={post} slug={post.slug} />
   <PostContent client:load post={post} content={content} />
+  <RelatedOffers category="shopping" />
 </MainLayout>

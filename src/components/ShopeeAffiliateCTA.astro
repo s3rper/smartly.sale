@@ -1,0 +1,37 @@
+---
+/**
+ * ShopeeAffiliateCTA.astro
+ * Inline affiliate CTA card that links to a Shopee keyword search.
+ * Place this after relevant product sections in blog posts.
+ */
+interface Props {
+  /** Search keyword shown on Shopee (e.g. "skincare set Philippines") */
+  keyword: string;
+  /** Button/card label (e.g. "Shop Skincare on Shopee") */
+  label?: string;
+  /** Optional emoji icon */
+  icon?: string;
+}
+
+const { keyword, label, icon = '🛍️' } = Astro.props;
+
+const AFFILIATE_ID = '13391000172';
+const displayLabel = label ?? `Shop "${keyword}" on Shopee`;
+const shopeeUrl = `https://shopee.ph/search?keyword=${encodeURIComponent(keyword)}&af_id=${AFFILIATE_ID}&af_siteid=smartly_sale&smtt=1`;
+---
+
+<div class="my-6 rounded-2xl border border-orange-200 bg-gradient-to-r from-orange-50 to-amber-50 p-4 flex items-center gap-4 shadow-sm">
+  <span class="text-3xl flex-shrink-0">{icon}</span>
+  <div class="flex-1 min-w-0">
+    <p class="text-sm font-semibold text-gray-800 mb-0.5">{displayLabel}</p>
+    <p class="text-xs text-gray-500">Best prices · Fast shipping · Authentic products</p>
+  </div>
+  <a
+    href={shopeeUrl}
+    target="_blank"
+    rel="noopener noreferrer sponsored"
+    class="flex-shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#ee4d2d] text-white text-xs font-bold hover:bg-[#d44126] transition-colors whitespace-nowrap"
+  >
+    Shop Now →
+  </a>
+</div>
