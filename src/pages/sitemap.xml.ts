@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 import { fetchProductsFromWebflow } from '../lib/products';
 import { blogPosts } from '../lib/blog-data';
 
-export const GET: APIRoute = async ({ locals }) => {
+export const GET: APIRoute = async () => {
   const baseUrl = 'https://smartly.sale';
   const today = new Date().toISOString().split('T')[0];
 
@@ -27,23 +27,16 @@ export const GET: APIRoute = async ({ locals }) => {
     { url: '/terms',                       priority: '0.4', changefreq: 'yearly'  },
   ];
 
-  // Fetch live products for dynamic URLs
+  // Fetch products for dynamic URLs
   let productUrls: { slug: string; updatedOn?: string }[] = [];
   try {
-    const runtime = (locals as any)?.runtime;
-    const token = runtime?.env?.WEBFLOW_CMS_SITE_API_TOKEN ||
-                  (import.meta as any).env?.WEBFLOW_CMS_SITE_API_TOKEN;
-    if (token) {
-      const apiBaseUrl = runtime?.env?.WEBFLOW_API_HOST ||
-                         (import.meta as any).env?.WEBFLOW_API_HOST;
-      const data = await fetchProductsFromWebflow(token, 100, 0, apiBaseUrl);
-      productUrls = (data.items ?? [])
-        .filter(item => !item.fieldData._draft && !item.fieldData._archived)
-        .map(item => ({
-          slug: item.fieldData.slug,
-          updatedOn: item.fieldData['updated-on'] ?? item.fieldData['published-on']
-        }));
-    }
+    const data = await fetchProductsFromWebflow(undefined, 100, 0);
+    productUrls = (data.items ?? [])
+      .filter(item => !item.fieldData._draft && !item.fieldData._archived)
+      .map(item => ({
+        slug: item.fieldData.slug,
+        updatedOn: item.fieldData['updated-on'] ?? item.fieldData['published-on']
+      }));
   } catch (_e) {
     // Proceed without product URLs if fetch fails
   }

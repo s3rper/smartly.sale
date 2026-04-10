@@ -17,15 +17,8 @@ const pageKeywords = "Shopee Philippines 2026, viral Shopee products, budget gad
 // Fetch products server-side — eliminates client-side waterfall for initial render
 let initialProducts: CMSProduct[] = [];
 try {
-  const runtime = (Astro.locals as any)?.runtime;
-  const token = runtime?.env?.WEBFLOW_CMS_SITE_API_TOKEN ||
-                import.meta.env.WEBFLOW_CMS_SITE_API_TOKEN;
-  if (token) {
-    const apiBaseUrl = runtime?.env?.WEBFLOW_API_HOST ||
-                       import.meta.env.WEBFLOW_API_HOST;
-    const data = await fetchProductsFromWebflow(token, 20, 0, apiBaseUrl);
-    initialProducts = data.items || [];
-  }
+  const data = await fetchProductsFromWebflow(undefined, 20, 0);
+  initialProducts = data.items || [];
 } catch (_e) {
   // Client-side fetch fallback will handle this
 }

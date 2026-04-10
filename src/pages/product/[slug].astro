@@ -9,16 +9,9 @@ const { slug } = Astro.params;
 // Fetch product server-side for real SEO meta
 let product = null;
 try {
-  const runtime = (Astro.locals as any)?.runtime;
-  const token = runtime?.env?.WEBFLOW_CMS_SITE_API_TOKEN ||
-                import.meta.env.WEBFLOW_CMS_SITE_API_TOKEN;
-  if (token) {
-    const apiBaseUrl = runtime?.env?.WEBFLOW_API_HOST ||
-                       import.meta.env.WEBFLOW_API_HOST;
-    const cmsProduct = await fetchProductBySlug(slug!, token, apiBaseUrl);
-    if (cmsProduct) {
-      product = transformCMSProduct(cmsProduct);
-    }
+  const cmsProduct = await fetchProductBySlug(slug!);
+  if (cmsProduct) {
+    product = transformCMSProduct(cmsProduct);
   }
 } catch (_e) {
   // Fall back to generic meta
