@@ -104,6 +104,7 @@ function shopeeOfferToCMSProduct(offer: ShopeeOffer): CMSProduct {
     stock: d.stock != null ? String(d.stock) : undefined,
     'sold-text': d.sold_text ?? d.historical_sold_text ?? String(d.sold ?? ''),
     'shop-rating': d.item_rating?.rating_star,
+    'shop-rating-count': d.item_rating?.rating_count?.reduce((sum, n) => sum + n, 0) || undefined,
     'product-offer-link': offer.productOfferLink ?? offer.long_link ?? offer.product_link ?? '',
     _archived: false,
     _draft: false,

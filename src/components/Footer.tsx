@@ -161,35 +161,59 @@ const Footer: React.FC = () => {
               <h3 className="font-bold text-white text-base uppercase tracking-wider">Categories</h3>
               <ul className="space-y-3.5 mt-4">
                 <li>
-                  <a 
-                    href={`${baseUrl}/products?search=gadgets`} 
+                  <a
+                    href={`${baseUrl}/category/gadgets`}
                     className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
                   >
-                    Budget Gadgets
+                    Gadgets & Tech
                   </a>
                 </li>
                 <li>
-                  <a 
-                    href={`${baseUrl}/products?search=fashion`} 
-                    className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
-                  >
-                    Fashion & Apparel
-                  </a>
-                </li>
-                <li>
-                  <a 
-                    href={`${baseUrl}/products?search=home`} 
+                  <a
+                    href={`${baseUrl}/category/home-living`}
                     className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
                   >
                     Home & Living
                   </a>
                 </li>
                 <li>
-                  <a 
-                    href={`${baseUrl}/products?search=beauty`} 
+                  <a
+                    href={`${baseUrl}/category/fashion`}
+                    className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
+                  >
+                    Fashion & Clothing
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`${baseUrl}/category/beauty`}
                     className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
                   >
                     Beauty & Health
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`${baseUrl}/category/sports-outdoor`}
+                    className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
+                  >
+                    Sports & Outdoor
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`${baseUrl}/category/food-snacks`}
+                    className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
+                  >
+                    Food & Snacks
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`${baseUrl}/categories`}
+                    className="text-brand hover:text-white transition-colors duration-200 text-sm inline-block font-medium"
+                  >
+                    Browse All Categories →
                   </a>
                 </li>
               </ul>
@@ -216,11 +240,19 @@ const Footer: React.FC = () => {
                   </a>
                 </li>
                 <li>
-                  <a 
-                    href={`${baseUrl}/terms`} 
+                  <a
+                    href={`${baseUrl}/terms`}
                     className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
                   >
                     Terms of Service
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`${baseUrl}/editorial-policy`}
+                    className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
+                  >
+                    Editorial Policy
                   </a>
                 </li>
               </ul>

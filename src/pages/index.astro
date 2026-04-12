@@ -82,6 +82,41 @@ keywords={pageKeywords}
 <!-- Featured Products Section -->
 <FeaturedProducts initialProducts={initialProducts} client:visible />
 
+<!-- Category Cluster — static SSR so Google indexes these links immediately -->
+<section class="py-12 bg-muted/30 border-y border-border">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-bold text-foreground text-center mb-8">
+      Shop by Category
+    </h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+      <a href="/category/gadgets" class="flex flex-col items-center gap-2 p-4 bg-card border border-border rounded-xl hover:border-brand hover:shadow-md transition-all text-center group">
+        <span class="text-3xl">📱</span>
+        <span class="text-sm font-semibold text-foreground group-hover:text-brand transition-colors">Gadgets & Tech</span>
+      </a>
+      <a href="/category/home-living" class="flex flex-col items-center gap-2 p-4 bg-card border border-border rounded-xl hover:border-brand hover:shadow-md transition-all text-center group">
+        <span class="text-3xl">🏠</span>
+        <span class="text-sm font-semibold text-foreground group-hover:text-brand transition-colors">Home & Living</span>
+      </a>
+      <a href="/category/fashion" class="flex flex-col items-center gap-2 p-4 bg-card border border-border rounded-xl hover:border-brand hover:shadow-md transition-all text-center group">
+        <span class="text-3xl">👗</span>
+        <span class="text-sm font-semibold text-foreground group-hover:text-brand transition-colors">Fashion</span>
+      </a>
+      <a href="/category/beauty" class="flex flex-col items-center gap-2 p-4 bg-card border border-border rounded-xl hover:border-brand hover:shadow-md transition-all text-center group">
+        <span class="text-3xl">💄</span>
+        <span class="text-sm font-semibold text-foreground group-hover:text-brand transition-colors">Beauty & Health</span>
+      </a>
+      <a href="/category/sports-outdoor" class="flex flex-col items-center gap-2 p-4 bg-card border border-border rounded-xl hover:border-brand hover:shadow-md transition-all text-center group">
+        <span class="text-3xl">⚽</span>
+        <span class="text-sm font-semibold text-foreground group-hover:text-brand transition-colors">Sports & Outdoor</span>
+      </a>
+      <a href="/category/food-snacks" class="flex flex-col items-center gap-2 p-4 bg-card border border-border rounded-xl hover:border-brand hover:shadow-md transition-all text-center group">
+        <span class="text-3xl">🍜</span>
+        <span class="text-sm font-semibold text-foreground group-hover:text-brand transition-colors">Food & Snacks</span>
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- Why Choose Us Section -->
 <WhyChooseUs client:visible />
 

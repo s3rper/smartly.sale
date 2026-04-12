@@ -37,6 +37,7 @@ export interface CMSProduct {
     'shop-name'?: string;
     'shop-location'?: string;
     'shop-rating'?: number;
+    'shop-rating-count'?: number;
     // Affiliate Link - can be string or object with url property
     'product-offer-link'?: string | { url: string };
     // Meta
@@ -63,6 +64,7 @@ export interface Product {
   shopName?: string;
   shopLocation?: string;
   shopRating?: number;
+  shopRatingCount?: number;
   affiliateLink?: string;
   createdOn?: string;
   updatedOn?: string;
@@ -127,6 +129,7 @@ export function transformCMSProduct(cmsProduct: CMSProduct): Product {
     shopName: cmsProduct.fieldData['shop-name'],
     shopLocation: cmsProduct.fieldData['shop-location'],
     shopRating: cmsProduct.fieldData['shop-rating'],
+    shopRatingCount: cmsProduct.fieldData['shop-rating-count'],
     affiliateLink,
     createdOn: cmsProduct.fieldData['created-on'],
     updatedOn: cmsProduct.fieldData['updated-on'],

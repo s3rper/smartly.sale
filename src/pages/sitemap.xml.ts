@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { fetchProductsFromWebflow } from '../lib/products';
+import { shopeeProducts } from '../lib/shopee-loader';
 import { blogPosts } from '../lib/blog-data';
 
 export const GET: APIRoute = async () => {
@@ -21,25 +21,26 @@ export const GET: APIRoute = async () => {
     { url: '/free-imvu-credits',           priority: '0.8', changefreq: 'daily'   },
     { url: '/free-gaming-credits',         priority: '0.8', changefreq: 'daily'   },
     { url: '/shopee-ai-assistant',         priority: '0.7', changefreq: 'monthly' },
+    { url: '/category/gadgets',            priority: '0.8', changefreq: 'weekly'  },
+    { url: '/category/home-living',        priority: '0.8', changefreq: 'weekly'  },
+    { url: '/category/fashion',            priority: '0.8', changefreq: 'weekly'  },
+    { url: '/category/beauty',             priority: '0.8', changefreq: 'weekly'  },
+    { url: '/category/sports-outdoor',     priority: '0.8', changefreq: 'weekly'  },
+    { url: '/category/food-snacks',        priority: '0.8', changefreq: 'weekly'  },
     { url: '/about',                       priority: '0.6', changefreq: 'monthly' },
     { url: '/contact',                     priority: '0.6', changefreq: 'monthly' },
     { url: '/privacy',                     priority: '0.4', changefreq: 'yearly'  },
     { url: '/terms',                       priority: '0.4', changefreq: 'yearly'  },
+    { url: '/editorial-policy',            priority: '0.4', changefreq: 'yearly'  },
   ];
 
-  // Fetch products for dynamic URLs
-  let productUrls: { slug: string; updatedOn?: string }[] = [];
-  try {
-    const data = await fetchProductsFromWebflow(undefined, 100, 0);
-    productUrls = (data.items ?? [])
-      .filter(item => !item.fieldData._draft && !item.fieldData._archived)
-      .map(item => ({
-        slug: item.fieldData.slug,
-        updatedOn: item.fieldData['updated-on'] ?? item.fieldData['published-on']
-      }));
-  } catch (_e) {
-    // Proceed without product URLs if fetch fails
-  }
+  // Use all shopee products directly — bypasses the old 100-item limit
+  const productUrls = shopeeProducts
+    .filter(item => !item.fieldData._draft && !item.fieldData._archived)
+    .map(item => ({
+      slug: item.fieldData.slug,
+      updatedOn: item.fieldData['updated-on'] ?? item.fieldData['published-on']
+    }));
 
   const staticXml = staticPages.map(page => `  <url>
     <loc>${baseUrl}${page.url}</loc>
@@ -59,7 +60,14 @@ export const GET: APIRoute = async () => {
   }).join('\n');
 
   // Generated posts live at /post/slug; hardcoded posts live at /blog/slug
-  const blogXml = blogPosts.map(post => {
+  // Exclude thin generated posts (noindexed) from sitemap — saves crawl budget
+  const indexablePosts = blogPosts.filter(post => {
+    const isGenerated = (post as any).generated === true;
+    const wc = (post as any).wordCount ?? 0;
+    return !(isGenerated && wc < 600);
+  });
+
+  const blogXml = indexablePosts.map(post => {
     const path    = (post as any).generated ? `/post/${post.slug}` : `/blog/${post.slug}`;
     const lastmod = today; // SSR renders today's date = always fresh for Google
     // Differentiate priority by category and content depth

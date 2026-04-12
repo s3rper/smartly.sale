@@ -32,10 +32,19 @@ const resolvedCanonical = canonicalUrl ?? `https://smartly.sale${Astro.url.pathn
 <html lang="en-PH" class={pageClass}>
 <head>
 <meta charset="utf-8" />
+<!-- Google Analytics 4 — fires immediately on every page load -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BWPR8CV7BR"></script>
+<script is:inline>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BWPR8CV7BR');
+</script>
+
 <!-- dataLayer queue init — must be first so deferred GTM picks up early pushes -->
 <script is:inline>window.dataLayer=window.dataLayer||[];</script>
 
-<!-- Defer all analytics until page is interactive (reduces TBT/LCP on mobile) -->
+<!-- Defer other analytics until page is interactive (reduces TBT/LCP on mobile) -->
 <script is:inline>
 (function(){
   function loadAnalytics(){
@@ -208,10 +217,18 @@ src="https://www.facebook.com/tr?id=849998290917290&ev=PageView&noscript=1"
   "url": "https://smartly.sale",
   "logo": "https://smartly.sale/og-image.jpg",
   "description": "Discover trending Shopee products, viral finds, and budget gadgets in the Philippines.",
+  "areaServed": "PH",
+  "knowsLanguage": ["en-PH", "fil"],
   "sameAs": [
     "https://www.facebook.com/smartlysale",
     "https://www.tiktok.com/@smartlysale"
-  ]
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "availableLanguage": ["English", "Filipino"],
+    "url": "https://smartly.sale/contact"
+  }
 })} />
 </head>
 <body class="min-h-screen flex flex-col">

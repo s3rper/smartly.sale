@@ -1,0 +1,198 @@
+---
+import MainLayout from '../layouts/main.astro';
+
+const pageTitle = "Editorial Policy - How We Select & Review Products | smartly.sale";
+const pageDescription = "Learn how smartly.sale selects, curates, and reviews Shopee products. Our editorial standards ensure you get honest, unbiased product recommendations for Filipino shoppers.";
+const canonicalUrl = "https://smartly.sale/editorial-policy";
+const today = new Date().toISOString().split('T')[0];
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": pageTitle,
+  "description": pageDescription,
+  "url": canonicalUrl,
+  "datePublished": "2024-01-01",
+  "dateModified": today,
+  "publisher": {
+    "@type": "Organization",
+    "name": "smartly.sale",
+    "url": "https://smartly.sale"
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://smartly.sale" },
+    { "@type": "ListItem", "position": 2, "name": "Editorial Policy", "item": canonicalUrl }
+  ]
+};
+---
+
+<MainLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalUrl={canonicalUrl}
+  keywords="smartly.sale editorial policy, product review standards, affiliate disclosure Philippines, Shopee product selection criteria"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <!-- Breadcrumb -->
+  <div class="bg-muted/50 border-b border-border">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <nav class="flex items-center gap-2 text-sm text-muted-foreground" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-brand transition-colors">Home</a>
+        <span>/</span>
+        <span class="text-foreground font-medium">Editorial Policy</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <header class="mb-10">
+      <h1 class="text-3xl md:text-4xl font-bold text-foreground mb-4">
+        Editorial Policy
+      </h1>
+      <p class="text-lg text-muted-foreground">
+        How smartly.sale selects, evaluates, and recommends products to Filipino shoppers.
+      </p>
+      <p class="text-sm text-muted-foreground mt-3">Last updated: {today}</p>
+    </header>
+
+    <div class="prose prose-neutral dark:prose-invert max-w-none space-y-10">
+
+      <section>
+        <h2 class="text-2xl font-bold text-foreground mb-4">Our Mission</h2>
+        <p class="text-muted-foreground leading-relaxed">
+          smartly.sale is an independent product discovery platform for Filipino shoppers. Our goal is to help you
+          find genuine deals on Shopee Philippines — not to push any particular product or seller. Every product
+          featured on our site is selected because we believe it offers real value to our community.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold text-foreground mb-4">How We Select Products</h2>
+        <p class="text-muted-foreground leading-relaxed mb-4">
+          Our team reviews hundreds of Shopee listings each week. A product earns a feature on smartly.sale
+          when it meets the following criteria:
+        </p>
+        <ul class="space-y-3 text-muted-foreground">
+          <li class="flex gap-3">
+            <span class="text-brand font-bold mt-0.5">✓</span>
+            <span><strong class="text-foreground">Strong sales performance</strong> — Products with significant sold counts signal real buyer demand, not artificially inflated listings.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="text-brand font-bold mt-0.5">✓</span>
+            <span><strong class="text-foreground">High seller rating</strong> — We prioritize sellers with consistently high ratings (4.7+) and positive buyer feedback.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="text-brand font-bold mt-0.5">✓</span>
+            <span><strong class="text-foreground">Value for money</strong> — We look for products that deliver genuine value at their price point, not just the cheapest option.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="text-brand font-bold mt-0.5">✓</span>
+            <span><strong class="text-foreground">Viral or trending appeal</strong> — Products gaining traction on social media (TikTok, Facebook, Instagram) often signal genuine Filipino consumer interest.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="text-brand font-bold mt-0.5">✓</span>
+            <span><strong class="text-foreground">Authentic product photos</strong> — Listings with real, unedited product photos (not just stock images) get priority.</span>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold text-foreground mb-4">Affiliate Disclosure</h2>
+        <div class="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg p-5 mb-4">
+          <p class="text-amber-900 dark:text-amber-100 font-medium">
+            smartly.sale participates in the Shopee Affiliate Program. When you click a product link and make a
+            purchase on Shopee, we may earn a small commission at no additional cost to you.
+          </p>
+        </div>
+        <p class="text-muted-foreground leading-relaxed">
+          <strong class="text-foreground">Our editorial decisions are never influenced by affiliate commissions.</strong>
+          Products are selected based on quality, value, and Filipino shopper demand — not on commission rates.
+          We would rather feature a lower-commission product that genuinely helps our readers than a high-commission
+          product that doesn't deliver.
+        </p>
+        <p class="text-muted-foreground leading-relaxed mt-3">
+          The commission we earn helps us keep smartly.sale free and continuously updated with fresh deals.
+          We are transparent about this relationship and comply with all applicable advertising disclosure guidelines.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold text-foreground mb-4">Price & Availability Accuracy</h2>
+        <p class="text-muted-foreground leading-relaxed">
+          Product prices and availability on Shopee change frequently due to flash sales, seller updates, and
+          stock changes. We update our listings regularly, but we cannot guarantee that the price shown on
+          smartly.sale matches the current Shopee price at the moment of your visit.
+        </p>
+        <p class="text-muted-foreground leading-relaxed mt-3">
+          <strong class="text-foreground">Always confirm the final price on Shopee before purchasing.</strong>
+          If you notice a significant price discrepancy, please <a href="/contact" class="text-brand hover:underline">contact us</a> and
+          we will update the listing promptly.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold text-foreground mb-4">Content Standards</h2>
+        <p class="text-muted-foreground leading-relaxed mb-4">
+          Our blog guides and product reviews aim to be genuinely helpful to Filipino shoppers. We hold ourselves
+          to the following standards:
+        </p>
+        <ul class="space-y-3 text-muted-foreground">
+          <li class="flex gap-3">
+            <span class="text-brand font-bold mt-0.5">✓</span>
+            <span><strong class="text-foreground">Accuracy first</strong> — We research product specs, seller credibility, and market pricing before publishing any guide.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="text-brand font-bold mt-0.5">✓</span>
+            <span><strong class="text-foreground">No fake reviews</strong> — We do not fabricate buyer reviews or testimonials. All seller ratings shown on our site come directly from Shopee's platform data.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="text-brand font-bold mt-0.5">✓</span>
+            <span><strong class="text-foreground">Honest cons</strong> — If a popular product has known drawbacks (e.g., slow shipping from a seller, or a common defect reported by buyers), we include that information.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="text-brand font-bold mt-0.5">✓</span>
+            <span><strong class="text-foreground">Regular updates</strong> — Outdated product listings are removed or updated to reflect current availability.</span>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold text-foreground mb-4">No Pay-to-Play</h2>
+        <p class="text-muted-foreground leading-relaxed">
+          Sellers and brands cannot pay to be featured on smartly.sale. We do not accept sponsored product
+          placements disguised as organic recommendations. If a partnership exists that affects content, it will
+          always be clearly disclosed.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold text-foreground mb-4">Corrections & Updates</h2>
+        <p class="text-muted-foreground leading-relaxed">
+          If you find an error in any of our product information, pricing, or content, please reach out via
+          our <a href="/contact" class="text-brand hover:underline">Contact page</a>. We take accuracy seriously
+          and will correct confirmed errors promptly with a note indicating when the correction was made.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold text-foreground mb-4">Contact Our Editorial Team</h2>
+        <p class="text-muted-foreground leading-relaxed">
+          For questions about our editorial standards, product selection process, or to report an inaccuracy,
+          please visit our <a href="/contact" class="text-brand hover:underline">Contact page</a>.
+          We respond to all legitimate editorial inquiries within 48 hours.
+        </p>
+      </section>
+
+    </div>
+  </article>
+</MainLayout>

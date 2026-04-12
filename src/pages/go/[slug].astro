@@ -1,0 +1,64 @@
+---
+/**
+ * /go/[slug] — Poll redirect page
+ *
+ * Facebook scrapes this URL's OG tags to show the poll image as the
+ * clickable post thumbnail. Users who click are immediately redirected
+ * to the Shopee affiliate URL.
+ *
+ * Data is written here by /api/register-poll (called by poll-news-automation.js).
+ * Image is stored in Vercel Blob; metadata in Vercel KV.
+ */
+import { Redis } from '@upstash/redis';
+
+const redis = Redis.fromEnv();
+
+const { slug } = Astro.params;
+const pollId = slug ?? '';
+
+interface PollEntry {
+  shopeeUrl: string;
+  imageUrl: string;
+  createdAt: string;
+}
+
+const entry = pollId ? await redis.get<PollEntry>(`poll:${pollId}`) : null;
+
+if (!entry) {
+  // Poll not found — redirect to homepage rather than 404
+  return Astro.redirect('/', 302);
+}
+
+const { shopeeUrl, imageUrl } = entry;
+
+// Escape values for safe HTML attribute insertion
+const safeShopee = shopeeUrl.replace(/"/g, '&quot;');
+const safeImage  = imageUrl.replace(/"/g, '&quot;');
+
+// Return raw HTML — no Astro layout. Facebook's scraper sees pure OG tags.
+return new Response(
+  `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta property="og:image"        content="${safeImage}"/>
+<meta property="og:image:width"  content="1200"/>
+<meta property="og:image:height" content="628"/>
+<meta property="og:type"         content="website"/>
+<meta property="og:url"          content="https://smartly.sale/go/${pollId}"/>
+<meta property="og:site_name"    content="i.i"/>
+</head>
+<body>
+<script>window.location.replace(${JSON.stringify(shopeeUrl)})</script>
+</body>
+</html>`,
+  {
+    status: 200,
+    headers: {
+      'Content-Type': 'text/html; charset=utf-8',
+      // Allow Facebook to cache the OG scrape for 1 hour, but users always get a fresh redirect
+      'Cache-Control': 'public, max-age=3600',
+    },
+  }
+);
+---

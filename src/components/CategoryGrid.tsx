@@ -32,7 +32,7 @@ const CategoryGrid: React.FC = () => {
     {
       id: 3,
       name: "Home & Living",
-      slug: "home",
+      slug: "home-living",
       icon: <Home className="w-8 h-8" />,
       count: 120,
       color: "from-green-500/20 to-green-600/20"
@@ -48,7 +48,7 @@ const CategoryGrid: React.FC = () => {
     {
       id: 5,
       name: "Food & Snacks",
-      slug: "food",
+      slug: "food-snacks",
       icon: <Utensils className="w-8 h-8" />,
       count: 90,
       color: "from-orange-500/20 to-orange-600/20"
@@ -56,7 +56,7 @@ const CategoryGrid: React.FC = () => {
     {
       id: 6,
       name: "Sports & Outdoor",
-      slug: "sports",
+      slug: "sports-outdoor",
       icon: <Bike className="w-8 h-8" />,
       count: 75,
       color: "from-red-500/20 to-red-600/20"
@@ -81,7 +81,7 @@ const CategoryGrid: React.FC = () => {
           {categories.map((category) => (
             <a
               key={category.id}
-              href={`${baseUrl}/blog?category=${category.slug}`}
+              href={`${baseUrl}/category/${category.slug}`}
               className="group"
             >
               <div className={`bg-gradient-to-br ${category.color} rounded-2xl p-6 text-center hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-brand cursor-pointer h-full`}>

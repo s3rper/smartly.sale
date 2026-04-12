@@ -16,6 +16,11 @@ const pageDescription = post.metaDescription || post.excerpt;
 const canonicalUrl = `https://smartly.sale/post/${post.slug}`;
 const keywords = post.keywords?.join(', ') || undefined;
 
+// Noindex thin generated posts to protect site from Google's Helpful Content penalty
+const wordCount = (post as any).wordCount ?? 0;
+const isGenerated = (post as any).generated === true;
+const shouldNoindex = isGenerated && wordCount < 600;
+
 // Safely serialize JSON for embedding in <script> tags.
 // JSON.stringify alone doesn't escape < > & — the browser HTML parser can
 // truncate the block on </script> or other sequences, producing invalid JSON.
@@ -70,6 +75,7 @@ const breadcrumbData = {
   ogImage={post.featuredImage}
   keywords={keywords}
   canonicalUrl={canonicalUrl}
+  noindex={shouldNoindex}
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={jsonLd(articleSchema)} />

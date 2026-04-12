@@ -1,27 +1,118 @@
 ---
 import MainLayout from '../layouts/main.astro';
-import CategoryGrid from '../components/CategoryGrid';
+import { CATEGORIES } from '../lib/categories';
+import { baseUrl } from '../lib/base-url';
 
-const pageTitle = "Categories - smartly.sale";
-const pageDescription = "Browse products by category - gadgets, fashion, home & living, beauty, and more.";
+const pageTitle = "Shop by Category - Shopee Philippines Deals | smartly.sale";
+const pageDescription = "Browse Shopee Philippines products by category. Gadgets & Tech, Home & Living, Fashion, Beauty & Health, Sports & Outdoor, and Food & Snacks — curated deals for every Filipino shopper.";
+const canonicalUrl = "https://smartly.sale/categories";
+
+const collectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": pageTitle,
+  "description": pageDescription,
+  "url": canonicalUrl,
+  "publisher": {
+    "@type": "Organization",
+    "name": "smartly.sale",
+    "url": "https://smartly.sale"
+  },
+  "hasPart": CATEGORIES.map(cat => ({
+    "@type": "CollectionPage",
+    "name": `${cat.name} on Shopee Philippines`,
+    "url": `https://smartly.sale/category/${cat.slug}`,
+    "description": cat.metaDescription
+  }))
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home",       "item": "https://smartly.sale" },
+    { "@type": "ListItem", "position": 2, "name": "Categories", "item": canonicalUrl }
+  ]
+};
+
+function jsonLd(obj: unknown): string {
+  return JSON.stringify(obj)
+    .replace(/</g, '\\u003c')
+    .replace(/>/g, '\\u003e')
+    .replace(/&/g, '\\u0026');
+}
 ---
 
-<MainLayout 
+<MainLayout
   title={pageTitle}
   description={pageDescription}
+  canonicalUrl={canonicalUrl}
+  keywords="Shopee Philippines categories, gadgets Shopee, home living Shopee, fashion Shopee Philippines, beauty Shopee, sports outdoor Philippines, food snacks Shopee"
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    {/* Header */}
-    <div class="text-center mb-12">
-      <h1 class="text-4xl md:text-5xl font-bold text-foreground mb-4">
-        Shop by Category
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={jsonLd(collectionSchema)} />
+    <script type="application/ld+json" set:html={jsonLd(breadcrumbSchema)} />
+  </Fragment>
+
+  <!-- Breadcrumb -->
+  <div class="bg-muted/50 border-b border-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <nav class="flex items-center gap-2 text-sm text-muted-foreground" aria-label="Breadcrumb">
+        <a href={baseUrl} class="hover:text-brand transition-colors">Home</a>
+        <span>/</span>
+        <span class="text-foreground font-medium">Categories</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <section class="py-12 bg-gradient-to-b from-muted/40 to-background border-b border-border text-center">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="text-3xl md:text-5xl font-bold text-foreground mb-4">
+        Shop by <span class="text-brand">Category</span>
       </h1>
-      <p class="text-xl text-muted-foreground max-w-2xl mx-auto">
-        Find exactly what you're looking for in our organized categories
+      <p class="text-lg text-muted-foreground">
+        Explore curated Shopee Philippines deals across every category — from budget gadgets to viral home finds, trending fashion to beauty essentials.
       </p>
     </div>
+  </section>
 
-    {/* Category Grid Component */}
-    <CategoryGrid client:load />
-  </div>
+  <!-- Category Grid -->
+  <section class="py-16 bg-background">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {CATEGORIES.map(cat => (
+          <a
+            href={`${baseUrl}/category/${cat.slug}`}
+            class="group bg-card border border-border rounded-2xl p-6 hover:border-brand hover:shadow-xl transition-all duration-300"
+          >
+            <div class="flex items-start gap-4">
+              <div class="text-4xl shrink-0" aria-hidden="true">{cat.emoji}</div>
+              <div class="min-w-0">
+                <h2 class="text-lg font-bold text-foreground group-hover:text-brand transition-colors">
+                  {cat.name}
+                </h2>
+                <p class="text-sm text-muted-foreground mt-1 line-clamp-2">
+                  {cat.tagline}
+                </p>
+                <span class="inline-flex items-center gap-1 mt-3 text-xs font-semibold text-brand">
+                  Browse deals →
+                </span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <!-- All products CTA -->
+      <div class="text-center mt-12">
+        <a
+          href={`${baseUrl}/products`}
+          class="inline-flex items-center justify-center px-10 py-4 bg-brand text-white font-bold rounded-full hover:bg-brand/90 transition-all text-base shadow-lg"
+        >
+          Browse All 1,000+ Products
+        </a>
+      </div>
+    </div>
+  </section>
 </MainLayout>

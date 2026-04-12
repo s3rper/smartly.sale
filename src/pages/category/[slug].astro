@@ -1,0 +1,288 @@
+---
+import MainLayout from '../../layouts/main.astro';
+import { CATEGORIES, getCategoryBySlug, getProductsForCategory } from '../../lib/categories';
+import { transformCMSProduct } from '../../types/product';
+import { baseUrl } from '../../lib/base-url';
+
+const { slug } = Astro.params;
+const category = getCategoryBySlug(slug!);
+
+if (!category) {
+  return Astro.redirect('/categories');
+}
+
+const rawProducts = getProductsForCategory(slug!, 24);
+const products = rawProducts.map(transformCMSProduct);
+
+const canonicalUrl = `https://smartly.sale/category/${category.slug}`;
+const productCount = products.length;
+
+// ── Structured Data ────────────────────────────────────────────────────────────
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": category.metaTitle,
+  "description": category.metaDescription,
+  "url": canonicalUrl,
+  "numberOfItems": productCount,
+  "publisher": {
+    "@type": "Organization",
+    "name": "smartly.sale",
+    "url": "https://smartly.sale"
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home",       "item": "https://smartly.sale" },
+    { "@type": "ListItem", "position": 2, "name": "Categories", "item": "https://smartly.sale/categories" },
+    { "@type": "ListItem", "position": 3, "name": category.name, "item": canonicalUrl }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": category.faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.q,
+    "acceptedAnswer": { "@type": "Answer", "text": faq.a }
+  }))
+};
+
+// ItemList schema for the products shown on this page
+const itemListSchema = products.length > 0 ? {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": `${category.name} on Shopee Philippines`,
+  "description": category.metaDescription,
+  "numberOfItems": productCount,
+  "itemListElement": products.slice(0, 10).map((p, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "name": p.name,
+    "url": `https://smartly.sale/product/${p.slug}`
+  }))
+} : null;
+
+function jsonLd(obj: unknown): string {
+  return JSON.stringify(obj)
+    .replace(/</g, '\\u003c')
+    .replace(/>/g, '\\u003e')
+    .replace(/&/g, '\\u0026');
+}
+---
+
+<MainLayout
+  title={category.metaTitle}
+  description={category.metaDescription}
+  keywords={category.keywords}
+  canonicalUrl={canonicalUrl}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={jsonLd(collectionPageSchema)} />
+    <script type="application/ld+json" set:html={jsonLd(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={jsonLd(faqSchema)} />
+    {itemListSchema && <script type="application/ld+json" set:html={jsonLd(itemListSchema)} />}
+  </Fragment>
+
+  <!-- Breadcrumb -->
+  <div class="bg-muted/50 border-b border-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <nav class="flex items-center gap-2 text-sm text-muted-foreground flex-wrap" aria-label="Breadcrumb">
+        <a href={baseUrl} class="hover:text-brand transition-colors">Home</a>
+        <span>/</span>
+        <a href={`${baseUrl}/categories`} class="hover:text-brand transition-colors">Categories</a>
+        <span>/</span>
+        <span class="text-foreground font-medium">{category.name}</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="bg-gradient-to-b from-muted/40 to-background border-b border-border py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="text-5xl mb-4" aria-hidden="true">{category.emoji}</div>
+      <h1 class="text-3xl md:text-5xl font-bold text-foreground mb-4">
+        {category.name}
+        <span class="block text-brand text-2xl md:text-3xl font-medium mt-2">on Shopee Philippines</span>
+      </h1>
+      <p class="text-lg text-muted-foreground max-w-2xl mx-auto mb-4">
+        {category.heroContent}
+      </p>
+      <p class="text-sm text-muted-foreground">
+        Showing <strong class="text-foreground">{productCount} curated products</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- Product Grid (SSR — no client JS needed, Google sees all products immediately) -->
+  <section class="py-12 bg-background">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {products.length === 0 ? (
+        <div class="text-center py-16">
+          <p class="text-muted-foreground text-lg">No products found in this category yet. Check back soon!</p>
+          <a href={`${baseUrl}/products`} class="mt-6 inline-flex items-center justify-center px-8 py-3 bg-brand text-white font-bold rounded-full hover:bg-brand/90 transition-all">
+            Browse All Products
+          </a>
+        </div>
+      ) : (
+        <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+          {products.map((product) => {
+            const mainImage = product.images[0] || 'https://smartly.sale/og-image.jpg';
+            const hasDiscount = product.discount && product.discount.trim() !== '';
+            return (
+              <article class="bg-card rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-border group overflow-hidden">
+                <!-- Product Image -->
+                <a href={`${baseUrl}/product/${product.slug}`} class="block relative aspect-square overflow-hidden">
+                  <img
+                    src={mainImage}
+                    alt={product.name}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                    decoding="async"
+                    width="400"
+                    height="400"
+                    onerror="this.src='/placeholder-product.svg'"
+                  />
+                  {hasDiscount && (
+                    <div class="absolute top-2 right-2 bg-brand text-white text-xs font-bold px-2 py-1 rounded-full shadow">
+                      {product.discount}
+                    </div>
+                  )}
+                  {product.shopRating && product.shopRating > 0 && (
+                    <div class="absolute bottom-2 left-2 bg-background/90 text-foreground text-xs font-semibold px-2 py-1 rounded-full flex items-center gap-1">
+                      ⭐ {product.shopRating.toFixed(1)}
+                    </div>
+                  )}
+                </a>
+                <!-- Product Info -->
+                <div class="p-3 md:p-4 space-y-2">
+                  <h2 class="text-sm font-semibold text-foreground line-clamp-2 leading-snug">
+                    <a href={`${baseUrl}/product/${product.slug}`} class="hover:text-brand transition-colors">
+                      {product.name}
+                    </a>
+                  </h2>
+                  {product.shopName && (
+                    <p class="text-xs text-muted-foreground truncate">{product.shopName}</p>
+                  )}
+                  {product.soldText && (
+                    <p class="text-xs text-muted-foreground">{product.soldText} sold</p>
+                  )}
+                  <div class="flex items-center justify-between gap-2 pt-1">
+                    <span class="text-lg font-bold text-brand">{product.price}</span>
+                  </div>
+                  <div class="flex gap-2">
+                    <a
+                      href={`${baseUrl}/product/${product.slug}`}
+                      class="flex-1 text-center text-xs font-bold py-2 rounded-full border-2 border-brand text-brand hover:bg-brand/10 transition-colors"
+                    >
+                      View
+                    </a>
+                    {product.affiliateLink && (
+                      <a
+                        href={product.affiliateLink}
+                        target="_blank"
+                        rel="noopener noreferrer nofollow"
+                        class="flex-1 text-center text-xs font-bold py-2 rounded-full bg-brand text-white hover:bg-brand/90 transition-colors"
+                      >
+                        Buy Now
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      )}
+
+      <!-- View All CTA -->
+      <div class="text-center mt-12">
+        <a
+          href={`${baseUrl}/products?search=${encodeURIComponent(category.matchKeywords[0] ?? '')}`}
+          class="inline-flex items-center justify-center px-10 py-4 bg-brand text-white font-bold rounded-full hover:bg-brand/90 transition-all text-base shadow-lg"
+        >
+          See More {category.name} Products →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Buying Guide (E-E-A-T content — Google reads this) -->
+  <section class="py-12 bg-muted/30 border-t border-border">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl md:text-3xl font-bold text-foreground mb-6">
+        Buyer's Guide: {category.name} on Shopee Philippines
+      </h2>
+      <div class="prose prose-neutral dark:prose-invert max-w-none text-muted-foreground leading-relaxed space-y-4">
+        {category.buyingGuide.split('\n\n').map(para => {
+          if (para.startsWith('**') && para.includes('**\n')) {
+            // Bold heading paragraph
+            const [heading, ...rest] = para.split('\n');
+            const headingText = heading.replace(/\*\*/g, '');
+            return (
+              <div>
+                <h3 class="text-lg font-bold text-foreground mt-6 mb-2">{headingText}</h3>
+                <p>{rest.join(' ')}</p>
+              </div>
+            );
+          }
+          return <p>{para}</p>;
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section (visible on page — required for FAQ rich results) -->
+  <section class="py-12 bg-background border-t border-border">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl md:text-3xl font-bold text-foreground mb-8">
+        Frequently Asked Questions
+      </h2>
+      <div class="space-y-4">
+        {category.faqs.map((faq, i) => (
+          <details
+            class="group bg-card border border-border rounded-xl overflow-hidden"
+            open={i === 0}
+          >
+            <summary class="flex items-center justify-between gap-4 px-6 py-4 cursor-pointer font-semibold text-foreground hover:text-brand transition-colors list-none">
+              <span>{faq.q}</span>
+              <span class="text-brand text-xl shrink-0 transition-transform group-open:rotate-45">+</span>
+            </summary>
+            <div class="px-6 pb-5 text-muted-foreground leading-relaxed text-sm border-t border-border pt-4">
+              {faq.a}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Categories -->
+  <section class="py-12 bg-muted/30 border-t border-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-xl font-bold text-foreground mb-6">Browse Other Categories</h2>
+      <div class="flex flex-wrap gap-3">
+        {CATEGORIES.filter(c => c.slug !== category.slug).map(cat => (
+          <a
+            href={`${baseUrl}/category/${cat.slug}`}
+            class="inline-flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-full text-sm font-medium text-foreground hover:border-brand hover:text-brand transition-colors"
+          >
+            <span>{cat.emoji}</span>
+            <span>{cat.name}</span>
+          </a>
+        ))}
+        <a
+          href={`${baseUrl}/products`}
+          class="inline-flex items-center gap-2 px-4 py-2 bg-brand text-white rounded-full text-sm font-bold hover:bg-brand/90 transition-colors"
+        >
+          All Products →
+        </a>
+      </div>
+    </div>
+  </section>
+</MainLayout>

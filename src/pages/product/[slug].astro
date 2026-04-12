@@ -70,6 +70,8 @@ const productSchema = product ? {
   "image": product.images,
   "description": pageDescription,
   "url": canonicalUrl,
+  "sku": `shopee-${product.id}`,
+  "mpn": product.id,
   ...(shopName && {
     "brand": { "@type": "Brand", "name": shopName }
   }),
@@ -85,15 +87,55 @@ const productSchema = product ? {
       "name": shopName ?? "Shopee Philippines"
     }
   },
-  ...(product.shopRating && product.shopRating > 0 && {
+  ...(product.shopRating && product.shopRating > 0 && product.shopRatingCount && product.shopRatingCount > 0 && {
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": product.shopRating.toFixed(1),
       "bestRating": "5",
       "worstRating": "1",
-      "ratingCount": "1"
+      "ratingCount": String(product.shopRatingCount)
     }
   })
+} : null;
+
+// FAQ schema for product pages — helps capture featured snippets
+const productFaqSchema = product ? {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": `Is ${product.name} available on Shopee Philippines?`,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": `Yes, ${product.name} is available on Shopee Philippines${shopName ? ` from seller ${shopName}` : ''}. Current price is ${product.price}${discount ? ` with ${discount} discount` : ''}. Click the "Buy on Shopee" button to view the current listing and place your order.`
+      }
+    },
+    {
+      "@type": "Question",
+      "name": `How do I buy ${product.name} on Shopee?`,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": `To buy ${product.name} on Shopee Philippines: 1) Click the "Buy on Shopee" button on this page. 2) You'll be redirected to the official Shopee product listing. 3) Select your preferred variant (if applicable). 4) Add to cart and proceed to checkout. 5) Choose your payment method (GCash, credit card, COD, etc.) and confirm your order.`
+      }
+    },
+    {
+      "@type": "Question",
+      "name": `What is the price of ${product.name} on Shopee?`,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": `The current price of ${product.name} on Shopee Philippines is ${product.price}${discount ? ` (${discount} off the original price)` : ''}. Prices may vary depending on selected variants, ongoing Shopee vouchers, or flash sales. Check the live Shopee listing for the most up-to-date price.`
+      }
+    },
+    {
+      "@type": "Question",
+      "name": `Does ${product.name} have free shipping on Shopee?`,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": `Shopee Philippines frequently offers free shipping vouchers and subsidies, especially during sales events like 11.11, 12.12, and Shopee's monthly sales. To get free shipping on ${product.name}, look for the "Free Shipping" badge on the listing page or apply a Shopee free-shipping voucher at checkout.`
+      }
+    }
+  ]
 } : null;
 ---
 
@@ -107,9 +149,26 @@ const productSchema = product ? {
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbData)} />
     {productSchema && <script type="application/ld+json" set:html={JSON.stringify(productSchema)} />}
+    {productFaqSchema && <script type="application/ld+json" set:html={JSON.stringify(productFaqSchema)} />}
     <meta property="og:type" content="product" />
   </Fragment>
 
   <!-- ProductDetail: client:load SSR-renders the skeleton; initialProduct skips the client-side API call -->
   <ProductDetail client:load initialProduct={product ?? undefined} />
+
+  <!-- Internal category links — passes authority from product pages to category cluster -->
+  <section class="py-10 border-t border-border bg-muted/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <p class="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4">Browse more Shopee deals</p>
+      <div class="flex flex-wrap gap-2">
+        <a href="/category/gadgets"       class="px-4 py-2 bg-card border border-border rounded-full text-sm text-foreground hover:border-brand hover:text-brand transition-colors">📱 Gadgets & Tech</a>
+        <a href="/category/home-living"   class="px-4 py-2 bg-card border border-border rounded-full text-sm text-foreground hover:border-brand hover:text-brand transition-colors">🏠 Home & Living</a>
+        <a href="/category/fashion"       class="px-4 py-2 bg-card border border-border rounded-full text-sm text-foreground hover:border-brand hover:text-brand transition-colors">👗 Fashion</a>
+        <a href="/category/beauty"        class="px-4 py-2 bg-card border border-border rounded-full text-sm text-foreground hover:border-brand hover:text-brand transition-colors">💄 Beauty & Health</a>
+        <a href="/category/sports-outdoor" class="px-4 py-2 bg-card border border-border rounded-full text-sm text-foreground hover:border-brand hover:text-brand transition-colors">⚽ Sports & Outdoor</a>
+        <a href="/category/food-snacks"   class="px-4 py-2 bg-card border border-border rounded-full text-sm text-foreground hover:border-brand hover:text-brand transition-colors">🍜 Food & Snacks</a>
+        <a href="/products"               class="px-4 py-2 bg-brand text-white rounded-full text-sm font-semibold hover:bg-brand/90 transition-colors">View all 1,000+ deals →</a>
+      </div>
+    </div>
+  </section>
 </MainLayout>
