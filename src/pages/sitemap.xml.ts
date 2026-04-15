@@ -31,7 +31,12 @@ export const GET: APIRoute = async () => {
     { url: '/contact',                     priority: '0.6', changefreq: 'monthly' },
     { url: '/privacy',                     priority: '0.4', changefreq: 'yearly'  },
     { url: '/terms',                       priority: '0.4', changefreq: 'yearly'  },
-    { url: '/editorial-policy',            priority: '0.4', changefreq: 'yearly'  },
+    { url: '/editorial-policy',            priority: '0.5', changefreq: 'yearly'  },
+    { url: '/faq',                         priority: '0.8', changefreq: 'monthly' },
+    { url: '/shopee-sales-2026',           priority: '0.9', changefreq: 'monthly' },
+    { url: '/earn',                        priority: '0.7', changefreq: 'weekly'  },
+    { url: '/jokes',                       priority: '0.5', changefreq: 'monthly' },
+    { url: '/daily',                       priority: '0.5', changefreq: 'monthly' },
   ];
 
   // Use all shopee products directly — bypasses the old 100-item limit

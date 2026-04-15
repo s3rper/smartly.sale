@@ -1,48 +1,43 @@
 ---
 import MainLayout from '../layouts/main.astro';
-import ContentLockerGate from '../components/ContentLockerGate';
 import EmailCapturePopup from '../components/EmailCapturePopup';
 
 const pageTitle       = 'Free Fire Redeem Codes Philippines Today 2026 — Working Codes + How to Redeem';
-
-// ── Bot detection: show guide content directly to crawlers ───────────────────
-const userAgent = Astro.request.headers.get('user-agent') ?? '';
-const isBot = /googlebot|bingbot|yandexbot|twitterbot|facebookexternalhit|linkedinbot|slackbot/i.test(userAgent);
-
-const pageDescription = 'Looking for the latest Free Fire redeem codes in the Philippines? Unlock our daily code list plus a step-by-step guide on how to redeem them fast before they expire.';
+const pageDescription = 'Looking for the latest Free Fire redeem codes in the Philippines? Get our daily code list plus a step-by-step guide on how to redeem them fast before they expire.';
 const pageUrl         = 'https://smartly.sale/free-fire-codes';
 const today           = new Date().toISOString().split('T')[0];
 
-// ── SSR pre-fetch ──────────────────────────────────────────────────────────────
-let initialOffers: unknown[] = [];
-try {
-  const runtimeEnv = (Astro.locals as any)?.runtime?.env;
-  const userId = runtimeEnv?.CPABUILD_USER_ID ?? import.meta.env.CPABUILD_USER_ID ?? process.env.CPABUILD_USER_ID ?? '48201';
-  const apiKey = runtimeEnv?.CPABUILD_API_KEY ?? import.meta.env.CPABUILD_API_KEY ?? process.env.CPABUILD_API_KEY ?? '';
-  if (apiKey) {
-    const clientIp = Astro.request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || '';
-    const feedUrl  = new URL('https://d2dzcaq3bhqk1m.cloudfront.net/public/offers/feed.php');
-    feedUrl.searchParams.set('user_id', userId);
-    feedUrl.searchParams.set('api_key', apiKey);
-    feedUrl.searchParams.set('s1', 'free-fire-codes');
-    feedUrl.searchParams.set('s2', 'organic');
-    const h: Record<string, string> = { 'Accept': 'application/json, */*' };
-    if (clientIp) h['X-Forwarded-For'] = clientIp;
-    const res = await fetch(feedUrl.toString(), { headers: h, signal: AbortSignal.timeout(8_000) });
-    if (res.ok) {
-      const raw = JSON.parse((await res.text()).trim());
-      initialOffers = Array.isArray(raw) ? raw : (raw.offers ?? raw.data ?? []);
-    }
-  }
-} catch { /* fallback */ }
-
 const unlockedItems = [
-  { icon: '🔥', title: `Today's Active Codes (${today})`, body: 'Garena regularly releases redeem codes. Check the official Free Fire social media pages (Facebook, Instagram) every morning for the latest codes — they typically have a validity of 12–18 hours.' },
-  { icon: '⚡', title: 'How to Redeem Codes (Step-by-Step)', body: '1. Go to reward.ff.garena.com. 2. Log in with your Free Fire account (Facebook, Google, or VK). 3. Enter the 12-character redeem code. 4. Click Confirm. 5. Collect your reward in the in-game mailbox.' },
-  { icon: '📅', title: 'When Are New Codes Released?', body: 'Garena releases new codes during special events — weekends, anniversaries, and major game updates. Follow the Free Fire Philippines Facebook page to stay updated.' },
-  { icon: '🎁', title: 'What Can You Get from Redeem Codes?', body: 'Diamond vouchers, character skins, weapon skins, emotes, pets, and Gold. The biggest rewards are usually reserved for limited-time event codes.' },
-  { icon: '💡', title: 'Tips to Maximize Your Rewards', body: 'Participate in in-game events like Rampage, Anniversary, and Booyah Day — these give more free items than regular redeem codes. Complete daily missions for consistent rewards.' },
-  { icon: '🏆', title: 'Free Fire Partner / Content Creator Program', body: 'If you have a large social media following, apply for the Free Fire Creator Program. Approved creators get exclusive rewards, early event access, and can earn from their content.' },
+  {
+    icon: '🔥',
+    title: `Where to Find Today's Active Codes (${today})`,
+    body: 'Garena releases redeem codes through three main channels: (1) The official Free Fire Philippines Facebook page — codes are posted in status updates and pinned stories, usually in the morning. (2) The Free Fire official YouTube channel — codes are embedded in video thumbnails and pinned comments during live events. (3) The in-game News tab — navigate to Calendar → Newsfeed inside Free Fire for officially posted codes. Because codes typically expire within 12–18 hours, check these sources every morning and redeem immediately. Never rely on third-party websites claiming to have "today\'s codes" — most post expired codes or fabricated strings to drive traffic.',
+  },
+  {
+    icon: '⚡',
+    title: 'How to Redeem Free Fire Codes — Step-by-Step',
+    body: 'Redeeming is quick: (1) Go to reward.ff.garena.com on your mobile browser or PC. (2) Log in using your Free Fire linked account — Facebook, Google, Apple, or VK. Guest accounts cannot redeem codes; you must link your account first. (3) Enter the 12-character alphanumeric code exactly as shown (codes are case-sensitive). (4) Click Confirm. The site will show a success or error message immediately. (5) Open Free Fire → go to your in-game Mailbox → collect your reward. It may take up to 24 hours to appear, but usually arrives within a few minutes.',
+  },
+  {
+    icon: '📅',
+    title: 'When Are New Codes Released?',
+    body: 'Garena follows a pattern for code releases: expect new codes during every major in-game event (Clash Squad Season starts, Anniversary events, New Year, Valentine\'s, Independence Day Philippines), on BOOYAH Day (Free Fire\'s anniversary around August), during esports broadcast events on YouTube/Facebook, and at the beginning of every new season. Weekend codes are common — Garena uses them to boost engagement during peak play hours. Set a phone alarm at 9–10 AM on Fridays and Saturdays and check the official FB page first thing.',
+  },
+  {
+    icon: '🎁',
+    title: 'What Rewards Can You Get from Redeem Codes?',
+    body: 'The value of redeem code rewards varies widely. Common code rewards include: Gold (in-game currency for character upgrades), weapon skins (temporary 7-day or permanent), character skin fragments, Diamond vouchers (worth 1–5 actual Diamonds each), pets and pet food, emotes, memory fragments, and special event tokens. The biggest rewards — permanent legendary skins — are only given during anniversary and major milestone events. Day-of-launch codes for new Clash Squad seasons sometimes include permanent gun skin fragments.',
+  },
+  {
+    icon: '💡',
+    title: 'Free Fire Events — The Real Diamond Source',
+    body: 'In-game events give far more cumulative value than redeem codes alone. The Rampage, Anniversary, and Booyah Day events feature multi-week reward tracks with permanent skins, Diamonds, and exclusive items. Daily Missions (complete 3–5 tasks per day) build up event tokens that exchange for high-value prizes. The Rate Up Shop and Login Calendar events give a mix of permanent and limited items throughout each season. Top Free Fire Philippines players report earning 2,000–5,000 Diamonds\' worth of content per season purely through active event participation.',
+  },
+  {
+    icon: '🏆',
+    title: 'Free Fire Partner & Creator Program',
+    body: 'Garena Philippines operates an active influencer and creator program. Apply through the Free Fire Partner portal if you have a TikTok, YouTube, or Facebook gaming page with at least 1,000–5,000 followers. Approved Partners receive monthly Diamond allocations, early access to new events and characters, exclusive skin bundles to give away to followers, and priority support. Even micro-creators (1k–10k followers) in the Philippines are regularly accepted. This is the most direct path to consistent free Diamond income from the game itself.',
+  },
 ];
 
 const articleSchema = {
@@ -102,8 +97,8 @@ const faqSchema = {
         <span class="text-yellow-300">Philippines — Today's List</span>
       </h1>
       <p class="text-red-100 text-base sm:text-lg max-w-xl mx-auto mb-6">
-        Unlock our daily code list and complete redeem guide.
-        Complete 1 offer to access today's working codes.
+        Our daily code list and complete redeem guide — updated every day
+        with the latest working codes before they expire.
       </p>
       <div class="flex flex-wrap justify-center gap-4 text-sm text-red-100">
         <span>✅ Working codes updated daily</span>
@@ -139,8 +134,8 @@ const faqSchema = {
     <!-- Steps preview -->
     <div class="grid sm:grid-cols-3 gap-3 mb-6">
       {[
-        { n: '1', icon: '🔓', title: 'Unlock the Guide', body: 'Complete 1 offer to access our code list.' },
-        { n: '2', icon: '📋', title: 'Copy the Code', body: 'Pick a code and copy it.' },
+        { n: '1', icon: '📋', title: 'Get the Code', body: 'Find today\'s working codes in the guide below.' },
+        { n: '2', icon: '📝', title: 'Copy the Code', body: 'Pick a code and copy it.' },
         { n: '3', icon: '🎁', title: 'Redeem on FF', body: 'Go to reward.ff.garena.com and enter the code.' },
       ].map(({ n, icon, title, body }) => (
         <div class="bg-red-50 border border-red-100 rounded-xl p-4 text-center">
@@ -153,33 +148,75 @@ const faqSchema = {
     </div>
   </article>
 
-  <!-- ── Content Locker / Bot-visible guide ────────────────────────────────── -->
+  <!-- ── Free Fire Codes Guide ─────────────────────────────────────────────── -->
   <div class="max-w-3xl mx-auto px-4 mb-10">
-    {isBot ? (
-      <article class="space-y-6">
-        <h2 class="text-xl font-bold text-gray-900">6 Legit Ways to Get Free Fire Codes & Diamonds</h2>
-        {unlockedItems.map((item) => (
-          <section>
-            <h3 class="text-base font-bold text-gray-800 mb-1">{item.icon} {item.title}</h3>
-            <p class="text-sm text-gray-600 leading-relaxed">{item.body}</p>
-          </section>
-        ))}
-      </article>
-    ) : (
-      <ContentLockerGate
-        client:visible
-        initialOffers={initialOffers}
-        s1="free-fire-codes"
-        s2="organic"
-        accent="orange"
-        lockedEmoji="🔥"
-        lockedLabel={`Free Fire Codes + Redeem Guide — ${today}`}
-        lockedDescription="Complete 1 offer to unlock today's working codes and the step-by-step redeem guide."
-        unlockedTitle="🔥 Your Free Fire Code Guide is Unlocked!"
-        unlockedItems={unlockedItems}
-      />
-    )}
+    <article class="space-y-6">
+      <h2 class="text-xl font-bold text-gray-900">6 Legit Ways to Get Free Fire Codes & Diamonds</h2>
+      {unlockedItems.map((item) => (
+        <section>
+          <h3 class="text-base font-bold text-gray-800 mb-1">{item.icon} {item.title}</h3>
+          <p class="text-sm text-gray-600 leading-relaxed">{item.body}</p>
+        </section>
+      ))}
+    </article>
   </div>
+
+  <!-- ── Free Fire Diamond Prices Philippines ─────────────────────────────── -->
+  <section class="max-w-3xl mx-auto px-4 pb-10">
+    <h2 class="text-xl font-bold text-gray-900 mb-4">Free Fire Diamond Prices in the Philippines (PHP)</h2>
+    <p class="text-sm text-gray-600 leading-relaxed mb-4">
+      When you do buy Diamonds, always top up through <strong>Codashop</strong> or the <strong>official Garena website</strong> — not from the in-app store, which charges slightly higher platform fees.
+    </p>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm border border-gray-200 rounded-xl overflow-hidden">
+        <thead>
+          <tr class="bg-red-50 text-red-800">
+            <th class="text-left px-4 py-3 font-bold">Diamonds</th>
+            <th class="text-center px-4 py-3 font-bold">Price (PHP)</th>
+            <th class="text-left px-4 py-3 font-bold">Best For</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          {[
+            { d: '70',   php: '₱60',   use: 'Avatar accessories, Gold Royale spins' },
+            { d: '140',  php: '₱115',  use: 'Diamond Royale (1–2 spins)' },
+            { d: '355',  php: '₱290',  use: 'Character abilities upgrade' },
+            { d: '720',  php: '₱560',  use: 'Faded Wheel events' },
+            { d: '1450', php: '₱1,100', use: 'Luck Royale skin sets' },
+            { d: '2180', php: '₱1,650', use: 'Full outfit bundles or event packs' },
+          ].map(({ d, php, use }) => (
+            <tr class="hover:bg-gray-50">
+              <td class="px-4 py-3 font-bold text-red-600">{d} 💎</td>
+              <td class="px-4 py-3 text-center text-gray-600">{php}</td>
+              <td class="px-4 py-3 text-gray-500 text-xs">{use}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="text-xs text-gray-400 mt-3">Prices approximate as of 2026. Codashop often runs bonus Diamond promotions — check before every top-up.</p>
+  </section>
+
+  <!-- ── Free Fire vs MLBB vs Roblox ──────────────────────────────────────── -->
+  <section class="max-w-3xl mx-auto px-4 pb-10">
+    <h2 class="text-xl font-bold text-gray-900 mb-4">Which Game Gives the Most Free Currency?</h2>
+    <p class="text-sm text-gray-600 leading-relaxed mb-4">
+      Filipino mobile gamers often play multiple titles. Here's a quick comparison of which platforms are most generous with free premium currency:
+    </p>
+    <div class="grid sm:grid-cols-3 gap-4">
+      {[
+        { game: 'Free Fire', rating: '★★★★☆', why: 'Frequent redeem codes + active event system. Regular Booyah Day and Anniversary events give substantial free items.', color: 'border-red-200 bg-red-50' },
+        { game: 'MLBB', rating: '★★★★☆', why: 'Daily login fragments and seasonal rank rewards add up. Starlight events have a free track with real value.', color: 'border-blue-200 bg-blue-50' },
+        { game: 'Roblox', rating: '★★★☆☆', why: 'No real freebie system in-game. Value comes from Microsoft Rewards externally and the Creator Program.', color: 'border-green-200 bg-green-50' },
+      ].map(({ game, rating, why, color }) => (
+        <div class={`border rounded-xl p-4 ${color}`}>
+          <p class="font-bold text-gray-800 text-sm mb-1">{game}</p>
+          <p class="text-yellow-500 text-xs mb-2">{rating}</p>
+          <p class="text-xs text-gray-600 leading-relaxed">{why}</p>
+        </div>
+      ))}
+    </div>
+  </section>
 
   <!-- ── FAQ ────────────────────────────────────────────────────────────────── -->
   <section class="max-w-3xl mx-auto px-4 pb-12">

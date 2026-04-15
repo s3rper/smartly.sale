@@ -32,16 +32,8 @@ const resolvedCanonical = canonicalUrl ?? `https://smartly.sale${Astro.url.pathn
 <html lang="en-PH" class={pageClass}>
 <head>
 <meta charset="utf-8" />
-<!-- Google Analytics 4 — fires immediately on every page load -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-BWPR8CV7BR"></script>
-<script is:inline>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-BWPR8CV7BR');
-</script>
-
 <!-- dataLayer queue init — must be first so deferred GTM picks up early pushes -->
+<!-- GA4 is handled inside GTM (GTM-PXRK86GQ) — no separate gtag script needed -->
 <script is:inline>window.dataLayer=window.dataLayer||[];</script>
 
 <!-- Defer other analytics until page is interactive (reduces TBT/LCP on mobile) -->

@@ -17,19 +17,18 @@ const schema = {
     "price": "0",
     "priceCurrency": "PHP"
   },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.8",
-    "reviewCount": "1247"
-  }
 };
 ---
 
-<MainLayout 
+<MainLayout
   title={pageTitle}
   description={pageDescription}
   ogImage={ogImage}
 >
+  <Fragment slot="head">
+    <meta name="robots" content="noindex, nofollow" />
+  </Fragment>
+
   <!-- Schema.org structured data -->
   <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 

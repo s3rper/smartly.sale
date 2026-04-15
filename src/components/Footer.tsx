@@ -139,6 +139,22 @@ const Footer: React.FC = () => {
                 </li>
                 <li>
                   <a
+                    href={`${baseUrl}/shopee-sales-2026`}
+                    className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
+                  >
+                    Shopee Sale Calendar 2026
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`${baseUrl}/faq`}
+                    className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
+                  >
+                    FAQ
+                  </a>
+                </li>
+                <li>
+                  <a
                     href={`${baseUrl}/about`}
                     className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
                   >

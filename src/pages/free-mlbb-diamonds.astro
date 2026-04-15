@@ -1,48 +1,43 @@
 ---
 import MainLayout from '../layouts/main.astro';
-import ContentLockerGate from '../components/ContentLockerGate';
 import EmailCapturePopup from '../components/EmailCapturePopup';
 
 const pageTitle       = 'Free MLBB Diamonds Philippines 2026 — Legit Diamond Farming Guide';
-
-// ── Bot detection: show guide content directly to crawlers ───────────────────
-const userAgent = Astro.request.headers.get('user-agent') ?? '';
-const isBot = /googlebot|bingbot|yandexbot|twitterbot|facebookexternalhit|linkedinbot|slackbot/i.test(userAgent);
-
-const pageDescription = 'Want free MLBB diamonds? Unlock our complete Diamond Farming Guide — complete 1 offer and start using these proven, legit methods today!';
+const pageDescription = 'Want free MLBB diamonds? Read our complete Diamond Farming Guide — proven, legit methods to earn diamonds in Mobile Legends without spending money.';
 const pageUrl         = 'https://smartly.sale/free-mlbb-diamonds';
 const today           = new Date().toISOString().split('T')[0];
 
-// ── SSR pre-fetch ──────────────────────────────────────────────────────────────
-let initialOffers: unknown[] = [];
-try {
-  const runtimeEnv = (Astro.locals as any)?.runtime?.env;
-  const userId = runtimeEnv?.CPABUILD_USER_ID ?? import.meta.env.CPABUILD_USER_ID ?? process.env.CPABUILD_USER_ID ?? '48201';
-  const apiKey = runtimeEnv?.CPABUILD_API_KEY ?? import.meta.env.CPABUILD_API_KEY ?? process.env.CPABUILD_API_KEY ?? '';
-  if (apiKey) {
-    const clientIp = Astro.request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || '';
-    const feedUrl  = new URL('https://d2dzcaq3bhqk1m.cloudfront.net/public/offers/feed.php');
-    feedUrl.searchParams.set('user_id', userId);
-    feedUrl.searchParams.set('api_key', apiKey);
-    feedUrl.searchParams.set('s1', 'mlbb-diamonds');
-    feedUrl.searchParams.set('s2', 'organic');
-    const h: Record<string, string> = { 'Accept': 'application/json, */*' };
-    if (clientIp) h['X-Forwarded-For'] = clientIp;
-    const res = await fetch(feedUrl.toString(), { headers: h, signal: AbortSignal.timeout(8_000) });
-    if (res.ok) {
-      const raw = JSON.parse((await res.text()).trim());
-      initialOffers = Array.isArray(raw) ? raw : (raw.offers ?? raw.data ?? []);
-    }
-  }
-} catch { /* fallback to client-side */ }
-
 const unlockedItems = [
-  { icon: '💎', title: 'Daily Login Bonuses', body: 'Log in every day to collect free Starlight Fragments and Diamonds on the ML Events page. There are always new events handing out free rewards.' },
-  { icon: '🎮', title: 'Elite Pass & Starlight Events', body: 'Every new Season comes with mini-games and challenges that reward Diamond fragments — complete them all to maximize your earnings.' },
-  { icon: '🏆', title: 'Ranked Mode Rewards', body: 'Climb the ranks for seasonal rewards including Fragments, Tickets, and sometimes Diamond Credits. The higher your rank, the bigger the reward.' },
-  { icon: '📱', title: 'Moonton Exclusive Surveys', body: 'Moonton sends survey invites to registered emails. Complete them for exclusive in-game items and occasionally Diamonds.' },
-  { icon: '🎁', title: 'Friend Referral System', body: 'Invite friends to MLBB using your referral code. When they reach a certain rank, you receive Diamond vouchers as a reward.' },
-  { icon: '⚡', title: 'Third-Party Reward Programs', body: 'Platforms that pay out GCash or gift cards (like the offers above) can be converted into MLBB Diamonds through the in-game top-up using GCash.' },
+  {
+    icon: '💎',
+    title: 'Daily Login Bonuses',
+    body: 'Mobile Legends rewards consistent players generously. Log in every single day — even if you don\'t play a match — to collect your daily login streak bonus. After 7 consecutive days, the rewards scale up significantly, including Starlight Fragments and occasionally direct Diamonds or vouchers. On the Events tab, there are always active mini-campaigns that reward Diamond fragments for simple tasks like watching a skin preview, sharing to Facebook, or completing a training mission. These tiny fragments accumulate faster than you\'d expect — many players collect enough for a full skin over a single season without spending anything.',
+  },
+  {
+    icon: '🎮',
+    title: 'Starlight & Elite Pass Events',
+    body: 'Each MLBB Season (roughly every 1–2 months) comes with a free event track alongside the paid Starlight Pass. The free track has enough rewards to earn substantial fragment and item prizes if you complete the daily missions consistently. The paid Starlight Pass costs Diamonds but often pays back more than its cost in exclusive skins and fragments. If you\'re grinding the free track diligently — completing all tasks, participating in all sub-events — you can accumulate enough fragments to redeem for permanent skins and Diamond vouchers over 2–3 seasons.',
+  },
+  {
+    icon: '🏆',
+    title: 'Ranked Mode Seasonal Rewards',
+    body: 'Every season, MLBB distributes rewards based on your final rank before the season resets. Reaching Grandmaster or higher unlocks skin fragments and ticket rewards. Epic and Legend rank players receive exclusive Recall Effects and sometimes Diamond vouchers. Even at lower ranks (Elite, Master), you receive enough Ticket fragments to exchange for items in the Fragment Shop. The key is to play ranked consistently during the season rather than rushing at the end — the rewards scale with your peak rank achieved during the season, not just your end rank.',
+  },
+  {
+    icon: '📱',
+    title: 'Moonton Surveys & Beta Testing',
+    body: 'Moonton actively recruits their player base for feedback. Players who have linked their email to their Moonton account regularly receive survey invitations — typically 5–10 minutes to complete. Completed surveys reward exclusive avatar frames, Starlight Fragments, and occasionally Diamond vouchers. Moonton also runs beta testing programs for new heroes and features: beta testers receive early access rewards and sometimes significant Diamond bonuses for filing bug reports.',
+  },
+  {
+    icon: '🎁',
+    title: 'Referral Program — Invite Friends',
+    body: 'MLBB\'s referral program is underutilized by most players. Share your unique referral code (found under your Profile → Invite Friends) with people who haven\'t played MLBB before. When a new player uses your code, creates an account, and reaches a specific rank milestone (usually Warrior Rank III), you receive a Diamond voucher reward. The more friends you refer who actually play and rank up, the more Diamond vouchers you accumulate. Focus on referring friends who are genuinely interested in MOBAs — a friend who plays consistently through Gold or Epic is far more valuable than one who quits after 2 games.',
+  },
+  {
+    icon: '⚡',
+    title: 'Earn GCash → Top Up via Codashop',
+    body: 'This is the most flexible method and works for any amount. Legitimate reward programs pay out real GCash to Filipino users. Once you have GCash loaded up — even just PHP 50–100 — you can top up MLBB Diamonds directly through Codashop (codashop.com) which accepts GCash payments. Codashop frequently runs promo events where you get bonus Diamonds on specific top-up amounts. For example, a PHP 110 top-up might get you 257 Diamonds normally, but during a promo, you might get 300–350 for the same amount. Check Codashop\'s promotions tab before every top-up.',
+  },
 ];
 
 const articleSchema = {
@@ -104,8 +99,8 @@ const faqSchema = {
         </span>
       </h1>
       <p class="text-blue-200 text-base sm:text-lg max-w-xl mx-auto mb-6">
-        Unlock our complete diamond farming guide — complete 1 offer below
-        to access all the legit methods for getting free diamonds.
+        Our complete diamond farming guide — all legit, proven methods
+        for getting free diamonds in Mobile Legends.
       </p>
       <div class="flex flex-wrap justify-center gap-4 text-sm text-blue-200">
         <span>✅ No account hacking</span>
@@ -148,33 +143,102 @@ const faqSchema = {
     </div>
   </article>
 
-  <!-- ── Content Locker / Bot-visible guide ────────────────────────────────── -->
+  <!-- ── MLBB Diamond Farming Guide ───────────────────────────────────────── -->
   <div class="max-w-3xl mx-auto px-4 mb-10">
-    {isBot ? (
-      <article class="space-y-6">
-        <h2 class="text-xl font-bold text-gray-900">6 Legit Ways to Get Free MLBB Diamonds</h2>
-        {unlockedItems.map((item) => (
-          <section>
-            <h3 class="text-base font-bold text-gray-800 mb-1">{item.icon} {item.title}</h3>
-            <p class="text-sm text-gray-600 leading-relaxed">{item.body}</p>
-          </section>
-        ))}
-      </article>
-    ) : (
-      <ContentLockerGate
-        client:visible
-        initialOffers={initialOffers}
-        s1="mlbb-diamonds"
-        s2="organic"
-        accent="blue"
-        lockedEmoji="💎"
-        lockedLabel="Free MLBB Diamond Farming Guide (6 Methods)"
-        lockedDescription="Complete 1 offer to unlock our full guide — 100% legit, no account hacking required."
-        unlockedTitle="💎 Your Diamond Farming Guide is Unlocked!"
-        unlockedItems={unlockedItems}
-      />
-    )}
+    <article class="space-y-6">
+      <h2 class="text-xl font-bold text-gray-900">6 Legit Ways to Get Free MLBB Diamonds</h2>
+      {unlockedItems.map((item) => (
+        <section>
+          <h3 class="text-base font-bold text-gray-800 mb-1">{item.icon} {item.title}</h3>
+          <p class="text-sm text-gray-600 leading-relaxed">{item.body}</p>
+        </section>
+      ))}
+    </article>
   </div>
+
+  <!-- ── MLBB Diamond Top-Up Guide PH ─────────────────────────────────────── -->
+  <section class="max-w-3xl mx-auto px-4 pb-10">
+    <h2 class="text-xl font-bold text-gray-900 mb-4">How to Top Up MLBB Diamonds in the Philippines</h2>
+    <p class="text-sm text-gray-600 leading-relaxed mb-5">
+      When you do decide to top up, here are the best methods for Filipino players — with prices and step-by-step instructions:
+    </p>
+    <div class="space-y-4">
+      {[
+        {
+          method: 'Codashop (Best Value + Promos)',
+          steps: 'Go to codashop.com → Select Mobile Legends → Enter your Game ID and Server ID (found under your ML profile) → Choose Diamond amount → Pay with GCash. Codashop frequently runs bonus Diamond promos.',
+          badge: 'Recommended',
+          badgeColor: 'bg-blue-100 text-blue-700',
+        },
+        {
+          method: 'Official Moonton Website',
+          steps: 'Visit mobilelegends.com/topup → Log in with your Moonton account → Select amount → Pay with credit card, PayPal, or GCash. Prices are identical to the in-game store.',
+          badge: 'Official',
+          badgeColor: 'bg-green-100 text-green-700',
+        },
+        {
+          method: 'In-App Purchase (Direct)',
+          steps: 'Open MLBB → Shop → Diamonds → Select amount → Pay via Google Play / App Store (GCash or credit card linked to your account). Slightly higher cost due to platform fees.',
+          badge: 'Convenient',
+          badgeColor: 'bg-purple-100 text-purple-700',
+        },
+        {
+          method: 'UniPin / Seagm',
+          steps: 'Create an account at unipin.com → Select MLBB → Enter your Game ID → Choose Diamond package → Pay with GCash or bank transfer. Good alternative when Codashop promos are not active.',
+          badge: 'Alternative',
+          badgeColor: 'bg-gray-100 text-gray-700',
+        },
+      ].map(({ method, steps, badge, badgeColor }) => (
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="font-bold text-gray-800 text-sm">{method}</span>
+            <span class={`text-xs px-2 py-0.5 rounded-full font-medium ${badgeColor}`}>{badge}</span>
+          </div>
+          <p class="text-xs text-gray-600 leading-relaxed">{steps}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-5 bg-blue-50 border border-blue-200 rounded-xl p-4">
+      <p class="text-sm font-bold text-blue-800 mb-1">💡 Pro Tip: Always Check for Promo Events</p>
+      <p class="text-xs text-blue-700 leading-relaxed">
+        Moonton and Codashop both run regular Diamond bonus events — often tied to MLBB anniversaries, major esports events (MPL Philippines), or seasonal milestones. Wait for a 2x Diamond event before your biggest top-up to get maximum value. These events are announced on the official MLBB Philippines Facebook page.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── MLBB Diamond Pricing Reference ────────────────────────────────────── -->
+  <section class="max-w-3xl mx-auto px-4 pb-10">
+    <h2 class="text-xl font-bold text-gray-900 mb-4">MLBB Diamond Prices in the Philippines (PHP)</h2>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm border border-gray-200 rounded-xl overflow-hidden">
+        <thead>
+          <tr class="bg-blue-50 text-blue-800">
+            <th class="text-left px-4 py-3 font-bold">Diamonds</th>
+            <th class="text-center px-4 py-3 font-bold">Price (PHP)</th>
+            <th class="text-center px-4 py-3 font-bold">Cost per Diamond</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          {[
+            { diamonds: '11',   price: '₱15',   cpp: '~₱1.36' },
+            { diamonds: '56',   price: '₱60',   cpp: '~₱1.07' },
+            { diamonds: '110',  price: '₱110',  cpp: '~₱1.00' },
+            { diamonds: '220',  price: '₱220',  cpp: '~₱1.00' },
+            { diamonds: '570',  price: '₱550',  cpp: '~₱0.96' },
+            { diamonds: '1170', price: '₱1,100', cpp: '~₱0.94' },
+          ].map(({ diamonds, price, cpp }) => (
+            <tr class="hover:bg-gray-50">
+              <td class="px-4 py-3 font-bold text-blue-700">{diamonds} 💎</td>
+              <td class="px-4 py-3 text-center text-gray-600">{price}</td>
+              <td class="px-4 py-3 text-center text-gray-500 text-xs">{cpp}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="text-xs text-gray-400 mt-3">Prices approximate as of 2026. Top up through Codashop for the best rates and bonus Diamond promos.</p>
+  </section>
 
   <!-- ── FAQ ────────────────────────────────────────────────────────────────── -->
   <section class="max-w-3xl mx-auto px-4 pb-12">

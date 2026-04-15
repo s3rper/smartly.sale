@@ -12,11 +12,11 @@ const Navbar: React.FC = () => {
   const navLinks = [
     { name: 'Home', href: `${baseUrl}/` },
     { name: 'Products', href: `${baseUrl}/products` },
-    { name: 'Tools', href: `${baseUrl}/tools` },
+    { name: 'Sale Calendar', href: `${baseUrl}/shopee-sales-2026` },
     { name: 'Earn Money', href: `${baseUrl}/earn` },
     { name: 'Blog', href: `${baseUrl}/blog` },
+    { name: 'FAQ', href: `${baseUrl}/faq` },
     { name: 'About', href: `${baseUrl}/about` },
-    { name: 'Contact', href: `${baseUrl}/contact` },
   ];
 
   return (

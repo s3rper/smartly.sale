@@ -14,7 +14,13 @@ try {
     product = transformCMSProduct(cmsProduct);
   }
 } catch (_e) {
-  // Fall back to generic meta
+  // Fall back to 404
+}
+
+// Return a proper 404 when the product does not exist — prevents soft-404
+// pages being indexed by Google with thin generic content.
+if (!product) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
 }
 
 const productName = product?.name ?? slug?.replace(/-/g, ' ');

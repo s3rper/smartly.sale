@@ -1,0 +1,399 @@
+---
+import MainLayout from '../layouts/main.astro';
+import { fetchProductsFromWebflow } from '../lib/products';
+import { transformCMSProduct } from '../types/product';
+import type { CMSProduct } from '../types/product';
+
+const pageTitle = "Best Shopee Deals Philippines 2026 — Handpicked Daily";
+const pageDescription = "Handpicked Shopee deals for Filipino shoppers. Real prices, verified sellers, updated daily. Find the best value products on Shopee Philippines.";
+
+let allCMS: CMSProduct[] = [];
+try {
+  const data = await fetchProductsFromWebflow(undefined, 50, 0);
+  allCMS = data.items || [];
+} catch (_e) {}
+
+const products = allCMS
+  .filter(item => !item.fieldData._draft && !item.fieldData._archived)
+  .map(transformCMSProduct)
+  .filter(p => p.affiliateLink)
+  .sort((a, b) => {
+    const priceA = parseFloat(a.price.replace(/[^0-9.]/g, '')) || 0;
+    const priceB = parseFloat(b.price.replace(/[^0-9.]/g, '')) || 0;
+    return priceB - priceA;
+  })
+  .slice(0, 9);
+---
+
+<MainLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalUrl="https://smartly.sale/best-deals"
+  keywords="best Shopee deals Philippines, Shopee sale 2026, viral Shopee products, budget deals Philippines, trending Shopee finds"
+>
+  <Fragment slot="head">
+    <script is:inline>
+      if (!window.fbq) {
+        window.fbq = function() { (window.fbq.q = window.fbq.q || []).push(arguments); };
+        window.fbq.q = window.fbq.q || [];
+        window._fbq = window.fbq;
+      }
+    </script>
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": pageTitle,
+      "description": pageDescription,
+      "url": "https://smartly.sale/best-deals",
+      "inLanguage": "en-PH"
+    })} />
+    <style>
+      @keyframes glow-pulse {
+        0%, 100% { opacity: 1; }
+        50%       { opacity: 0.72; }
+      }
+      @keyframes badge-float {
+        0%, 100% { transform: translateY(0px); }
+        50%       { transform: translateY(-3px); }
+      }
+      .hero-glow { animation: glow-pulse 8s ease-in-out infinite; }
+      .badge-float { animation: badge-float 4s ease-in-out infinite; }
+
+      .btn-outline-brand { color: var(--brand, #C24F00); }
+      .btn-outline-brand:hover { background-color: var(--brand, #C24F00); color: #ffffff; }
+      .btn-outline-brand:hover svg { stroke: #ffffff; }
+
+      .product-card:hover .card-overlay { opacity: 1; }
+      .product-card:hover .card-image   { transform: scale(1.06); }
+      .card-overlay  { opacity: 0; transition: opacity 0.25s ease; }
+      .card-image    { transition: transform 0.4s ease; }
+    </style>
+  </Fragment>
+
+  <!-- ─── Hero ─────────────────────────────────────────────────────────────── -->
+  <section
+    class="relative overflow-hidden"
+    style="background: #070709; min-height: 480px;"
+  >
+    <!-- Radial glow -->
+    <div
+      aria-hidden="true"
+      class="absolute inset-0 pointer-events-none hero-glow"
+      style="background:
+        radial-gradient(ellipse 75% 55% at 50% 0%,   rgba(194,79,0,0.40) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 35% at 90% 85%,  rgba(194,79,0,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 35% at 10% 80%,  rgba(194,79,0,0.10) 0%, transparent 60%);"
+    />
+    <!-- Dot grid -->
+    <div
+      aria-hidden="true"
+      class="absolute inset-0 pointer-events-none"
+      style="
+        background-image: radial-gradient(circle, rgba(194,79,0,0.18) 1px, transparent 1px);
+        background-size: 44px 44px;
+        mask-image: radial-gradient(ellipse 80% 70% at 50% 35%, black 20%, transparent 100%);
+        -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 35%, black 20%, transparent 100%);
+      "
+    />
+
+    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-24 text-center">
+
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold mb-6 badge-float"
+           style="background: rgba(194,79,0,0.14); border: 1px solid rgba(194,79,0,0.35); color: #FF7A33;">
+        <!-- Flame SVG -->
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 23c-4.97 0-9-4.03-9-9 0-3.28 1.53-5.83 3.37-7.87.9-.99 1.88-1.85 2.76-2.67C10.22 2.4 11 1.44 11 .5c0 0 3 2.5 3 5.5 0 1-.37 1.97-1 2.74C14.06 7.63 15 6.6 15 5.5c0 0 2.5 1.5 2.5 5 0 2.5-1.5 4.5-3 5.5 0-2-1-3.5-2.5-4 .5 2-1 3.5-2.5 4.5-.5.33-1 .5-1.5.5Z"/>
+        </svg>
+        Handpicked Deals — Updated Daily
+      </div>
+
+      <!-- Headline -->
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-5" style="color: #ffffff;">
+        The Best Shopee Deals<br />
+        <span style="color: #FF7A33;">in the Philippines</span>
+      </h1>
+
+      <!-- Sub -->
+      <p class="text-lg sm:text-xl max-w-xl mx-auto mb-10 leading-relaxed" style="color: rgba(255,255,255,0.58);">
+        Real products, verified sellers, real prices. Curated daily from Shopee Philippines so you don't have to scroll for hours.
+      </p>
+
+      <!-- Trust strip -->
+      <div class="flex flex-wrap justify-center gap-x-8 gap-y-3 text-sm" style="color: rgba(255,255,255,0.45);">
+        <!-- Check icon -->
+        <span class="flex items-center gap-1.5">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF7A33" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>
+          </svg>
+          Free to browse
+        </span>
+        <span class="flex items-center gap-1.5">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF7A33" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>
+          </svg>
+          No account needed
+        </span>
+        <span class="flex items-center gap-1.5">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF7A33" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>
+          </svg>
+          Real Shopee prices
+        </span>
+        <span class="flex items-center gap-1.5">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF7A33" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>
+          </svg>
+          Shopee PH affiliate
+        </span>
+      </div>
+    </div>
+
+    <!-- Bottom gradient fade into page bg -->
+    <div class="absolute bottom-0 left-0 right-0 h-16 pointer-events-none"
+         style="background: linear-gradient(to bottom, transparent, var(--background, #ffffff));" />
+  </section>
+
+  <!-- ─── How It Works ──────────────────────────────────────────────────────── -->
+  <section class="py-12 bg-muted/40 border-y border-border">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+
+        <!-- Step 1 -->
+        <div class="flex flex-col items-center gap-3">
+          <div class="w-12 h-12 rounded-2xl bg-brand/10 flex items-center justify-center border border-brand/20">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="text-brand" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            </svg>
+          </div>
+          <div>
+            <p class="font-semibold text-foreground">Browse Deals</p>
+            <p class="text-sm text-muted-foreground mt-0.5">Find products you love from our curated picks</p>
+          </div>
+        </div>
+
+        <!-- Arrow -->
+        <div class="hidden sm:flex items-center justify-center">
+          <!-- Replaced with full step -->
+        </div>
+
+        <!-- Step 2 -->
+        <div class="flex flex-col items-center gap-3 sm:-mt-0">
+          <div class="w-12 h-12 rounded-2xl bg-brand/10 flex items-center justify-center border border-brand/20">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="text-brand" aria-hidden="true">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/>
+            </svg>
+          </div>
+          <div>
+            <p class="font-semibold text-foreground">Click to Shopee</p>
+            <p class="text-sm text-muted-foreground mt-0.5">One click takes you straight to the Shopee listing</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Products Grid ─────────────────────────────────────────────────────── -->
+  <section class="py-14 px-4">
+    <div class="max-w-6xl mx-auto">
+
+      <!-- Section header -->
+      <div class="flex items-end justify-between mb-8">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-widest text-brand mb-1">Curated for You</p>
+          <h2 class="text-2xl sm:text-3xl font-bold text-foreground">Today's Top Picks</h2>
+        </div>
+        <span class="text-sm text-muted-foreground hidden sm:block">
+          {products.length} deals available
+        </span>
+      </div>
+
+      {products.length === 0 ? (
+        <!-- Empty state -->
+        <div class="text-center py-24 border border-dashed border-border rounded-2xl">
+          <svg class="w-12 h-12 text-muted-foreground/40 mx-auto mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007Z"/>
+          </svg>
+          <p class="text-foreground font-semibold mb-1">No deals available right now</p>
+          <p class="text-muted-foreground text-sm mb-6">Check back soon — we update our picks daily.</p>
+          <a href="/products" class="inline-flex items-center gap-2 text-brand font-semibold hover:underline text-sm">
+            Browse all products
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      ) : (
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-5">
+          {products.map((product) => {
+            const imageUrl = product.images.find(img => img && img.trim() !== '') || '';
+            const priceNum = parseFloat(product.price.replace(/[^0-9.]/g, '')) || 0;
+            const pixelPayload = JSON.stringify({
+              content_name: product.name.slice(0, 80),
+              value: priceNum,
+              currency: 'PHP',
+            });
+            const ratingStars = product.shopRating
+              ? Math.round(product.shopRating * 10) / 10
+              : null;
+            return (
+              <a
+                href={product.affiliateLink}
+                target="_blank"
+                rel="noopener noreferrer nofollow"
+                class="product-card group flex flex-col bg-card border border-border rounded-2xl overflow-hidden hover:border-brand/60 hover:shadow-xl transition-all duration-300"
+                onclick={`if(typeof window.fbq==='function'){window.fbq('trackCustom','ShopeeClick',${pixelPayload})}`}
+              >
+                <!-- Image area -->
+                <div class="relative aspect-square bg-muted overflow-hidden">
+                  {imageUrl ? (
+                    <img
+                      src={imageUrl}
+                      alt={product.name}
+                      class="card-image w-full h-full object-cover"
+                      loading="lazy"
+                      decoding="async"
+                      width={480}
+                      height={480}
+                    />
+                  ) : (
+                    <div class="w-full h-full flex items-center justify-center bg-muted">
+                      <svg class="w-12 h-12 text-muted-foreground/30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007Z"/>
+                      </svg>
+                    </div>
+                  )}
+
+                  <!-- Hover overlay -->
+                  <div class="card-overlay absolute inset-0 flex items-center justify-center"
+                       style="background: rgba(7,7,9,0.55); backdrop-filter: blur(2px);">
+                    <span class="inline-flex items-center gap-2 bg-brand text-white text-sm font-bold px-5 py-2.5 rounded-full shadow-lg">
+                      <!-- Shopping bag icon -->
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" x2="21" y1="6" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+                      </svg>
+                      Shop on Shopee
+                    </span>
+                  </div>
+
+                  <!-- Discount badge -->
+                  {product.discount && (
+                    <div class="absolute top-2.5 left-2.5 bg-brand text-white text-xs font-bold px-2.5 py-1 rounded-lg shadow">
+                      {product.discount}
+                    </div>
+                  )}
+                </div>
+
+                <!-- Info area -->
+                <div class="p-4 flex flex-col gap-2 flex-1">
+                  <p class="text-sm text-foreground font-medium line-clamp-2 leading-snug flex-1">
+                    {product.name}
+                  </p>
+
+                  <!-- Price + Rating row -->
+                  <div class="flex items-center justify-between mt-1">
+                    <span class="text-brand font-extrabold text-lg tracking-tight">
+                      {product.price}
+                    </span>
+                    {ratingStars && (
+                      <span class="flex items-center gap-1 text-xs text-muted-foreground">
+                        <!-- Star icon -->
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="#FBBF24" stroke="none" aria-hidden="true">
+                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        {ratingStars.toFixed(1)}
+                      </span>
+                    )}
+                  </div>
+
+                  <!-- Sold info -->
+                  {product.soldText && (
+                    <p class="text-xs text-muted-foreground">{product.soldText} sold</p>
+                  )}
+
+                  <!-- CTA row -->
+                  <div class="mt-2 flex items-center justify-between pt-2 border-t border-border">
+                    <span class="text-xs text-muted-foreground font-medium">Sold on Shopee</span>
+                    <span class="inline-flex items-center gap-1 text-brand text-xs font-semibold group-hover:underline">
+                      View deal
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      )}
+
+      <!-- Bottom CTA -->
+      {products.length > 0 && (
+        <div class="mt-14 text-center">
+          <p class="text-muted-foreground text-sm mb-4">Looking for more? Browse our full catalog.</p>
+          <a
+            href="/products"
+            class="btn-outline-brand inline-flex items-center gap-2.5 border-2 border-brand font-bold px-9 py-3.5 rounded-full transition-all duration-200"
+          >
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" x2="21" y1="6" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+            </svg>
+            View All Products
+          </a>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- ─── Trust Section ─────────────────────────────────────────────────────── -->
+  <section class="py-14 bg-muted/30 border-y border-border">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <h2 class="text-center text-xl font-bold text-foreground mb-10">Why Shop Through smartly.sale?</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+
+        <!-- Trust item 1 -->
+        <div class="flex flex-col items-center text-center gap-3 p-6 bg-card border border-border rounded-2xl">
+          <div class="w-11 h-11 rounded-xl bg-brand/10 border border-brand/20 flex items-center justify-center">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="text-brand" aria-hidden="true">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-foreground text-sm">Verified Sellers</h3>
+          <p class="text-xs text-muted-foreground leading-relaxed">Every product links directly to rated Shopee sellers. No third-party resellers — always original listings.</p>
+        </div>
+
+        <!-- Trust item 2 -->
+        <div class="flex flex-col items-center text-center gap-3 p-6 bg-card border border-border rounded-2xl">
+          <div class="w-11 h-11 rounded-xl bg-brand/10 border border-brand/20 flex items-center justify-center">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="text-brand" aria-hidden="true">
+              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-foreground text-sm">Same Price, Always</h3>
+          <p class="text-xs text-muted-foreground leading-relaxed">Affiliate commissions come from Shopee, never from you. You pay exactly what Shopee charges — not a peso more.</p>
+        </div>
+
+        <!-- Trust item 3 -->
+        <div class="flex flex-col items-center text-center gap-3 p-6 bg-card border border-border rounded-2xl">
+          <div class="w-11 h-11 rounded-xl bg-brand/10 border border-brand/20 flex items-center justify-center">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="text-brand" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-foreground text-sm">Updated Daily</h3>
+          <p class="text-xs text-muted-foreground leading-relaxed">Our team reviews and refreshes picks every day to keep deals relevant, current, and genuinely worth your time.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Affiliate Disclosure ──────────────────────────────────────────────── -->
+  <section class="py-5 px-4">
+    <p class="max-w-3xl mx-auto text-center text-xs text-muted-foreground/70 leading-relaxed">
+      smartly.sale participates in the Shopee Philippines Affiliate Program. We earn a small commission when you purchase through our links at no additional cost to you. Prices are sourced from Shopee and may change without notice.
+    </p>
+  </section>
+</MainLayout>

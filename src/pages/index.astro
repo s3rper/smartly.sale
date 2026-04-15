@@ -62,6 +62,39 @@ const itemListSchema = featuredForSchema.length > 0 ? {
   "numberOfItems": featuredForSchema.length,
   "itemListElement": featuredForSchema
 } : null;
+
+const homeFaqs = [
+  {
+    q: "What is smartly.sale?",
+    a: "smartly.sale is a Shopee Philippines affiliate shopping guide that curates trending, viral, and budget-friendly products for Filipino shoppers. We hand-pick deals across categories like gadgets, home & living, fashion, beauty, and food so you can discover the best Shopee finds without wasting hours scrolling."
+  },
+  {
+    q: "How do affiliate links on smartly.sale work?",
+    a: "When you click a 'Buy on Shopee' button and make a purchase, smartly.sale may earn a small commission from Shopee at no extra cost to you. The price you pay on Shopee is exactly the same whether you come through us or visit Shopee directly. Our commissions help keep the site free and updated with fresh deals."
+  },
+  {
+    q: "How do I find the best deals on Shopee Philippines?",
+    a: "Browse our curated categories — Gadgets, Home & Living, Fashion, Beauty, Sports, and Food. Use the search bar on the Products page to filter by keyword. We also update picks regularly, so bookmark us and check back before Shopee's monthly sales (11.11, 12.12, Payday Sales, and more)."
+  },
+  {
+    q: "Is smartly.sale free to use?",
+    a: "Yes, smartly.sale is completely free for shoppers. You can browse all products, read buying guides, and click through to Shopee without paying anything. The site is supported by small affiliate commissions that don't affect your prices."
+  },
+  {
+    q: "What product categories are available on smartly.sale?",
+    a: "We currently cover six main categories: Gadgets & Tech (phones, earphones, power banks), Home & Living (fans, organizers, kitchen tools), Fashion (clothes, bags, shoes), Beauty & Health (skincare, makeup, wellness), Sports & Outdoor (fitness gear, outdoor equipment), and Food & Snacks (local snacks, pantry staples). New categories are added as trends emerge on Shopee Philippines."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": homeFaqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.q,
+    "acceptedAnswer": { "@type": "Answer", "text": faq.a }
+  }))
+};
 ---
 
 <MainLayout
@@ -74,6 +107,7 @@ keywords={pageKeywords}
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
     {itemListSchema && <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} />}
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   </Fragment>
 
 <!-- Hero Section -->
@@ -125,6 +159,32 @@ keywords={pageKeywords}
 
 <!-- Trust Indicators Section -->
 <TrustIndicators client:visible />
+
+<!-- FAQ Section — FAQPage schema is in <head>; accordion makes content visible to Google -->
+<section class="py-14 bg-muted/30 border-t border-border" id="faq">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl md:text-3xl font-bold text-foreground text-center mb-2">
+      Frequently Asked Questions
+    </h2>
+    <p class="text-muted-foreground text-center mb-8 text-sm">Everything you need to know about smartly.sale and shopping on Shopee Philippines</p>
+    <div class="space-y-3">
+      {homeFaqs.map((faq, i) => (
+        <details class="group bg-card border border-border rounded-xl overflow-hidden" open={i === 0}>
+          <summary class="flex items-center justify-between gap-4 px-6 py-4 cursor-pointer font-semibold text-foreground hover:text-brand transition-colors list-none">
+            <span>{faq.q}</span>
+            <span class="text-brand text-xl shrink-0 transition-transform group-open:rotate-45">+</span>
+          </summary>
+          <div class="px-6 pb-5 text-muted-foreground leading-relaxed text-sm border-t border-border pt-4">
+            {faq.a}
+          </div>
+        </details>
+      ))}
+    </div>
+    <div class="text-center mt-8">
+      <a href="/faq" class="text-brand hover:underline text-sm font-medium">See all FAQs →</a>
+    </div>
+  </div>
+</section>
 
 <!-- Newsletter Section -->
 <Newsletter client:visible />

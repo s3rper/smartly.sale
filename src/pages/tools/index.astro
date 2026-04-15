@@ -3,8 +3,22 @@ import MainLayout from '../../layouts/main.astro';
 
 const toolCategories = [
   {
+    name: 'AI-Powered Tools',
+    tools: [
+      { id: 'ai-review-summarizer', name: 'AI Review Summarizer', description: 'Paste Shopee reviews — Claude AI extracts pros, cons, verdict, and rating instantly', status: 'available', url: '/tools/ai-review-summarizer' },
+      { id: 'ai-budget-planner', name: 'AI Budget Planner', description: 'Tell Claude AI what you need + your budget — get a smart Shopee shopping plan', status: 'available', url: '/tools/ai-budget-planner' },
+    ]
+  },
+  {
+    name: 'Shopee Shopping Tools',
+    tools: [
+      { id: 'discount-calculator', name: 'Discount Calculator', description: 'Calculate final prices, original prices, and real discount percentages for Shopee sales', status: 'available', url: '/tools/discount-calculator' },
+    ]
+  },
+  {
     name: 'Text Processing Tools',
     tools: [
+      { id: 'word-counter', name: 'Word Counter', description: 'Real-time word count, reading time, Flesch readability score, and keyword density', status: 'available', url: '/tools/word-counter' },
       { id: 'character-frequency', name: 'Character Frequency Analyzer', description: 'Shows which characters/words appear most in text', status: 'coming-soon' },
       { id: 'text-diff', name: 'Text Diff Tool', description: 'Compare two text blocks, highlight differences', status: 'coming-soon' },
       { id: 'case-converter', name: 'Case Converter', description: 'camelCase, snake_case, PascalCase, kebab-case conversions', status: 'coming-soon' },
@@ -12,7 +26,6 @@ const toolCategories = [
       { id: 'text-reverser', name: 'Text Reverser & Flipper', description: 'Reverse text, flip upside down, mirror transformations', status: 'coming-soon' },
       { id: 'duplicate-remover', name: 'Duplicate Line Remover', description: 'Remove duplicate lines from text', status: 'coming-soon' },
       { id: 'line-sorter', name: 'Line Sorter', description: 'Sort lines alphabetically, by length, randomly', status: 'coming-soon' },
-      { id: 'word-counter', name: 'Word Counter', description: 'Advanced stats: word count, reading time, unique words', status: 'coming-soon' },
       { id: 'text-encoder', name: 'Text to Binary/Hex/Base64', description: 'Convert text to various encoding formats', status: 'coming-soon' },
       { id: 'invisible-char', name: 'Invisible Character Detector', description: 'Detect and remove hidden characters', status: 'coming-soon' },
     ]
@@ -50,7 +63,7 @@ const toolCategories = [
     tools: [
       { id: 'csv-viewer', name: 'CSV to Table Viewer', description: 'View CSV as formatted table', status: 'coming-soon' },
       { id: 'markdown-preview', name: 'Markdown Previewer', description: 'Live markdown to HTML preview', status: 'coming-soon' },
-      { id: 'qr-code', name: 'QR Code Generator', description: 'Generate QR codes from text/URLs', status: 'coming-soon' },
+      { id: 'qr-code', name: 'QR Code Generator', description: 'Generate QR codes for URLs, GCash numbers, Wi-Fi, and more — download as PNG', status: 'available', url: '/tools/qr-code' },
       { id: 'barcode', name: 'Barcode Generator', description: 'Generate various barcode formats', status: 'coming-soon' },
       { id: 'handwriting-font', name: 'Text to Handwriting', description: 'Convert text to handwriting font', status: 'coming-soon' },
     ]
@@ -58,7 +71,7 @@ const toolCategories = [
   {
     name: 'Privacy/Security Tools',
     tools: [
-      { id: 'password-gen', name: 'Password Generator', description: 'Generate strong passwords', status: 'coming-soon' },
+      { id: 'password-gen', name: 'Password Generator', description: 'Generate strong passwords with custom rules — 100% client-side, never stored', status: 'available', url: '/tools/password-generator' },
       { id: 'hash-gen', name: 'Hash Generator', description: 'MD5, SHA-1, SHA-256 hash generation', status: 'coming-soon' },
       { id: 'text-encrypt', name: 'Text Encryptor/Decryptor', description: 'Simple cipher encryption (educational)', status: 'coming-soon' },
     ]

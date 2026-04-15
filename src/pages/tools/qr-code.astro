@@ -1,0 +1,38 @@
+---
+import MainLayout from '../../layouts/main.astro';
+---
+
+<MainLayout
+  title="QR Code Generator - Free Custom QR Codes | Smartly.sale"
+  description="Generate QR codes for free. Create QR codes for URLs, GCash numbers, Wi-Fi passwords, Facebook pages, and any text. Customize colors and size, then download as PNG."
+  pageClass="tool-page"
+>
+  <div class="min-h-screen bg-gradient-to-br from-brand/10 via-background to-background py-4 sm:py-8 px-3 sm:px-4">
+    <div class="max-w-4xl mx-auto">
+      <div class="mb-4">
+        <a href="/tools" class="inline-flex items-center gap-2 text-brand hover:text-brand/80 text-sm font-medium">
+          ← Back to All Tools
+        </a>
+      </div>
+      <div id="tool-root"></div>
+    </div>
+  </div>
+
+  <script>
+    import { createRoot } from 'react-dom/client';
+    import { createElement } from 'react';
+    import QRCodeGenerator from '../../components/tools/QRCodeGenerator';
+
+    const container = document.getElementById('tool-root');
+    if (container) {
+      const root = createRoot(container);
+      root.render(createElement(QRCodeGenerator));
+    }
+  </script>
+</MainLayout>
+
+<style>
+  .tool-page {
+    min-height: 100vh;
+  }
+</style>

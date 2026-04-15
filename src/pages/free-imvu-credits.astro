@@ -1,40 +1,11 @@
 ---
 import MainLayout from '../layouts/main.astro';
-import ContentLockerGate from '../components/ContentLockerGate';
 import EmailCapturePopup from '../components/EmailCapturePopup';
 
 const pageTitle       = 'Free IMVU Credits 2026 — Legit Methods to Get Credits Fast (No Fake Generators)';
-
-// ── Bot detection: show guide content directly to crawlers ───────────────────
-const userAgent = Astro.request.headers.get('user-agent') ?? '';
-const isBot = /googlebot|bingbot|yandexbot|twitterbot|facebookexternalhit|linkedinbot|slackbot/i.test(userAgent);
-
-const pageDescription = 'Want free IMVU Credits? Unlock our complete guide — 7 real, working methods to earn credits in IMVU without spending money. Complete 1 offer to access the full guide.';
+const pageDescription = 'Want free IMVU Credits? Read our complete guide — 7 real, working methods to earn credits in IMVU without spending money.';
 const pageUrl         = 'https://smartly.sale/free-imvu-credits';
 const today           = new Date().toISOString().split('T')[0];
-
-// ── SSR pre-fetch offers ────────────────────────────────────────────────────
-let initialOffers: unknown[] = [];
-try {
-  const runtimeEnv = (Astro.locals as any)?.runtime?.env;
-  const userId = runtimeEnv?.CPABUILD_USER_ID ?? import.meta.env.CPABUILD_USER_ID ?? process.env.CPABUILD_USER_ID ?? '48201';
-  const apiKey = runtimeEnv?.CPABUILD_API_KEY ?? import.meta.env.CPABUILD_API_KEY ?? process.env.CPABUILD_API_KEY ?? '';
-  if (apiKey) {
-    const clientIp = Astro.request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || '';
-    const feedUrl  = new URL('https://d2dzcaq3bhqk1m.cloudfront.net/public/offers/feed.php');
-    feedUrl.searchParams.set('user_id', userId);
-    feedUrl.searchParams.set('api_key', apiKey);
-    feedUrl.searchParams.set('s1', 'imvu-credits');
-    feedUrl.searchParams.set('s2', 'organic');
-    const h: Record<string, string> = { 'Accept': 'application/json, */*' };
-    if (clientIp) h['X-Forwarded-For'] = clientIp;
-    const res = await fetch(feedUrl.toString(), { headers: h, signal: AbortSignal.timeout(8_000) });
-    if (res.ok) {
-      const raw = JSON.parse((await res.text()).trim());
-      initialOffers = Array.isArray(raw) ? raw : (raw.offers ?? raw.data ?? []);
-    }
-  }
-} catch { /* fallback to client-side */ }
 
 const unlockedItems = [
   {
@@ -158,8 +129,8 @@ const faqSchema = {
         </span>
       </h1>
       <p class="text-purple-200 text-base sm:text-lg max-w-xl mx-auto mb-6">
-        Unlock our complete 7-method guide — complete 1 offer below
-        to access every legit way to earn free IMVU Credits today.
+        Our complete 7-method guide — every legit, proven way
+        to earn free IMVU Credits today.
       </p>
       <div class="flex flex-wrap justify-center gap-4 text-sm text-purple-200">
         <span>✅ No account hacking</span>
@@ -221,32 +192,17 @@ const faqSchema = {
     </div>
   </article>
 
-  <!-- ── Content Locker / Bot-visible guide ────────────────────────────────── -->
+  <!-- ── Free IMVU Credits Guide ───────────────────────────────────────────── -->
   <div class="max-w-3xl mx-auto px-4 mb-10">
-    {isBot ? (
-      <article class="space-y-6">
-        <h2 class="text-xl font-bold text-gray-900">7 Legit Ways to Get Free IMVU Credits</h2>
-        {unlockedItems.map((item) => (
-          <section>
-            <h3 class="text-base font-bold text-gray-800 mb-1">{item.icon} {item.title}</h3>
-            <p class="text-sm text-gray-600 leading-relaxed">{item.body}</p>
-          </section>
-        ))}
-      </article>
-    ) : (
-      <ContentLockerGate
-        client:visible
-        initialOffers={initialOffers}
-        s1="imvu-credits"
-        s2="organic"
-        accent="purple"
-        lockedEmoji="💜"
-        lockedLabel="Free IMVU Credits Guide (7 Legit Methods)"
-        lockedDescription="Complete 1 offer below to unlock all 7 working methods — no generators, no scams, 100% safe."
-        unlockedTitle="💜 Your Free IMVU Credits Guide is Unlocked!"
-        unlockedItems={unlockedItems}
-      />
-    )}
+    <article class="space-y-6">
+      <h2 class="text-xl font-bold text-gray-900">7 Legit Ways to Get Free IMVU Credits</h2>
+      {unlockedItems.map((item) => (
+        <section>
+          <h3 class="text-base font-bold text-gray-800 mb-1">{item.icon} {item.title}</h3>
+          <p class="text-sm text-gray-600 leading-relaxed">{item.body}</p>
+        </section>
+      ))}
+    </article>
   </div>
 
   <!-- ── What Are IMVU Credits Section ──────────────────────────────────────── -->

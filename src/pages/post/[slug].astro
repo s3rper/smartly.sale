@@ -23,7 +23,7 @@ const shouldNoindex = isGenerated && wordCount < 600;
 
 // Safely serialize JSON for embedding in <script> tags.
 // JSON.stringify alone doesn't escape < > & — the browser HTML parser can
-// truncate the block on </script> or other sequences, producing invalid JSON.
+// truncate the block on closing-script-tag or other sequences, producing invalid JSON.
 function jsonLd(obj: unknown): string {
   return JSON.stringify(obj)
     .replace(/</g, '\\u003c')

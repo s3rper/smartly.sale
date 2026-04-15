@@ -1,0 +1,207 @@
+---
+import MainLayout from '../layouts/main.astro';
+import { CATEGORIES } from '../lib/categories';
+
+const pageTitle = "FAQ — Shopee Philippines Shopping Questions Answered | smartly.sale";
+const pageDescription = "Get answers to the most common questions about shopping on Shopee Philippines — from how to find budget gadgets to safe payment methods, returns, and more.";
+const canonicalUrl = "https://smartly.sale/faq";
+
+const sitewideFaqs = [
+  {
+    q: "What is smartly.sale?",
+    a: "smartly.sale is a Shopee Philippines affiliate shopping guide. We curate trending, viral, and budget-friendly products across categories like gadgets, home & living, fashion, beauty, sports, and food — so Filipino shoppers can find the best deals without hours of scrolling on Shopee."
+  },
+  {
+    q: "How do affiliate links on smartly.sale work?",
+    a: "When you click a 'Buy on Shopee' button and complete a purchase, smartly.sale may earn a small commission from Shopee at no extra cost to you. The price you pay on Shopee is exactly the same whether you arrive via our link or visit Shopee directly. Affiliate commissions help keep the site free and freshly updated."
+  },
+  {
+    q: "Is smartly.sale free to use?",
+    a: "Yes — completely free for shoppers. Browse all products, read buying guides, and click through to Shopee with no charges or sign-ups required."
+  },
+  {
+    q: "How often are products updated on smartly.sale?",
+    a: "Product listings are refreshed regularly to reflect available Shopee inventory. Prices and availability may change after our last update — always confirm the final price on the Shopee listing before checking out."
+  },
+  {
+    q: "Are the prices on smartly.sale accurate?",
+    a: "We display prices as of our last data refresh. Shopee prices change frequently — especially during flash sales, Payday Sales, and monthly events like 11.11 or 12.12. Always check the live Shopee listing for the current price before buying."
+  },
+  {
+    q: "How do I report an outdated or broken product link?",
+    a: "Use the Contact Us page and include the product name or URL. We review reports and remove delisted products promptly."
+  },
+];
+
+const shoppingFaqs = [
+  {
+    q: "Is it safe to shop on Shopee Philippines?",
+    a: "Yes, shopping on Shopee Philippines is generally safe when you follow best practices: stick to Shopee Mall sellers or sellers with 4.8+ ratings and 500+ completed transactions, always pay within the Shopee app (never via GCash to personal numbers), and use Shopee's buyer protection to delay payment release until you confirm receipt."
+  },
+  {
+    q: "What payment methods are available on Shopee Philippines?",
+    a: "Shopee Philippines supports: Cash on Delivery (COD), GCash, ShopeePay, credit and debit cards (Visa, Mastercard), over-the-counter payments (7-Eleven, Bayad Centers), and bank transfers. COD is popular for first-time purchases from new sellers, while GCash and ShopeePay offer the fastest checkout experience."
+  },
+  {
+    q: "How do I use Shopee vouchers and promo codes?",
+    a: "During checkout on Shopee, tap 'Vouchers' to see available Shopee-issued vouchers (free shipping, percentage off, peso off). Seller vouchers appear on the individual product listing page. You can also collect vouchers from the Vouchers tab in the Shopee app. Stack a Shopee free-shipping voucher with a seller discount voucher for maximum savings."
+  },
+  {
+    q: "What is Shopee's return and refund policy in the Philippines?",
+    a: "Shopee Philippines allows return requests within 15 days of delivery for most items (7 days for some categories). To file a return: go to My Orders → select the order → tap Return/Refund. Shopee Mall sellers offer a guaranteed 15-day return. For non-Mall sellers, check the individual seller's return policy tab on their store page. Refunds are typically processed to ShopeePay or your original payment method within 3–7 business days."
+  },
+  {
+    q: "How do I track my Shopee order in the Philippines?",
+    a: "Open the Shopee app → tap Me (bottom right) → My Purchases → find your order. Tap the order to see the tracking number and current status. For J&T Express, LBC, or SPX (Shopee Express) deliveries, you can also paste the tracking number directly into the courier's website for real-time updates."
+  },
+  {
+    q: "What are the biggest Shopee sales events in the Philippines?",
+    a: "The major Shopee Philippines sales events are: Monthly Double-Digit Sales (1.1, 2.2 ... 12.12), Payday Sales (around the 15th and end of each month), Birthday Sales, Mid-Year Sale (June), 9.9 Super Shopping Day, 10.10, 11.11 (biggest of the year), and 12.12 Year-End Sale. The 11.11 and 12.12 sales typically offer the steepest discounts site-wide."
+  },
+];
+
+// Build combined schema from all category FAQs + sitewide FAQs
+const allSchemaFaqs = [
+  ...sitewideFaqs,
+  ...shoppingFaqs,
+  ...CATEGORIES.flatMap(c => c.faqs),
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": allSchemaFaqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.q,
+    "acceptedAnswer": { "@type": "Answer", "text": faq.a }
+  }))
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://smartly.sale" },
+    { "@type": "ListItem", "position": 2, "name": "FAQ", "item": canonicalUrl }
+  ]
+};
+---
+
+<MainLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalUrl={canonicalUrl}
+  keywords="Shopee Philippines FAQ, online shopping Philippines questions, Shopee buyer tips, Shopee returns Philippines, Shopee vouchers Philippines"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <!-- Breadcrumb -->
+  <div class="bg-muted/50 border-b border-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <nav class="flex items-center gap-2 text-sm text-muted-foreground" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-brand transition-colors">Home</a>
+        <span>/</span>
+        <span class="text-foreground font-medium">FAQ</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="bg-gradient-to-b from-muted/40 to-background border-b border-border py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-3xl md:text-5xl font-bold text-foreground mb-4">
+        Frequently Asked Questions
+      </h1>
+      <p class="text-lg text-muted-foreground">
+        Everything Filipino shoppers ask about smartly.sale and buying on Shopee Philippines.
+      </p>
+    </div>
+  </section>
+
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-16">
+
+    <!-- About smartly.sale -->
+    <section>
+      <h2 class="text-2xl font-bold text-foreground mb-6 pb-3 border-b border-border">About smartly.sale</h2>
+      <div class="space-y-3">
+        {sitewideFaqs.map((faq, i) => (
+          <details class="group bg-card border border-border rounded-xl overflow-hidden" open={i === 0}>
+            <summary class="flex items-center justify-between gap-4 px-6 py-4 cursor-pointer font-semibold text-foreground hover:text-brand transition-colors list-none">
+              <span>{faq.q}</span>
+              <span class="text-brand text-xl shrink-0 transition-transform group-open:rotate-45">+</span>
+            </summary>
+            <div class="px-6 pb-5 text-muted-foreground leading-relaxed text-sm border-t border-border pt-4">
+              {faq.a}
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- Shopping on Shopee Philippines -->
+    <section>
+      <h2 class="text-2xl font-bold text-foreground mb-6 pb-3 border-b border-border">Shopping on Shopee Philippines</h2>
+      <div class="space-y-3">
+        {shoppingFaqs.map(faq => (
+          <details class="group bg-card border border-border rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between gap-4 px-6 py-4 cursor-pointer font-semibold text-foreground hover:text-brand transition-colors list-none">
+              <span>{faq.q}</span>
+              <span class="text-brand text-xl shrink-0 transition-transform group-open:rotate-45">+</span>
+            </summary>
+            <div class="px-6 pb-5 text-muted-foreground leading-relaxed text-sm border-t border-border pt-4">
+              {faq.a}
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- Category FAQs -->
+    {CATEGORIES.map(cat => (
+      <section>
+        <h2 class="text-2xl font-bold text-foreground mb-6 pb-3 border-b border-border flex items-center gap-2">
+          <span>{cat.emoji}</span>
+          <span>{cat.name}</span>
+        </h2>
+        <div class="space-y-3">
+          {cat.faqs.map(faq => (
+            <details class="group bg-card border border-border rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between gap-4 px-6 py-4 cursor-pointer font-semibold text-foreground hover:text-brand transition-colors list-none">
+                <span>{faq.q}</span>
+                <span class="text-brand text-xl shrink-0 transition-transform group-open:rotate-45">+</span>
+              </summary>
+              <div class="px-6 pb-5 text-muted-foreground leading-relaxed text-sm border-t border-border pt-4">
+                {faq.a}
+              </div>
+            </details>
+          ))}
+        </div>
+        <div class="mt-4">
+          <a href={`/category/${cat.slug}`} class="text-brand hover:underline text-sm font-medium">
+            Browse {cat.name} on Shopee →
+          </a>
+        </div>
+      </section>
+    ))}
+
+  </div>
+
+  <!-- CTA -->
+  <section class="py-12 bg-muted/30 border-t border-border">
+    <div class="max-w-2xl mx-auto px-4 text-center">
+      <h2 class="text-xl font-bold text-foreground mb-2">Still have questions?</h2>
+      <p class="text-muted-foreground text-sm mb-6">We're here to help Filipino shoppers make smarter choices on Shopee.</p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="/contact" class="inline-flex items-center justify-center px-6 py-3 bg-brand text-white font-semibold rounded-lg hover:bg-brand/90 transition-colors text-sm">
+          Contact Us
+        </a>
+        <a href="/products" class="inline-flex items-center justify-center px-6 py-3 border border-border text-foreground font-semibold rounded-lg hover:bg-muted transition-colors text-sm">
+          Browse All Products
+        </a>
+      </div>
+    </div>
+  </section>
+</MainLayout>

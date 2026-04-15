@@ -14,6 +14,9 @@ const pageDescription = "Free non-technical webinar for founders and business ow
   description={pageDescription}
   ogImage="/og-image.jpg"
 >
+  <Fragment slot="head">
+    <meta name="robots" content="noindex, nofollow" />
+  </Fragment>
   <!-- SEO Schema Markup for Event Page -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",

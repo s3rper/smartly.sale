@@ -1,70 +1,42 @@
 ---
 import MainLayout from '../layouts/main.astro';
-import ContentLockerGate from '../components/ContentLockerGate';
 import EmailCapturePopup from '../components/EmailCapturePopup';
 
-// ── Bot detection: show guide content directly to crawlers ───────────────────
-const userAgent = Astro.request.headers.get('user-agent') ?? '';
-const isBot = /googlebot|bingbot|yandexbot|twitterbot|facebookexternalhit|linkedinbot|slackbot/i.test(userAgent);
-
 const pageTitle       = 'Free Robux 2026 — Legit & Safe Methods (No Fake Generators)';
-const pageDescription = 'Looking for free Robux? Learn the legit and verified ways to get Robux for free in 2026 — no scams, no fake generators, no password required. Unlock the guide now!';
+const pageDescription = 'Looking for free Robux? Learn the legit and verified ways to get Robux for free in 2026 — no scams, no fake generators, no password required.';
 const pageUrl         = 'https://smartly.sale/free-robux';
 const today           = new Date().toISOString().split('T')[0];
-
-// ── SSR pre-fetch ──────────────────────────────────────────────────────────────
-let initialOffers: unknown[] = [];
-try {
-  const runtimeEnv = (Astro.locals as any)?.runtime?.env;
-  const userId = runtimeEnv?.CPABUILD_USER_ID ?? import.meta.env.CPABUILD_USER_ID ?? process.env.CPABUILD_USER_ID ?? '48201';
-  const apiKey = runtimeEnv?.CPABUILD_API_KEY ?? import.meta.env.CPABUILD_API_KEY ?? process.env.CPABUILD_API_KEY ?? '';
-  if (apiKey) {
-    const clientIp = Astro.request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || '';
-    const feedUrl  = new URL('https://d2dzcaq3bhqk1m.cloudfront.net/public/offers/feed.php');
-    feedUrl.searchParams.set('user_id', userId);
-    feedUrl.searchParams.set('api_key', apiKey);
-    feedUrl.searchParams.set('s1', 'free-robux');
-    feedUrl.searchParams.set('s2', 'organic');
-    const h: Record<string, string> = { 'Accept': 'application/json, */*' };
-    if (clientIp) h['X-Forwarded-For'] = clientIp;
-    const res = await fetch(feedUrl.toString(), { headers: h, signal: AbortSignal.timeout(8_000) });
-    if (res.ok) {
-      const raw = JSON.parse((await res.text()).trim());
-      initialOffers = Array.isArray(raw) ? raw : (raw.offers ?? raw.data ?? []);
-    }
-  }
-} catch { /* fallback */ }
 
 const unlockedItems = [
   {
     icon: '🏪',
     title: 'Roblox Premium Membership (Most Direct)',
-    body: 'Roblox Premium gives you a monthly Robux stipend — 450 Robux/month on the base plan, up to 2,200 Robux/month on the highest tier. You also get 10% bonus Robux on purchases. This is the most official and guaranteed way to earn Robux consistently.',
+    body: 'Roblox Premium gives you a guaranteed monthly Robux stipend — 450 Robux/month on the basic tier ($4.99/month), 1,000 Robux/month on the mid tier ($9.99/month), and 2,200 Robux/month on the top tier ($19.99/month). On top of that, Premium members receive 10% bonus Robux on every purchase they make. You can also trade limited items with other players — a feature locked behind Premium — which opens up a whole economy for acquiring rare items and Robux. If you play Roblox consistently, Premium practically pays for itself in Robux value alone.',
   },
   {
     icon: '🎮',
     title: 'Create and Sell Your Own Items',
-    body: 'If you\'re an artist or developer, create clothing, accessories, game passes, or developer products on Roblox. Every time someone buys your creation, you earn Robux directly. Skilled creators earn thousands of Robux per month — some even cash out through Developer Exchange (DevEx).',
+    body: 'The Roblox Studio platform is free and available on PC and Mac. You can create shirts, pants, accessories, game passes, and developer products — then sell them on the Roblox marketplace. Every time a player buys your item, you earn a Robux cut (typically 70% for game pass sales). You don\'t need to be a programming expert: simple clothing designs using templates can generate consistent passive income. Advanced developers creating full games with in-app purchases can earn hundreds of thousands of Robux. Top creators cash out through the Developer Exchange (DevEx) program, converting Robux into real cash at a rate of $0.0035 per Robux.',
   },
   {
     icon: '🎁',
-    title: 'Roblox Gift Cards (Win Through Contests & Offers)',
-    body: 'Roblox Gift Cards are available at major retailers and online. Completing the offers above pays out real cash (via PayPal, GCash, or gift cards) that can be used to buy Roblox gift card codes — effectively converting free offer earnings into Robux.',
+    title: 'Roblox Gift Cards (Win Through Reward Programs)',
+    body: 'Roblox Gift Cards can be purchased at physical retailers (SM, Robinsons, and major bookstores in the Philippines carry them) or as digital codes online. Reward programs that pay GCash or PayPal can indirectly fund Roblox purchases — earn your reward cash, then use it to buy a gift card code from a trusted seller on Codashop or the official Roblox store. Never buy gift cards from strangers or unverified sellers on social media — card scams are common.',
   },
   {
     icon: '📢',
     title: 'Microsoft Rewards Program',
-    body: 'Use Microsoft Edge and Bing for daily searches to earn Microsoft Reward points. These points can be redeemed for Roblox gift cards at no extra cost. Set Bing as your default search and search a few times a day — points add up quickly.',
+    body: 'Microsoft Rewards is one of the most reliable passive methods for earning Robux without spending money. Download Microsoft Edge on your PC or phone, set Bing as your default search engine, and complete a few searches every day. You\'ll earn points automatically. Microsoft also offers bonus point activities — daily quizzes, shopping points, and periodic bonus streaks. Accumulated points can be redeemed for Roblox gift card codes directly in the Microsoft Rewards dashboard. A dedicated user can earn enough for a 400–800 Robux gift card within 2–4 weeks of consistent use.',
   },
   {
     icon: '🏆',
     title: 'Roblox Affiliate Program',
-    body: 'Share a Roblox game or item link — when someone clicks your link, signs up, and makes a purchase, you earn a Robux commission. This is especially powerful if you have a social media audience, YouTube channel, or Discord community.',
+    body: 'Roblox\'s built-in affiliate system rewards you for bringing new buyers to the platform. Share a direct link to any Roblox game or catalog item. When a new user clicks your link, signs up, and spends Robux within 30 days, you earn a commission — typically 5% of what they spend. If you run a YouTube channel covering Roblox games, a TikTok gaming account, or a Discord server, this compounds fast. Filipino gaming communities on Facebook and Discord are especially active Roblox audiences. Even a modest channel with a few thousand followers can generate meaningful Robux through affiliate links.',
   },
   {
     icon: '⚠️',
     title: 'Why "Robux Generators" Never Work',
-    body: 'Every "free Robux generator" online is a scam. They ask for your username, password, or personal information — then they hack your account, steal your items, or sell your data. Roblox\'s systems make it technically impossible for any third-party to add Robux to your account.',
+    body: 'This one matters. Every single "free Robux generator" website is a scam — without exception. They claim to "hack" the Roblox system to add Robux to your account, but Roblox\'s architecture makes this technically impossible from outside their servers. What actually happens: you enter your username, the site asks for your password or account verification, and they either steal your account immediately or install malware on your device. Thousands of Roblox accounts are hacked every week through these sites. Roblox regularly warns players about this on their official blog. The rule is simple: if any website promises free Robux without being Roblox itself, it\'s a scam.',
   },
 ];
 
@@ -209,34 +181,81 @@ const faqSchema = {
     </div>
   </article>
 
-  <!-- ── Content Locker / Bot-visible guide ────────────────────────────────── -->
+  <!-- ── Free Robux Guide ──────────────────────────────────────────────────── -->
   <div class="max-w-3xl mx-auto px-4 mb-10">
-    {isBot ? (
-      <!-- Search crawlers see the full guide directly for indexing -->
-      <article class="space-y-6">
-        <h2 class="text-xl font-bold text-gray-900">6 Legit Ways to Get Free Robux (2026)</h2>
-        {unlockedItems.map((item) => (
-          <section>
-            <h3 class="text-base font-bold text-gray-800 mb-1">{item.icon} {item.title}</h3>
-            <p class="text-sm text-gray-600 leading-relaxed">{item.body}</p>
-          </section>
-        ))}
-      </article>
-    ) : (
-      <ContentLockerGate
-        client:visible
-        initialOffers={initialOffers}
-        s1="free-robux"
-        s2="organic"
-        accent="green"
-        lockedEmoji="🟢"
-        lockedLabel="Legit Free Robux Methods — 6 Working Methods (No Scam)"
-        lockedDescription="Complete 1 offer to unlock our 6 legit methods for getting Robux — no generators, no scams."
-        unlockedTitle="🟢 Your Legit Robux Guide is Unlocked!"
-        unlockedItems={unlockedItems}
-      />
-    )}
+    <article class="space-y-6">
+      <h2 class="text-xl font-bold text-gray-900">6 Legit Ways to Get Free Robux (2026)</h2>
+      {unlockedItems.map((item) => (
+        <section>
+          <h3 class="text-base font-bold text-gray-800 mb-1">{item.icon} {item.title}</h3>
+          <p class="text-sm text-gray-600 leading-relaxed">{item.body}</p>
+        </section>
+      ))}
+    </article>
   </div>
+
+  <!-- ── Step-by-Step: Microsoft Rewards ──────────────────────────────────── -->
+  <section class="max-w-3xl mx-auto px-4 pb-10">
+    <h2 class="text-xl font-bold text-gray-900 mb-4">Step-by-Step: Earn Robux via Microsoft Rewards</h2>
+    <p class="text-sm text-gray-600 leading-relaxed mb-5">
+      Microsoft Rewards is the most beginner-friendly passive method. Here's exactly how to set it up in the Philippines:
+    </p>
+    <ol class="space-y-4">
+      {[
+        { n: '1', title: 'Create a Microsoft Account', body: 'Go to microsoft.com and sign up for a free account. If you already have an Xbox, Outlook, or Hotmail account, you\'re already registered.' },
+        { n: '2', title: 'Download Microsoft Edge', body: 'Install Edge on your PC (free, already built into Windows 11) or download the Edge mobile app on Android or iOS. Sign in with your Microsoft account.' },
+        { n: '3', title: 'Set Bing as Default Search', body: 'In Edge settings, change your default search engine to Bing. Every search you run through Bing in Edge earns reward points — typically 3 points per search up to a daily limit.' },
+        { n: '4', title: 'Complete Daily Activities', body: 'Open the Microsoft Rewards dashboard (rewards.microsoft.com) daily. Complete the quick quiz, poll, and bonus activities — these add 30–100 points per day on top of search points.' },
+        { n: '5', title: 'Redeem for Roblox Gift Cards', body: 'Once you have enough points (usually 1,050–6,750 points per card), go to the Rewards store and redeem for a Roblox digital gift card. The card code is emailed to you instantly.' },
+        { n: '6', title: 'Redeem on Roblox', body: 'Log in to Roblox.com → click your avatar → Robux → Redeem Roblox Cards. Enter the code and the Robux are added to your account immediately.' },
+      ].map(({ n, title, body }) => (
+        <li class="flex gap-4">
+          <div class="w-8 h-8 rounded-full bg-green-600 text-white text-sm font-bold flex items-center justify-center flex-shrink-0 mt-0.5">{n}</div>
+          <div>
+            <p class="font-bold text-gray-800 text-sm mb-0.5">{title}</p>
+            <p class="text-sm text-gray-600 leading-relaxed">{body}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- ── Roblox Premium Tiers Breakdown ────────────────────────────────────── -->
+  <section class="max-w-3xl mx-auto px-4 pb-10">
+    <h2 class="text-xl font-bold text-gray-900 mb-4">Roblox Premium — Is It Worth It?</h2>
+    <p class="text-sm text-gray-600 leading-relaxed mb-5">
+      Roblox Premium is a monthly subscription. Here's the breakdown of what each tier gives you and whether the Robux value exceeds the cost:
+    </p>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm border border-gray-200 rounded-xl overflow-hidden">
+        <thead>
+          <tr class="bg-green-50 text-green-800">
+            <th class="text-left px-4 py-3 font-bold">Tier</th>
+            <th class="text-center px-4 py-3 font-bold">Monthly Cost</th>
+            <th class="text-center px-4 py-3 font-bold">Robux / Month</th>
+            <th class="text-center px-4 py-3 font-bold">Robux Value</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          {[
+            { tier: 'Premium 450',  cost: '$4.99', robux: '450',   value: '~$5.50' },
+            { tier: 'Premium 1000', cost: '$9.99', robux: '1,000', value: '~$12.00' },
+            { tier: 'Premium 2200', cost: '$19.99', robux: '2,200', value: '~$27.00' },
+          ].map(({ tier, cost, robux, value }) => (
+            <tr class="hover:bg-gray-50">
+              <td class="px-4 py-3 font-medium text-gray-800">{tier}</td>
+              <td class="px-4 py-3 text-center text-gray-600">{cost}</td>
+              <td class="px-4 py-3 text-center font-bold text-green-700">{robux}</td>
+              <td class="px-4 py-3 text-center text-gray-600">{value}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="text-xs text-gray-400 mt-3">
+      Robux value calculated at standard $0.0125/Robux retail rate. Premium members also get 10% bonus on all Robux purchases, making every tier a net positive in value.
+    </p>
+  </section>
 
   <!-- ── FAQ ────────────────────────────────────────────────────────────────── -->
   <section class="max-w-3xl mx-auto px-4 pb-12">

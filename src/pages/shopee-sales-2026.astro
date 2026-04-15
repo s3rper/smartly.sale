@@ -1,0 +1,369 @@
+---
+import MainLayout from '../layouts/main.astro';
+
+const pageTitle = "Shopee Philippines Sale Dates 2026 — Complete Calendar | smartly.sale";
+const pageDescription = "Never miss a Shopee Philippines sale in 2026. Complete calendar of all Shopee sale events — Double Day Sales, Payday Sales, 11.11, 12.12, and more with tips to maximise savings.";
+const canonicalUrl = "https://smartly.sale/shopee-sales-2026";
+const today = new Date().toISOString().split('T')[0];
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Shopee Philippines Sale Dates 2026 — Complete Calendar",
+  "description": pageDescription,
+  "url": canonicalUrl,
+  "datePublished": "2026-01-01",
+  "dateModified": today,
+  "author": {
+    "@type": "Organization",
+    "name": "smartly.sale",
+    "url": "https://smartly.sale"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "smartly.sale",
+    "url": "https://smartly.sale",
+    "logo": { "@type": "ImageObject", "url": "https://smartly.sale/og-image.jpg" }
+  },
+  "image": "https://smartly.sale/og-image.jpg",
+  "inLanguage": "en-PH"
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "When is the biggest Shopee sale in 2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The 11.11 (November 11) Shopee Super Sale is historically the biggest Shopee Philippines sale of the year, featuring the deepest discounts site-wide, plus brand vouchers, flash sales, and exclusive bundles. The 12.12 Year-End Sale in December is a close second. Both events typically run for several days around the date."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the Shopee Double Day sale dates in 2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Shopee Double Day sale dates in 2026 are: 1.1 (January 1), 2.2 (February 2), 3.3 (March 3), 4.4 (April 4), 5.5 (May 5), 6.6 (June 6), 7.7 (July 7), 8.8 (August 8), 9.9 (September 9), 10.10 (October 10), 11.11 (November 11 — biggest of the year), and 12.12 (December 12 — Year-End Sale)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When are the Shopee Payday Sales in 2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Shopee Philippines holds Payday Sales twice a month — typically around the 15th and the last day of each month. These coincide with Philippine payroll cycles (semi-monthly pay). Look for Shopee Payday vouchers in the Voucher section of the app a few days before each event."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I prepare for Shopee sales to get the best deals?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "To maximise savings on Shopee sale events: (1) Add items to your cart beforehand — prices sometimes drop at midnight on sale day. (2) Collect vouchers in advance via the Shopee Voucher section. (3) Set price alerts using the heart/wishlist feature. (4) Check Flash Sale timings — 12AM, 12PM, and 6PM are common Shopee flash sale windows. (5) Use ShopeePay or ShopeePay Later for additional cashback. (6) Compare the 'original price' shown — some listings inflate original prices before sales."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Shopee Philippines have a mid-year sale in 2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, Shopee Philippines typically holds a Mid-Year Sale in June, anchored around the 6.6 Double Day Sale. The mid-year event usually spans several days and includes category-specific deals on fashion, electronics, and home products — comparable in scale to the 9.9 Super Shopping Day."
+      }
+    }
+  ]
+};
+
+// Pre-extract FAQ items for template rendering (avoids TS type annotations in JSX)
+const faqItems = faqSchema.mainEntity as Array<{ name: string; acceptedAnswer: { text: string } }>;
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://smartly.sale" },
+    { "@type": "ListItem", "position": 2, "name": "Shopee Sale Calendar 2026", "item": canonicalUrl }
+  ]
+};
+
+const monthlySales = [
+  {
+    month: "January 2026",
+    emoji: "🎆",
+    events: [
+      { date: "Jan 1", name: "1.1 New Year Sale", type: "double-day", tip: "Biggest discounts right at midnight. Stock up on gadgets and home appliances." },
+      { date: "Jan 15", name: "Payday Sale", type: "payday", tip: "Free shipping vouchers + extra ShopeePay cashback." },
+      { date: "Jan 28–31", name: "January End-Month Sale", type: "payday", tip: "End-of-month clearance. Great for fashion and accessories." },
+    ]
+  },
+  {
+    month: "February 2026",
+    emoji: "❤️",
+    events: [
+      { date: "Feb 2", name: "2.2 Sale", type: "double-day", tip: "Valentine's prep deals — jewelry, fashion, skincare." },
+      { date: "Feb 14", name: "Valentine's Day Sale", type: "special", tip: "Gift sets, flowers, and couple items at discounted prices." },
+      { date: "Feb 15", name: "Payday Sale", type: "payday", tip: "Mid-month cashback and free shipping promos." },
+      { date: "Feb 28–29", name: "February End-Month Sale", type: "payday", tip: "Clear out February stock. Good for home goods." },
+    ]
+  },
+  {
+    month: "March 2026",
+    emoji: "🌸",
+    events: [
+      { date: "Mar 3", name: "3.3 Sale", type: "double-day", tip: "Summer prep begins — outdoor, sports, and cooling products on sale." },
+      { date: "Mar 8", name: "Women's Day Sale", type: "special", tip: "Beauty, fashion, and wellness deals targeted at female shoppers." },
+      { date: "Mar 15", name: "Payday Sale", type: "payday", tip: "Mid-month free shipping vouchers." },
+      { date: "Mar 31", name: "March End-Month Sale", type: "payday", tip: "End-of-month fashion and lifestyle deals." },
+    ]
+  },
+  {
+    month: "April 2026",
+    emoji: "🌞",
+    events: [
+      { date: "Apr 4", name: "4.4 Sale", type: "double-day", tip: "Summer essentials: fans, coolers, swimwear, and beach gear." },
+      { date: "Apr 15", name: "Payday Sale", type: "payday", tip: "Mid-April cashback and bonus coins." },
+      { date: "Apr 30", name: "April End-Month Sale", type: "payday", tip: "Payday month-end sweep — great for gadgets." },
+    ]
+  },
+  {
+    month: "May 2026",
+    emoji: "🎓",
+    events: [
+      { date: "May 5", name: "5.5 Brand Fest", type: "double-day", tip: "One of the bigger mid-year sales — brand-specific deals and exclusive bundles." },
+      { date: "May 12", name: "Mother's Day Sale", type: "special", tip: "Kitchen appliances, skincare, fashion — great gifts for moms." },
+      { date: "May 15", name: "Payday Sale", type: "payday", tip: "Free shipping + brand vouchers stacked." },
+      { date: "May 31", name: "May End-Month Sale", type: "payday", tip: "Back-to-school prep begins. Stationery, bags, tech accessories." },
+    ]
+  },
+  {
+    month: "June 2026",
+    emoji: "☀️",
+    events: [
+      { date: "Jun 6", name: "6.6 Mid-Year Sale", type: "double-day", tip: "Major mid-year event. Flash sales every 2 hours. Set alarms for midnight, 12PM, and 6PM." },
+      { date: "Jun 15", name: "Payday Sale", type: "payday", tip: "Mid-month cashback on top of mid-year deals." },
+      { date: "Jun 30", name: "June End-Month Sale", type: "payday", tip: "Last chance mid-year clearance." },
+    ]
+  },
+  {
+    month: "July 2026",
+    emoji: "🎉",
+    events: [
+      { date: "Jul 7", name: "7.7 Sale", type: "double-day", tip: "Mid-year momentum continues — electronics and home appliances." },
+      { date: "Jul 15", name: "Payday Sale", type: "payday", tip: "Standard mid-month free shipping and cashback." },
+      { date: "Jul 31", name: "July End-Month Sale", type: "payday", tip: "Month-end clearance. Good for clothing and accessories." },
+    ]
+  },
+  {
+    month: "August 2026",
+    emoji: "🎒",
+    events: [
+      { date: "Aug 8", name: "8.8 Sale", type: "double-day", tip: "Back-to-school and back-to-office season. Gadgets, bags, stationery." },
+      { date: "Aug 15", name: "Payday Sale", type: "payday", tip: "Mid-August free shipping vouchers." },
+      { date: "Aug 31", name: "August End-Month Sale", type: "payday", tip: "End-of-month home and lifestyle deals." },
+    ]
+  },
+  {
+    month: "September 2026",
+    emoji: "🛒",
+    events: [
+      { date: "Sep 9", name: "9.9 Super Shopping Day", type: "double-day", tip: "One of the top 3 Shopee events of the year. Prepare your wishlist and collect vouchers 3 days early." },
+      { date: "Sep 15", name: "Payday Sale", type: "payday", tip: "Mid-September cashback stacked with 9.9 leftover deals." },
+      { date: "Sep 30", name: "September End-Month Sale", type: "payday", tip: "Month-end clearance ahead of Q4 sale season." },
+    ]
+  },
+  {
+    month: "October 2026",
+    emoji: "🎃",
+    events: [
+      { date: "Oct 10", name: "10.10 Sale", type: "double-day", tip: "Pre-11.11 warm-up. Great for testing deals before the big one." },
+      { date: "Oct 15", name: "Payday Sale", type: "payday", tip: "Mid-October free shipping + brand-specific promos." },
+      { date: "Oct 31", name: "October End-Month Sale", type: "payday", tip: "Halloween-themed deals on collectibles and novelty items." },
+    ]
+  },
+  {
+    month: "November 2026",
+    emoji: "🛍️",
+    events: [
+      { date: "Nov 1–10", name: "11.11 Pre-Sale", type: "special", tip: "Start collecting brand vouchers and ShopeePay vouchers. Add items to cart now — discounts activate at midnight Nov 11." },
+      { date: "Nov 11", name: "11.11 Super Sale (BIGGEST OF THE YEAR)", type: "mega", tip: "The biggest online sale in the Philippines. Flash sales every 2 hours. Use brand vouchers + Shopee free shipping + ShopeePay cashback together for maximum discount." },
+      { date: "Nov 12–15", name: "11.11 Extended Sale", type: "special", tip: "Leftover deals and flash stock. Great for items that sold out on the 11th." },
+      { date: "Nov 15", name: "Payday Sale", type: "payday", tip: "Payday sale overlapping with post-11.11 stock." },
+      { date: "Nov 30", name: "November End-Month Sale", type: "payday", tip: "Pre-12.12 clearance begins." },
+    ]
+  },
+  {
+    month: "December 2026",
+    emoji: "🎄",
+    events: [
+      { date: "Dec 1–11", name: "12.12 Pre-Sale & Christmas Deals", type: "special", tip: "Christmas gifts, holiday decor, and fashion are hottest during this window." },
+      { date: "Dec 12", name: "12.12 Year-End Sale", type: "mega", tip: "Second biggest sale of the year. Flash deals on electronics, fashion, and home. Collect all available vouchers the day before." },
+      { date: "Dec 13–20", name: "Post-12.12 Christmas Sale", type: "special", tip: "Last-minute Christmas shopping deals — especially fast-delivery items." },
+      { date: "Dec 15", name: "Payday Sale", type: "payday", tip: "13th month pay season — Shopee caters to Christmas shoppers with extra cashback." },
+      { date: "Dec 26–31", name: "Year-End Clearance", type: "special", tip: "Year-end stock liquidation. Best time for bulk home and fashion buys." },
+    ]
+  },
+];
+
+type BadgeType = 'double-day' | 'payday' | 'mega' | 'special';
+const typeBadge: Record<BadgeType, { label: string; class: string }> = {
+  'double-day': { label: 'Double Day',  class: 'bg-orange-100 text-orange-700 border border-orange-200' },
+  'payday':     { label: 'Payday Sale', class: 'bg-blue-100 text-blue-700 border border-blue-200' },
+  'mega':       { label: 'MEGA SALE',   class: 'bg-red-100 text-red-700 border border-red-200 font-bold' },
+  'special':    { label: 'Special',     class: 'bg-purple-100 text-purple-700 border border-purple-200' },
+};
+---
+
+<MainLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalUrl={canonicalUrl}
+  keywords="Shopee Philippines sale dates 2026, 11.11 sale Philippines, 12.12 Shopee sale, Shopee double day 2026, Shopee payday sale, Shopee sale calendar"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <!-- Breadcrumb -->
+  <div class="bg-muted/50 border-b border-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <nav class="flex items-center gap-2 text-sm text-muted-foreground" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-brand transition-colors">Home</a>
+        <span>/</span>
+        <span class="text-foreground font-medium">Shopee Sale Calendar 2026</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="bg-gradient-to-b from-muted/40 to-background border-b border-border py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-brand font-semibold text-sm uppercase tracking-widest mb-3">Complete Guide</p>
+      <h1 class="text-3xl md:text-5xl font-bold text-foreground mb-4">
+        Shopee Philippines<br/>Sale Calendar 2026
+      </h1>
+      <p class="text-lg text-muted-foreground mb-6">
+        Every Shopee sale date in 2026 — Double Days, Payday Sales, and the big events like 9.9, 11.11, and 12.12 — with insider tips to get the best deals.
+      </p>
+      <div class="flex flex-wrap justify-center gap-3 text-sm">
+        <span class="px-3 py-1 bg-orange-100 text-orange-700 border border-orange-200 rounded-full">Double Day Sales</span>
+        <span class="px-3 py-1 bg-blue-100 text-blue-700 border border-blue-200 rounded-full">Payday Sales</span>
+        <span class="px-3 py-1 bg-red-100 text-red-700 border border-red-200 rounded-full font-bold">MEGA SALES</span>
+        <span class="px-3 py-1 bg-purple-100 text-purple-700 border border-purple-200 rounded-full">Special Events</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sale Calendar -->
+  <section class="py-14 bg-background">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      {monthlySales.map(month => (
+        <div>
+          <h2 class="text-2xl font-bold text-foreground mb-5 flex items-center gap-3">
+            <span>{month.emoji}</span>
+            <span>{month.month}</span>
+          </h2>
+          <div class="space-y-3">
+            {month.events.map(event => {
+              const badge = typeBadge[event.type as BadgeType] ?? typeBadge.special;
+              return (
+                <div class={`rounded-xl border p-4 ${event.type === 'mega' ? 'border-red-200 bg-red-50' : 'bg-card border-border'}`}>
+                  <div class="flex flex-wrap items-start gap-3">
+                    <div class="shrink-0">
+                      <span class="text-sm font-bold text-foreground block">{event.date}</span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <div class="flex flex-wrap items-center gap-2 mb-1">
+                        <span class="font-semibold text-foreground text-sm">{event.name}</span>
+                        <span class={`text-xs px-2 py-0.5 rounded-full ${badge.class}`}>{badge.label}</span>
+                      </div>
+                      <p class="text-xs text-muted-foreground leading-relaxed">
+                        <span class="font-medium text-foreground">Tip:</span> {event.tip}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Strategy Guide -->
+  <section class="py-12 bg-muted/30 border-t border-border">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl md:text-3xl font-bold text-foreground mb-8">How to Maximise Shopee Sale Savings in 2026</h2>
+      <div class="space-y-6 text-muted-foreground leading-relaxed">
+        <div>
+          <h3 class="text-lg font-bold text-foreground mb-2">1. Prepare Your Cart Before the Sale Starts</h3>
+          <p>Add items to your cart 2–3 days before any major Shopee sale. On sale day, discounts are applied automatically to items already in cart — you don't need to re-add them. This is especially important for 11.11 and 12.12 when popular items sell out within minutes of midnight.</p>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-foreground mb-2">2. Collect Vouchers in Advance</h3>
+          <p>Shopee releases sale vouchers 3–5 days before major events. Open the Shopee app and go to Vouchers → Collect All. There are usually three stacking layers available: a Shopee platform voucher (percentage off or peso off), a free shipping voucher, and brand-specific vouchers. Using all three together gives the deepest discount.</p>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-foreground mb-2">3. Target Flash Sale Windows</h3>
+          <p>Shopee's main flash sale windows are midnight (12:00 AM), noon (12:00 PM), and early evening (6:00 PM). These flash deals sell out fast — often within seconds for the most popular items. Set alarms, open the app before the window opens, and be ready with ShopeePay loaded to checkout faster than with a card or bank transfer.</p>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-foreground mb-2">4. Use ShopeePay for Extra Cashback</h3>
+          <p>During sale events, Shopee frequently offers additional cashback (5–10% or flat peso amounts) when paying with ShopeePay. Load ShopeePay before the sale starts. ShopeePay Later (buy now, pay later) is also available for higher-value items and often comes with an introductory zero-interest period.</p>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-foreground mb-2">5. Check "Original Prices" Carefully</h3>
+          <p>Some Shopee listings inflate the crossed-out "original price" to make the discount appear larger than it is. Before buying during a sale, check the product's price history using Shopee's own price chart feature (tap the price on the listing) or compare against our current listed price here on smartly.sale. A genuine 50% off is worth waiting for; a fake 50% off inflated from an artificially high price is not.</p>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-foreground mb-2">6. Stack Shopee Coins</h3>
+          <p>Shopee Coins accumulate from every purchase (typically 1 coin per ₱1 spent). During sale events, Shopee often lets you use coins as a voucher equivalent at checkout. Save coins throughout the year and redeem a large batch during 11.11 or 12.12 for extra savings on top of sale prices.</p>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-foreground mb-2">7. Compare Across Sellers</h3>
+          <p>Multiple Shopee sellers often list the same product. During sales, prices can vary significantly between a Shopee Mall seller and independent sellers. Search by product keyword, sort by "Price Low to High," and check if the cheapest result is from a seller with a 4.7+ rating. Sometimes the Shopee Mall price — with guaranteed returns and faster logistics — is worth a small premium.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-12 bg-background border-t border-border">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-foreground mb-8">Frequently Asked Questions</h2>
+      <div class="space-y-3">
+        {faqItems.map((item, i) => (
+          <details class="group bg-card border border-border rounded-xl overflow-hidden" open={i === 0}>
+            <summary class="flex items-center justify-between gap-4 px-6 py-4 cursor-pointer font-semibold text-foreground hover:text-brand transition-colors list-none">
+              <span>{item.name}</span>
+              <span class="text-brand text-xl shrink-0 transition-transform group-open:rotate-45">+</span>
+            </summary>
+            <div class="px-6 pb-5 text-muted-foreground leading-relaxed text-sm border-t border-border pt-4">
+              {item.acceptedAnswer.text}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-12 bg-muted/30 border-t border-border">
+    <div class="max-w-2xl mx-auto px-4 text-center">
+      <h2 class="text-xl font-bold text-foreground mb-2">Ready to shop smart?</h2>
+      <p class="text-muted-foreground text-sm mb-6">Browse our hand-picked Shopee Philippines deals — updated regularly so you're always shopping at the right price.</p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="/products" class="inline-flex items-center justify-center px-6 py-3 bg-brand text-white font-semibold rounded-lg hover:bg-brand/90 transition-colors text-sm">
+          Browse All Products
+        </a>
+        <a href="/faq" class="inline-flex items-center justify-center px-6 py-3 border border-border text-foreground font-semibold rounded-lg hover:bg-muted transition-colors text-sm">
+          Shopping FAQ
+        </a>
+      </div>
+    </div>
+  </section>
+</MainLayout>

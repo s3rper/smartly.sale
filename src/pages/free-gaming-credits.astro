@@ -1,48 +1,43 @@
 ---
 import MainLayout from '../layouts/main.astro';
-import ContentLockerGate from '../components/ContentLockerGate';
 import EmailCapturePopup from '../components/EmailCapturePopup';
 
 const pageTitle       = 'Free Gaming Credits Philippines 2026 — MLBB, Free Fire, Roblox & More';
-
-// ── Bot detection: show guide content directly to crawlers ───────────────────
-const userAgent = Astro.request.headers.get('user-agent') ?? '';
-const isBot = /googlebot|bingbot|yandexbot|twitterbot|facebookexternalhit|linkedinbot|slackbot/i.test(userAgent);
-
-const pageDescription = 'Want free gaming credits for MLBB, Free Fire, Roblox, and other games? Unlock our complete guide to legit and working methods in the Philippines!';
+const pageDescription = 'Want free gaming credits for MLBB, Free Fire, Roblox, and other games? Read our complete guide to legit and working methods in the Philippines.';
 const pageUrl         = 'https://smartly.sale/free-gaming-credits';
 const today           = new Date().toISOString().split('T')[0];
 
-// ── SSR pre-fetch ──────────────────────────────────────────────────────────────
-let initialOffers: unknown[] = [];
-try {
-  const runtimeEnv = (Astro.locals as any)?.runtime?.env;
-  const userId = runtimeEnv?.CPABUILD_USER_ID ?? import.meta.env.CPABUILD_USER_ID ?? process.env.CPABUILD_USER_ID ?? '48201';
-  const apiKey = runtimeEnv?.CPABUILD_API_KEY ?? import.meta.env.CPABUILD_API_KEY ?? process.env.CPABUILD_API_KEY ?? '';
-  if (apiKey) {
-    const clientIp = Astro.request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || '';
-    const feedUrl  = new URL('https://d2dzcaq3bhqk1m.cloudfront.net/public/offers/feed.php');
-    feedUrl.searchParams.set('user_id', userId);
-    feedUrl.searchParams.set('api_key', apiKey);
-    feedUrl.searchParams.set('s1', 'free-gaming-credits');
-    feedUrl.searchParams.set('s2', 'organic');
-    const h: Record<string, string> = { 'Accept': 'application/json, */*' };
-    if (clientIp) h['X-Forwarded-For'] = clientIp;
-    const res = await fetch(feedUrl.toString(), { headers: h, signal: AbortSignal.timeout(8_000) });
-    if (res.ok) {
-      const raw = JSON.parse((await res.text()).trim());
-      initialOffers = Array.isArray(raw) ? raw : (raw.offers ?? raw.data ?? []);
-    }
-  }
-} catch { /* fallback */ }
-
 const unlockedItems = [
-  { icon: '💎', title: 'MLBB Diamonds — Daily Login & Events', body: 'Log in to Mobile Legends every day and participate in all events. Starlight and Monthly Season events give free Diamond fragments that can be converted into Diamonds.' },
-  { icon: '🔥', title: 'Free Fire Diamonds — Redeem Codes', body: 'Garena releases official redeem codes during events. Follow Free Fire Philippines on Facebook and redeem them at reward.ff.garena.com before they expire within 12 hours.' },
-  { icon: '🟢', title: 'Robux — Microsoft Rewards + Premium', body: 'Use Microsoft Edge and Bing to earn Microsoft Rewards points that can be redeemed as Roblox gift cards. Alternatively, Roblox Premium gives you a monthly Robux stipend.' },
-  { icon: '💰', title: 'GCash → Game Credits (Universal Method)', body: 'The fastest approach: earn GCash through online reward programs, then use GCash to top up any game via Codashop, UniPin, or the official game stores.' },
-  { icon: '🎁', title: 'Gift Card Contests & Giveaways', body: 'Many verified online prize draws give out gift cards that can be used for game top-ups. Check the offers above for available prize draws in your area.' },
-  { icon: '📱', title: 'In-Game Events & Battle Pass', body: 'Almost every mobile game has regular events that give away free premium currency. Maximize your participation in limited-time events for maximum rewards.' },
+  {
+    icon: '💎',
+    title: 'MLBB Diamonds — Daily Login & Events',
+    body: 'Mobile Legends has one of the most generous free reward systems of any mobile game in the Philippines. Log in every day without fail to collect Starlight Fragments and event tokens, even on days you don\'t play a match. Every Season includes a free event track alongside the paid Starlight Pass — completing all free track tasks across a 2-month season typically yields enough fragments for a full skin or 100+ Diamonds. Ranked rewards at the end of each season also distribute fragments, tickets, and exclusive items based on your peak rank. MLBB is the #1 game for free diamond farming among Filipino mobile gamers.',
+  },
+  {
+    icon: '🔥',
+    title: 'Free Fire Diamonds — Redeem Codes',
+    body: 'Garena releases official Free Fire redeem codes through their official Facebook page, YouTube channel, and in-game news feed. Codes expire in 12–18 hours, so check the official Free Fire Philippines Facebook page every morning. Each code typically rewards Diamond vouchers (1–5 Diamonds each), weapon skin fragments, or Gold. During major events (Anniversary, Booyah Day), codes include permanent skin fragments and larger Diamond bundles. Redeem at reward.ff.garena.com — the process takes under 2 minutes and rewards appear in your in-game mailbox within minutes.',
+  },
+  {
+    icon: '🟢',
+    title: 'Robux — Microsoft Rewards + Creator Program',
+    body: 'Getting free Robux requires a different approach than MLBB or Free Fire. The most reliable external method is Microsoft Rewards: download Microsoft Edge, set Bing as your default search, and earn reward points through daily searches and quizzes. Points can be redeemed for Roblox digital gift cards at no cost. Inside the game, the Roblox Creator Program lets you design and sell items — even basic clothing templates earn Robux passively when listed in the marketplace. For players with social media presence, the Roblox Affiliate Program pays Robux commissions when new users sign up and spend through your referral links.',
+  },
+  {
+    icon: '💰',
+    title: 'The Universal Method: GCash → Codashop',
+    body: 'The most flexible strategy works for any game with any premium currency. Earn GCash through legitimate reward programs — short surveys, app testing, and video-watching platforms pay out PHP 50–500+ per month to active Filipino users. Once you have GCash balance, use Codashop (codashop.com) — the leading game top-up platform in Southeast Asia — to buy credits for MLBB, Free Fire, Genshin Impact, COD Mobile, Valorant, or any other supported game. Codashop accepts GCash directly and frequently runs promo events offering bonus credits on specific packages. This approach eliminates the need to use your bank card for game purchases entirely.',
+  },
+  {
+    icon: '🎁',
+    title: 'Gift Card Contests & Online Giveaways',
+    body: 'Legitimate Philippine gaming communities regularly run gift card giveaways on Facebook, Instagram, and Discord. Look for verified pages from game publishers (official MLBB PH, Garena PH, Roblox), gaming peripheral brands (SteelSeries, Razer), and reputable gaming media pages. Always verify a giveaway is legitimate before participating: real giveaways never ask for your account credentials or a "registration fee." Joining active Discord gaming servers in the Philippines is one of the best ways to find early notifications for legitimate giveaways.',
+  },
+  {
+    icon: '📱',
+    title: 'In-Game Events — Maximize Every Season',
+    body: 'Every major mobile game runs 2–4 major events per season with free reward tracks. The key is consistency, not intensity. Log in every day, complete the daily 3–5 tasks, and participate in whatever mini-game the event offers. Most players leave significant free rewards uncollected simply by missing the last 2 weeks of an event. Set a phone reminder to check each game\'s event calendar weekly. For COD Mobile, the Battle Pass free track gives enough credits for cosmetics. For Genshin Impact, daily commissions and Abyss clear rewards give consistent Primogems. These small amounts compound into substantial savings over a year of active play.',
+  },
 ];
 
 const games = [
@@ -108,8 +103,8 @@ const faqSchema = {
         <span class="text-yellow-300">For Every Game in Philippines 2026</span>
       </h1>
       <p class="text-purple-200 text-base sm:text-lg max-w-xl mx-auto mb-6">
-        MLBB, Free Fire, Roblox, COD Mobile, and more. Unlock our
-        complete gaming credits guide — complete 1 offer to get access.
+        MLBB, Free Fire, Roblox, COD Mobile, and more. Our complete
+        gaming credits guide — legit methods for every game.
       </p>
 
       <!-- Game pills -->
@@ -158,33 +153,128 @@ const faqSchema = {
     </div>
   </article>
 
-  <!-- ── Content Locker / Bot-visible guide ────────────────────────────────── -->
+  <!-- ── Free Gaming Credits Guide ────────────────────────────────────────── -->
   <div class="max-w-3xl mx-auto px-4 mb-10">
-    {isBot ? (
-      <article class="space-y-6">
-        <h2 class="text-xl font-bold text-gray-900">6 Legit Ways to Get Free Gaming Credits</h2>
-        {unlockedItems.map((item) => (
-          <section>
-            <h3 class="text-base font-bold text-gray-800 mb-1">{item.icon} {item.title}</h3>
-            <p class="text-sm text-gray-600 leading-relaxed">{item.body}</p>
-          </section>
-        ))}
-      </article>
-    ) : (
-      <ContentLockerGate
-        client:visible
-        initialOffers={initialOffers}
-        s1="free-gaming-credits"
-        s2="organic"
-        accent="purple"
-        lockedEmoji="🎮"
-        lockedLabel="Complete Free Gaming Credits Guide (All Games)"
-        lockedDescription="Complete 1 offer to unlock our master guide for free credits across every game."
-        unlockedTitle="🎮 Your Gaming Credits Guide is Unlocked!"
-        unlockedItems={unlockedItems}
-      />
-    )}
+    <article class="space-y-6">
+      <h2 class="text-xl font-bold text-gray-900">6 Legit Ways to Get Free Gaming Credits</h2>
+      {unlockedItems.map((item) => (
+        <section>
+          <h3 class="text-base font-bold text-gray-800 mb-1">{item.icon} {item.title}</h3>
+          <p class="text-sm text-gray-600 leading-relaxed">{item.body}</p>
+        </section>
+      ))}
+    </article>
   </div>
+
+  <!-- ── Per-Game Top-Up Guide ─────────────────────────────────────────────── -->
+  <section class="max-w-3xl mx-auto px-4 pb-10">
+    <h2 class="text-xl font-bold text-gray-900 mb-4">Game-by-Game Top-Up Guide for the Philippines</h2>
+    <p class="text-sm text-gray-600 leading-relaxed mb-5">
+      Every game has a different top-up system. Here's what you need to know for the most popular titles in the Philippines:
+    </p>
+    <div class="space-y-4">
+      {[
+        {
+          game: 'Mobile Legends: Bang Bang (MLBB)',
+          icon: '💎',
+          currency: 'Diamonds',
+          topup: 'Codashop or mobilelegends.com/topup',
+          price: '₱60 = 56 Diamonds (standard). Bonus events: ₱60 = 70–84 Diamonds.',
+          id: 'Profile → My Account → User ID shown below your username',
+        },
+        {
+          game: 'Garena Free Fire',
+          icon: '🔥',
+          currency: 'Diamonds',
+          topup: 'Codashop or garena.com/topup',
+          price: '₱60 = 70 Diamonds (standard). Bonus events: ₱60 = 84–100 Diamonds.',
+          id: 'Profile → Player ID shown on your avatar profile page',
+        },
+        {
+          game: 'Roblox',
+          icon: '🟢',
+          currency: 'Robux',
+          topup: 'Roblox.com or Codashop (gift cards)',
+          price: '$4.99 = 400 Robux. Premium 450: $4.99/month + benefits.',
+          id: 'Not needed — Roblox uses account login for all purchases',
+        },
+        {
+          game: 'COD Mobile',
+          icon: '⚔️',
+          currency: 'COD Points (CP)',
+          topup: 'Codashop or call of duty website',
+          price: '₱110 = 80 CP. ₱1,100 = 900 CP. Best value at larger bundles.',
+          id: 'Settings → My Profile → UID shown under your username',
+        },
+        {
+          game: 'Genshin Impact',
+          icon: '✨',
+          currency: 'Genesis Crystals (converts to Primogems)',
+          topup: 'genshin.hoyoverse.com/topup or Codashop',
+          price: '₱75 = 60 Genesis Crystals. First top-up doubles the amount.',
+          id: 'Menu → Account → My Info → UID displayed on screen',
+        },
+      ].map(({ game, icon, currency, topup, price, id }) => (
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xl">{icon}</span>
+            <h3 class="font-bold text-gray-800 text-sm">{game}</h3>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+            <div>
+              <span class="font-semibold text-gray-600">Currency:</span>
+              <span class="text-gray-500 ml-1">{currency}</span>
+            </div>
+            <div>
+              <span class="font-semibold text-gray-600">Top-up via:</span>
+              <span class="text-gray-500 ml-1">{topup}</span>
+            </div>
+            <div class="sm:col-span-2">
+              <span class="font-semibold text-gray-600">Price (PH):</span>
+              <span class="text-gray-500 ml-1">{price}</span>
+            </div>
+            <div class="sm:col-span-2">
+              <span class="font-semibold text-gray-600">Find your ID:</span>
+              <span class="text-gray-500 ml-1">{id}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── Top-Up Platforms Comparison ──────────────────────────────────────── -->
+  <section class="max-w-3xl mx-auto px-4 pb-10">
+    <h2 class="text-xl font-bold text-gray-900 mb-4">Best Game Top-Up Platforms in the Philippines</h2>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm border border-gray-200 rounded-xl overflow-hidden">
+        <thead>
+          <tr class="bg-purple-50 text-purple-800">
+            <th class="text-left px-4 py-3 font-bold">Platform</th>
+            <th class="text-center px-4 py-3 font-bold">GCash</th>
+            <th class="text-center px-4 py-3 font-bold">Games Supported</th>
+            <th class="text-left px-4 py-3 font-bold">Best For</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          {[
+            { platform: 'Codashop',  gcash: '✅', games: '50+', best: 'Promos & bonus credits' },
+            { platform: 'UniPin',    gcash: '✅', games: '30+', best: 'Backup when Codashop is down' },
+            { platform: 'Seagm',     gcash: '✅', games: '100+', best: 'Widest game selection' },
+            { platform: 'In-App',    gcash: '✅', games: '1 (own)',  best: 'Convenience only (higher cost)' },
+            { platform: 'GCash GameShop', gcash: '✅', games: '20+', best: 'Direct GCash integration' },
+          ].map(({ platform, gcash, games, best }) => (
+            <tr class="hover:bg-gray-50">
+              <td class="px-4 py-3 font-medium text-gray-800">{platform}</td>
+              <td class="px-4 py-3 text-center">{gcash}</td>
+              <td class="px-4 py-3 text-center text-gray-600">{games}</td>
+              <td class="px-4 py-3 text-gray-500 text-xs">{best}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
 
   <!-- ── FAQ ────────────────────────────────────────────────────────────────── -->
   <section class="max-w-3xl mx-auto px-4 pb-12">

@@ -3,6 +3,7 @@ import MainLayout from '../../layouts/main.astro';
 import { CATEGORIES, getCategoryBySlug, getProductsForCategory } from '../../lib/categories';
 import { transformCMSProduct } from '../../types/product';
 import { baseUrl } from '../../lib/base-url';
+import { blogPosts } from '../../lib/blog-data';
 
 const { slug } = Astro.params;
 const category = getCategoryBySlug(slug!);
@@ -67,6 +68,21 @@ const itemListSchema = products.length > 0 ? {
     "url": `https://smartly.sale/product/${p.slug}`
   }))
 } : null;
+
+// Map product category slugs → blog category slugs
+const blogCategoryMap: Record<string, string[]> = {
+  gadgets:        ['tech-gadgets', 'smart-home', 'buying-guides', 'product-reviews'],
+  'home-living':  ['home-living', 'home-organization', 'kitchen-hacks', 'smart-home'],
+  fashion:        ['fashion-beauty', 'fashion-style', 'product-reviews'],
+  beauty:         ['fashion-beauty', 'beauty-wellness', 'product-reviews'],
+  'sports-outdoor': ['product-reviews', 'deals-steals', 'budget-shopping'],
+  'food-snacks':  ['product-reviews', 'local-products', 'budget-shopping'],
+};
+
+const blogCats = blogCategoryMap[category.slug] ?? ['product-reviews', 'buying-guides'];
+const relatedPosts = blogPosts
+  .filter(p => blogCats.includes(p.category))
+  .slice(0, 3);
 
 function jsonLd(obj: unknown): string {
   return JSON.stringify(obj)
@@ -261,6 +277,50 @@ function jsonLd(obj: unknown): string {
       </div>
     </div>
   </section>
+
+  <!-- Related Articles -->
+  {relatedPosts.length > 0 && (
+    <section class="py-12 bg-background border-t border-border">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-xl font-bold text-foreground mb-6">Related Articles</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {relatedPosts.map(post => {
+            const postPath = (post as any).generated ? `/post/${post.slug}` : `/blog/${post.slug}`;
+            return (
+              <a
+                href={`${baseUrl}${postPath}`}
+                class="group block bg-card border border-border rounded-xl overflow-hidden hover:shadow-md transition-shadow"
+              >
+                {post.featuredImage && (
+                  <img
+                    src={post.featuredImage}
+                    alt={post.featuredImageAlt ?? post.title}
+                    class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                    decoding="async"
+                    width="400"
+                    height="160"
+                  />
+                )}
+                <div class="p-4">
+                  <p class="text-xs text-brand font-semibold uppercase tracking-wide mb-1">{post.category.replace(/-/g, ' ')}</p>
+                  <h3 class="text-sm font-semibold text-foreground line-clamp-2 group-hover:text-brand transition-colors leading-snug">
+                    {post.title}
+                  </h3>
+                  {post.excerpt && (
+                    <p class="text-xs text-muted-foreground mt-1 line-clamp-2">{post.excerpt}</p>
+                  )}
+                </div>
+              </a>
+            );
+          })}
+        </div>
+        <div class="mt-6">
+          <a href={`${baseUrl}/blog`} class="text-brand hover:underline text-sm font-medium">Browse all articles →</a>
+        </div>
+      </div>
+    </section>
+  )}
 
   <!-- Related Categories -->
   <section class="py-12 bg-muted/30 border-t border-border">

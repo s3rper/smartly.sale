@@ -49,7 +49,8 @@ return new Response(
 <meta property="og:site_name"    content="i.i"/>
 </head>
 <body>
-<script>window.location.replace(${JSON.stringify(shopeeUrl)})</script>
+<meta id="rd" content="${safeShopee}">
+<script>window.location.replace(document.getElementById('rd').content)</script>
 </body>
 </html>`,
   {

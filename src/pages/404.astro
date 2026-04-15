@@ -1,0 +1,53 @@
+---
+import MainLayout from '../layouts/main.astro';
+
+const pageTitle = "Page Not Found | smartly.sale";
+const pageDescription = "The page you're looking for doesn't exist. Browse trending Shopee products, deals, and more on smartly.sale.";
+---
+
+<MainLayout
+  title={pageTitle}
+  description={pageDescription}
+  noindex={true}
+>
+  <Fragment slot="head">
+    <link rel="canonical" href="https://smartly.sale/" />
+  </Fragment>
+
+  <section class="min-h-[60vh] flex items-center justify-center py-20 px-4">
+    <div class="max-w-lg mx-auto text-center">
+      <div class="text-8xl font-bold text-brand mb-4">404</div>
+      <h1 class="text-2xl md:text-3xl font-bold text-foreground mb-4">
+        Page Not Found
+      </h1>
+      <p class="text-muted-foreground mb-8 leading-relaxed">
+        This product or page may have been removed, or the link may be outdated.
+        Shopee listings change frequently — browse our latest deals below.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a
+          href="/products"
+          class="inline-flex items-center justify-center px-6 py-3 bg-brand text-white font-semibold rounded-lg hover:bg-brand/90 transition-colors"
+        >
+          Browse All Products
+        </a>
+        <a
+          href="/"
+          class="inline-flex items-center justify-center px-6 py-3 border border-border text-foreground font-semibold rounded-lg hover:bg-muted transition-colors"
+        >
+          Go to Homepage
+        </a>
+      </div>
+
+      <div class="mt-12 grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm">
+        <a href="/category/gadgets" class="px-4 py-2 bg-muted rounded-lg text-muted-foreground hover:text-foreground transition-colors">📱 Gadgets</a>
+        <a href="/category/fashion" class="px-4 py-2 bg-muted rounded-lg text-muted-foreground hover:text-foreground transition-colors">👗 Fashion</a>
+        <a href="/category/home-living" class="px-4 py-2 bg-muted rounded-lg text-muted-foreground hover:text-foreground transition-colors">🏠 Home</a>
+        <a href="/category/beauty" class="px-4 py-2 bg-muted rounded-lg text-muted-foreground hover:text-foreground transition-colors">💄 Beauty</a>
+        <a href="/category/sports-outdoor" class="px-4 py-2 bg-muted rounded-lg text-muted-foreground hover:text-foreground transition-colors">⚽ Sports</a>
+        <a href="/category/food-snacks" class="px-4 py-2 bg-muted rounded-lg text-muted-foreground hover:text-foreground transition-colors">🍜 Food</a>
+      </div>
+    </div>
+  </section>
+</MainLayout>

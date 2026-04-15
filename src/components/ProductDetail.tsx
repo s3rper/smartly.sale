@@ -16,6 +16,18 @@ const ProductDetail: React.FC<Props> = ({ initialProduct }) => {
   const [showVideo, setShowVideo] = useState(false);
 
   useEffect(() => {
+    // Fire Facebook Pixel ViewContent when product data is available
+    if (initialProduct && typeof window !== 'undefined' && typeof (window as any).fbq === 'function') {
+      (window as any).fbq('track', 'ViewContent', {
+        content_name: initialProduct.name,
+        content_category: 'Shopee Product',
+        value: parseFloat(initialProduct.price.replace(/[^0-9.]/g, '')) || 0,
+        currency: 'PHP',
+      });
+    }
+  }, [initialProduct]);
+
+  useEffect(() => {
     // Server-side data provided — skip client-side fetch entirely
     if (initialProduct) return;
 
@@ -170,8 +182,10 @@ const ProductDetail: React.FC<Props> = ({ initialProduct }) => {
               {hasValidMainImage ? (
                 <img
                   src={mainImageUrl}
-                  alt={product.name}
+                  alt={`${product.name}${product.shopName ? ` — sold by ${product.shopName}` : ''} on Shopee Philippines`}
                   className="w-full h-full object-cover"
+                  width={600}
+                  height={600}
                   fetchPriority="high"
                   decoding="async"
                   onError={(e) => {
@@ -243,8 +257,10 @@ const ProductDetail: React.FC<Props> = ({ initialProduct }) => {
                       {isValidImage ? (
                         <img
                           src={image}
-                          alt={`${product.name} - Image ${index + 1}`}
+                          alt={`${product.name} — view ${index + 1}`}
                           className="w-full h-full object-cover"
+                          width={80}
+                          height={80}
                           loading="lazy"
                           decoding="async"
                           onError={(e) => {
@@ -381,6 +397,16 @@ const ProductDetail: React.FC<Props> = ({ initialProduct }) => {
                     target="_blank"
                     rel="noopener noreferrer nofollow"
                     className="flex items-center justify-center w-full bg-brand text-white font-bold py-4 rounded-full hover:bg-brand/90 transition-all shadow-lg hover:shadow-xl text-lg"
+                    onClick={() => {
+                      if (typeof (window as any).fbq === 'function') {
+                        (window as any).fbq('trackCustom', 'ShopeeClick', {
+                          content_name: product.name,
+                          content_category: 'Shopee Product',
+                          value: parseFloat(product.price.replace(/[^0-9.]/g, '')) || 0,
+                          currency: 'PHP',
+                        });
+                      }
+                    }}
                   >
                     <ExternalLink className="w-5 h-5 mr-2" />
                     Buy Now on Shopee
