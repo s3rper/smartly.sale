@@ -10,6 +10,7 @@
     "astro": "astro",
     "cf-typegen": "wrangler types",
     "blog:generate": "node --env-file=.env scripts/generate-blog.mjs",
+    "blog:product": "node --env-file=.env scripts/generate-product-blog.mjs",
     "products:generate": "node --env-file=.env scripts/generate-products.mjs",
     "products:fetch": "node --env-file=.env scripts/fetch-products-local.mjs",
     "gsc:check": "node --env-file=.env scripts/submit-to-google.mjs --check",

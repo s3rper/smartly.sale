@@ -35,6 +35,9 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
             alt={post.featuredImageAlt || post.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             loading="lazy"
+            width="800"
+            height="450"
+            decoding="async"
           />
           {/* Gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

@@ -122,10 +122,13 @@ src="https://www.facebook.com/tr?id=849998290917290&ev=PageView&noscript=1"
 <link rel="preconnect" href="https://platform-cdn.sharethis.com" />
 <link rel="dns-prefetch" href="https://l.sharethis.com" />
 <link rel="dns-prefetch" href="https://count-server.sharethis.com" />
+<!-- cf.shopee.ph is the actual product image CDN — preconnect (not just dns-prefetch) saves ~100-300ms -->
+<link rel="preconnect" href="https://cf.shopee.ph" crossorigin />
 <link rel="dns-prefetch" href="https://shopee.ph" />
 <!-- Deferred analytics — pre-resolve DNS so they start faster after idle callback fires -->
 <link rel="dns-prefetch" href="https://connect.facebook.net" />
-<link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+<link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin />
+<link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 <!-- Non-blocking load for critical fonts (Inter + Poppins) — runs parallel to CSS bundle -->
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" as="style" crossorigin onload="this.onload=null;this.rel='stylesheet'" />
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" /></noscript>
@@ -222,6 +225,17 @@ src="https://www.facebook.com/tr?id=849998290917290&ev=PageView&noscript=1"
     "url": "https://smartly.sale/contact"
   }
 })} />
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BWPR8CV7BR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-BWPR8CV7BR');
+</script>
+
 </head>
 <body class="min-h-screen flex flex-col">
 <!-- Google Tag Manager (noscript) -->
@@ -249,7 +263,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <slot />
 </main>
 
-<Footer client:load />
+<Footer client:idle />
 </body>
 </html>
 

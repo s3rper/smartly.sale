@@ -1,0 +1,89 @@
+name: 🛍️ Product Research Blog Auto-Generator
+
+on:
+  schedule:
+    # Tue, Thu, Sat at 03:00 UTC = 11:00 AM Philippines time
+    # Alternates with gaming blog (Mon/Wed/Fri) → 6 fresh posts/week total
+    - cron: '0 3 * * 2,4,6'
+
+  # Allow manual trigger from GitHub Actions tab
+  workflow_dispatch:
+    inputs:
+      debug:
+        description: 'Enable debug output'
+        required: false
+        default: 'false'
+
+jobs:
+  generate-product-blog:
+    name: Research & Publish Product Blog Post
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      # ── 1. Checkout ──────────────────────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
+
+      # ── 2. Node.js ───────────────────────────────────────────────────────────
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # ── 3. Install dependencies ──────────────────────────────────────────────
+      - name: Install dependencies
+        run: npm ci --prefer-offline
+
+      # ── 4. Generate product blog post ────────────────────────────────────────
+      - name: Research & generate product blog post with Claude
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scripts/generate-product-blog.mjs
+
+      # ── 5. Commit & push ─────────────────────────────────────────────────────
+      - name: Commit and push new product blog post
+        run: |
+          git config --global user.name  "smartly.sale Bot"
+          git config --global user.email "bot@smartly.sale"
+
+          git add src/data/blog-posts.json
+
+          if git diff --staged --quiet; then
+            echo "⚠️  No changes to commit (post may already exist)"
+            exit 0
+          fi
+
+          TITLE=$(node -e "
+            const data = JSON.parse(require('fs').readFileSync('src/data/blog-posts.json','utf8'));
+            console.log(data[0]?.title ?? 'Product blog post');
+          ")
+
+          git commit -m "🛍️ Blog: ${TITLE} [skip ci]"
+          git push
+
+          echo "✅ Product blog post committed and pushed — Vercel will redeploy automatically"
+
+      # ── 6. Submit to Google Indexing API ─────────────────────────────────────
+      - name: Submit new post to Google (IndexNow + Indexing API)
+        env:
+          GOOGLE_INDEXING_SA_JSON: ${{ secrets.GOOGLE_INDEXING_SA_JSON }}
+        run: |
+          echo "⏳ Waiting 60s for Vercel to redeploy..."
+          sleep 60
+          node scripts/submit-to-google.mjs
+
+      # ── 7. Re-check indexing status after 10 minutes ─────────────────────────
+      - name: Re-check indexing status (10 min after submission)
+        env:
+          GOOGLE_INDEXING_SA_JSON: ${{ secrets.GOOGLE_INDEXING_SA_JSON }}
+        run: |
+          echo "⏳ Waiting 10 minutes for Google to process..."
+          sleep 600
+          node scripts/submit-to-google.mjs --check

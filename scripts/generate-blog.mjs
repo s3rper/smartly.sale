@@ -137,6 +137,55 @@ function pickFromPool(pool, slug) {
   return unsplashUrl(pool[idx]);
 }
 
+// ── Internal Link Map ──────────────────────────────────────────────────────────
+// Each entry: { href, anchors: [keyword-rich options to vary across articles] }
+// Claude picks 3-5 contextually relevant links and chooses one anchor per link.
+const INTERNAL_LINK_MAP = {
+  // Always eligible — high-authority site pages
+  universal: [
+    { href: '/products',    anchors: ['best deals on Shopee Philippines', 'trending Shopee products', 'top Shopee deals'] },
+    { href: '/earn-gcash',  anchors: ['earn free GCash online', 'free GCash Philippines 2026', 'legit ways to earn GCash'] },
+    { href: '/earn',        anchors: ['earn money online Philippines', 'legit online earning Philippines', 'ways to earn online PH'] },
+    { href: '/best-deals',  anchors: ['best deals Philippines today', 'top deals Philippines', 'online deals Philippines'] },
+  ],
+  // Gaming-specific
+  gaming: [
+    { href: '/free-mlbb-diamonds',  anchors: ['free MLBB diamonds Philippines', 'get free Mobile Legends diamonds', 'free diamonds Mobile Legends Bang Bang'] },
+    { href: '/free-fire-codes',     anchors: ['Free Fire redeem codes 2026', 'free Garena Free Fire codes', 'Free Fire codes Philippines'] },
+    { href: '/free-robux',          anchors: ['free Robux Philippines', 'how to get free Robux', 'free Robux no survey 2026'] },
+    { href: '/free-imvu-credits',   anchors: ['free IMVU credits 2026', 'get IMVU credits free', 'free IMVU credits Philippines'] },
+    { href: '/free-gaming-credits', anchors: ['free gaming credits Philippines', 'free online game credits PH', 'gaming credits for free'] },
+    { href: '/shopee-ai-assistant', anchors: ['Shopee AI shopping assistant', 'AI shopping guide Philippines', 'smart shopping assistant'] },
+  ],
+  // Deals / voucher-related
+  deals: [
+    { href: '/daily',                anchors: ['daily deals Philippines', 'Shopee daily deals', 'daily online deals PH'] },
+    { href: '/shopee-sales-2026',    anchors: ['Shopee sales calendar 2026', 'upcoming Shopee sales 2026', 'Shopee mega sale schedule'] },
+    { href: '/free-gift-cards-philippines', anchors: ['free gift cards Philippines', 'free e-gift cards PH', 'claim free gift cards Philippines'] },
+    { href: '/bonus',                anchors: ['Shopee bonus offers', 'exclusive Shopee bonuses', 'Shopee cashback and bonus deals'] },
+  ],
+  // Giveaways / winning
+  giveaways: [
+    { href: '/online-contests-philippines', anchors: ['online contests Philippines 2026', 'join contests to win prizes PH', 'legit online giveaways Philippines'] },
+    { href: '/win-free-phone',              anchors: ['win a free phone Philippines', 'free smartphone giveaway PH', 'how to win free phone online'] },
+  ],
+};
+
+// Build the link instructions string injected into Claude's prompt.
+// Passes ALL links so Claude can pick the most contextually relevant ones.
+function buildLinkInstructions() {
+  const allLinks = [
+    ...INTERNAL_LINK_MAP.universal,
+    ...INTERNAL_LINK_MAP.gaming,
+    ...INTERNAL_LINK_MAP.deals,
+    ...INTERNAL_LINK_MAP.giveaways,
+  ];
+  const lines = allLinks.map(({ href, anchors }) =>
+    `  • ${href}  →  anchors: "${anchors.join('" | "')}"`
+  );
+  return lines.join('\n');
+}
+
 // Maps keyword phrases (checked against title) to pool keys
 const TOPIC_KEYWORDS = [
   ['genshin', 'genshin'],
@@ -220,7 +269,9 @@ Your articles:
 - Follow Google E-E-A-T principles (Experience, Expertise, Authoritativeness, Trust)
 - Are written for real gamers, not bots
 - Use proper semantic HTML
-- Always contain unique angles, real stats, and actionable advice`;
+- Always contain unique angles, real stats, and actionable advice
+- Use keyword-rich, descriptive anchor text for every internal link (never "click here" or "read more")
+- Place internal links contextually within paragraph body text for maximum SEO value`;
 
   const user = `Here are today's latest gaming headlines. Pick the single most trending or newsworthy topic and write a complete, publication-ready blog post about it.
 
@@ -238,7 +289,15 @@ ARTICLE REQUIREMENTS:
 - Real specific details (dates, prices, patch notes, stats)
 - Practical takeaways in every section
 - FAQ section: 5 questions as <details><summary>Q</summary><p>A</p></details>
-- 3-4 internal links: /free-mlbb-diamonds, /free-fire-codes, /free-robux-philippines, /earn-gcash, /products
+INTERNAL LINKS (choose 4-5 that are most contextually relevant to this article):
+${buildLinkInstructions()}
+
+Rules for internal links:
+- Place links naturally WITHIN body paragraphs (not in lists or headings)
+- Use one of the provided anchor text options for each link — choose the most natural fit for the sentence
+- Vary anchor text: never use the same anchor twice in the same article
+- Do NOT use generic anchors like "click here", "read more", or "this page"
+- Aim for 1 internal link per ~400-500 words of content
 - 2 external authority links with rel="nofollow noopener" target="_blank"
 - Closing CTA paragraph
 

@@ -822,12 +822,27 @@ export function getPostsByCategory(categorySlug: string): BlogPost[] {
   return blogPosts.filter(post => post.category === categorySlug);
 }
 
-// Helper function to get related posts
-export function getRelatedPosts(currentPostId: string, limit: number = 3): BlogPost[] {
-  return blogPosts
-    .filter(post => post.id !== currentPostId)
-    .sort((a, b) => (b.views || 0) - (a.views || 0))
-    .slice(0, limit);
+// Helper function to get related posts — same category first, then fills with popular posts
+export function getRelatedPosts(currentPostId: string, category?: string, limit: number = 3): BlogPost[] {
+  const others = blogPosts.filter(post => post.id !== currentPostId);
+
+  if (category) {
+    const sameCategory = others
+      .filter(p => p.category === category)
+      .sort((a, b) => (b.views || 0) - (a.views || 0))
+      .slice(0, limit);
+
+    if (sameCategory.length >= limit) return sameCategory;
+
+    const fill = others
+      .filter(p => p.category !== category)
+      .sort((a, b) => (b.views || 0) - (a.views || 0))
+      .slice(0, limit - sameCategory.length);
+
+    return [...sameCategory, ...fill];
+  }
+
+  return others.sort((a, b) => (b.views || 0) - (a.views || 0)).slice(0, limit);
 }
 
 // Helper function to get latest posts

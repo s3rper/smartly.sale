@@ -227,7 +227,7 @@ const Footer: React.FC = () => {
                 <li>
                   <a
                     href={`${baseUrl}/categories`}
-                    className="text-brand hover:text-white transition-colors duration-200 text-sm inline-block font-medium"
+                    className="text-orange-400 hover:text-white transition-colors duration-200 text-sm inline-block font-medium"
                   >
                     Browse All Categories →
                   </a>

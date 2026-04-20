@@ -78,6 +78,10 @@ const PopularPosts: React.FC = () => {
                     src={post.image}
                     alt={post.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    loading="lazy"
+                    width="800"
+                    height="450"
+                    decoding="async"
                   />
                 </div>
               </div>

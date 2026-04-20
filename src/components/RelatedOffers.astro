@@ -2,10 +2,11 @@
 /**
  * RelatedOffers.astro
  * Pill-link row at the bottom of blog posts linking readers to revenue pages.
- * Pass category="gaming" | "shopping" | "earning" to get the right set of links.
+ * Uses descriptive, keyword-rich anchor text per SEO internal linking best practices.
+ * Pass category="gaming" | "shopping" | "earning" | "deals" to get the right set of links.
  */
 interface Props {
-  category?: 'gaming' | 'shopping' | 'earning';
+  category?: 'gaming' | 'shopping' | 'earning' | 'deals';
   heading?: string;
 }
 
@@ -13,26 +14,36 @@ const { category = 'shopping', heading = 'More Free Rewards & Deals' } = Astro.p
 
 const links: Record<string, { href: string; label: string }[]> = {
   gaming: [
-    { href: '/free-robux',           label: '🎮 Free Robux'          },
-    { href: '/free-mlbb-diamonds',   label: '💎 Free MLBB Diamonds'  },
-    { href: '/free-gaming-credits',  label: '🕹️ Free Gaming Credits' },
-    { href: '/free-fire-codes',      label: '🔥 Free Fire Codes'     },
-    { href: '/free-imvu-credits',    label: '💜 Free IMVU Credits'   },
-    { href: '/earn-gcash',           label: '💰 Earn GCash'          },
+    { href: '/free-robux',           label: 'Get Free Robux Philippines'         },
+    { href: '/free-mlbb-diamonds',   label: 'Free MLBB Diamonds Guide'           },
+    { href: '/free-gaming-credits',  label: 'Free Gaming Credits Philippines'    },
+    { href: '/free-fire-codes',      label: 'Free Fire Redeem Codes 2026'        },
+    { href: '/free-imvu-credits',    label: 'Free IMVU Credits Claim'            },
+    { href: '/earn-gcash',           label: 'Earn Free GCash Online'             },
   ],
   shopping: [
-    { href: '/products',             label: '🛍️ Browse Deals'        },
-    { href: '/earn-gcash',           label: '💰 Earn GCash Online'   },
-    { href: '/earn',                 label: '💼 Ways to Earn'        },
-    { href: '/free-gift-cards-philippines', label: '🎁 Free Gift Cards' },
-    { href: '/win-free-phone',       label: '📱 Win a Free Phone'    },
+    { href: '/products',             label: 'Best Deals on Shopee Philippines'   },
+    { href: '/earn-gcash',           label: 'Earn Free GCash — Legit Methods'    },
+    { href: '/earn',                 label: 'Ways to Earn Money Online PH'       },
+    { href: '/free-gift-cards-philippines', label: 'Free Gift Cards Philippines' },
+    { href: '/win-free-phone',       label: 'Win a Free Phone Philippines'       },
+    { href: '/shopee-sales-2026',    label: 'Upcoming Shopee Sales 2026'         },
   ],
   earning: [
-    { href: '/earn-gcash',           label: '💰 Earn GCash Online'   },
-    { href: '/online-contests-philippines', label: '🏆 Online Contests' },
-    { href: '/win-free-phone',       label: '📱 Win a Free Phone'    },
-    { href: '/free-gaming-credits',  label: '🕹️ Free Gaming Credits' },
-    { href: '/free-gift-cards-philippines', label: '🎁 Free Gift Cards' },
+    { href: '/earn-gcash',           label: 'Earn Free GCash Online Philippines' },
+    { href: '/online-contests-philippines', label: 'Online Contests Philippines 2026' },
+    { href: '/win-free-phone',       label: 'Win a Free Phone Philippines'       },
+    { href: '/free-gaming-credits',  label: 'Free Gaming Credits Philippines'    },
+    { href: '/free-gift-cards-philippines', label: 'Free Gift Cards Philippines' },
+    { href: '/earn',                 label: 'Legit Ways to Earn Online PH'       },
+  ],
+  deals: [
+    { href: '/best-deals',           label: 'Best Deals Philippines Today'       },
+    { href: '/daily',                label: 'Daily Deals — Shopee Philippines'   },
+    { href: '/shopee-sales-2026',    label: 'Upcoming Shopee Sales 2026'         },
+    { href: '/products',             label: 'Trending Products on Shopee PH'     },
+    { href: '/earn-gcash',           label: 'Earn Free GCash While Shopping'     },
+    { href: '/free-gift-cards-philippines', label: 'Free Gift Cards Philippines' },
   ],
 };
 

