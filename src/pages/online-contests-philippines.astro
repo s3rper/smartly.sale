@@ -2,9 +2,10 @@
 import MainLayout from '../layouts/main.astro';
 import CPAOffersWall from '../components/CPAOffersWall';
 import EmailCapturePopup from '../components/EmailCapturePopup';
+import ShopeeAffiliateCTA from '../components/ShopeeAffiliateCTA.astro';
 
-const pageTitle       = 'Online Contests & Giveaways Philippines 2025 — Legit & Active';
-const pageDescription = 'Find legit online contests and giveaways in the Philippines updated daily. Win cash prizes, gadgets, and gift cards. Free to join — claim your entry now!';
+const pageTitle       = 'Online Contests & Giveaways Philippines 2026 — Legit, Active & Updated Daily';
+const pageDescription = 'Find legit online contests and giveaways in the Philippines updated daily for 2026. Win cash prizes, gadgets, gift cards, and claim live entries fast.';
 const pageUrl         = 'https://smartly.sale/online-contests-philippines';
 const today           = new Date().toISOString().split('T')[0];
 
@@ -89,7 +90,7 @@ const prizeTypes = [
   title={pageTitle}
   description={pageDescription}
   canonicalUrl={pageUrl}
-  keywords="online contests Philippines 2025, free giveaway Philippines, join online raffle Philippines, legit contest Philippines, online contest mechanics Philippines, free prizes online"
+  keywords="online contests Philippines 2026, free giveaway Philippines, join online raffle Philippines, legit contest Philippines, online contest mechanics Philippines, free prizes online"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(collectionSchema)} />
@@ -105,15 +106,18 @@ const prizeTypes = [
       </div>
       <h1 class="text-3xl sm:text-4xl font-extrabold leading-tight mb-4">
         Online Contests & Giveaways<br class="hidden sm:block" />
-        <span class="text-yellow-300">Philippines 2025 — Legit & Active</span>
+        <span class="text-yellow-300">Philippines 2026 — Legit & Active</span>
       </h1>
       <p class="text-purple-200 text-base sm:text-lg max-w-xl mx-auto mb-8">
         I-curate ang lahat ng active na online contests available sa Pilipinas.
         Verified, libre, at updated araw-araw.
       </p>
+      <a href="#live-offers" class="inline-flex items-center justify-center rounded-full bg-white text-purple-900 font-extrabold px-6 py-3 hover:bg-purple-50 transition-colors">
+        Claim Live Contest Entries
+      </a>
 
       <!-- Prize type pills -->
-      <div class="flex flex-wrap justify-center gap-3">
+      <div class="flex flex-wrap justify-center gap-3 mt-6">
         {prizeTypes.map(({ icon, label, desc }) => (
           <div class="flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-2 backdrop-blur-sm">
             <span class="text-lg">{icon}</span>
@@ -131,8 +135,37 @@ const prizeTypes = [
   <nav class="max-w-3xl mx-auto px-4 py-3 text-xs text-gray-400" aria-label="Breadcrumb">
     <a href="/" class="hover:text-gray-600">Home</a>
     <span class="mx-2">›</span>
-    <span class="text-gray-700 font-medium">Online Contests Philippines 2025</span>
+    <span class="text-gray-700 font-medium">Online Contests Philippines 2026</span>
   </nav>
+
+  <!-- ── Offer Wall ─────────────────────────────────────────────────────────── -->
+  <div id="live-offers" class="max-w-3xl mx-auto px-4 pt-6 mb-2 scroll-mt-24">
+    <div class="rounded-2xl border border-purple-100 bg-purple-50 px-4 py-4 mb-4">
+      <p class="text-sm font-bold text-purple-900">Fastest next step</p>
+      <p class="text-xs text-purple-700 mt-1">Kung giveaway at free-prize intent ang search mo, dito ka muna magsimula. Kapag walang bagay sa iyo, lipat sa broader reward hub sa <a href="/earn-gcash" class="font-semibold underline">Earn GCash Online</a>.</p>
+    </div>
+    <div class="flex items-center gap-3 mb-1">
+      <h2 class="text-lg font-bold text-gray-900">Live Contests Available Near You</h2>
+      <span class="relative flex h-2.5 w-2.5">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
+      </span>
+    </div>
+    <p class="text-sm text-gray-500 mb-4">Verified offers. I-claim ang iyong entry bago mapuno ang slots.</p>
+  </div>
+
+  <div class="max-w-3xl mx-auto px-4">
+    <CPAOffersWall
+      client:visible
+      initialOffers={initialOffers}
+      s1="online-contests-ph"
+      s2="organic"
+    />
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 pt-5 pb-4">
+    <ShopeeAffiliateCTA keyword="trending gadgets philippines" label="While you're here: browse trending gadgets on Shopee" icon="🛍️" />
+  </section>
 
   <!-- ── Content ───────────────────────────────────────────────────────────── -->
   <article class="max-w-3xl mx-auto px-4 pb-6">
@@ -169,27 +202,6 @@ const prizeTypes = [
       ))}
     </div>
   </article>
-
-  <!-- ── Offer Wall ─────────────────────────────────────────────────────────── -->
-  <div class="max-w-3xl mx-auto px-4 mb-2">
-    <div class="flex items-center gap-3 mb-1">
-      <h2 class="text-lg font-bold text-gray-900">Live Contests Available Near You</h2>
-      <span class="relative flex h-2.5 w-2.5">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
-      </span>
-    </div>
-    <p class="text-sm text-gray-500 mb-4">Verified offers. I-claim ang iyong entry bago mapuno ang slots.</p>
-  </div>
-
-  <div class="max-w-3xl mx-auto px-4">
-    <CPAOffersWall
-      client:visible
-      initialOffers={initialOffers}
-      s1="online-contests-ph"
-      s2="organic"
-    />
-  </div>
 
   <!-- ── Scam Warning ───────────────────────────────────────────────────────── -->
   <section class="max-w-3xl mx-auto px-4 py-10">
@@ -235,7 +247,7 @@ const prizeTypes = [
     </div>
   </section>
 
-  <EmailCapturePopup client:load source="online-contests-ph" />
+  <EmailCapturePopup client:idle source="online-contests-ph" />
 
   <!-- ── Internal Links ─────────────────────────────────────────────────────── -->
   <section class="bg-gray-50 border-t border-gray-100 py-8 px-4">

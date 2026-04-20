@@ -24,8 +24,8 @@ export default function EmailCapturePopup({ source = 'cpa-page' }: Props) {
       if (e.clientY <= 0) show();
     }
 
-    // Trigger 2: time delay (20 seconds)
-    const timer = setTimeout(show, 20_000);
+    // Trigger 2: time delay (35 seconds) so monetized CTAs stay first
+    const timer = setTimeout(show, 35_000);
 
     document.addEventListener('mouseleave', handleMouseLeave);
     return () => {

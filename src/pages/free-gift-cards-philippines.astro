@@ -2,9 +2,10 @@
 import MainLayout from '../layouts/main.astro';
 import CPAOffersWall from '../components/CPAOffersWall';
 import EmailCapturePopup from '../components/EmailCapturePopup';
+import ShopeeAffiliateCTA from '../components/ShopeeAffiliateCTA.astro';
 
-const pageTitle       = 'Free Gift Cards Philippines 2025 — Win Visa, GCash & More Online';
-const pageDescription = 'Win free gift cards online in the Philippines — Visa $500, GCash credits, and e-wallet rewards. Verified offers, libre sumali, updated daily. Claim yours now!';
+const pageTitle       = 'Free Gift Cards Philippines 2026 — Win Visa, GCash & More Online';
+const pageDescription = 'Win free gift cards online in the Philippines in 2026 — Visa, GCash credits, and e-wallet rewards. Verified offers, updated daily, and ready to claim fast.';
 const pageUrl         = 'https://smartly.sale/free-gift-cards-philippines';
 const today           = new Date().toISOString().split('T')[0];
 
@@ -92,7 +93,7 @@ const cardTypes = [
   title={pageTitle}
   description={pageDescription}
   canonicalUrl={pageUrl}
-  keywords="free gift cards Philippines, win gift card online Philippines, libreng gift card legit, free Visa gift card Philippines, GCash gift card free, win gift card 2025"
+  keywords="free gift cards Philippines 2026, win gift card online Philippines, libreng gift card legit, free Visa gift card Philippines, GCash gift card free, win gift card 2026"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
@@ -108,15 +109,18 @@ const cardTypes = [
       </div>
       <h1 class="text-3xl sm:text-4xl font-extrabold leading-tight mb-4">
         Win Free Gift Cards<br class="hidden sm:block" />
-        <span class="text-yellow-300">Philippines 2025 — Verified & Libre</span>
+        <span class="text-yellow-300">Philippines 2026 — Verified & Libre</span>
       </h1>
       <p class="text-green-200 text-base sm:text-lg max-w-xl mx-auto mb-8">
         Manalo ng Visa gift cards, GCash credits, at iba pang digital rewards.
         Libre sumali — available sa iyong lokasyon ngayon.
       </p>
+      <a href="#live-offers" class="inline-flex items-center justify-center rounded-full bg-white text-emerald-900 font-extrabold px-6 py-3 hover:bg-emerald-50 transition-colors">
+        See Active Gift Card Offers
+      </a>
 
       <!-- Card type showcase -->
-      <div class="flex flex-wrap justify-center gap-3">
+      <div class="flex flex-wrap justify-center gap-3 mt-6">
         {cardTypes.map(({ icon, name, desc, color }) => (
           <div class={`bg-gradient-to-br ${color} rounded-2xl px-5 py-3 text-center shadow-lg`}>
             <div class="text-2xl mb-1">{icon}</div>
@@ -132,8 +136,37 @@ const cardTypes = [
   <nav class="max-w-3xl mx-auto px-4 py-3 text-xs text-gray-400" aria-label="Breadcrumb">
     <a href="/" class="hover:text-gray-600">Home</a>
     <span class="mx-2">›</span>
-    <span class="text-gray-700 font-medium">Free Gift Cards Philippines 2025</span>
+    <span class="text-gray-700 font-medium">Free Gift Cards Philippines 2026</span>
   </nav>
+
+  <!-- ── Offer Wall ─────────────────────────────────────────────────────────── -->
+  <div id="live-offers" class="max-w-3xl mx-auto px-4 pt-6 mb-2 scroll-mt-24">
+    <div class="rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-4 mb-4">
+      <p class="text-sm font-bold text-emerald-900">Best next step for gift card intent</p>
+      <p class="text-xs text-emerald-700 mt-1">Start with these live gift card offers first. Kung gusto mo ng mas malawak na reward options, dumiretso sa <a href="/earn-gcash" class="font-semibold underline">Earn GCash Online</a>.</p>
+    </div>
+    <div class="flex items-center gap-3 mb-1">
+      <h2 class="text-lg font-bold text-gray-900">Active Gift Card Offers Near You</h2>
+      <span class="relative flex h-2.5 w-2.5">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
+      </span>
+    </div>
+    <p class="text-sm text-gray-500 mb-4">Verified at geo-targeted para sa inyong rehiyon. Mag-claim na bago maubusan.</p>
+  </div>
+
+  <div class="max-w-3xl mx-auto px-4">
+    <CPAOffersWall
+      client:visible
+      initialOffers={initialOffers}
+      s1="free-gift-cards-ph"
+      s2="organic"
+    />
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 pt-5 pb-4">
+    <ShopeeAffiliateCTA keyword="sulit finds philippines" label="While you're here: browse sulit finds on Shopee" icon="🛍️" />
+  </section>
 
   <!-- ── Educational Content ───────────────────────────────────────────────── -->
   <article class="max-w-3xl mx-auto px-4 pb-6">
@@ -180,27 +213,6 @@ const cardTypes = [
     </div>
   </article>
 
-  <!-- ── Offer Wall ─────────────────────────────────────────────────────────── -->
-  <div class="max-w-3xl mx-auto px-4 mb-2">
-    <div class="flex items-center gap-3 mb-1">
-      <h2 class="text-lg font-bold text-gray-900">Active Gift Card Offers Near You</h2>
-      <span class="relative flex h-2.5 w-2.5">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
-      </span>
-    </div>
-    <p class="text-sm text-gray-500 mb-4">Verified at geo-targeted para sa inyong rehiyon. Mag-claim na bago maubusan.</p>
-  </div>
-
-  <div class="max-w-3xl mx-auto px-4">
-    <CPAOffersWall
-      client:visible
-      initialOffers={initialOffers}
-      s1="free-gift-cards-ph"
-      s2="organic"
-    />
-  </div>
-
   <!-- ── How to Redeem ──────────────────────────────────────────────────────── -->
   <section class="max-w-3xl mx-auto px-4 py-10">
     <h2 class="text-xl font-bold text-gray-900 mb-5">Paano I-redeem ang Gift Card Pagkatapos Manalo?</h2>
@@ -243,7 +255,7 @@ const cardTypes = [
     </div>
   </section>
 
-  <EmailCapturePopup client:load source="free-gift-cards-ph" />
+  <EmailCapturePopup client:idle source="free-gift-cards-ph" />
 
   <!-- ── Internal Links ─────────────────────────────────────────────────────── -->
   <section class="bg-gray-50 border-t border-gray-100 py-8 px-4">

@@ -2,11 +2,17 @@
 import MainLayout from '../layouts/main.astro';
 import CPAOffersWall from '../components/CPAOffersWall';
 import EmailCapturePopup from '../components/EmailCapturePopup';
+import ShopeeAffiliateCTA from '../components/ShopeeAffiliateCTA.astro';
 
-const pageTitle       = 'Earn GCash Online 2026 — Free Rewards & Prizes Philippines';
-const pageDescription = 'Discover legitimate ways to earn GCash online in the Philippines. Complete simple tasks, join prize draws, and claim real rewards — no invite needed, libre!';
+const pageTitle       = 'Earn GCash Online Today 2026 — Free Rewards & Prize Offers Philippines';
+const pageDescription = 'Earn GCash online today in the Philippines with verified reward offers, free prize draws, and real claimable rewards. Updated for 2026 and built for fast action.';
 const pageUrl         = 'https://smartly.sale/earn-gcash';
 const today           = new Date().toISOString().split('T')[0];
+const primaryLinks = [
+  { href: '/online-contests-philippines', label: '🏆 Online Contests PH' },
+  { href: '/free-gift-cards-philippines', label: '🎁 Free Gift Cards' },
+  { href: '/free-imvu-credits', label: '💜 IMVU Credits Guide' },
+];
 
 // ── SSR pre-fetch CPABuild offers ─────────────────────────────────────────────
 let initialOffers: unknown[] = [];
@@ -114,6 +120,9 @@ const faqSchema = {
         Sumali sa mga verified na prize draws at reward programs. Kumpletuhin ang simpleng steps,
         at manalo ng cash rewards, gift cards, at mga premyo.
       </p>
+      <a href="#live-offers" class="inline-flex items-center justify-center rounded-full bg-white text-blue-900 font-extrabold px-6 py-3 hover:bg-blue-50 transition-colors">
+        Claim Offers Available Now
+      </a>
       <div class="flex flex-wrap justify-center gap-4 text-sm mb-8">
         <span class="flex items-center gap-1.5 bg-white/10 rounded-full px-3 py-1">✅ Libre — walang bayad</span>
         <span class="flex items-center gap-1.5 bg-white/10 rounded-full px-3 py-1">⚡ Instant na rewards</span>
@@ -157,8 +166,49 @@ const faqSchema = {
     <span class="text-gray-700 font-medium">Earn GCash Online</span>
   </nav>
 
+  <!-- ── Offer Wall ─────────────────────────────────────────────────────────── -->
+  <div id="live-offers" class="max-w-3xl mx-auto px-4 pt-6 mb-3 scroll-mt-24">
+    <div class="rounded-2xl border border-blue-100 bg-blue-50 px-4 py-4 mb-4">
+      <p class="text-sm font-bold text-blue-900">Main reward hub</p>
+      <p class="text-xs text-blue-700 mt-1">Ito ang pangunahing page para sa earn-online at free reward intent. I-claim muna ang live offers sa ibaba bago mag-browse ng ibang pages.</p>
+    </div>
+    <div class="flex items-center gap-3 mb-2">
+      <h2 class="text-lg font-bold text-gray-900">Available Rewards Right Now</h2>
+      <span class="relative flex h-2.5 w-2.5">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
+      </span>
+    </div>
+    <p class="text-sm text-gray-500 mb-1">Geo-targeted para sa inyong lokasyon. Mag-claim na bago maubusan ng slots.</p>
+    <p class="text-xs text-gray-400 mb-4">🔒 Ligtas ang inyong data. Ang mga offers ay galing sa verified na advertiser network.</p>
+  </div>
+
+  <div class="max-w-3xl mx-auto px-4">
+    <CPAOffersWall
+      client:visible
+      initialOffers={initialOffers}
+      s1="earn-gcash"
+      s2="organic"
+    />
+  </div>
+
+  <section class="max-w-3xl mx-auto px-4 pt-5 pb-4">
+    <h2 class="text-sm font-bold text-gray-700 mb-3 uppercase tracking-wide">More Verified Reward Paths</h2>
+    <div class="flex flex-wrap gap-3">
+      {primaryLinks.map(({ href, label }) => (
+        <a href={href} class="inline-flex items-center px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-700 hover:border-blue-300 hover:text-blue-700 transition-colors">
+          {label}
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="max-w-3xl mx-auto px-4 pb-2">
+    <ShopeeAffiliateCTA keyword="budget gadgets philippines" label="While you're here: browse budget gadgets on Shopee" icon="🛍️" />
+  </section>
+
   <!-- ── Intro Content ─────────────────────────────────────────────────────── -->
-  <article class="max-w-3xl mx-auto px-4 pt-8 pb-4">
+  <article class="max-w-3xl mx-auto px-4 pt-4 pb-4">
     <h2 class="text-xl font-bold text-gray-900 mb-3">Paano Kumita ng GCash Online nang Libre?</h2>
     <p class="text-gray-600 leading-relaxed mb-4">
       Milyun-milyong Pilipino ang gumagamit ng <strong>GCash</strong> bilang pangunahing digital wallet —
@@ -220,28 +270,6 @@ const faqSchema = {
       ))}
     </div>
   </article>
-
-  <!-- ── Offer Wall ─────────────────────────────────────────────────────────── -->
-  <div class="max-w-3xl mx-auto px-4 mb-3">
-    <div class="flex items-center gap-3 mb-2">
-      <h2 class="text-lg font-bold text-gray-900">Available Rewards Right Now</h2>
-      <span class="relative flex h-2.5 w-2.5">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
-      </span>
-    </div>
-    <p class="text-sm text-gray-500 mb-1">Geo-targeted para sa inyong lokasyon. Mag-claim na bago maubusan ng slots.</p>
-    <p class="text-xs text-gray-400 mb-4">🔒 Ligtas ang inyong data. Ang mga offers ay galing sa verified na advertiser network.</p>
-  </div>
-
-  <div class="max-w-3xl mx-auto px-4">
-    <CPAOffersWall
-      client:visible
-      initialOffers={initialOffers}
-      s1="earn-gcash"
-      s2="organic"
-    />
-  </div>
 
   <!-- ── Scam Warning ───────────────────────────────────────────────────────── -->
   <section class="max-w-3xl mx-auto px-4 pt-8 pb-2">
@@ -313,7 +341,7 @@ const faqSchema = {
     </div>
   </section>
 
-  <EmailCapturePopup client:load source="earn-gcash" />
+  <EmailCapturePopup client:idle source="earn-gcash" />
 
   <!-- ── Internal Links ─────────────────────────────────────────────────────── -->
   <section class="bg-gray-50 border-t border-gray-100 py-8 px-4">

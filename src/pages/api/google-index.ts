@@ -23,6 +23,7 @@ const PAGES_TO_INDEX = [
   'https://smartly.sale/win-free-phone',
   'https://smartly.sale/online-contests-philippines',
   'https://smartly.sale/free-gift-cards-philippines',
+  'https://smartly.sale/free-imvu-credits',
   'https://smartly.sale/earn',
   'https://smartly.sale/products',
   'https://smartly.sale/cheapest-near-me',

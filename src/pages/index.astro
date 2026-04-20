@@ -113,6 +113,46 @@ keywords={pageKeywords}
 <!-- Hero Section -->
 <Hero client:load />
 
+<!-- Fast Money Funnel -->
+<section class="py-8 bg-muted/20 border-y border-border">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-5">
+      <div>
+        <h2 class="text-2xl font-bold text-foreground">Start With the Highest-Intent Pages</h2>
+        <p class="text-sm text-muted-foreground mt-1">These pages are optimized for reward, giveaway, and earn-online intent first.</p>
+      </div>
+      <a href="/earn-gcash" class="text-sm font-semibold text-brand hover:underline">Open the main money page →</a>
+    </div>
+    <div class="grid sm:grid-cols-3 gap-4">
+      {[
+        {
+          href: '/earn-gcash',
+          title: 'Earn GCash Online',
+          body: 'Primary conversion hub for reward seekers, giveaways, and instant offer intent.',
+          accent: 'border-blue-200 hover:border-blue-400',
+        },
+        {
+          href: '/online-contests-philippines',
+          title: 'Online Contests PH',
+          body: 'Best feeder page for giveaway and free-prize search traffic in the Philippines.',
+          accent: 'border-purple-200 hover:border-purple-400',
+        },
+        {
+          href: '/free-gift-cards-philippines',
+          title: 'Free Gift Cards PH',
+          body: 'Gift card and e-wallet reward traffic with a clean path back into GCash offers.',
+          accent: 'border-emerald-200 hover:border-emerald-400',
+        },
+      ].map(({ href, title, body, accent }) => (
+        <a href={href} class={`rounded-2xl border bg-card p-5 transition-all hover:-translate-y-0.5 hover:shadow-md ${accent}`}>
+          <p class="text-sm font-bold text-foreground mb-2">{title}</p>
+          <p class="text-sm text-muted-foreground leading-relaxed">{body}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
 <!-- Featured Products Section -->
 <FeaturedProducts initialProducts={initialProducts} client:visible />
 

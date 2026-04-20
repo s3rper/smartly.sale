@@ -161,8 +161,8 @@ const Hero: React.FC = () => {
             className="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed"
             style={{ color: 'rgba(255,255,255,0.62)', ...entranceSolid(300) }}
           >
-            From budget gadgets to must-have fashion items, we curate the best trending products
-            that Filipinos are loving right now. Shop smart, save more!
+            Discover the fastest-moving reward pages, giveaways, and sulit finds on smartly.sale.
+            Start with the highest-intent offers, then browse product deals after.
           </p>
 
           {/* CTA Buttons */}
@@ -171,7 +171,7 @@ const Hero: React.FC = () => {
             style={entranceSolid(500)}
           >
             <a
-              href={`${baseUrl}/products`}
+              href={`${baseUrl}/earn-gcash`}
               className="inline-flex items-center justify-center px-10 py-4 font-bold rounded-full text-lg transition-all duration-200 hover:-translate-y-0.5"
               style={{
                 background:  '#C24F00',
@@ -182,10 +182,10 @@ const Hero: React.FC = () => {
               onMouseLeave={e => (e.currentTarget.style.background = '#C24F00')}
             >
               <ShoppingBag className="w-5 h-5 mr-2" />
-              Shop Now
+              Earn GCash Now
             </a>
             <a
-              href={`${baseUrl}/blog`}
+              href={`${baseUrl}/products`}
               className="inline-flex items-center justify-center px-8 py-4 font-semibold rounded-full text-lg transition-all duration-200 hover:-translate-y-0.5"
               style={{
                 background:    'rgba(255,255,255,0.07)',
@@ -202,7 +202,7 @@ const Hero: React.FC = () => {
                 e.currentTarget.style.borderColor   = 'rgba(255,255,255,0.15)';
               }}
             >
-              Browse Guides
+              Browse Deals
             </a>
           </div>
 
