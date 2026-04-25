@@ -262,7 +262,7 @@ const faqSchema = {
       </h1>
 
       <!-- ── Share-to-Unlock Panel ───────────────────────────────────────────── -->
-      <div id="share-unlock-panel" class="mt-4 rounded-3xl border border-green-400/40 bg-white/10 p-4 sm:p-5 text-left backdrop-blur-md shadow-2xl">
+      <div id="share-unlock-panel" class="hidden mt-4 rounded-3xl border border-green-400/40 bg-white/10 p-4 sm:p-5 text-left backdrop-blur-md shadow-2xl">
         <p class="text-xs font-bold uppercase tracking-[0.22em] text-[#05CC47] mb-2">Step 1 — Unlock Generator</p>
         <p class="text-sm text-white/90 mb-3 leading-relaxed">
           Share the invite message below to your <strong>DeviantArt friends</strong>, then click <strong>Copy Invite</strong>. The generator will unlock automatically once your invite is verified.
@@ -298,15 +298,7 @@ const faqSchema = {
 
       <!-- ── Generator (blurred until unlocked) ──────────────────────────────── -->
       <div id="generator-wrapper" class="relative mt-4">
-        <!-- Blur overlay -->
-        <div id="generator-lock-overlay" class="absolute inset-0 z-10 rounded-3xl backdrop-blur-sm bg-black/30 flex items-center justify-center pointer-events-none select-none">
-          <div class="text-center px-4">
-            <div class="text-3xl mb-2">🔒</div>
-            <p class="text-sm font-bold text-white/90">Share your invite to unlock</p>
-          </div>
-        </div>
-
-        <div id="generator" class="rounded-3xl border border-white/20 bg-white/10 p-4 sm:p-5 text-left backdrop-blur-md shadow-2xl pointer-events-none select-none" aria-disabled="true">
+        <div id="generator" class="rounded-3xl border border-white/20 bg-white/10 p-4 sm:p-5 text-left backdrop-blur-md shadow-2xl">
           <div class="flex items-center justify-between gap-3 mb-3">
             <div>
               <p class="text-xs font-bold uppercase tracking-[0.22em] text-white/80">Live Generator</p>
