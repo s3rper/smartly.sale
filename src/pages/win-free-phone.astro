@@ -11,23 +11,17 @@ const today           = new Date().toISOString().split('T')[0];
 // ── SSR pre-fetch ─────────────────────────────────────────────────────────────
 let initialOffers: unknown[] = [];
 try {
-  const runtimeEnv = (Astro.locals as any)?.runtime?.env;
-  const userId = runtimeEnv?.CPABUILD_USER_ID ?? import.meta.env.CPABUILD_USER_ID ?? process.env.CPABUILD_USER_ID ?? '48201';
-  const apiKey = runtimeEnv?.CPABUILD_API_KEY ?? import.meta.env.CPABUILD_API_KEY ?? process.env.CPABUILD_API_KEY ?? '';
-  if (apiKey) {
-    const clientIp = Astro.request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || '';
-    const feedUrl  = new URL('https://d2dzcaq3bhqk1m.cloudfront.net/public/offers/feed.php');
-    feedUrl.searchParams.set('user_id', userId);
-    feedUrl.searchParams.set('api_key', apiKey);
-    feedUrl.searchParams.set('s1', 'win-free-phone');
-    feedUrl.searchParams.set('s2', 'organic');
-    const h: Record<string, string> = { 'Accept': 'application/json, */*' };
-    if (clientIp) h['X-Forwarded-For'] = clientIp;
-    const res = await fetch(feedUrl.toString(), { headers: h, signal: AbortSignal.timeout(8_000) });
-    if (res.ok) {
-      const raw = JSON.parse((await res.text()).trim());
-      initialOffers = Array.isArray(raw) ? raw : (raw.offers ?? raw.data ?? []);
-    }
+  const clientIp = Astro.request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || '';
+  const feedUrl  = new URL('https://www.cpagrip.com/common/offer_feed_json.php');
+  feedUrl.searchParams.set('user_id', '1392970');
+  feedUrl.searchParams.set('pubkey', 'a5202038591dd63f9d0dc5e21ca96ecb');
+  feedUrl.searchParams.set('tracking_id', 'win-free-phone');
+  const h: Record<string, string> = { 'Accept': 'application/json, */*' };
+  if (clientIp) h['X-Forwarded-For'] = clientIp;
+  const res = await fetch(feedUrl.toString(), { headers: h, signal: AbortSignal.timeout(8_000) });
+  if (res.ok) {
+    const raw = JSON.parse((await res.text()).trim());
+    initialOffers = Array.isArray(raw) ? raw : [];
   }
 } catch { /* fallback to client-side */ }
 
@@ -39,7 +33,7 @@ const articleSchema = {
   "image": "https://smartly.sale/og-image.jpg",
   "author": { "@type": "Organization", "name": "smartly.sale" },
   "publisher": { "@type": "Organization", "name": "smartly.sale", "logo": { "@type": "ImageObject", "url": "https://smartly.sale/og-image.jpg" } },
-  "datePublished": "2025-01-15",
+  "datePublished": "2026-01-15",
   "dateModified": today,
   "mainEntityOfPage": { "@type": "WebPage", "@id": pageUrl }
 };
@@ -50,33 +44,6 @@ const breadcrumbSchema = {
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "Home",          "item": "https://smartly.sale" },
     { "@type": "ListItem", "position": 2, "name": "Win Free Phone", "item": pageUrl }
-  ]
-};
-
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Posible bang manalo ng libreng cellphone online sa Pilipinas?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Oo, posible. Maraming legitimate na companies ang nag-ooffer ng gadget giveaways bilang marketing strategy. Kailangan lang kumpletuhin ang mechanics tulad ng pag-fill ng form o pagsali sa draw." }
-    },
-    {
-      "@type": "Question",
-      "name": "Legit ba ang mga iPhone at Samsung giveaway online?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Hindi lahat, kaya mahalaga na sumali ka lang sa verified at kilalang advertiser networks. Ang mga offer na makikita dito ay galing sa trusted na networks na may track record ng nagbibigay ng tunay na premyo." }
-    },
-    {
-      "@type": "Question",
-      "name": "Paano malalaman kung nanalo ka na?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Pagkatapos kumpletuhin ang entry, makakatanggap ka ng confirmation sa email o contact number na iyong ginamit. Ang mga winner ay karaniwang ina-announce sa loob ng ilang araw hanggang ilang linggo." }
-    },
-    {
-      "@type": "Question",
-      "name": "Kailangan ba ng bayad para sumali sa phone giveaway?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Hinding-hindi. Ang lahat ng legit na giveaway ay libre. Kung hinihiling ng isang contest na magbayad para manalo, iyon ay scam. Iulat agad." }
-    }
   ]
 };
 
@@ -91,12 +58,18 @@ const phones = [
   title={pageTitle}
   description={pageDescription}
   canonicalUrl={pageUrl}
+  ogType="article"
   keywords="win free phone Philippines, libreng cellphone Philippines, iPhone giveaway Philippines, Samsung giveaway Philippines, win iPhone 17 pro, free smartphone Philippines 2026"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <meta property="article:published_time" content="2026-01-15" />
+    <meta property="article:modified_time" content={today} />
+    <meta property="article:section" content="Giveaways" />
+    <meta property="article:tag" content="win free phone Philippines" />
+    <meta property="article:tag" content="iPhone giveaway" />
+    <meta property="article:tag" content="Samsung giveaway" />
   </Fragment>
 
   <!-- ── Hero ──────────────────────────────────────────────────────────────── -->
@@ -136,23 +109,23 @@ const phones = [
   </nav>
 
   <!-- ── Educational Content ───────────────────────────────────────────────── -->
-  <article class="max-w-3xl mx-auto px-4 pb-6">
-    <h2 class="text-xl font-bold text-gray-900 mt-4 mb-3">Totoo Ba Ang Libreng Cellphone Online?</h2>
-    <p class="text-gray-600 leading-relaxed mb-4">
+  <article class="max-w-3xl mx-auto px-4 pb-8">
+    <h2 class="text-xl font-bold text-gray-900 mt-8 mb-4">Totoo Ba Ang Libreng Cellphone Online?</h2>
+    <p class="text-gray-600 leading-relaxed mb-5">
       Ito ang tanong ng marami. Ang sagot ay <strong>oo — posible</strong>, pero kailangan mong malaman kung saan
       hahanapin ang mga legit na giveaway. Karamihan ng mga prize draws na ito ay ginagamit ng mga companies
       bilang <strong>marketing campaign</strong>. Binibigyan ka nila ng pagkakataong manalo ng premium gadget
       kapalit ng iyong participation — tulad ng pag-fill ng form o pagsali sa draw.
     </p>
-    <p class="text-gray-600 leading-relaxed mb-4">
+    <p class="text-gray-600 leading-relaxed mb-5">
       Ang mga smartphone brands at tech companies ay regular na nag-o-organisa ng mga online prize draws para
       ma-promote ang kanilang mga produkto. Sa pamamagitan ng mga verified advertiser networks, maaari kang
       direktang sumali sa mga aktibong giveaway na available sa iyong rehiyon — <strong>libre at walang catch</strong>.
     </p>
 
     <!-- Red flags -->
-    <div class="bg-red-50 border border-red-200 rounded-2xl p-5 mb-6">
-      <h3 class="font-bold text-red-700 text-sm mb-3 flex items-center gap-2">
+    <div class="bg-red-50 border border-red-200 rounded-2xl p-6 mb-8">
+      <h3 class="font-bold text-red-700 text-sm mb-4 flex items-center gap-2">
         <span>🚨</span> Mga Palatandaan ng Scam — Iwasan Ito!
       </h3>
       <ul class="space-y-2 text-sm text-red-600">
@@ -164,8 +137,60 @@ const phones = [
     </div>
   </article>
 
+  <!-- ── Phone Comparison Table ─────────────────────────────────────────── -->
+  <section class="max-w-3xl mx-auto px-4 py-8">
+    <h2 class="text-xl font-bold text-gray-900 mb-5">Mga Smartphone na Maaari Mong Manalo</h2>
+    <div class="overflow-x-auto mb-5">
+      <table class="w-full text-sm border-collapse">
+        <thead>
+          <tr class="bg-gray-100 text-gray-700">
+            <th class="text-left px-4 py-3 rounded-tl-xl">Phone Model</th>
+            <th class="text-left px-4 py-3">Retail Price</th>
+            <th class="text-left px-4 py-3">Key Specs</th>
+            <th class="text-left px-4 py-3 rounded-tr-xl">Availability</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          {[
+            { model: 'iPhone 17 Pro', price: '₱80,000+', specs: 'A19 chip, 48MP camera, 6.3"', avail: 'Limited draws' },
+            { model: 'Samsung Galaxy S25', price: '₱55,000+', specs: 'Snapdragon 8 Gen 4, AI features', avail: 'Active draws' },
+            { model: 'Samsung Galaxy A55', price: '₱22,000+', specs: 'AMOLED 120Hz, 5000mAh', avail: 'Active draws' },
+            { model: 'Realme / Xiaomi Budget', price: '₱8,000–15,000', specs: '5G, 50MP, fast charge', avail: 'Frequent draws' },
+          ].map(({ model, price, specs, avail }) => (
+            <tr class="hover:bg-gray-50">
+              <td class="px-4 py-3 font-medium text-gray-800">{model}</td>
+              <td class="px-4 py-3 text-blue-600 font-semibold">{price}</td>
+              <td class="px-4 py-3 text-gray-600">{specs}</td>
+              <td class="px-4 py-3 text-gray-500">{avail}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="text-sm text-gray-500">Ang availability ng bawat model ay depende sa kasalukuyang marketing campaigns ng advertisers at sa iyong lokasyon.</p>
+  </section>
+
+  <!-- ── How Phone Giveaways Work ─────────────────────────────────────────── -->
+  <section class="max-w-3xl mx-auto px-4 pb-8">
+    <h2 class="text-xl font-bold text-gray-900 mb-5">Paano Gumagana ang Phone Giveaways?</h2>
+    <div class="grid sm:grid-cols-3 gap-5 mb-5">
+      {[
+        { n: '1', icon: '📋', title: 'Mag-register', body: 'I-fill ang iyong basic info (name, email, at location) sa offer form.' },
+        { n: '2', icon: '✅', title: 'Kumpletuhin ang Steps', body: 'Sundin ang simpleng mechanics — minsan survey, minsan quiz, minsan download ng app.' },
+        { n: '3', icon: '📱', title: 'Hintayin ang Results', body: 'Makakatanggap ka ng notification via email o SMS kung ikaw ay napili bilang winner.' },
+      ].map(({ n, icon, title, body }) => (
+        <div class="bg-gray-50 border border-gray-100 rounded-2xl p-5 text-center">
+          <div class="w-10 h-10 rounded-full bg-blue-600 text-white text-base font-bold flex items-center justify-center mx-auto mb-3">{n}</div>
+          <div class="text-2xl mb-2">{icon}</div>
+          <h3 class="font-bold text-gray-900 text-sm mb-1">{title}</h3>
+          <p class="text-sm text-gray-500 leading-relaxed">{body}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
   <!-- ── Offer Wall ─────────────────────────────────────────────────────────── -->
-  <div class="max-w-3xl mx-auto px-4 mb-2">
+  <div class="max-w-3xl mx-auto px-4 mb-4">
     <div class="flex items-center gap-3 mb-1">
       <h2 class="text-lg font-bold text-gray-900">Active Phone Giveaways Near You</h2>
       <span class="relative flex h-2.5 w-2.5">
@@ -173,7 +198,7 @@ const phones = [
         <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
       </span>
     </div>
-    <p class="text-sm text-gray-500 mb-4">Available sa inyong lokasyon. Mag-claim bago mapuno ang slots.</p>
+    <p class="text-sm text-gray-500 mb-5">Available sa inyong lokasyon. Mag-claim bago mapuno ang slots.</p>
   </div>
 
   <div class="max-w-3xl mx-auto px-4">
@@ -188,18 +213,18 @@ const phones = [
   <!-- ── Tips Section ───────────────────────────────────────────────────────── -->
   <section class="max-w-3xl mx-auto px-4 py-10">
     <h2 class="text-xl font-bold text-gray-900 mb-5">Tips para Mapataas ang Tsansa Mo na Manalo</h2>
-    <div class="grid sm:grid-cols-2 gap-4">
+    <div class="grid sm:grid-cols-2 gap-5">
       {[
         { icon: '⚡', title: 'Mag-enter Kaagad', body: 'Mas maaga kang pumasok, mas malaki ang tsansa. Maraming giveaway ang nagsasara ng entries nang maaga.' },
         { icon: '📝', title: 'Kumpletuhin Lahat ng Fields', body: 'Tiyaking kumpleto at tama ang lahat ng iyong impormasyon para mabisa ang iyong entry.' },
         { icon: '🔔', title: 'I-check ang Email', body: 'Ang winner notification ay ipinapadala sa email. Siguraduhing aktibo ang email na iyong ginamit.' },
         { icon: '📋', title: 'Basahin ang Mechanics', body: 'Maunawaan ang bawat hakbang ng mechanics para masiguradong valid ang iyong entry.' },
       ].map(({ icon, title, body }) => (
-        <div class="flex gap-4 p-4 bg-gray-50 rounded-xl border border-gray-100">
+        <div class="flex gap-4 p-5 bg-gray-50 rounded-xl border border-gray-100">
           <span class="text-2xl flex-shrink-0">{icon}</span>
           <div>
             <h3 class="font-semibold text-gray-900 text-sm">{title}</h3>
-            <p class="text-xs text-gray-500 mt-0.5 leading-relaxed">{body}</p>
+            <p class="text-sm text-gray-500 mt-0.5 leading-relaxed">{body}</p>
           </div>
         </div>
       ))}
@@ -230,9 +255,9 @@ const phones = [
   <EmailCapturePopup client:load source="win-free-phone" />
 
   <!-- ── Internal Links ─────────────────────────────────────────────────────── -->
-  <section class="bg-gray-50 border-t border-gray-100 py-8 px-4">
+  <section class="bg-gray-50 border-t border-gray-100 py-10 px-4">
     <div class="max-w-3xl mx-auto">
-      <h2 class="text-sm font-bold text-gray-700 mb-4 uppercase tracking-wide">Explore More</h2>
+      <h2 class="text-sm font-bold text-gray-700 mb-5 uppercase tracking-wide">Explore More</h2>
       <div class="flex flex-wrap gap-3">
         {[
           { href: '/earn-gcash',                  label: '💰 Earn GCash Online' },

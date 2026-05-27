@@ -104,45 +104,6 @@ const productSchema = product ? {
   })
 } : null;
 
-// FAQ schema for product pages — helps capture featured snippets
-const productFaqSchema = product ? {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": `Is ${product.name} available on Shopee Philippines?`,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": `Yes, ${product.name} is available on Shopee Philippines${shopName ? ` from seller ${shopName}` : ''}. Current price is ${product.price}${discount ? ` with ${discount} discount` : ''}. Click the "Buy on Shopee" button to view the current listing and place your order.`
-      }
-    },
-    {
-      "@type": "Question",
-      "name": `How do I buy ${product.name} on Shopee?`,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": `To buy ${product.name} on Shopee Philippines: 1) Click the "Buy on Shopee" button on this page. 2) You'll be redirected to the official Shopee product listing. 3) Select your preferred variant (if applicable). 4) Add to cart and proceed to checkout. 5) Choose your payment method (GCash, credit card, COD, etc.) and confirm your order.`
-      }
-    },
-    {
-      "@type": "Question",
-      "name": `What is the price of ${product.name} on Shopee?`,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": `The current price of ${product.name} on Shopee Philippines is ${product.price}${discount ? ` (${discount} off the original price)` : ''}. Prices may vary depending on selected variants, ongoing Shopee vouchers, or flash sales. Check the live Shopee listing for the most up-to-date price.`
-      }
-    },
-    {
-      "@type": "Question",
-      "name": `Does ${product.name} have free shipping on Shopee?`,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": `Shopee Philippines frequently offers free shipping vouchers and subsidies, especially during sales events like 11.11, 12.12, and Shopee's monthly sales. To get free shipping on ${product.name}, look for the "Free Shipping" badge on the listing page or apply a Shopee free-shipping voucher at checkout.`
-      }
-    }
-  ]
-} : null;
 ---
 
 <MainLayout
@@ -155,7 +116,6 @@ const productFaqSchema = product ? {
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbData)} />
     {productSchema && <script type="application/ld+json" set:html={JSON.stringify(productSchema)} />}
-    {productFaqSchema && <script type="application/ld+json" set:html={JSON.stringify(productFaqSchema)} />}
     <meta property="og:type" content="product" />
   </Fragment>
 

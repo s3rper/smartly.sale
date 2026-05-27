@@ -18,45 +18,37 @@ if (adminPassword && key !== adminPassword) {
   });
 }
 
-// Fetch live offer stats from CPABuild API
+// Fetch live offer stats from CPAGrip API
 interface CPAOffer {
-  id: string | number;
-  name: string;
-  payout?: number;
-  user_payout?: number;
-  anchor?: string;
-  conversion?: string;
-  epc?: number;
+  offerid?: string | number;
+  name?: string;
+  payout?: number | string;
+  short_description?: string;
+  requirements?: string;
+  image?: string;
+  link?: string;
 }
 
 let offers: CPAOffer[] = [];
 let offersError = '';
 try {
-  const runtimeEnv = (Astro.locals as any)?.runtime?.env;
-  const userId = runtimeEnv?.CPABUILD_USER_ID ?? import.meta.env.CPABUILD_USER_ID ?? process.env.CPABUILD_USER_ID ?? '48201';
-  const apiKey = runtimeEnv?.CPABUILD_API_KEY ?? import.meta.env.CPABUILD_API_KEY ?? process.env.CPABUILD_API_KEY ?? '';
+  const feedUrl = new URL('https://www.cpagrip.com/common/offer_feed_json.php');
+  feedUrl.searchParams.set('user_id', '1392970');
+  feedUrl.searchParams.set('pubkey', 'a5202038591dd63f9d0dc5e21ca96ecb');
+  feedUrl.searchParams.set('tracking_id', 'admin-dashboard');
 
-  if (apiKey) {
-    const feedUrl = new URL('https://d2dzcaq3bhqk1m.cloudfront.net/public/offers/feed.php');
-    feedUrl.searchParams.set('user_id', userId);
-    feedUrl.searchParams.set('api_key', apiKey);
-    feedUrl.searchParams.set('s1', 'admin-dashboard');
-
-    const res = await fetch(feedUrl.toString(), {
-      headers: { Accept: 'application/json' },
-      signal: AbortSignal.timeout(8_000),
-    });
-    const text = await res.text();
-    const raw = JSON.parse(text.trim());
-    offers = Array.isArray(raw) ? raw : (raw.offers ?? raw.data ?? []);
-  } else {
-    offersError = 'CPABUILD_API_KEY not set';
-  }
+  const res = await fetch(feedUrl.toString(), {
+    headers: { Accept: 'application/json' },
+    signal: AbortSignal.timeout(8_000),
+  });
+  const text = await res.text();
+  const raw = JSON.parse(text.trim());
+  offers = Array.isArray(raw) ? raw : [];
 } catch (e) {
   offersError = e instanceof Error ? e.message : String(e);
 }
 
-const totalPayout = offers.reduce((sum, o) => sum + (o.user_payout ?? 0), 0);
+const totalPayout = offers.reduce((sum, o) => sum + parseFloat(String(o.payout ?? 0)), 0);
 const avgPayout = offers.length ? totalPayout / offers.length : 0;
 const today = new Date().toLocaleDateString('en-PH', { dateStyle: 'full' });
 ---
@@ -94,12 +86,12 @@ const today = new Date().toLocaleDateString('en-PH', { dateStyle: 'full' });
       <div class="bg-gray-900 rounded-2xl p-5 border border-gray-800">
         <p class="text-xs text-gray-400 uppercase tracking-wide mb-1">Top Payout</p>
         <p class="text-3xl font-bold text-yellow-400">
-          ${Math.max(...offers.map((o) => o.user_payout ?? 0), 0).toFixed(3)}
+          ${Math.max(...offers.map((o) => parseFloat(String(o.payout ?? 0))), 0).toFixed(3)}
         </p>
       </div>
       <div class="bg-gray-900 rounded-2xl p-5 border border-gray-800">
         <p class="text-xs text-gray-400 uppercase tracking-wide mb-1">Network</p>
-        <p class="text-3xl font-bold text-purple-400">CPABuild</p>
+        <p class="text-3xl font-bold text-purple-400">CPAGrip</p>
       </div>
     </div>
 
@@ -111,7 +103,7 @@ const today = new Date().toLocaleDateString('en-PH', { dateStyle: 'full' });
           { name: 'Daily Broadcast (Claude AI)', path: '/api/daily-broadcast', desc: 'Posts to Telegram, Facebook, Pinterest + Email — 9AM PH daily' },
           { name: 'Telegram Notify', path: '/api/telegram-notify', desc: 'Standalone Telegram bot — 9AM PH daily' },
           { name: 'Facebook CAPI', path: '/api/capi', desc: 'Server-side pixel for better ad attribution' },
-          { name: 'CPABuild Postback', path: '/api/cpabuild-postback', desc: 'S2S conversion webhook — set in CPABuild dashboard' },
+          { name: 'CPAGrip Postback', path: '/api/cpabuild-postback', desc: 'S2S conversion webhook — set in CPAGrip dashboard' },
           { name: 'Google Indexing', path: '/api/google-index', desc: 'Submits SEO pages to Google — weekly cron' },
           { name: 'Email Subscribe', path: '/api/subscribe', desc: 'Brevo subscriber capture endpoint' },
         ].map(({ name, path, desc }) => (
@@ -133,10 +125,10 @@ const today = new Date().toLocaleDateString('en-PH', { dateStyle: 'full' });
     <!-- Postback Setup Instructions -->
     <div class="bg-gray-900 rounded-2xl p-6 border border-yellow-800/30 mb-8">
       <h2 class="text-sm font-bold text-yellow-400 uppercase tracking-wide mb-3">
-        ⚙️ CPABuild Postback Setup
+        ⚙️ CPAGrip Postback Setup
       </h2>
       <p class="text-gray-300 text-sm mb-3">
-        Set this URL in your CPABuild dashboard → Settings → Global Postback URL:
+        Set this URL in your CPAGrip dashboard → Settings → Global Postback URL:
       </p>
       <code class="block bg-gray-800 text-green-400 text-xs p-3 rounded-lg font-mono break-all">
         https://smartly.sale/api/cpabuild-postback?payout={'{payout}'}&s1={'{s1}'}&s2={'{s2}'}&offer_id={'{offer_id}'}&status={'{status}'}
@@ -151,7 +143,7 @@ const today = new Date().toLocaleDateString('en-PH', { dateStyle: 'full' });
       <h2 class="text-sm font-bold text-gray-400 uppercase tracking-wide mb-4">Environment Variables</h2>
       <div class="grid sm:grid-cols-2 gap-2 text-sm font-mono">
         {[
-          { key: 'CPABUILD_API_KEY', label: 'CPABuild API Key' },
+          { key: 'CPAGRIP_PUBKEY', label: 'CPAGrip Pubkey (optional override)' },
           { key: 'ANTHROPIC_API_KEY', label: 'Anthropic (Claude)' },
           { key: 'TELEGRAM_BOT_TOKEN', label: 'Telegram Bot' },
           { key: 'TELEGRAM_CHANNEL_ID', label: 'Telegram Channel' },
@@ -189,7 +181,7 @@ const today = new Date().toLocaleDateString('en-PH', { dateStyle: 'full' });
       <div class="bg-gray-900 rounded-2xl border border-gray-800 overflow-hidden">
         <div class="px-6 py-4 border-b border-gray-800">
           <h2 class="text-sm font-bold text-gray-400 uppercase tracking-wide">
-            Active CPABuild Offers ({offers.length})
+            Active CPAGrip Offers ({offers.length})
           </h2>
         </div>
         <div class="overflow-x-auto">
@@ -205,16 +197,14 @@ const today = new Date().toLocaleDateString('en-PH', { dateStyle: 'full' });
             <tbody class="divide-y divide-gray-800">
               {offers.map((offer) => (
                 <tr class="hover:bg-gray-800/50 transition-colors">
-                  <td class="px-6 py-4 font-medium text-white">{offer.name}</td>
+                  <td class="px-6 py-4 font-medium text-white">{offer.name ?? '—'}</td>
                   <td class="px-6 py-4 text-gray-400 max-w-xs truncate">
-                    {offer.anchor ?? offer.conversion ?? '—'}
+                    {offer.short_description ?? offer.requirements ?? '—'}
                   </td>
                   <td class="px-6 py-4 text-right text-green-400 font-semibold">
-                    ${(offer.user_payout ?? 0).toFixed(3)}
+                    ${parseFloat(String(offer.payout ?? 0)).toFixed(3)}
                   </td>
-                  <td class="px-6 py-4 text-right text-gray-400">
-                    ${(offer.epc ?? 0).toFixed(3)}
-                  </td>
+                  <td class="px-6 py-4 text-right text-gray-400">—</td>
                 </tr>
               ))}
             </tbody>
@@ -226,7 +216,7 @@ const today = new Date().toLocaleDateString('en-PH', { dateStyle: 'full' });
     <!-- Quick Links -->
     <div class="mt-8 flex flex-wrap gap-3">
       {[
-        { href: 'https://cpabuild.com/dashboard', label: 'CPABuild Dashboard' },
+        { href: 'https://www.cpagrip.com/dashboard', label: 'CPAGrip Dashboard' },
         { href: 'https://app.brevo.com', label: 'Brevo Email' },
         { href: 'https://vercel.com/dashboard', label: 'Vercel Logs' },
         { href: 'https://developers.facebook.com/tools/explorer/', label: 'FB Graph Explorer' },

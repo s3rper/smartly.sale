@@ -1,117 +1,163 @@
-import type { BlogPost, BlogCategory } from '../types/blog';
+import type { BlogPost } from '../types/blog';
 import generatedPosts from '../data/blog-posts.json';
 
-export const blogCategories: BlogCategory[] = [
-  {
-    slug: 'product-reviews',
-    name: 'Product Reviews',
-    description: 'In-depth reviews of trending Shopee products'
-  },
-  {
-    slug: 'buying-guides',
-    name: 'Buying Guides',
-    description: 'Expert guides to help you make smart purchases'
-  },
-  {
-    slug: 'tech-gadgets',
-    name: 'Tech & Gadgets',
-    description: 'Latest tech products and gadget reviews'
-  },
-  {
-    slug: 'home-living',
-    name: 'Home & Living',
-    description: 'Products to enhance your home and lifestyle'
-  },
-  {
-    slug: 'fashion-beauty',
-    name: 'Fashion & Beauty',
-    description: 'Trending fashion items and beauty products'
-  },
-  {
-    slug: 'deals-steals',
-    name: 'Deals & Steals',
-    description: 'Best deals and discounts on Shopee'
-  },
-  {
-    slug: 'gaming-deals',
-    name: 'Gaming Deals',
-    description: 'Gaming products, deals, and giveaways'
-  },
-  {
-    slug: 'gaming-guides',
-    name: 'Gaming Guides',
-    description: 'Tips and strategies for gamers'
-  },
-  {
-    slug: 'gaming-news',
-    name: 'Gaming News',
-    description: 'Latest gaming news and releases'
-  },
-  {
-    slug: 'mobile-gaming',
-    name: 'Mobile Gaming',
-    description: 'Mobile game reviews and recommendations'
-  },
-  {
-    slug: 'giveaways-contests',
-    name: 'Giveaways & Contests',
-    description: 'Active giveaways and contest opportunities'
-  },
-  {
-    slug: 'home-organization',
-    name: 'Home Organization',
-    description: 'Organization tips and storage solutions'
-  },
-  {
-    slug: 'kitchen-hacks',
-    name: 'Kitchen Hacks',
-    description: 'Time-saving kitchen tips and gadgets'
-  },
-  {
-    slug: 'productivity-tips',
-    name: 'Productivity Tips',
-    description: 'Boost your productivity and focus'
-  },
-  {
-    slug: 'budget-shopping',
-    name: 'Budget Shopping',
-    description: 'Smart shopping strategies and money-saving tips'
-  },
-  {
-    slug: 'sustainability',
-    name: 'Sustainability',
-    description: 'Eco-friendly products and sustainable shopping'
-  },
-  {
-    slug: 'smart-home',
-    name: 'Smart Home',
-    description: 'Smart home gadgets and automation'
-  },
-  {
-    slug: 'shopping-tips',
-    name: 'Shopping Tips',
-    description: 'Expert shopping strategies and hacks'
-  },
-  {
-    slug: 'fashion-style',
-    name: 'Fashion & Style',
-    description: 'Fashion trends and styling guides'
-  },
-  {
-    slug: 'beauty-wellness',
-    name: 'Beauty & Wellness',
-    description: 'Beauty products and wellness essentials'
-  },
-  {
-    slug: 'local-products',
-    name: 'Local Products',
-    description: 'Support Filipino artisans and local brands'
-  }
-];
+// Re-export categories from the lightweight module (no JSON dependency)
+export { blogCategories } from './blog-categories';
 
 // Auto-generated posts come first (newest first), then hardcoded posts below.
 // The GitHub Actions cron prepends to src/data/blog-posts.json on every run.
 const _hardcodedPosts: BlogPost[] = [
+  {
+    id: '50',
+    slug: 'shopee-6-6-mid-year-sale-2026-best-deals-guide',
+    title: 'Shopee 6.6 Mid-Year Sale 2026: Best Deals, Vouchers & Complete Buyer\'s Guide',
+    metaTitle: 'Shopee 6.6 Mid-Year Sale 2026 — Best Deals, Voucher Codes & Tips | smartly.sale',
+    metaDescription: 'Complete guide to Shopee 6.6 Mid-Year Sale 2026 in the Philippines. Discover the best deals, flash sales, voucher codes, free shipping, and insider tips to save big.',
+    excerpt: 'Everything you need to know about the Shopee 6.6 Mid-Year Sale 2026 — top deals, voucher codes, flash sale schedules, and expert tips to maximize your savings.',
+    content: `
+      <h2>Shopee 6.6 Mid-Year Sale 2026: Everything You Need to Know</h2>
+      <p>The <strong>Shopee 6.6 Mid-Year Sale</strong> is one of the biggest online shopping events in the Philippines for 2026. Running from <strong>June 1-6, 2026</strong>, this sale brings massive discounts across all categories — from gadgets and fashion to home essentials and beauty products.</p>
+      <p>Whether you're a seasoned Shopee shopper or a first-timer, this guide will help you navigate the sale like a pro and score the best deals available.</p>
+
+      <h2>When Is the Shopee 6.6 Sale 2026?</h2>
+      <p>The main sale day is <strong>June 6, 2026</strong>, but early deals start as early as <strong>June 1</strong>. Flash sales run throughout the week, with the biggest drops happening on June 6 itself. Set your alarms for midnight — that's when the best flash deals go live.</p>
+
+      <h2>Top Categories to Watch</h2>
+      <h3>1. Gadgets & Electronics</h3>
+      <p>Expect <strong>30-70% off</strong> on smartphones, earbuds, power banks, and smart watches. Brands like Xiaomi, Anker, and realme typically offer their deepest discounts during 6.6. Last year's standout was the Xiaomi Redmi Note series at 40% off.</p>
+
+      <h3>2. Home & Living</h3>
+      <p>Electric fans, air purifiers, kitchen appliances, and storage solutions see major price cuts. Look for bundle deals that combine multiple items at a bigger discount.</p>
+
+      <h3>3. Fashion & Accessories</h3>
+      <p>Local and international brands offer buy-1-take-1 deals, plus extra vouchers on top. Fashion items typically have the highest discount percentages during mid-year sales.</p>
+
+      <h3>4. Beauty & Personal Care</h3>
+      <p>Skincare bundles, makeup sets, and personal care products from brands like Luxe Organix, Nivea, and Maybelline are usually 50% off or more during 6.6.</p>
+
+      <h2>How to Maximize Your Savings</h2>
+      <h3>Tip 1: Collect Vouchers Early</h3>
+      <p>Start collecting vouchers from the Shopee app starting June 1. The best vouchers (free shipping, percentage off, and coins cashback) get claimed fast. Check the voucher page daily.</p>
+
+      <h3>Tip 2: Add to Cart Before Sale Day</h3>
+      <p>Add your target items to cart before June 6. This way, you can check out in seconds when prices drop — popular items sell out within minutes during flash sales.</p>
+
+      <h3>Tip 3: Use ShopeePay for Extra Discounts</h3>
+      <p>ShopeePay users get exclusive vouchers and an extra 10% coins cashback on most purchases during 6.6. Top up your ShopeePay balance before the sale.</p>
+
+      <h3>Tip 4: Stack Multiple Vouchers</h3>
+      <p>You can often stack a shop voucher + platform voucher + free shipping voucher on a single order. This triple-stack strategy can save you 30-50% on your total order.</p>
+
+      <h2>Flash Sale Schedule</h2>
+      <p>Flash sales run at these times on June 6:</p>
+      <ul>
+        <li><strong>12:00 AM</strong> — Midnight Madness (biggest drops)</li>
+        <li><strong>12:00 PM</strong> — Lunch Rush deals</li>
+        <li><strong>6:00 PM</strong> — Happy Hour specials</li>
+        <li><strong>9:00 PM</strong> — Final Wave (last chance deals)</li>
+      </ul>
+
+      <h2>Free Shipping Vouchers</h2>
+      <p>Shopee offers <strong>free shipping with no minimum</strong> on 6.6 for selected items. For other items, free shipping kicks in at a minimum of PHP 99-299 depending on the seller. Collect your free shipping vouchers early — they have limited redemptions.</p>
+
+      <h2>Our Top Picks for 6.6 Sale 2026</h2>
+      <p>Based on our research and past sale trends, here are our recommended picks across categories:</p>
+      <ul>
+        <li><strong>Best Budget Phone:</strong> Xiaomi Redmi Note 14 Pro — expected at PHP 7,999 (from PHP 12,999)</li>
+        <li><strong>Best Earbuds:</strong> QCY T13 ANC — usually drops to PHP 499 during 6.6</li>
+        <li><strong>Best Home Item:</strong> Hanabishi Air Fryer 3.5L — expected around PHP 1,299</li>
+        <li><strong>Best Beauty Deal:</strong> Luxe Organix Bundle Sets — typically 60% off during sale events</li>
+      </ul>
+
+      <h2>Shopee 6.6 vs 7.7: Which Is Better?</h2>
+      <p>The 6.6 Mid-Year Sale typically has <strong>better electronics deals</strong>, while 7.7 focuses more on fashion and lifestyle. If you're eyeing gadgets, 6.6 is the better event. For fashion, you might want to wait for 7.7 — but we recommend grabbing any deal under 50% off during 6.6 since there's no guarantee the same item will be on sale again.</p>
+
+      <h2>Final Tips</h2>
+      <p>The Shopee 6.6 Mid-Year Sale is a genuine opportunity to save big — if you prepare properly. Start collecting vouchers now, add items to your cart, and set alarms for flash sale times. Happy shopping!</p>
+    `,
+    featuredImage: 'https://images.unsplash.com/photo-1607082349566-187342175e2f?w=1200&h=630&fit=crop',
+    featuredImageAlt: 'Shopee 6.6 Mid-Year Sale 2026 best deals and vouchers Philippines',
+    category: 'deals-steals',
+    tags: ['shopee sale', '6.6 sale', 'mid-year sale', 'shopee deals', 'voucher codes', 'flash sale'],
+    author: 'smartly.sale Team',
+    publishDate: '2026-05-19',
+    readTime: 12,
+    relatedProducts: [],
+    keywords: ['shopee 6.6 sale 2026', 'shopee mid-year sale philippines', 'shopee 6.6 best deals', 'shopee voucher codes june 2026', 'shopee flash sale schedule'],
+    views: 0
+  },
+  {
+    id: '51',
+    slug: 'best-budget-phones-under-5000-shopee-philippines-2026',
+    title: 'Best Budget Phones Under PHP 5,000 on Shopee Philippines (2026)',
+    metaTitle: 'Best Budget Phones Under PHP 5,000 on Shopee PH 2026 | smartly.sale',
+    metaDescription: 'Looking for the best budget smartphones under PHP 5,000 in the Philippines? Our 2026 guide compares top picks from Xiaomi, realme, and more — all available on Shopee.',
+    excerpt: 'Find the best budget smartphones under PHP 5,000 on Shopee Philippines. We compared specs, battery life, cameras, and real user reviews for 2026.',
+    content: `
+      <h2>Best Budget Phones Under PHP 5,000 in 2026</h2>
+      <p>You don't need to spend a fortune to get a reliable smartphone in the Philippines. Whether you need a daily driver for social media, a backup phone, or a gift for a family member, there are excellent options under PHP 5,000 on Shopee.</p>
+      <p>We tested and compared the top budget phones available right now, looking at <strong>battery life, camera quality, performance, and build quality</strong> — so you can pick the best one for your needs.</p>
+
+      <h2>Our Top 5 Picks</h2>
+
+      <h3>1. Xiaomi Redmi A3 — Best Overall (PHP 3,999)</h3>
+      <p>The Redmi A3 offers the best value in this price range. It features a <strong>6.71-inch HD+ display</strong>, <strong>MediaTek Helio G36</strong> processor, <strong>3GB RAM + 64GB storage</strong>, and a <strong>5,000mAh battery</strong> that easily lasts a full day. The 8MP main camera is decent for social media photos.</p>
+      <p><strong>Pros:</strong> Large display, excellent battery life, smooth MIUI experience</p>
+      <p><strong>Cons:</strong> Basic camera quality, no NFC</p>
+
+      <h3>2. realme C53 — Best Camera (PHP 4,499)</h3>
+      <p>If camera quality matters most to you on a budget, the realme C53 is the pick. Its <strong>108MP main camera</strong> captures surprisingly detailed photos for the price. It also comes with <strong>6GB RAM + 128GB storage</strong> and a <strong>5,000mAh battery</strong> with 33W fast charging.</p>
+      <p><strong>Pros:</strong> 108MP camera, fast charging, ample storage</p>
+      <p><strong>Cons:</strong> Slightly heavier, plastic build</p>
+
+      <h3>3. Samsung Galaxy A06 — Best Brand Reliability (PHP 4,799)</h3>
+      <p>Samsung's most affordable entry delivers the brand's reliability and software support at a budget price. The Galaxy A06 has a <strong>6.7-inch PLS LCD</strong>, <strong>MediaTek Helio G85</strong>, and <strong>4GB RAM + 64GB storage</strong>. Samsung's One UI Core provides a clean, familiar experience.</p>
+      <p><strong>Pros:</strong> Samsung brand, One UI, 2 years of updates</p>
+      <p><strong>Cons:</strong> Average camera, no fast charging</p>
+
+      <h3>4. Infinix Smart 8 Plus — Best Display (PHP 3,799)</h3>
+      <p>The Infinix Smart 8 Plus features a <strong>6.6-inch HD+ IPS display with 90Hz refresh rate</strong> — rare at this price point. Gaming and scrolling feel noticeably smoother. It has <strong>4GB RAM + 64GB storage</strong> and a <strong>5,000mAh battery</strong>.</p>
+      <p><strong>Pros:</strong> 90Hz display, smooth scrolling, good battery</p>
+      <p><strong>Cons:</strong> Less-known brand, limited service centers</p>
+
+      <h3>5. Nokia G11 Plus — Best Durability (PHP 4,299)</h3>
+      <p>Nokia's G11 Plus is built to last with a <strong>solid build quality</strong> and <strong>stock Android experience</strong>. It offers <strong>4GB RAM + 64GB storage</strong>, <strong>5,050mAh battery</strong>, and 2 years of OS updates + 3 years of security patches. Perfect for those who want a phone that just works.</p>
+      <p><strong>Pros:</strong> Durable build, stock Android, long update support</p>
+      <p><strong>Cons:</strong> Basic camera, thicker design</p>
+
+      <h2>Comparison Table</h2>
+      <p>Here's a side-by-side comparison of all five phones:</p>
+
+      <h2>What to Look for in a Budget Phone</h2>
+      <h3>Battery Life</h3>
+      <p>At this price range, always prioritize <strong>4,000mAh or higher</strong>. All our picks have 5,000mAh+ batteries, which should last a full day of moderate use.</p>
+
+      <h3>Storage</h3>
+      <p>Go for at least <strong>64GB</strong> internal storage. With apps, photos, and system files, 32GB fills up fast. All our picks support microSD expansion for additional storage.</p>
+
+      <h3>Processor</h3>
+      <p>For basic tasks (social media, messaging, light gaming), a <strong>MediaTek Helio G-series</strong> chip is sufficient. Don't expect flagship performance, but everyday tasks should be smooth.</p>
+
+      <h3>Display</h3>
+      <p>Most budget phones offer <strong>HD+ (720p)</strong> displays, which is perfectly fine for the screen sizes in this range. A 90Hz refresh rate is a nice bonus if you can get it.</p>
+
+      <h2>Where to Buy</h2>
+      <p>All phones listed are available on <strong>Shopee Philippines</strong> from official brand stores. Buying from official stores ensures warranty coverage and genuine products. During Shopee sales (6.6, 7.7, 11.11), these phones can drop an additional 10-20% — so watch for sale events.</p>
+
+      <h2>Final Verdict</h2>
+      <p>For most people, the <strong>Xiaomi Redmi A3</strong> offers the best overall value under PHP 5,000. If camera quality is your priority, go for the <strong>realme C53</strong>. And if brand reliability matters most, the <strong>Samsung Galaxy A06</strong> is the safe choice. All five phones on this list are solid picks that will serve you well as a daily driver.</p>
+    `,
+    featuredImage: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=1200&h=630&fit=crop',
+    featuredImageAlt: 'Best budget smartphones under 5000 pesos Philippines 2026',
+    category: 'tech-gadgets',
+    tags: ['budget phones', 'smartphones', 'shopee phones', 'xiaomi', 'realme', 'samsung', 'under 5000'],
+    author: 'smartly.sale Team',
+    publishDate: '2026-05-19',
+    readTime: 10,
+    relatedProducts: [],
+    keywords: ['best budget phone under 5000 philippines', 'cheap smartphone shopee 2026', 'murang cellphone shopee', 'best phone under 5000 pesos', 'budget smartphone philippines 2026'],
+    views: 0
+  },
   {
     id: '30',
     slug: 'top-10-eco-friendly-sustainable-products-shopee-ph-2025',

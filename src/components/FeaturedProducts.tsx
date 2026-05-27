@@ -303,7 +303,7 @@ const FeaturedProducts: React.FC<Props> = ({ initialProducts }) => {
                       <a
                         href={product.affiliateLink}
                         target="_blank"
-                        rel="noopener noreferrer nofollow"
+                        rel="noopener noreferrer sponsored"
                         className="flex-1 bg-brand text-white text-center font-bold py-3 rounded-full hover:bg-brand/90 transition-colors flex items-center justify-center gap-1 text-sm"
                         onClick={(e) => e.stopPropagation()}
                       >

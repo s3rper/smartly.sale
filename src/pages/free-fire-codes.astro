@@ -62,16 +62,6 @@ const breadcrumbSchema = {
   ]
 };
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    { "@type": "Question", "name": "Where can I get legit Free Fire redeem codes?", "acceptedAnswer": { "@type": "Answer", "text": "The official sources are the Free Fire Philippines Facebook page, the official website, and in-game events. Third-party sites claiming to always have new codes are usually unreliable." } },
-    { "@type": "Question", "name": "How do I redeem a Free Fire code?", "acceptedAnswer": { "@type": "Answer", "text": "Go to reward.ff.garena.com → Log in with your Free Fire account → Enter the 12-character code → Confirm → Collect in your in-game mailbox." } },
-    { "@type": "Question", "name": "How long before Free Fire codes expire?", "acceptedAnswer": { "@type": "Answer", "text": "Codes typically expire within 12 to 18 hours. Redeem them as soon as you see a new code posted." } },
-    { "@type": "Question", "name": "Is Free Fire free to play?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, the game is free. Some premium items require Diamonds, but you can get many free items through events and redeem codes." } },
-  ]
-};
 ---
 
 <MainLayout
@@ -83,7 +73,6 @@ const faqSchema = {
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   </Fragment>
 
   <!-- ── Hero ──────────────────────────────────────────────────────────────── -->

@@ -64,7 +64,7 @@ const Footer: React.FC = () => {
               </p>
               <div className="flex space-x-3 pt-2">
                 <a
-                  href="https://facebook.com"
+                  href="https://www.facebook.com/smartlysale"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-11 h-11 bg-white/10 rounded-xl flex items-center justify-center hover:bg-brand transition-all duration-300 hover:scale-110"
@@ -84,7 +84,7 @@ const Footer: React.FC = () => {
                 <a
                   href="https://shopee.ph"
                   target="_blank"
-                  rel="noopener noreferrer nofollow"
+                  rel="noopener noreferrer sponsored"
                   className="w-11 h-11 bg-white/10 rounded-xl flex items-center justify-center hover:bg-brand transition-all duration-300 hover:scale-110"
                   aria-label="Visit Shopee Philippines"
                 >

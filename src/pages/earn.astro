@@ -3,37 +3,31 @@ import MainLayout from '../layouts/main.astro';
 import CPAOffersWall from '../components/CPAOffersWall';
 import EmailCapturePopup from '../components/EmailCapturePopup';
 
-const pageTitle = "10 Proven Ways to Earn Money Online in the Philippines 2026 | smartly.sale";
+const pageTitle = "10 Proven Ways to Earn Money Online in the Philippines (2026 Guide) | smartly.sale";
 
-// ── SSR pre-fetch CPABuild offers ─────────────────────────────────────────────
+// ── SSR pre-fetch CPAGrip offers ──────────────────────────────────────────────
 let initialOffers: unknown[] = [];
 try {
-  const runtimeEnv = (Astro.locals as any)?.runtime?.env;
-  const userId = runtimeEnv?.CPABUILD_USER_ID ?? import.meta.env.CPABUILD_USER_ID ?? process.env.CPABUILD_USER_ID ?? '48201';
-  const apiKey = runtimeEnv?.CPABUILD_API_KEY ?? import.meta.env.CPABUILD_API_KEY ?? process.env.CPABUILD_API_KEY ?? '';
-  if (apiKey) {
-    const clientIp = Astro.request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || '';
-    const feedUrl  = new URL('https://d2dzcaq3bhqk1m.cloudfront.net/public/offers/feed.php');
-    feedUrl.searchParams.set('user_id', userId);
-    feedUrl.searchParams.set('api_key', apiKey);
-    feedUrl.searchParams.set('s1', 'earn-online');
-    feedUrl.searchParams.set('s2', 'organic');
-    const h: Record<string, string> = { 'Accept': 'application/json, */*' };
-    if (clientIp) h['X-Forwarded-For'] = clientIp;
-    const res = await fetch(feedUrl.toString(), { headers: h, signal: AbortSignal.timeout(8_000) });
-    if (res.ok) {
-      const raw = JSON.parse((await res.text()).trim());
-      initialOffers = Array.isArray(raw) ? raw : (raw.offers ?? raw.data ?? []);
-    }
+  const clientIp = Astro.request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || '';
+  const feedUrl  = new URL('https://www.cpagrip.com/common/offer_feed_json.php');
+  feedUrl.searchParams.set('user_id', '1392970');
+  feedUrl.searchParams.set('pubkey', 'a5202038591dd63f9d0dc5e21ca96ecb');
+  feedUrl.searchParams.set('tracking_id', 'earn-online');
+  const h: Record<string, string> = { 'Accept': 'application/json, */*' };
+  if (clientIp) h['X-Forwarded-For'] = clientIp;
+  const res = await fetch(feedUrl.toString(), { headers: h, signal: AbortSignal.timeout(8_000) });
+  if (res.ok) {
+    const raw = JSON.parse((await res.text()).trim());
+    initialOffers = Array.isArray(raw) ? raw : [];
   }
 } catch { /* fallback to client-side */ }
-const pageDescription = "Discover legitimate ways to earn extra income online in the Philippines. From freelancing to surveys, learn proven methods to make money from home in 2026.";
+const pageDescription = "Discover 10 legit ways to earn money online in the Philippines 2026. From freelancing and Shopee affiliate to surveys and VA jobs — complete guide with realistic income estimates.";
 
 // Article structured data for SEO
 const articleSchema = {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": "10 Proven Ways to Earn Money Online in the Philippines 2026",
+  "headline": "10 Proven Ways to Earn Money Online in the Philippines (2026 Guide)",
   "description": pageDescription,
   "image": "https://smartly.sale/og-image.jpg",
   "author": {
@@ -48,7 +42,7 @@ const articleSchema = {
       "url": "https://smartly.sale/og-image.jpg"
     }
   },
-  "datePublished": "2025-01-15",
+  "datePublished": "2026-01-15",
   "dateModified": new Date().toISOString().split('T')[0],
   "mainEntityOfPage": {
     "@type": "WebPage",
@@ -89,7 +83,7 @@ const earningMethods = [
   {
     title: "Online Surveys & Rewards Sites",
     description: "Complete surveys, watch videos, and test apps on platforms like Swagbucks, Toluna, and Survey Junkie. While not a full-time income, it's perfect for earning extra money during your free time.",
-    thumbnail: "https://images.unsplash.com/photo-1554224311-beee2f7c12c7?w=800&h=500&fit=crop",
+    thumbnail: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=500&fit=crop",
     estimatedEarning: "100 - 500 pesos per day",
     difficulty: "Easy",
     timeCommitment: "1-2 hours per day"
@@ -161,14 +155,24 @@ const earningMethods = [
 ];
 ---
 
-<MainLayout 
+<MainLayout
   title={pageTitle}
   description={pageDescription}
-  ogImage="/og-image.jpg"
+  ogImage="https://smartly.sale/og-image.jpg"
+  canonicalUrl="https://smartly.sale/earn"
+  ogType="article"
+  keywords="earn money online Philippines 2026, how to earn online, work from home Philippines, online jobs Philippines, freelancing Philippines, earn GCash, online surveys Philippines, virtual assistant Philippines"
 >
-  <!-- Schema Markup for SEO -->
-  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
-  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <meta property="article:published_time" content="2026-01-15" />
+    <meta property="article:modified_time" content={new Date().toISOString().split('T')[0]} />
+    <meta property="article:section" content="Earning" />
+    <meta property="article:tag" content="earn money online" />
+    <meta property="article:tag" content="Philippines" />
+    <meta property="article:tag" content="work from home" />
+  </Fragment>
 
   <!-- Article Content -->
   <article class="earn-article">
@@ -177,19 +181,19 @@ const earningMethods = [
     <header class="article-header">
       <div class="container">
         <h1 class="article-title">
-          10 Proven Ways to Earn Money Online in the Philippines 2026
+          10 Proven Ways to Earn Money Online in the Philippines (2026 Guide)
         </h1>
         <div class="article-meta">
-          <time datetime="2025-01-15">Updated: January 2025</time>
+          <time datetime="2026-05-08">Updated: May 2026</time>
           <span class="separator">-</span>
           <span>15 min read</span>
           <span class="separator">-</span>
           <span>Start earning today</span>
         </div>
         <p class="article-intro">
-          Looking for legitimate ways to make money online from the comfort of your home? Whether you're a student, 
-          stay-at-home parent, or someone looking for extra income, this comprehensive guide covers proven methods 
-          used by thousands of Filipinos to earn money online in 2025.
+          Looking for legitimate ways to make money online from the comfort of your home? Whether you're a student,
+          stay-at-home parent, or OFW looking for extra income, this comprehensive guide covers proven methods
+          that thousands of Filipinos are actively using to earn money online in 2026 — from quick survey apps to full-time remote careers.
         </p>
       </div>
     </header>
@@ -208,31 +212,47 @@ const earningMethods = [
       </div>
     </section>
 
+    <!-- ── Live CPA Offers — highest conversion placement (above fold after TOC) ── -->
+    <section class="live-offers-section">
+      <div class="container">
+        <div class="live-offers-intro">
+          <h2 class="live-offers-heading">Start Earning Right Now</h2>
+          <p class="live-offers-subtext">These verified reward offers are available in your area today. Complete simple tasks to earn real rewards — no investment needed.</p>
+        </div>
+      </div>
+      <CPAOffersWall
+        client:visible
+        initialOffers={initialOffers as any}
+        s1="earn-online"
+        s2="organic"
+      />
+    </section>
+
     <!-- Introduction Content -->
     <section class="content-section">
       <div class="container">
         <div class="article-content">
-          <h2>Why Earn Money Online?</h2>
+          <h2>Why Filipinos Are Earning Online in 2026</h2>
           <p>
-            The digital economy has opened countless opportunities for Filipinos to earn income without leaving home. 
-            With the Philippines ranking as one of the top countries for freelancers and online workers, now is the 
-            perfect time to explore these opportunities.
+            The Philippines is now the <strong>6th largest freelancing market in the world</strong>, with over 1.5 million
+            Filipinos earning online. Platforms like Upwork, Fiverr, and Shopee Affiliate have made it possible to earn
+            PHP 15,000–80,000/month from home — without a degree or startup capital.
           </p>
-          
+
           <div class="highlight-box">
-            <h3>Key Benefits of Online Earning:</h3>
+            <h3>Why Now Is the Best Time to Start:</h3>
             <ul>
-              <li><strong>Flexibility:</strong> Work on your own schedule</li>
-              <li><strong>No Commute:</strong> Save time and money on transportation</li>
-              <li><strong>Global Opportunities:</strong> Access clients worldwide</li>
-              <li><strong>Scalable Income:</strong> Grow your earnings over time</li>
-              <li><strong>Multiple Income Streams:</strong> Combine different methods</li>
+              <li><strong>GCash & Maya payouts:</strong> Most platforms now pay directly to your e-wallet — no bank account needed</li>
+              <li><strong>No commute costs:</strong> Save PHP 3,000–5,000/month on transportation alone</li>
+              <li><strong>Global demand for Filipino workers:</strong> English fluency + strong work ethic = high demand</li>
+              <li><strong>Low barrier to entry:</strong> Many methods need only a smartphone and internet connection</li>
+              <li><strong>Stack multiple income streams:</strong> Combine 2–3 methods for a full-time income</li>
             </ul>
           </div>
 
           <p>
-            Below, we've compiled 10 proven methods that real Filipinos are using to earn money online. Each method 
-            includes realistic earning estimates, difficulty levels, and time commitments to help you make an informed decision.
+            Below, we break down <strong>10 proven methods</strong> that real Filipinos are actively using — each with
+            realistic earning estimates in PHP, difficulty levels, and time commitments so you can pick what fits your situation.
           </p>
         </div>
       </div>
@@ -342,16 +362,6 @@ const earningMethods = [
       </div>
     </section>
 
-    <!-- ── Live CPA Offers Wall ─────────────────────────────────────────────── -->
-    <section style="padding: 0 0 20px;">
-      <CPAOffersWall
-        client:visible
-        initialOffers={initialOffers as any}
-        s1="earn-online"
-        s2="organic"
-      />
-    </section>
-
     <!-- Conclusion -->
     <section class="conclusion-section">
       <div class="container">
@@ -368,11 +378,11 @@ const earningMethods = [
           </p>
           
           <div class="cta-box">
-            <h3>Ready to Start Shopping Smarter?</h3>
-            <p class="cta-white-text">While you're earning online, don't forget to shop smart! Check out our curated collection of viral products and exclusive deals.</p>
+            <h3>Ready to Start Earning Today?</h3>
+            <p class="cta-white-text">Scroll back up to claim live reward offers in your area, or explore more earning opportunities below.</p>
             <div class="cta-buttons">
-              <a href="/products" class="btn-primary">Browse Products</a>
-              <a href="/about" class="btn-secondary">Learn More About Us</a>
+              <a href="/earn-gcash" class="btn-primary">Earn GCash Now</a>
+              <a href="/products" class="btn-secondary">Shop Smart Deals</a>
             </div>
           </div>
         </div>
@@ -471,13 +481,13 @@ const earningMethods = [
 
   /* Table of Contents */
   .toc-section {
-    padding: 40px 20px;
+    padding: 48px 20px;
     background: #f8f8f8;
   }
 
   .toc-box {
     background: white;
-    padding: 30px;
+    padding: 36px;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     max-width: 800px;
@@ -487,7 +497,7 @@ const earningMethods = [
   .toc-title {
     font-size: 1.5rem;
     font-weight: 700;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     color: #333;
   }
 
@@ -497,7 +507,7 @@ const earningMethods = [
   }
 
   .toc-list li {
-    margin-bottom: 12px;
+    margin-bottom: 14px;
   }
 
   .toc-list a {
@@ -512,7 +522,7 @@ const earningMethods = [
 
   /* Content Section */
   .content-section {
-    padding: 60px 20px;
+    padding: 72px 20px;
   }
 
   .article-content {
@@ -523,27 +533,27 @@ const earningMethods = [
   .article-content h2 {
     font-size: 2em;
     font-weight: 700;
-    margin: 40px 0 20px;
+    margin: 48px 0 24px;
     color: #333;
   }
 
   .article-content p {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     color: #555;
   }
 
   .highlight-box {
     background: #fff5f0;
     border-left: 4px solid var(--brand-orange);
-    padding: 30px;
+    padding: 36px;
     border-radius: 12px;
-    margin: 30px 0;
+    margin: 36px 0;
   }
 
   .highlight-box h3 {
     font-size: 1.25rem;
     font-weight: 700;
-    margin-bottom: 15px;
+    margin-bottom: 18px;
     color: #333;
   }
 
@@ -553,7 +563,7 @@ const earningMethods = [
   }
 
   .highlight-box li {
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     padding-left: 25px;
     position: relative;
     color: #555;
@@ -569,7 +579,7 @@ const earningMethods = [
 
   /* Methods Section */
   .methods-section {
-    padding: 60px 20px;
+    padding: 72px 20px;
     background: #f8f8f8;
   }
 
@@ -577,13 +587,13 @@ const earningMethods = [
     font-size: 2.5em;
     font-weight: 700;
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 56px;
     color: #333;
   }
 
   .methods-grid {
     display: grid;
-    gap: 40px;
+    gap: 48px;
     max-width: 900px;
     margin: 0 auto;
   }
@@ -632,32 +642,32 @@ const earningMethods = [
   }
 
   .method-content {
-    padding: 30px;
+    padding: 36px;
   }
 
   .method-title {
     font-size: 1.5rem;
     font-weight: 700;
-    margin-bottom: 15px;
+    margin-bottom: 18px;
     color: #333;
   }
 
   .method-description {
     color: #666;
     line-height: 1.7;
-    margin-bottom: 25px;
+    margin-bottom: 28px;
   }
 
   .method-stats {
     display: grid;
-    gap: 15px;
+    gap: 18px;
   }
 
   .stat-item {
     display: flex;
     gap: 12px;
     align-items: start;
-    padding: 15px;
+    padding: 18px;
     background: #f8f8f8;
     border-radius: 8px;
   }
@@ -675,20 +685,20 @@ const earningMethods = [
 
   /* Tips Section */
   .tips-section {
-    padding: 60px 20px;
+    padding: 72px 20px;
   }
 
   .tips-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
+    gap: 28px;
     max-width: 1100px;
     margin: 0 auto;
   }
 
   .tip-card {
     background: white;
-    padding: 25px;
+    padding: 30px;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     border-left: 4px solid var(--brand-orange);
@@ -697,7 +707,7 @@ const earningMethods = [
   .tip-card h3 {
     font-size: 1.125rem;
     font-weight: 700;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     color: #333;
   }
 
@@ -709,7 +719,7 @@ const earningMethods = [
 
   /* Warning Section */
   .warning-section {
-    padding: 60px 20px;
+    padding: 72px 20px;
     background: #fff5f0;
   }
 
@@ -717,7 +727,7 @@ const earningMethods = [
     max-width: 800px;
     margin: 0 auto;
     background: white;
-    padding: 40px;
+    padding: 44px;
     border-radius: 12px;
     border-left: 4px solid #dc2626;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -726,48 +736,48 @@ const earningMethods = [
   .warning-box h3 {
     font-size: 1.5rem;
     font-weight: 700;
-    margin-bottom: 15px;
+    margin-bottom: 18px;
     color: #dc2626;
   }
 
   .warning-box p {
     color: #555;
     line-height: 1.7;
-    margin-bottom: 15px;
+    margin-bottom: 18px;
   }
 
   .warning-box ul {
     color: #555;
     padding-left: 25px;
-    margin-top: 15px;
+    margin-top: 18px;
   }
 
   .warning-box li {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
   }
 
   /* Conclusion Section */
   .conclusion-section {
-    padding: 60px 20px;
+    padding: 72px 20px;
   }
 
   .cta-box {
     background: linear-gradient(135deg, #ea5820 0%, #ff7a33 100%);
     color: white;
-    padding: 40px;
+    padding: 44px;
     border-radius: 16px;
     text-align: center;
-    margin-top: 40px;
+    margin-top: 44px;
   }
 
   .cta-box h3 {
     font-size: 1.75rem;
     font-weight: 700;
-    margin-bottom: 15px;
+    margin-bottom: 18px;
   }
 
   .cta-box p {
-    margin-bottom: 25px;
+    margin-bottom: 28px;
     opacity: 0.95;
   }
 
@@ -815,21 +825,21 @@ const earningMethods = [
 
   /* Related Section */
   .related-section {
-    padding: 60px 20px;
+    padding: 72px 20px;
     background: #f8f8f8;
   }
 
   .related-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
+    gap: 28px;
     max-width: 1100px;
     margin: 0 auto;
   }
 
   .related-card {
     background: white;
-    padding: 30px;
+    padding: 34px;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     text-decoration: none;
@@ -844,13 +854,39 @@ const earningMethods = [
   .related-card h3 {
     font-size: 1.25rem;
     font-weight: 700;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     color: #333;
   }
 
   .related-card p {
     color: #666;
     margin: 0;
+  }
+
+  /* Live Offers Section */
+  .live-offers-section {
+    padding: 0 0 28px;
+    background: #f5f6fa;
+  }
+
+  .live-offers-intro {
+    text-align: center;
+    padding: 48px 20px 0;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .live-offers-heading {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #333;
+    margin-bottom: 14px;
+  }
+
+  .live-offers-subtext {
+    color: #666;
+    font-size: 1rem;
+    margin-bottom: 0;
   }
 
   /* Responsive */

@@ -191,14 +191,14 @@ export default function ShareCard({ prizeName, offerUrl, pageUrl = PAGE_URL, onC
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
 
       {/* Modal */}
-      <div className="relative w-full max-w-sm bg-white rounded-3xl shadow-2xl overflow-hidden">
+      <div className="relative w-full max-w-sm bg-white rounded-3xl shadow-2xl max-h-[90vh] overflow-y-auto">
         {/* Top bar */}
         <div className="h-1.5 bg-gradient-to-r from-amber-400 via-orange-400 to-pink-500" />
 
         {/* Close */}
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 transition-colors"
+          className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 transition-colors"
           aria-label="Close"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -215,15 +215,15 @@ export default function ShareCard({ prizeName, offerUrl, pageUrl = PAGE_URL, onC
           </div>
 
           {/* Card preview (downscaled from 1080×1080) */}
-          <div className="rounded-2xl overflow-hidden border border-gray-100 shadow-sm mb-4 aspect-square">
+          <div className="rounded-2xl overflow-hidden border border-gray-100 shadow-sm mb-4 w-full">
             {imgUrl
-              ? <img src={imgUrl} alt="Your shareable contest card" className="w-full h-full object-cover" />
-              : <div className="w-full h-full bg-indigo-900 animate-pulse" />
+              ? <img src={imgUrl} alt="Your shareable contest card" className="w-full h-auto block" />
+              : <div className="w-full aspect-square bg-indigo-900 animate-pulse" />
             }
           </div>
 
-          {/* Hidden canvas used for drawing */}
-          <canvas ref={canvasRef} className="hidden" />
+          {/* Hidden canvas used for drawing — must be display:none to avoid layout */}
+          <canvas ref={canvasRef} style={{ display: 'none' }} />
 
           {/* Action buttons */}
           <div className="space-y-2.5">

@@ -165,14 +165,8 @@ p, a, div {
 font-family: var(--body-font);
 }
 
-p {
-margin-bottom: 20px !important;
-}
-
 h1, h2, h3, h4, h5, h6 {
 font-family: var(--heading-font);
-margin-top: 10px !important;
-margin-bottom: 20px !important;
 }
 
 button {
@@ -766,6 +760,111 @@ opacity: 0;
 @keyframes hero-chevron-bounce {
   0%, 100% { transform: translateY(0);  opacity: 0.45; }
   50%       { transform: translateY(7px); opacity: 1;  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   Global Section Heading Spacing
+   Ensures consistent vertical rhythm across all pages
+═══════════════════════════════════════════════════════ */
+
+/* Section headings (h2) inside page sections — consistent bottom margin.
+   Only targets the direct h2 children (not nested ones inside cards, etc.) */
+section > div > h2:not(.article-content h2) {
+  margin-bottom: 1rem;
+}
+
+/* Section subtext that follows a heading — consistent spacing */
+section > div > h2 + p:not(.article-content p) {
+  margin-bottom: 2rem;
+}
+
+/* ═══════════════════════════════════════════════════════
+   Global Content Page Spacing & Typography
+   Consistent vertical rhythm for earn, contest, and
+   reward pages that use the same structural patterns
+═══════════════════════════════════════════════════════ */
+
+/* Content pages: ensure section > article blocks breathe */
+article > h2 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+article > p + h2,
+article > div + h2 {
+  margin-top: 2.5rem;
+}
+
+/* Tables inside content pages — more breathing room */
+article table,
+section table {
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+article table th {
+  padding-top: 0.875rem;
+  padding-bottom: 0.875rem;
+}
+
+article table td {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+/* Info/trust boxes — consistent vertical spacing */
+article .rounded-2xl,
+section .rounded-2xl {
+  margin-bottom: 1.5rem;
+}
+
+/* Step cards grid — comfortable margin above and below */
+article .grid,
+section .grid {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* FAQ details — slightly more gap between items */
+section .space-y-4 > details {
+  margin-bottom: 0.25rem;
+}
+
+/* ── Responsive content page line-height ── */
+article p,
+section article p {
+  line-height: 1.75;
+}
+
+@media (max-width: 768px) {
+  article p,
+  section article p {
+    line-height: 1.7;
+    font-size: 0.9375rem;
+  }
+
+  article table th,
+  article table td {
+    padding: 0.625rem 0.5rem;
+    font-size: 0.8125rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   Dropdown / Accordion (details + summary) Global Fix
+   Pushes the toggle icon (+) to the far right edge
+═══════════════════════════════════════════════════════ */
+
+/* The text label fills all available space */
+details > summary > span:first-child {
+  flex: 1 1 0%;
+  min-width: 0;
+}
+
+/* The toggle icon stays pinned to the right edge */
+details > summary > span:last-child {
+  flex: 0 0 auto;
+  margin-left: auto;
 }
 
 /* Scroll progress bar — placed in <head> via main.astro */

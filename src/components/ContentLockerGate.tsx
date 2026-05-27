@@ -1,7 +1,14 @@
 import { useState, useEffect } from 'react';
 
-// ─── CPABuild offer shape ──────────────────────────────────────────────────────
+// ─── CPAGrip offer shape ──────────────────────────────────────────────────────
 interface CPAOffer {
+  // CPAGrip fields
+  offerid?: string | number;
+  short_description?: string;
+  requirements?: string;
+  link?: string;
+  offerlink?: string;
+  // CPAbuild legacy fields
   id?: string | number;
   offer_id?: string | number;
   name?: string;
@@ -13,7 +20,6 @@ interface CPAOffer {
   picture?: string;
   image?: string;
   url?: string;
-  link?: string;
   epc?: string | number;
 }
 
@@ -29,13 +35,13 @@ interface NormalizedOffer {
 
 function normalize(o: CPAOffer): NormalizedOffer {
   return {
-    id: String(o.id ?? o.offer_id ?? Math.random()),
+    id: String(o.offerid ?? o.id ?? o.offer_id ?? Math.random()),
     name: o.name ?? 'Exclusive Offer',
-    anchor: o.anchor ?? o.name ?? 'Claim your reward now',
-    conversion: o.conversion ?? 'Complete the task to earn',
-    payout: parseFloat(String(o.user_payout ?? o.payout ?? '0')),
-    image: o.network_icon ?? o.picture ?? o.image ?? '',
-    link: o.url ?? o.link ?? '#',
+    anchor: o.short_description ?? o.anchor ?? o.name ?? 'Claim your reward now',
+    conversion: o.requirements ?? o.conversion ?? 'Complete the task to earn',
+    payout: parseFloat(String(o.payout ?? o.user_payout ?? '0')),
+    image: o.image ?? o.network_icon ?? o.picture ?? '',
+    link: o.link ?? o.offerlink ?? o.url ?? '#',
   };
 }
 

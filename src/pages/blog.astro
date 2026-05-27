@@ -1,17 +1,21 @@
 ---
 import MainLayout from '../layouts/main.astro';
 import BlogList from '../components/BlogList';
+import { blogPosts } from '../lib/blog-data';
 import { baseUrl } from '../lib/base-url';
 
 const pageTitle = 'Blog - Expert Reviews, Guides & Tips | smartly.sale';
 const pageDescription = 'Discover expert product reviews, buying guides, and shopping tips. Stay updated with the latest trends and deals from Shopee Philippines.';
 const pageKeywords = 'smartly sale blog, Shopee product reviews, shopping guides Philippines, viral products 2026, earn gcash tips, free gaming credits guide';
+
+// Strip heavy `content` field before sending to client — reduces bundle from ~1MB to ~60KB
+const lightPosts = blogPosts.map(({ content, ...rest }) => rest);
 ---
 
 <MainLayout
   title={pageTitle}
   description={pageDescription}
-  ogImage="/images/blog-og.jpg"
+  ogImage="https://smartly.sale/og-image.jpg"
   canonicalUrl="https://smartly.sale/blog"
   keywords={pageKeywords}
 >
@@ -22,12 +26,15 @@ const pageKeywords = 'smartly sale blog, Shopee product reviews, shopping guides
     "name": "smartly.sale Blog",
     "description": pageDescription,
     "url": `${baseUrl}/blog`,
+    "dateModified": new Date().toISOString().split('T')[0],
     "publisher": {
       "@type": "Organization",
       "name": "smartly.sale",
       "logo": {
         "@type": "ImageObject",
-        "url": `${baseUrl}/logo.png`
+        "url": "https://smartly.sale/og-image.jpg",
+        "width": 1200,
+        "height": 630
       }
     }
   })} />
@@ -50,7 +57,7 @@ const pageKeywords = 'smartly sale blog, Shopee product reviews, shopping guides
 
   <!-- Blog List with Filters -->
   <div class="bg-background">
-    <BlogList client:load />
+    <BlogList client:load posts={lightPosts} />
   </div>
 
   <!-- CTA -->

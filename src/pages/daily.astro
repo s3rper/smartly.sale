@@ -73,44 +73,6 @@ const schemaData = {
         }
       ]
     },
-    {
-      "@type": "FAQPage",
-      "@id": `${pageUrl}#faq`,
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is the Daily Insights Generator?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "The Daily Insights Generator is a free online tool that provides instant daily predictions, advice, mood checks, and motivational insights. It features 30+ different tools covering relationships, work, personal growth, and decision-making."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Is the Daily Insights Generator free?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes! The Daily Insights Generator is 100% free to use with no registration required. Access all 30+ tools unlimited times."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What kind of insights can I get?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "You can get daily predictions, mood insights, energy levels, relationship advice, work motivation, decision help, compliments, life advice, stress checks, and much more across 30+ categories."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Can I use this for daily motivation?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Absolutely! The tool includes multiple motivation generators, confidence boosters, daily advice, and inspirational insights perfect for starting your day or getting through tough moments."
-          }
-        }
-      ]
-    }
   ]
 };
 ---
@@ -158,7 +120,7 @@ const schemaData = {
           <span>Your Daily Dose of Insight & Clarity</span>
         </div>
 
-        <h1 class="text-4xl md:text-6xl font-bold text-foreground leading-tight" itemprop="name">
+        <h1 class="text-4xl md:text-6xl font-bold text-foreground leading-tight">
           <span class="text-brand">Daily Insights</span> Generator
         </h1>
 
@@ -302,7 +264,7 @@ const schemaData = {
   </section>
 
   <!-- FAQ Section -->
-  <section class="py-16 bg-muted/30" itemscope itemtype="https://schema.org/FAQPage">
+  <section class="py-16 bg-muted/30">
     <div class="container mx-auto px-4">
       <div class="max-w-3xl mx-auto">
         <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
@@ -310,46 +272,46 @@ const schemaData = {
         </h2>
         
         <div class="space-y-6">
-          <div class="border border-border rounded-lg p-6" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-            <h3 class="text-xl font-bold mb-3" itemprop="name">What is the Daily Insights Generator?</h3>
-            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-              <p class="text-muted-foreground" itemprop="text">
+          <div class="border border-border rounded-lg p-6">
+            <h3 class="text-xl font-bold mb-3">What is the Daily Insights Generator?</h3>
+            <div>
+              <p class="text-muted-foreground">
                 The Daily Insights Generator is a free online tool that provides instant daily predictions, advice, mood checks, and motivational insights. It features 30+ different tools covering relationships, work, personal growth, and decision-making.
               </p>
             </div>
           </div>
 
-          <div class="border border-border rounded-lg p-6" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-            <h3 class="text-xl font-bold mb-3" itemprop="name">Is it really free?</h3>
-            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-              <p class="text-muted-foreground" itemprop="text">
+          <div class="border border-border rounded-lg p-6">
+            <h3 class="text-xl font-bold mb-3">Is it really free?</h3>
+            <div>
+              <p class="text-muted-foreground">
                 Yes! 100% free with no registration, no hidden fees, and unlimited access to all 30+ tools. Use it as many times as you want, whenever you need guidance.
               </p>
             </div>
           </div>
 
-          <div class="border border-border rounded-lg p-6" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-            <h3 class="text-xl font-bold mb-3" itemprop="name">How accurate are the insights?</h3>
-            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-              <p class="text-muted-foreground" itemprop="text">
+          <div class="border border-border rounded-lg p-6">
+            <h3 class="text-xl font-bold mb-3">How accurate are the insights?</h3>
+            <div>
+              <p class="text-muted-foreground">
                 Our insights are designed to provide perspective, motivation, and clarity. While they're randomized, they're carefully crafted to be universally relatable and thought-provoking. Use them as a tool for reflection and inspiration.
               </p>
             </div>
           </div>
 
-          <div class="border border-border rounded-lg p-6" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-            <h3 class="text-xl font-bold mb-3" itemprop="name">Can I use this for daily motivation?</h3>
-            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-              <p class="text-muted-foreground" itemprop="text">
+          <div class="border border-border rounded-lg p-6">
+            <h3 class="text-xl font-bold mb-3">Can I use this for daily motivation?</h3>
+            <div>
+              <p class="text-muted-foreground">
                 Absolutely! Many users start their day with our motivation tools, confidence boosters, and daily advice. It's perfect for a quick dose of positivity or clarity when you need it most.
               </p>
             </div>
           </div>
 
-          <div class="border border-border rounded-lg p-6" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-            <h3 class="text-xl font-bold mb-3" itemprop="name">What makes this different from other advice tools?</h3>
-            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-              <p class="text-muted-foreground" itemprop="text">
+          <div class="border border-border rounded-lg p-6">
+            <h3 class="text-xl font-bold mb-3">What makes this different from other advice tools?</h3>
+            <div>
+              <p class="text-muted-foreground">
                 We offer 30+ specialized tools in one place, each designed for specific needs - from mood checks to relationship insights. Everything is instant, free, and requires just one click. No lengthy quizzes or personal information needed.
               </p>
             </div>

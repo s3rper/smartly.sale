@@ -1,0 +1,86 @@
+---
+import MainLayout from '../../layouts/main.astro';
+import { shopeeProducts } from '../../lib/shopee-loader';
+import { transformCMSProduct } from '../../types/product';
+
+const canonicalUrl = 'https://smartly.sale/deals';
+
+const brackets = [
+  { slug: 'under-100',  label: 'Under PHP 100',   maxPrice: 100,  emoji: '🪙' },
+  { slug: 'under-200',  label: 'Under PHP 200',   maxPrice: 200,  emoji: '💰' },
+  { slug: 'under-500',  label: 'Under PHP 500',   maxPrice: 500,  emoji: '🔥' },
+  { slug: 'under-1000', label: 'Under PHP 1,000', maxPrice: 1000, emoji: '⭐' },
+  { slug: 'under-2000', label: 'Under PHP 2,000', maxPrice: 2000, emoji: '💎' },
+  { slug: 'under-5000', label: 'Under PHP 5,000', maxPrice: 5000, emoji: '🏆' },
+];
+
+function parsePrice(priceStr: string | undefined): number {
+  if (!priceStr) return 0;
+  return Number(priceStr.replace(/[^0-9.]/g, '')) || 0;
+}
+
+const activeProducts = shopeeProducts
+  .filter(p => !p.fieldData._draft && !p.fieldData._archived)
+  .map(p => transformCMSProduct(p));
+
+const bracketCounts = brackets.map(b => ({
+  ...b,
+  count: activeProducts.filter(p => {
+    const price = parsePrice(p.price);
+    return price > 0 && price <= b.maxPrice;
+  }).length,
+}));
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://smartly.sale" },
+    { "@type": "ListItem", "position": 2, "name": "Deals", "item": canonicalUrl },
+  ]
+};
+---
+
+<MainLayout
+  title="Shopee Deals by Price — Best Finds for Every Budget | smartly.sale"
+  description="Browse curated Shopee Philippines deals by price range. Find the best products under PHP 100, 200, 500, 1000, 2000, and 5000 — updated daily."
+  canonicalUrl={canonicalUrl}
+  keywords="shopee deals by price, shopee budget finds, cheapest shopee products, shopee under 500, shopee under 1000, shopee philippines deals"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-2" aria-label="Breadcrumb">
+    <ol class="flex items-center gap-1.5 text-sm text-muted-foreground">
+      <li><a href="/" class="hover:text-brand transition-colors">Home</a></li>
+      <li class="before:content-['/'] before:mx-1.5 text-foreground font-medium">Deals</li>
+    </ol>
+  </nav>
+
+  <section class="py-10">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="text-3xl md:text-4xl font-bold text-foreground mb-3">Shopee Deals by Budget</h1>
+      <p class="text-muted-foreground max-w-2xl mb-8">Find the perfect Shopee products for your budget. We curate the best deals across every price range — updated daily from Shopee Philippines.</p>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {bracketCounts.map(b => (
+          <a href={`/deals/${b.slug}`} class="group bg-card border border-border rounded-2xl p-6 hover:border-brand hover:shadow-lg transition-all hover:-translate-y-0.5">
+            <span class="text-4xl mb-3 block">{b.emoji}</span>
+            <h2 class="text-xl font-bold text-foreground group-hover:text-brand transition-colors mb-1">{b.label}</h2>
+            <p class="text-sm text-muted-foreground">{b.count} products available</p>
+          </a>
+        ))}
+      </div>
+
+      <div class="mt-12 text-center">
+        <p class="text-sm text-muted-foreground mb-3">Looking for something specific?</p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <a href="/products" class="text-sm text-brand hover:underline font-medium">Browse All Products</a>
+          <a href="/categories" class="text-sm text-brand hover:underline font-medium">Shop by Category</a>
+          <a href="/best-deals" class="text-sm text-brand hover:underline font-medium">Today's Best Deals</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</MainLayout>

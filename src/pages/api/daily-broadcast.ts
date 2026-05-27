@@ -23,28 +23,20 @@ function env(key: string): string {
 }
 
 interface CPAOffer {
-  id: string | number;
-  name: string;
-  anchor?: string;
-  conversion?: string;
-  payout?: number;
-  user_payout?: number;
-  url?: string;
-  network_icon?: string;
+  offerid?: string | number;
+  name?: string;
+  short_description?: string;
+  requirements?: string;
+  payout?: number | string;
+  image?: string;
+  link?: string;
 }
 
 async function fetchTopOffers(): Promise<CPAOffer[]> {
-  const userId = env('CPABUILD_USER_ID') || '48201';
-  const apiKey = env('CPABUILD_API_KEY');
-  if (!apiKey) return [];
-
-  const feedUrl = new URL(
-    'https://d2dzcaq3bhqk1m.cloudfront.net/public/offers/feed.php',
-  );
-  feedUrl.searchParams.set('user_id', userId);
-  feedUrl.searchParams.set('api_key', apiKey);
-  feedUrl.searchParams.set('s1', 'daily-broadcast');
-  feedUrl.searchParams.set('s2', 'cron');
+  const feedUrl = new URL('https://www.cpagrip.com/common/offer_feed_json.php');
+  feedUrl.searchParams.set('user_id', '1392970');
+  feedUrl.searchParams.set('pubkey', 'a5202038591dd63f9d0dc5e21ca96ecb');
+  feedUrl.searchParams.set('tracking_id', 'daily-broadcast');
 
   try {
     const res = await fetch(feedUrl.toString(), {
@@ -53,12 +45,10 @@ async function fetchTopOffers(): Promise<CPAOffer[]> {
     });
     const text = await res.text();
     const raw = JSON.parse(text.trim());
-    const offers: CPAOffer[] = Array.isArray(raw)
-      ? raw
-      : ((raw.offers ?? raw.data ?? []) as CPAOffer[]);
+    const offers: CPAOffer[] = Array.isArray(raw) ? raw : [];
     // Return top 3 by payout
     return offers
-      .sort((a, b) => (b.user_payout ?? 0) - (a.user_payout ?? 0))
+      .sort((a, b) => parseFloat(String(b.payout ?? 0)) - parseFloat(String(a.payout ?? 0)))
       .slice(0, 3);
   } catch {
     return [];
@@ -79,7 +69,7 @@ async function generateContent(
   const offerList = offers
     .map(
       (o, i) =>
-        `${i + 1}. ${o.name} — ${o.anchor ?? 'Join now'} (Prize/Reward)`,
+        `${i + 1}. ${o.name ?? 'Exclusive Offer'} — ${o.short_description ?? 'Join now'} (Prize/Reward)`,
     )
     .join('\n');
 

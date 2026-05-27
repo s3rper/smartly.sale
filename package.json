@@ -13,6 +13,10 @@
     "blog:product": "node --env-file=.env scripts/generate-product-blog.mjs",
     "products:generate": "node --env-file=.env scripts/generate-products.mjs",
     "products:fetch": "node --env-file=.env scripts/fetch-products-local.mjs",
+    "seo:generate": "node --env-file=.env scripts/generate-seo-pages.mjs",
+    "seo:preview": "node --env-file=.env scripts/generate-seo-pages.mjs --dry-run",
+    "guides:generate": "node --env-file=.env scripts/generate-buyer-guides.mjs",
+    "guides:preview": "node --env-file=.env scripts/generate-buyer-guides.mjs --dry-run",
     "gsc:check": "node --env-file=.env scripts/submit-to-google.mjs --check",
     "gsc:submit": "node --env-file=.env scripts/submit-to-google.mjs"
   },

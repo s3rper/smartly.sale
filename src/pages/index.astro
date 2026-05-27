@@ -86,28 +86,18 @@ const homeFaqs = [
   }
 ];
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": homeFaqs.map(faq => ({
-    "@type": "Question",
-    "name": faq.q,
-    "acceptedAnswer": { "@type": "Answer", "text": faq.a }
-  }))
-};
 ---
 
 <MainLayout
 title={pageTitle}
 description={pageDescription}
-ogImage="/og-image.jpg"
+ogImage="https://smartly.sale/og-image.jpg"
 canonicalUrl="https://smartly.sale"
 keywords={pageKeywords}
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
     {itemListSchema && <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} />}
-    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   </Fragment>
 
 <!-- Hero Section -->
@@ -123,29 +113,29 @@ keywords={pageKeywords}
       </div>
       <a href="/earn-gcash" class="text-sm font-semibold text-brand hover:underline">Open the main money page →</a>
     </div>
-    <div class="grid sm:grid-cols-3 gap-4">
+    <div class="grid sm:grid-cols-3 gap-5">
       {[
         {
           href: '/earn-gcash',
           title: 'Earn GCash Online',
-          body: 'Primary conversion hub for reward seekers, giveaways, and instant offer intent.',
+          body: 'Verified reward offers and prize draws — libre sumali, walang bayad. Claim live GCash credits and cash rewards.',
           accent: 'border-blue-200 hover:border-blue-400',
         },
         {
           href: '/online-contests-philippines',
           title: 'Online Contests PH',
-          body: 'Best feeder page for giveaway and free-prize search traffic in the Philippines.',
+          body: 'Legit online contests and giveaways in the Philippines — win gadgets, gift cards, and cash prizes. Updated daily.',
           accent: 'border-purple-200 hover:border-purple-400',
         },
         {
           href: '/free-gift-cards-philippines',
           title: 'Free Gift Cards PH',
-          body: 'Gift card and e-wallet reward traffic with a clean path back into GCash offers.',
+          body: 'Win Visa cards, GCash credits, and e-wallet rewards online — no purchase required. Available in the Philippines.',
           accent: 'border-emerald-200 hover:border-emerald-400',
         },
       ].map(({ href, title, body, accent }) => (
-        <a href={href} class={`rounded-2xl border bg-card p-5 transition-all hover:-translate-y-0.5 hover:shadow-md ${accent}`}>
-          <p class="text-sm font-bold text-foreground mb-2">{title}</p>
+        <a href={href} class={`rounded-2xl border bg-card p-6 transition-all hover:-translate-y-0.5 hover:shadow-md ${accent}`}>
+          <p class="font-bold text-foreground mb-2">{title}</p>
           <p class="text-sm text-muted-foreground leading-relaxed">{body}</p>
         </a>
       ))}
@@ -192,29 +182,35 @@ keywords={pageKeywords}
 </section>
 
 <!-- Why Choose Us Section -->
+<section style="content-visibility: auto; contain-intrinsic-size: auto 600px;">
 <WhyChooseUs client:visible />
+</section>
 
 <!-- How It Works Section -->
+<section style="content-visibility: auto; contain-intrinsic-size: auto 500px;">
 <HowItWorks client:visible />
+</section>
 
 <!-- Trust Indicators Section -->
+<section style="content-visibility: auto; contain-intrinsic-size: auto 400px;">
 <TrustIndicators client:visible />
+</section>
 
 <!-- FAQ Section — FAQPage schema is in <head>; accordion makes content visible to Google -->
-<section class="py-14 bg-muted/30 border-t border-border" id="faq">
+<section class="py-16 bg-muted/30 border-t border-border" id="faq">
   <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 class="text-2xl md:text-3xl font-bold text-foreground text-center mb-2">
+    <h2 class="text-2xl md:text-3xl font-bold text-foreground text-center mb-4">
       Frequently Asked Questions
     </h2>
-    <p class="text-muted-foreground text-center mb-8 text-sm">Everything you need to know about smartly.sale and shopping on Shopee Philippines</p>
-    <div class="space-y-3">
+    <p class="text-muted-foreground text-center mb-10 text-sm">Everything you need to know about smartly.sale and shopping on Shopee Philippines</p>
+    <div class="space-y-4">
       {homeFaqs.map((faq, i) => (
         <details class="group bg-card border border-border rounded-xl overflow-hidden" open={i === 0}>
-          <summary class="flex items-center justify-between gap-4 px-6 py-4 cursor-pointer font-semibold text-foreground hover:text-brand transition-colors list-none">
-            <span>{faq.q}</span>
-            <span class="text-brand text-xl shrink-0 transition-transform group-open:rotate-45">+</span>
+          <summary class="flex items-center px-6 py-5 cursor-pointer font-semibold text-foreground hover:text-brand transition-colors list-none">
+            <span class="flex-1">{faq.q}</span>
+            <span class="text-brand text-xl shrink-0 ml-6 transition-transform group-open:rotate-45">+</span>
           </summary>
-          <div class="px-6 pb-5 text-muted-foreground leading-relaxed text-sm border-t border-border pt-4">
+          <div class="px-6 pb-6 text-muted-foreground leading-relaxed text-sm border-t border-border pt-4">
             {faq.a}
           </div>
         </details>
@@ -222,6 +218,55 @@ keywords={pageKeywords}
     </div>
     <div class="text-center mt-8">
       <a href="/faq" class="text-brand hover:underline text-sm font-medium">See all FAQs →</a>
+    </div>
+  </div>
+</section>
+
+<!-- Popular Guides — internal links for topical authority + crawl depth reduction -->
+<section class="py-14 bg-card border-t border-border">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-bold text-foreground text-center mb-3">Popular Guides & Resources</h2>
+    <p class="text-sm text-muted-foreground text-center mb-10">Expert guides updated for 2026 — trusted by thousands of Filipino shoppers</p>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {[
+        { href: '/blog/shopee-6-6-mid-year-sale-2026-best-deals-guide', title: 'Shopee 6.6 Mid-Year Sale Guide', desc: 'Best deals, voucher codes & flash sale schedules for June 2026' },
+        { href: '/blog/best-budget-phones-under-5000-shopee-philippines-2026', title: 'Best Phones Under PHP 5,000', desc: 'Top 5 budget smartphones compared — Xiaomi, realme, Samsung' },
+        { href: '/shopee-sales-2026', title: 'Shopee Sales Calendar 2026', desc: 'Complete schedule of every Shopee sale event this year' },
+        { href: '/earn-gcash', title: 'Earn GCash Online Free', desc: 'Verified reward offers — libreng sumali, walang bayad' },
+        { href: '/free-gift-cards-philippines', title: 'Free Gift Cards PH', desc: 'Win Visa, GCash & more gift cards online — updated daily' },
+        { href: '/tools/discount-calculator', title: 'Discount Calculator', desc: 'Calculate your final price after Shopee vouchers & discounts' },
+      ].map(({ href, title, desc }) => (
+        <a href={href} class="group flex flex-col gap-2 p-5 bg-muted/30 border border-border rounded-xl hover:border-brand hover:shadow-sm transition-all">
+          <span class="text-sm font-semibold text-foreground group-hover:text-brand transition-colors">{title}</span>
+          <span class="text-sm text-muted-foreground leading-relaxed">{desc}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Deals by Budget — programmatic SEO internal links -->
+<section class="py-14 bg-muted/20 border-t border-border">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-bold text-foreground text-center mb-3">Shop by Budget</h2>
+    <p class="text-sm text-muted-foreground text-center mb-10">Find the best Shopee deals for every price range — updated daily</p>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+      {[
+        { href: '/deals/under-100',  label: 'Under PHP 100',   emoji: '🪙' },
+        { href: '/deals/under-200',  label: 'Under PHP 200',   emoji: '💰' },
+        { href: '/deals/under-500',  label: 'Under PHP 500',   emoji: '🔥' },
+        { href: '/deals/under-1000', label: 'Under PHP 1,000', emoji: '⭐' },
+        { href: '/deals/under-2000', label: 'Under PHP 2,000', emoji: '💎' },
+        { href: '/deals/under-5000', label: 'Under PHP 5,000', emoji: '🏆' },
+      ].map(({ href, label, emoji }) => (
+        <a href={href} class="flex flex-col items-center gap-2 p-4 bg-card border border-border rounded-xl hover:border-brand hover:shadow-md transition-all text-center group">
+          <span class="text-3xl">{emoji}</span>
+          <span class="text-sm font-semibold text-foreground group-hover:text-brand transition-colors">{label}</span>
+        </a>
+      ))}
+    </div>
+    <div class="text-center mt-5">
+      <a href="/deals" class="text-sm text-brand hover:underline font-medium">View all price ranges →</a>
     </div>
   </div>
 </section>

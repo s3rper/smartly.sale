@@ -4,6 +4,8 @@ import PostContent from '../../components/PostContent';
 import BlogCard from '../../components/BlogCard';
 import AdUnit from '../../components/AdUnit.astro';
 import RelatedOffers from '../../components/RelatedOffers.astro';
+import SocialShareButtons from '../../components/SocialShareButtons.astro';
+// import TelegramCTA from '../../components/TelegramCTA.astro';
 import { blogPosts, getRelatedPosts } from '../../lib/blog-data';
 import { baseUrl } from '../../lib/base-url';
 
@@ -11,7 +13,7 @@ const { slug } = Astro.params;
 const post = blogPosts.find(p => p.slug === slug);
 
 if (!post) {
-  return Astro.redirect('/404');
+  return new Response(null, { status: 404, statusText: 'Not Found' });
 }
 
 const relatedPosts = getRelatedPosts(post.id, post.category, 3);
@@ -23,6 +25,7 @@ const offersCategory: 'gaming' | 'earning' | 'deals' | 'shopping' =
   : cat.includes('deal') || cat.includes('budget') ? 'deals'
   : 'shopping';
 const fullUrl = `https://smartly.sale/blog/${post.slug}`;
+const canonicalUrl = fullUrl;
 
 function jsonLd(obj: unknown): string {
   return JSON.stringify(obj)
@@ -67,14 +70,15 @@ const breadcrumbSchema = {
   title={post.metaTitle}
   description={post.metaDescription}
   ogImage={post.featuredImage}
+  ogType="article"
+  canonicalUrl={canonicalUrl}
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={jsonLd(articleSchema)} />
     <script type="application/ld+json" set:html={jsonLd(breadcrumbSchema)} />
-    <meta name="keywords" content={post.keywords.join(', ')} />
     <meta name="author" content={post.author} />
-    <meta property="og:type" content="article" />
     <meta property="article:published_time" content={post.publishDate} />
+    <meta property="article:modified_time" content={new Date().toISOString().split('T')[0]} />
     <meta property="article:author" content={post.author} />
     <meta property="article:section" content={post.category} />
     {post.tags.map(tag => <meta property="article:tag" content={tag} />)}
@@ -107,6 +111,11 @@ const breadcrumbSchema = {
   <!-- Post content — client:load so article HTML is server-rendered (SEO + LCP) -->
   <PostContent client:load post={post} />
 
+  <!-- Social sharing buttons -->
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6 border-t border-border">
+    <SocialShareButtons url={fullUrl} title={post.title} description={post.metaDescription} image={post.featuredImage} />
+  </div>
+
   <!-- Ad unit after article, before related posts -->
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
     <AdUnit format="auto" />
@@ -122,7 +131,7 @@ const breadcrumbSchema = {
         <h2 class="text-2xl md:text-3xl font-bold text-foreground mb-8">You Might Also Like</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           {relatedPosts.map(relatedPost => (
-            <BlogCard post={relatedPost} client:load />
+            <BlogCard post={relatedPost} />
           ))}
         </div>
       </div>
