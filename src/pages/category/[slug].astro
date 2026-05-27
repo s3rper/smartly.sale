@@ -44,16 +44,6 @@ const breadcrumbSchema = {
   ]
 };
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": category.faqs.map(faq => ({
-    "@type": "Question",
-    "name": faq.q,
-    "acceptedAnswer": { "@type": "Answer", "text": faq.a }
-  }))
-};
-
 // ItemList schema for the products shown on this page
 const itemListSchema = products.length > 0 ? {
   "@context": "https://schema.org",
@@ -101,7 +91,6 @@ function jsonLd(obj: unknown): string {
   <Fragment slot="head">
     <script type="application/ld+json" set:html={jsonLd(collectionPageSchema)} />
     <script type="application/ld+json" set:html={jsonLd(breadcrumbSchema)} />
-    <script type="application/ld+json" set:html={jsonLd(faqSchema)} />
     {itemListSchema && <script type="application/ld+json" set:html={jsonLd(itemListSchema)} />}
   </Fragment>
 
@@ -265,9 +254,9 @@ function jsonLd(obj: unknown): string {
             class="group bg-card border border-border rounded-xl overflow-hidden"
             open={i === 0}
           >
-            <summary class="flex items-center justify-between gap-4 px-6 py-4 cursor-pointer font-semibold text-foreground hover:text-brand transition-colors list-none">
-              <span>{faq.q}</span>
-              <span class="text-brand text-xl shrink-0 transition-transform group-open:rotate-45">+</span>
+            <summary class="flex items-center px-6 py-4 cursor-pointer font-semibold text-foreground hover:text-brand transition-colors list-none">
+              <span class="flex-1">{faq.q}</span>
+              <span class="text-brand text-xl shrink-0 ml-6 transition-transform group-open:rotate-45">+</span>
             </summary>
             <div class="px-6 pb-5 text-muted-foreground leading-relaxed text-sm border-t border-border pt-4">
               {faq.a}

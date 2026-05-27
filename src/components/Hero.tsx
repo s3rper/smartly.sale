@@ -156,7 +156,7 @@ const Hero: React.FC = () => {
             <span style={{ color: '#FF7A33' }}>Shopee Finds</span>
           </h1>
 
-          {/* Subheadline */}
+          {/* Subheadline — visible immediately for LCP, transform-only entrance */}
           <p
             className="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed"
             style={{ color: 'rgba(255,255,255,0.62)', ...entranceSolid(300) }}

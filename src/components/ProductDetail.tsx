@@ -395,7 +395,7 @@ const ProductDetail: React.FC<Props> = ({ initialProduct }) => {
                   <a
                     href={product.affiliateLink}
                     target="_blank"
-                    rel="noopener noreferrer nofollow"
+                    rel="noopener noreferrer sponsored"
                     className="flex items-center justify-center w-full bg-brand text-white font-bold py-4 rounded-full hover:bg-brand/90 transition-all shadow-lg hover:shadow-xl text-lg"
                     onClick={() => {
                       if (typeof (window as any).fbq === 'function') {

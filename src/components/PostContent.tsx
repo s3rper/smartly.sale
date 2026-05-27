@@ -71,6 +71,8 @@ const PostContent: React.FC<{ post: Post }> = ({ post }) => {
           <img
             src={post.featuredImage}
             alt={post.featuredImageAlt || post.title}
+            width={1200}
+            height={514}
             className="absolute inset-0 w-full h-full object-cover"
             fetchPriority="high"
             decoding="async"
@@ -130,15 +132,18 @@ const PostContent: React.FC<{ post: Post }> = ({ post }) => {
           </div>
         </div>
 
-        {/* ── Excerpt ── */}
+        {/* ── Excerpt / TL;DR summary — optimized for AI Overviews via data-speakable ── */}
         {post.excerpt && (
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
-            <p
-              className="text-lg md:text-xl text-muted-foreground leading-relaxed border-l-4 pl-5 italic"
-              style={{ borderColor: '#f97316' }}
+            <div
+              data-speakable=""
+              className="rounded-xl border border-orange-200 bg-orange-50/50 p-5"
             >
-              {post.excerpt}
-            </p>
+              <p className="text-xs font-bold uppercase tracking-wider text-orange-600 mb-2">TL;DR</p>
+              <p className="text-base md:text-lg text-foreground leading-relaxed">
+                {post.excerpt}
+              </p>
+            </div>
           </div>
         )}
 
@@ -177,9 +182,9 @@ const PostContent: React.FC<{ post: Post }> = ({ post }) => {
                     key={i}
                     className="group rounded-xl border border-border overflow-hidden"
                   >
-                    <summary className="flex items-center justify-between gap-4 px-5 py-4 cursor-pointer font-semibold text-foreground hover:bg-muted transition-colors list-none">
-                      <span>{faq.q}</span>
-                      <ChevronUp className="w-4 h-4 text-muted-foreground flex-shrink-0 rotate-180 group-open:rotate-0 transition-transform duration-200" />
+                    <summary className="flex items-center px-5 py-4 cursor-pointer font-semibold text-foreground hover:bg-muted transition-colors list-none">
+                      <span className="flex-1">{faq.q}</span>
+                      <ChevronUp className="w-4 h-4 text-muted-foreground flex-shrink-0 ml-6 rotate-180 group-open:rotate-0 transition-transform duration-200" />
                     </summary>
                     <div className="px-5 pb-4 pt-1 text-muted-foreground leading-relaxed border-t border-border bg-muted/30">
                       {faq.a}

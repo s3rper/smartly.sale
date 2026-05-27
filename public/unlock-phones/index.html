@@ -715,5 +715,35 @@ var d = new Date();
 -webkit-appearance: none;
 }
 </style>
+<script>
+(function () {
+  // Hero form — redirect to unlock.html with IMEI + email as query params
+  var heroForm = document.getElementById('wf-form-Hero-Form');
+  if (heroForm) {
+    heroForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      var imei  = heroForm.querySelector('[name="IMEI"]');
+      var email = heroForm.querySelector('[name="Email-3"]');
+      var params = new URLSearchParams();
+      if (imei  && imei.value.trim())  params.set('imei',  imei.value.trim());
+      if (email && email.value.trim()) params.set('email', email.value.trim());
+      window.location.href = 'unlock.html?' + params.toString();
+    }, true);
+  }
+
+  // Contact / footer form — show success message, hide form
+  var footerForm = document.getElementById('wf-form-Footer-Form');
+  if (footerForm) {
+    footerForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      footerForm.style.display = 'none';
+      var successEl = footerForm.closest('.w-form').querySelector('.w-form-done');
+      if (successEl) successEl.style.display = 'block';
+    }, true);
+  }
+})();
+</script>
 </body>
 </html>

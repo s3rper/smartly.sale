@@ -29,55 +29,38 @@ const articleSchema = {
   "inLanguage": "en-PH"
 };
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "When is the biggest Shopee sale in 2026?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The 11.11 (November 11) Shopee Super Sale is historically the biggest Shopee Philippines sale of the year, featuring the deepest discounts site-wide, plus brand vouchers, flash sales, and exclusive bundles. The 12.12 Year-End Sale in December is a close second. Both events typically run for several days around the date."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What are the Shopee Double Day sale dates in 2026?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Shopee Double Day sale dates in 2026 are: 1.1 (January 1), 2.2 (February 2), 3.3 (March 3), 4.4 (April 4), 5.5 (May 5), 6.6 (June 6), 7.7 (July 7), 8.8 (August 8), 9.9 (September 9), 10.10 (October 10), 11.11 (November 11 — biggest of the year), and 12.12 (December 12 — Year-End Sale)."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "When are the Shopee Payday Sales in 2026?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Shopee Philippines holds Payday Sales twice a month — typically around the 15th and the last day of each month. These coincide with Philippine payroll cycles (semi-monthly pay). Look for Shopee Payday vouchers in the Voucher section of the app a few days before each event."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do I prepare for Shopee sales to get the best deals?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "To maximise savings on Shopee sale events: (1) Add items to your cart beforehand — prices sometimes drop at midnight on sale day. (2) Collect vouchers in advance via the Shopee Voucher section. (3) Set price alerts using the heart/wishlist feature. (4) Check Flash Sale timings — 12AM, 12PM, and 6PM are common Shopee flash sale windows. (5) Use ShopeePay or ShopeePay Later for additional cashback. (6) Compare the 'original price' shown — some listings inflate original prices before sales."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Does Shopee Philippines have a mid-year sale in 2026?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, Shopee Philippines typically holds a Mid-Year Sale in June, anchored around the 6.6 Double Day Sale. The mid-year event usually spans several days and includes category-specific deals on fashion, electronics, and home products — comparable in scale to the 9.9 Super Shopping Day."
-      }
+const faqItems = [
+  {
+    name: "When is the biggest Shopee sale in 2026?",
+    acceptedAnswer: {
+      text: "The 11.11 (November 11) Shopee Super Sale is historically the biggest Shopee Philippines sale of the year, featuring the deepest discounts site-wide, plus brand vouchers, flash sales, and exclusive bundles. The 12.12 Year-End Sale in December is a close second. Both events typically run for several days around the date."
     }
-  ]
-};
-
-// Pre-extract FAQ items for template rendering (avoids TS type annotations in JSX)
-const faqItems = faqSchema.mainEntity as Array<{ name: string; acceptedAnswer: { text: string } }>;
+  },
+  {
+    name: "What are the Shopee Double Day sale dates in 2026?",
+    acceptedAnswer: {
+      text: "Shopee Double Day sale dates in 2026 are: 1.1 (January 1), 2.2 (February 2), 3.3 (March 3), 4.4 (April 4), 5.5 (May 5), 6.6 (June 6), 7.7 (July 7), 8.8 (August 8), 9.9 (September 9), 10.10 (October 10), 11.11 (November 11 — biggest of the year), and 12.12 (December 12 — Year-End Sale)."
+    }
+  },
+  {
+    name: "When are the Shopee Payday Sales in 2026?",
+    acceptedAnswer: {
+      text: "Shopee Philippines holds Payday Sales twice a month — typically around the 15th and the last day of each month. These coincide with Philippine payroll cycles (semi-monthly pay). Look for Shopee Payday vouchers in the Voucher section of the app a few days before each event."
+    }
+  },
+  {
+    name: "How do I prepare for Shopee sales to get the best deals?",
+    acceptedAnswer: {
+      text: "To maximise savings on Shopee sale events: (1) Add items to your cart beforehand — prices sometimes drop at midnight on sale day. (2) Collect vouchers in advance via the Shopee Voucher section. (3) Set price alerts using the heart/wishlist feature. (4) Check Flash Sale timings — 12AM, 12PM, and 6PM are common Shopee flash sale windows. (5) Use ShopeePay or ShopeePay Later for additional cashback. (6) Compare the 'original price' shown — some listings inflate original prices before sales."
+    }
+  },
+  {
+    name: "Does Shopee Philippines have a mid-year sale in 2026?",
+    acceptedAnswer: {
+      text: "Yes, Shopee Philippines typically holds a Mid-Year Sale in June, anchored around the 6.6 Double Day Sale. The mid-year event usually spans several days and includes category-specific deals on fashion, electronics, and home products — comparable in scale to the 9.9 Super Shopping Day."
+    }
+  }
+];
 
 const breadcrumbSchema = {
   "@context": "https://schema.org",
@@ -223,7 +206,6 @@ const typeBadge: Record<BadgeType, { label: string; class: string }> = {
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   </Fragment>
 
@@ -338,9 +320,9 @@ const typeBadge: Record<BadgeType, { label: string; class: string }> = {
       <div class="space-y-3">
         {faqItems.map((item, i) => (
           <details class="group bg-card border border-border rounded-xl overflow-hidden" open={i === 0}>
-            <summary class="flex items-center justify-between gap-4 px-6 py-4 cursor-pointer font-semibold text-foreground hover:text-brand transition-colors list-none">
-              <span>{item.name}</span>
-              <span class="text-brand text-xl shrink-0 transition-transform group-open:rotate-45">+</span>
+            <summary class="flex items-center px-6 py-4 cursor-pointer font-semibold text-foreground hover:text-brand transition-colors list-none">
+              <span class="flex-1">{item.name}</span>
+              <span class="text-brand text-xl shrink-0 ml-6 transition-transform group-open:rotate-45">+</span>
             </summary>
             <div class="px-6 pb-5 text-muted-foreground leading-relaxed text-sm border-t border-border pt-4">
               {item.acceptedAnswer.text}

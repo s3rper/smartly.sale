@@ -71,37 +71,6 @@ const breadcrumbSchema = {
   ]
 };
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Are there real ways to get free DeviantArt Points?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Yes — through community gifting, entering DeviantArt contests, offering art commissions priced in Points, selling adoptables, and using Microsoft Rewards to fund Point purchases indirectly." }
-    },
-    {
-      "@type": "Question",
-      "name": "Is there a real DeviantArt Points Generator?",
-      "acceptedAnswer": { "@type": "Answer", "text": "There is no legitimate third-party DeviantArt Points Generator. DeviantArt Points are server-side and cannot be added by external tools. Safe alternatives include community earning methods, commissions, contests, and reward apps." }
-    },
-    {
-      "@type": "Question",
-      "name": "How much do DeviantArt Points cost?",
-      "acceptedAnswer": { "@type": "Answer", "text": "DeviantArt Points are sold at approximately 800 Points per $1 USD through the official DeviantArt store. Core Membership subscribers sometimes receive monthly Point bonuses on top of their subscription." }
-    },
-    {
-      "@type": "Question",
-      "name": "What can you buy with DeviantArt Points?",
-      "acceptedAnswer": { "@type": "Answer", "text": "DeviantArt Points can be used to purchase art commissions from other artists, buy adoptable characters, tip artists, subscribe to Core Membership, and buy premium content in the DeviantArt marketplace." }
-    },
-    {
-      "@type": "Question",
-      "name": "Can you convert DeviantArt Points to real money?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Yes — DeviantArt Core Members can convert accumulated Points to real cash through DeviantArt's withdrawal system. The conversion rate varies, but it is an official and supported feature for creators." }
-    },
-  ]
-};
 ---
 
 <MainLayout
@@ -113,7 +82,6 @@ const faqSchema = {
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
     <script is:inline type="text/javascript">
     var dTjCL_Hpw_iXJztc = { it: 1429784, key: "8bce4" };
     </script>

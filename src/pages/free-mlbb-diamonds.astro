@@ -62,16 +62,6 @@ const breadcrumbSchema = {
   ]
 };
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    { "@type": "Question", "name": "Are there legit ways to get free MLBB Diamonds?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — through daily login bonuses, seasonal events, ranked rewards, and reward platforms that pay out GCash which can be converted into a Diamond top-up." } },
-    { "@type": "Question", "name": "Are third-party diamond sites safe?", "acceptedAnswer": { "@type": "Answer", "text": "Not all of them. Many are scams. The safest methods are official Moonton events and legitimate reward platforms that pay GCash — they never ask for your account credentials." } },
-    { "@type": "Question", "name": "How much does 1 MLBB Diamond cost?", "acceptedAnswer": { "@type": "Answer", "text": "Approximately PHP 0.80 to PHP 1.00 per Diamond when topping up on the official platform. 257 Diamonds costs around PHP 250." } },
-    { "@type": "Question", "name": "How do I top up MLBB with GCash?", "acceptedAnswer": { "@type": "Answer", "text": "Go to the official Moonton website or Codashop.com → select MLBB → enter your Game ID → choose the diamond amount → pay with GCash." } },
-  ]
-};
 ---
 
 <MainLayout
@@ -83,7 +73,6 @@ const faqSchema = {
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   </Fragment>
 
   <!-- ── Hero ──────────────────────────────────────────────────────────────── -->

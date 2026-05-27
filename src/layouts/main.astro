@@ -1,27 +1,28 @@
 ---
 import '../site-components/global.css';
 import '../styles/global.css';
-import Navbar from '../components/Navbar';
+import NavbarStatic from '../components/NavbarStatic.astro';
 import Footer from '../components/Footer';
+// import TelegramCTA from '../components/TelegramCTA.astro';
 
 interface Props {
 title?: string;
 description?: string;
 ogImage?: string;
+ogType?: string;
 pageClass?: string;
 viewport?: string;
-keywords?: string;
 canonicalUrl?: string;
 noindex?: boolean;
 }
 
 const {
-title = 'smartly.sale - Best Shopee Deals & Viral Products Philippines 2025',
+title = 'smartly.sale - Best Shopee Deals & Viral Products Philippines 2026',
 description = 'Discover trending Shopee products, viral finds, budget gadgets, and exclusive deals in the Philippines. Smart shopping made easy with curated reviews and affiliate links.',
 ogImage = 'https://smartly.sale/og-image.jpg',
+ogType = 'website',
 pageClass = '',
 viewport = 'width=device-width, initial-scale=1.0',
-keywords,
 canonicalUrl,
 noindex = false,
 } = Astro.props;
@@ -29,7 +30,7 @@ noindex = false,
 const resolvedCanonical = canonicalUrl ?? `https://smartly.sale${Astro.url.pathname}`;
 ---
 
-<html lang="en-PH" class={pageClass}>
+<html lang="en-PH" dir="ltr" class={pageClass}>
 <head>
 <meta charset="utf-8" />
 <!-- dataLayer queue init — must be first so deferred GTM picks up early pushes -->
@@ -85,24 +86,29 @@ src="https://www.facebook.com/tr?id=849998290917290&ev=PageView&noscript=1"
 /></noscript>
 
 <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json" />
+<link rel="apple-touch-icon" href="/og-image.jpg" />
+<link rel="alternate" type="application/rss+xml" title="smartly.sale RSS Feed" href="/feed.xml" />
 <meta name="viewport" content={viewport} />
 <meta name="generator" content={Astro.generator} />
+<meta name="theme-color" content="#C24F00" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+<meta http-equiv="X-Content-Type-Options" content="nosniff" />
 
 <!-- SEO Meta Tags -->
 <title>{title}</title>
-{noindex && <meta name="robots" content="noindex, nofollow" />}
+{noindex ? <meta name="robots" content="noindex, nofollow" /> : <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />}
 <meta name="description" content={description} />
-<meta name="keywords" content={keywords ?? "Shopee Philippines, viral products, budget gadgets, trending deals, affiliate shopping, smartly.sale, Shopee finds, best Shopee products, Philippine online shopping, Shopee reviews"} />
 
 <!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
+<meta property="og:type" content={ogType} />
 <meta property="og:url" content={resolvedCanonical} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={ogImage} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="smartly.sale - Best Shopee Deals & Viral Products Philippines" />
+<meta property="og:image:alt" content={title} />
 <meta property="og:site_name" content="smartly.sale" />
 <meta property="og:locale" content="en_PH" />
 
@@ -112,16 +118,19 @@ src="https://www.facebook.com/tr?id=849998290917290&ev=PageView&noscript=1"
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
-<meta name="twitter:image:alt" content="smartly.sale - Best Shopee Deals & Viral Products Philippines" />
+<meta name="twitter:image:alt" content={title} />
+
+<!-- Additional SEO signals -->
+<meta name="geo.region" content="PH" />
+<meta name="geo.placename" content="Philippines" />
+<meta name="ICBM" content="14.5995, 120.9842" />
+<meta name="rating" content="general" />
 
 <!-- Performance Optimization -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="preconnect" href="https://buttons-config.sharethis.com" crossorigin />
-<!-- platform-cdn.sharethis.com serves images (no crossorigin) — fixed to avoid duplicate connections -->
-<link rel="preconnect" href="https://platform-cdn.sharethis.com" />
-<link rel="dns-prefetch" href="https://l.sharethis.com" />
-<link rel="dns-prefetch" href="https://count-server.sharethis.com" />
+<!-- ShareThis — dns-prefetch only (deferred, not critical path) -->
+<link rel="dns-prefetch" href="https://platform-api.sharethis.com" />
 <!-- cf.shopee.ph is the actual product image CDN — preconnect (not just dns-prefetch) saves ~100-300ms -->
 <link rel="preconnect" href="https://cf.shopee.ph" crossorigin />
 <link rel="dns-prefetch" href="https://shopee.ph" />
@@ -129,12 +138,18 @@ src="https://www.facebook.com/tr?id=849998290917290&ev=PageView&noscript=1"
 <link rel="dns-prefetch" href="https://connect.facebook.net" />
 <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin />
 <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-<!-- Non-blocking load for critical fonts (Inter + Poppins) — runs parallel to CSS bundle -->
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" as="style" crossorigin onload="this.onload=null;this.rel='stylesheet'" />
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" /></noscript>
+<!-- Preload the hero headline font (Inter 700) to speed up LCP text rendering -->
+<link rel="preload" href="https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZ9hiA.woff2" as="font" type="font/woff2" crossorigin />
+<!-- Non-blocking load for Google Fonts CSS — subset to actually used weights -->
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" as="style" crossorigin onload="this.onload=null;this.rel='stylesheet'" />
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" /></noscript>
 
 <!-- Canonical URL -->
 <link rel="canonical" href={resolvedCanonical} />
+
+<!-- Hreflang — single-language site, self-referencing + x-default for AI/search engines -->
+<link rel="alternate" hreflang="en-PH" href={resolvedCanonical} />
+<link rel="alternate" hreflang="x-default" href={resolvedCanonical} />
 
 <!-- OneSignal Web Push — only initialises when app ID is configured -->
 {import.meta.env.PUBLIC_ONESIGNAL_APP_ID && (
@@ -210,9 +225,14 @@ src="https://www.facebook.com/tr?id=849998290917290&ev=PageView&noscript=1"
   "@type": "Organization",
   "name": "smartly.sale",
   "url": "https://smartly.sale",
-  "logo": "https://smartly.sale/og-image.jpg",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://smartly.sale/og-image.jpg",
+    "width": 1200,
+    "height": 630
+  },
   "description": "Discover trending Shopee products, viral finds, and budget gadgets in the Philippines.",
-  "areaServed": "PH",
+  "areaServed": { "@type": "Country", "name": "PH" },
   "knowsLanguage": ["en-PH", "fil"],
   "sameAs": [
     "https://www.facebook.com/smartlysale",
@@ -226,21 +246,41 @@ src="https://www.facebook.com/tr?id=849998290917290&ev=PageView&noscript=1"
   }
 })} />
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-BWPR8CV7BR"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+<!-- Speakable — helps AI Overviews & voice assistants identify citable content -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": title,
+  "url": resolvedCanonical,
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": ["h1", "h2", "[data-speakable]", "meta[name='description']"]
+  }
+})} />
 
-  gtag('config', 'G-BWPR8CV7BR');
-</script>
+<!-- SiteNavigationElement — helps Google generate sitelinks -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "SiteNavigationElement",
+  "name": ["Products", "Blog", "Earn GCash", "Categories", "Best Deals", "Tools"],
+  "url": [
+    "https://smartly.sale/products",
+    "https://smartly.sale/blog",
+    "https://smartly.sale/earn-gcash",
+    "https://smartly.sale/categories",
+    "https://smartly.sale/best-deals",
+    "https://smartly.sale/tools"
+  ]
+})} />
 
 </head>
 <body class="min-h-screen flex flex-col">
+<!-- Skip to main content — accessibility -->
+<a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-brand focus:text-white focus:rounded-lg focus:text-sm focus:font-bold">Skip to main content</a>
+
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PXRK86GQ"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
 <!-- Scroll progress bar -->
@@ -257,9 +297,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 })();
 </script>
 
-<Navbar client:load />
+<NavbarStatic />
 
-<main class="flex-grow">
+<main id="main-content" class="flex-grow">
 <slot />
 </main>
 

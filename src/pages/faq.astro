@@ -60,23 +60,6 @@ const shoppingFaqs = [
   },
 ];
 
-// Build combined schema from all category FAQs + sitewide FAQs
-const allSchemaFaqs = [
-  ...sitewideFaqs,
-  ...shoppingFaqs,
-  ...CATEGORIES.flatMap(c => c.faqs),
-];
-
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": allSchemaFaqs.map(faq => ({
-    "@type": "Question",
-    "name": faq.q,
-    "acceptedAnswer": { "@type": "Answer", "text": faq.a }
-  }))
-};
-
 const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
@@ -94,7 +77,6 @@ const breadcrumbSchema = {
   keywords="Shopee Philippines FAQ, online shopping Philippines questions, Shopee buyer tips, Shopee returns Philippines, Shopee vouchers Philippines"
 >
   <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   </Fragment>
 
@@ -129,9 +111,9 @@ const breadcrumbSchema = {
       <div class="space-y-3">
         {sitewideFaqs.map((faq, i) => (
           <details class="group bg-card border border-border rounded-xl overflow-hidden" open={i === 0}>
-            <summary class="flex items-center justify-between gap-4 px-6 py-4 cursor-pointer font-semibold text-foreground hover:text-brand transition-colors list-none">
-              <span>{faq.q}</span>
-              <span class="text-brand text-xl shrink-0 transition-transform group-open:rotate-45">+</span>
+            <summary class="flex items-center px-6 py-4 cursor-pointer font-semibold text-foreground hover:text-brand transition-colors list-none">
+              <span class="flex-1">{faq.q}</span>
+              <span class="text-brand text-xl shrink-0 ml-6 transition-transform group-open:rotate-45">+</span>
             </summary>
             <div class="px-6 pb-5 text-muted-foreground leading-relaxed text-sm border-t border-border pt-4">
               {faq.a}
@@ -147,9 +129,9 @@ const breadcrumbSchema = {
       <div class="space-y-3">
         {shoppingFaqs.map(faq => (
           <details class="group bg-card border border-border rounded-xl overflow-hidden">
-            <summary class="flex items-center justify-between gap-4 px-6 py-4 cursor-pointer font-semibold text-foreground hover:text-brand transition-colors list-none">
-              <span>{faq.q}</span>
-              <span class="text-brand text-xl shrink-0 transition-transform group-open:rotate-45">+</span>
+            <summary class="flex items-center px-6 py-4 cursor-pointer font-semibold text-foreground hover:text-brand transition-colors list-none">
+              <span class="flex-1">{faq.q}</span>
+              <span class="text-brand text-xl shrink-0 ml-6 transition-transform group-open:rotate-45">+</span>
             </summary>
             <div class="px-6 pb-5 text-muted-foreground leading-relaxed text-sm border-t border-border pt-4">
               {faq.a}

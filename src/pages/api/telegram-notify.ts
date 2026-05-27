@@ -20,9 +20,6 @@ export const GET: APIRoute = async ({ request, locals }) => {
 
   const botToken   = runtimeEnv?.TELEGRAM_BOT_TOKEN   ?? import.meta.env.TELEGRAM_BOT_TOKEN   ?? process.env.TELEGRAM_BOT_TOKEN   ?? '';
   const channelId  = runtimeEnv?.TELEGRAM_CHANNEL_ID  ?? import.meta.env.TELEGRAM_CHANNEL_ID  ?? process.env.TELEGRAM_CHANNEL_ID  ?? '';
-  const userId     = runtimeEnv?.CPABUILD_USER_ID      ?? import.meta.env.CPABUILD_USER_ID      ?? process.env.CPABUILD_USER_ID      ?? '48201';
-  const apiKey     = runtimeEnv?.CPABUILD_API_KEY      ?? import.meta.env.CPABUILD_API_KEY      ?? process.env.CPABUILD_API_KEY      ?? '';
-
   if (!botToken || !channelId) {
     return new Response(JSON.stringify({ error: 'TELEGRAM_BOT_TOKEN and TELEGRAM_CHANNEL_ID are required' }), {
       status: 500,
@@ -30,19 +27,18 @@ export const GET: APIRoute = async ({ request, locals }) => {
     });
   }
 
-  // ── Fetch CPABuild offers ─────────────────────────────────────────────────
-  let offers: Array<{ name?: string; anchor?: string; url?: string; payout?: string; user_payout?: string; network_icon?: string }> = [];
+  // ── Fetch CPAGrip offers ──────────────────────────────────────────────────
+  let offers: Array<{ name?: string; short_description?: string; link?: string; payout?: string }> = [];
   try {
-    const feedUrl = new URL('https://d2dzcaq3bhqk1m.cloudfront.net/public/offers/feed.php');
-    feedUrl.searchParams.set('user_id', userId);
-    feedUrl.searchParams.set('api_key', apiKey);
-    feedUrl.searchParams.set('s1', 'telegram');
-    feedUrl.searchParams.set('s2', 'daily-bot');
+    const feedUrl = new URL('https://www.cpagrip.com/common/offer_feed_json.php');
+    feedUrl.searchParams.set('user_id', '1392970');
+    feedUrl.searchParams.set('pubkey', 'a5202038591dd63f9d0dc5e21ca96ecb');
+    feedUrl.searchParams.set('tracking_id', 'telegram');
 
     const res  = await fetch(feedUrl.toString(), { signal: AbortSignal.timeout(8_000) });
     const text = await res.text();
     const raw  = JSON.parse(text.trim());
-    offers     = Array.isArray(raw) ? raw : (raw.offers ?? raw.data ?? []);
+    offers     = Array.isArray(raw) ? raw : [];
   } catch (err) {
     console.error('[telegram-notify] feed error:', err);
     return new Response(JSON.stringify({ error: 'Failed to fetch offers' }), { status: 500, headers: { 'Content-Type': 'application/json' } });
@@ -58,8 +54,8 @@ export const GET: APIRoute = async ({ request, locals }) => {
   const today = new Date().toLocaleDateString('en-PH', { weekday: 'long', month: 'long', day: 'numeric', timeZone: 'Asia/Manila' });
 
   const offerLines = offers.slice(0, 6).map(o => {
-    const name   = o.anchor ?? o.name ?? 'Exclusive Prize';
-    const payout = parseFloat(String(o.user_payout ?? o.payout ?? '0'));
+    const name   = o.short_description ?? o.name ?? 'Exclusive Prize';
+    const payout = parseFloat(String(o.payout ?? '0'));
     return `🎁 <b>${escapeHtml(name)}</b>\n💰 Advertiser payout: $${payout.toFixed(2)}\n👉 <a href="https://smartly.sale/online-contests-philippines">Claim Entry — Libre!</a>`;
   }).join('\n\n');
 

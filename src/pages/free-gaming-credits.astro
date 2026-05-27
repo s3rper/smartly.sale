@@ -68,16 +68,6 @@ const breadcrumbSchema = {
   ]
 };
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    { "@type": "Question", "name": "How can I get free gaming credits in the Philippines?", "acceptedAnswer": { "@type": "Answer", "text": "The most effective method is to earn GCash through online reward programs and then use GCash to top up your game. You can also get credits through in-game events and redeem codes." } },
-    { "@type": "Question", "name": "Which game is easiest to get free credits for?", "acceptedAnswer": { "@type": "Answer", "text": "Mobile Legends has the longest and most generous events for free rewards in the Philippines. Free Fire is a close second due to their regular redeem code releases." } },
-    { "@type": "Question", "name": "Can I use GCash for game top-ups?", "acceptedAnswer": { "@type": "Answer", "text": "Yes! GCash is accepted by Codashop, UniPin, Seagm, and official game stores. Earn GCash through reward programs and use it to top up any game." } },
-    { "@type": "Question", "name": "Are reward programs safe for gaming credits?", "acceptedAnswer": { "@type": "Answer", "text": "Legitimate reward programs will never ask for your game account credentials — only your email and basic information. All offers on this page come from verified advertiser networks." } },
-  ]
-};
 ---
 
 <MainLayout
@@ -89,7 +79,6 @@ const faqSchema = {
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(collectionSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   </Fragment>
 
   <!-- ── Hero ──────────────────────────────────────────────────────────────── -->

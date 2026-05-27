@@ -12,23 +12,17 @@ const today           = new Date().toISOString().split('T')[0];
 // ── SSR pre-fetch ─────────────────────────────────────────────────────────────
 let initialOffers: unknown[] = [];
 try {
-  const runtimeEnv = (Astro.locals as any)?.runtime?.env;
-  const userId = runtimeEnv?.CPABUILD_USER_ID ?? import.meta.env.CPABUILD_USER_ID ?? process.env.CPABUILD_USER_ID ?? '48201';
-  const apiKey = runtimeEnv?.CPABUILD_API_KEY ?? import.meta.env.CPABUILD_API_KEY ?? process.env.CPABUILD_API_KEY ?? '';
-  if (apiKey) {
-    const clientIp = Astro.request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || '';
-    const feedUrl  = new URL('https://d2dzcaq3bhqk1m.cloudfront.net/public/offers/feed.php');
-    feedUrl.searchParams.set('user_id', userId);
-    feedUrl.searchParams.set('api_key', apiKey);
-    feedUrl.searchParams.set('s1', 'online-contests-ph');
-    feedUrl.searchParams.set('s2', 'organic');
-    const h: Record<string, string> = { 'Accept': 'application/json, */*' };
-    if (clientIp) h['X-Forwarded-For'] = clientIp;
-    const res = await fetch(feedUrl.toString(), { headers: h, signal: AbortSignal.timeout(8_000) });
-    if (res.ok) {
-      const raw = JSON.parse((await res.text()).trim());
-      initialOffers = Array.isArray(raw) ? raw : (raw.offers ?? raw.data ?? []);
-    }
+  const clientIp = Astro.request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || '';
+  const feedUrl  = new URL('https://www.cpagrip.com/common/offer_feed_json.php');
+  feedUrl.searchParams.set('user_id', '1392970');
+  feedUrl.searchParams.set('pubkey', 'a5202038591dd63f9d0dc5e21ca96ecb');
+  feedUrl.searchParams.set('tracking_id', 'online-contests-ph');
+  const h: Record<string, string> = { 'Accept': 'application/json, */*' };
+  if (clientIp) h['X-Forwarded-For'] = clientIp;
+  const res = await fetch(feedUrl.toString(), { headers: h, signal: AbortSignal.timeout(8_000) });
+  if (res.ok) {
+    const raw = JSON.parse((await res.text()).trim());
+    initialOffers = Array.isArray(raw) ? raw : [];
   }
 } catch { /* fallback */ }
 
@@ -51,33 +45,6 @@ const breadcrumbSchema = {
   ]
 };
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Saan makakakita ng legit na online contests sa Pilipinas?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Makakakita ka ng verified at active na contests sa page na ito. Lahat ng listings ay galing sa trusted advertiser networks na may proven track record ng pagbibigay ng tunay na premyo sa mga nanalo." }
-    },
-    {
-      "@type": "Question",
-      "name": "Paano malalaman kung legit ang isang online contest?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Ang legit na contest ay may malinaw na mechanics, walang required na bayad, may real na contact information ang organizer, at may transparent na selection process para sa winner." }
-    },
-    {
-      "@type": "Question",
-      "name": "Libre ba ang pagsali sa mga online contest dito?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Oo, libre ang lahat ng contests na nakalista dito. Hindi kailanman hihilingin ang bayad para sumali o para ma-claim ang premyo." }
-    },
-    {
-      "@type": "Question",
-      "name": "Gaano kadalas na nag-a-update ang listahan ng contests?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Ang mga available na contests ay awtomatikong nag-u-update batay sa iyong lokasyon. Ang CPABuild network na pinagkukunan ng mga offers ay nagdadagdag ng bagong campaigns araw-araw." }
-    }
-  ]
-};
-
 const prizeTypes = [
   { icon: '📱', label: 'Smartphones', desc: 'iPhone, Samsung, at iba pa' },
   { icon: '💳', label: 'Gift Cards',  desc: 'Visa, GCash, e-wallet' },
@@ -95,7 +62,7 @@ const prizeTypes = [
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(collectionSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <meta property="og:type" content="website" />
   </Fragment>
 
   <!-- ── Hero ──────────────────────────────────────────────────────────────── -->
@@ -139,10 +106,10 @@ const prizeTypes = [
   </nav>
 
   <!-- ── Offer Wall ─────────────────────────────────────────────────────────── -->
-  <div id="live-offers" class="max-w-3xl mx-auto px-4 pt-6 mb-2 scroll-mt-24">
-    <div class="rounded-2xl border border-purple-100 bg-purple-50 px-4 py-4 mb-4">
+  <div id="live-offers" class="max-w-3xl mx-auto px-4 pt-8 mb-4 scroll-mt-24">
+    <div class="rounded-2xl border border-purple-100 bg-purple-50 px-5 py-5 mb-5">
       <p class="text-sm font-bold text-purple-900">Fastest next step</p>
-      <p class="text-xs text-purple-700 mt-1">Kung giveaway at free-prize intent ang search mo, dito ka muna magsimula. Kapag walang bagay sa iyo, lipat sa broader reward hub sa <a href="/earn-gcash" class="font-semibold underline">Earn GCash Online</a>.</p>
+      <p class="text-sm text-purple-700 mt-1">Kung giveaway at free-prize intent ang search mo, dito ka muna magsimula. Kapag walang bagay sa iyo, lipat sa broader reward hub sa <a href="/earn-gcash" class="font-semibold underline">Earn GCash Online</a>.</p>
     </div>
     <div class="flex items-center gap-3 mb-1">
       <h2 class="text-lg font-bold text-gray-900">Live Contests Available Near You</h2>
@@ -151,7 +118,7 @@ const prizeTypes = [
         <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
       </span>
     </div>
-    <p class="text-sm text-gray-500 mb-4">Verified offers. I-claim ang iyong entry bago mapuno ang slots.</p>
+    <p class="text-sm text-gray-500 mb-5">Verified offers. I-claim ang iyong entry bago mapuno ang slots.</p>
   </div>
 
   <div class="max-w-3xl mx-auto px-4">
@@ -163,20 +130,20 @@ const prizeTypes = [
     />
   </div>
 
-  <section class="max-w-3xl mx-auto px-4 pt-5 pb-4">
+  <section class="max-w-3xl mx-auto px-4 pt-6 pb-5">
     <ShopeeAffiliateCTA keyword="trending gadgets philippines" label="While you're here: browse trending gadgets on Shopee" icon="🛍️" />
   </section>
 
   <!-- ── Content ───────────────────────────────────────────────────────────── -->
-  <article class="max-w-3xl mx-auto px-4 pb-6">
-    <h2 class="text-xl font-bold text-gray-900 mt-4 mb-3">Legit na Online Contests sa Pilipinas</h2>
-    <p class="text-gray-600 leading-relaxed mb-4">
+  <article class="max-w-3xl mx-auto px-4 pb-8">
+    <h2 class="text-xl font-bold text-gray-900 mt-8 mb-4">Legit na Online Contests sa Pilipinas</h2>
+    <p class="text-gray-600 leading-relaxed mb-5">
       Sa dami ng scam at fake giveaway sa internet, mahirap nang magtiwala. Pero ang totoo,
       marami pa ring <strong>legit na online contests at prize draws</strong> na available sa Pilipinas —
       kailangan lang malaman kung saan hahanapin. Ang mga companies at brands ay regular na nagbibigay ng
       mga premyo bilang bahagi ng kanilang <strong>marketing campaigns</strong>.
     </p>
-    <p class="text-gray-600 leading-relaxed mb-4">
+    <p class="text-gray-600 leading-relaxed mb-5">
       Ang mga offer na nakalista dito ay galing sa <strong>CPABuild</strong>, isang kilalang advertiser
       network na nagko-connect ng mga users sa legitimate na prize at reward programs worldwide.
       Lahat ng contests ay <strong>geo-targeted</strong> — ibig sabihin, relevant ang mga ito sa inyong
@@ -184,29 +151,83 @@ const prizeTypes = [
     </p>
 
     <!-- How to spot legit contests -->
-    <h2 class="text-xl font-bold text-gray-900 mb-4">Paano Matukoy ang Legit na Online Contest?</h2>
-    <div class="grid sm:grid-cols-2 gap-4 mb-6">
+    <h2 class="text-xl font-bold text-gray-900 mb-5">Paano Matukoy ang Legit na Online Contest?</h2>
+    <div class="grid sm:grid-cols-2 gap-5 mb-8">
       {[
         { icon: '✅', title: 'May Malinaw na Mechanics', body: 'Ang legit na contest ay may detalyadong mechanics — alam mo kung paano manalo at kailan ibibigay ang premyo.' },
         { icon: '✅', title: 'Libre Sumali', body: 'Walang bayad para sumali. Kung kailangan mong magbayad bago mo ma-claim ang premyo, iyon ay scam.' },
         { icon: '✅', title: 'May Real na Organizer', body: 'May malinaw na pangalan at contact information ang nagre-run ng contest.' },
         { icon: '✅', title: 'Transparent ang Winner Selection', body: 'Ang proseso ng pagpili ng winner ay malinaw at fair — random draw, first come first served, o batay sa criteria.' },
       ].map(({ icon, title, body }) => (
-        <div class="flex gap-3 p-4 bg-green-50 rounded-xl border border-green-100">
+        <div class="flex gap-3 p-5 bg-green-50 rounded-xl border border-green-100">
           <span class="text-lg flex-shrink-0">{icon}</span>
           <div>
             <h3 class="font-semibold text-gray-900 text-sm">{title}</h3>
-            <p class="text-xs text-gray-500 mt-0.5 leading-relaxed">{body}</p>
+            <p class="text-sm text-gray-500 mt-0.5 leading-relaxed">{body}</p>
           </div>
         </div>
       ))}
     </div>
   </article>
 
+  <!-- ── Types of Contests ─────────────────────────────────────────────────── -->
+  <section class="max-w-3xl mx-auto px-4 py-10">
+    <h2 class="text-xl font-bold text-gray-900 mb-5">Mga Uri ng Online Contests na Available sa Pilipinas</h2>
+    <div class="overflow-x-auto mb-5">
+      <table class="w-full text-sm border-collapse">
+        <thead>
+          <tr class="bg-gray-100 text-gray-700">
+            <th class="text-left px-4 py-3 rounded-tl-xl">Uri ng Contest</th>
+            <th class="text-left px-4 py-3">Premyo</th>
+            <th class="text-left px-4 py-3">Difficulty</th>
+            <th class="text-left px-4 py-3 rounded-tr-xl">Tsansa ng Panalo</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          {[
+            { type: 'Prize Draws / Raffle', prize: 'Smartphones, gift cards', diff: 'Madali', chance: 'Medium' },
+            { type: 'Survey Rewards', prize: 'GCash credits, e-wallet', diff: 'Madali', chance: 'Mataas' },
+            { type: 'Spin to Win', prize: 'Variable — gadgets, cash', diff: 'Madali', chance: 'Random' },
+            { type: 'Task Completion', prize: 'Fixed reward per task', diff: 'Medium', chance: 'Guaranteed' },
+          ].map(({ type, prize, diff, chance }) => (
+            <tr class="hover:bg-gray-50">
+              <td class="px-4 py-3 font-medium text-gray-800">{type}</td>
+              <td class="px-4 py-3 text-gray-600">{prize}</td>
+              <td class="px-4 py-3 text-purple-600 font-semibold">{diff}</td>
+              <td class="px-4 py-3 text-gray-500">{chance}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="text-sm text-gray-500">Tip: I-combine ang iba't ibang uri ng contest para ma-maximize ang iyong chances ng panalo at earnings.</p>
+  </section>
+
+  <!-- ── Maximize Entries Tips ─────────────────────────────────────────────── -->
+  <section class="max-w-3xl mx-auto px-4 pb-10">
+    <h2 class="text-xl font-bold text-gray-900 mb-5">Paano Mas Mapapataas ang Iyong Entries?</h2>
+    <div class="space-y-3">
+      {[
+        { icon: '📌', title: 'I-bookmark ang Page na Ito', body: 'Bagong contests ang available araw-araw. I-save ito para bumalik ka nang mabilis at hindi ka mapalampas.' },
+        { icon: '📱', title: 'Sumali sa Iba\'t Ibang Offers', body: 'Huwag mag-focus sa isa lang. Ang mga top earners ay sumasali sa 3-5 offers per session para ma-maximize ang tsansa.' },
+        { icon: '⏰', title: 'I-check Tuwing Umaga', body: 'Maraming fresh na offers ang nag-appear tuwing umaga. Mag-claim ng maaga bago mapuno ang slots.' },
+        { icon: '👥', title: 'I-share sa Friends', body: 'May mga contest na nagbibigay ng extra entries kapag nag-invite ka ng kaibigan — win-win para sa inyong dalawa.' },
+      ].map(({ icon, title, body }) => (
+        <div class="flex gap-3 p-5 bg-purple-50 rounded-xl border border-purple-100">
+          <span class="text-lg flex-shrink-0">{icon}</span>
+          <div>
+            <h3 class="font-semibold text-gray-900 text-sm">{title}</h3>
+            <p class="text-sm text-gray-500 mt-0.5 leading-relaxed">{body}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
   <!-- ── Scam Warning ───────────────────────────────────────────────────────── -->
   <section class="max-w-3xl mx-auto px-4 py-10">
     <div class="bg-red-50 border border-red-200 rounded-2xl p-6">
-      <h2 class="text-lg font-bold text-red-800 mb-3 flex items-center gap-2">
+      <h2 class="text-lg font-bold text-red-800 mb-4 flex items-center gap-2">
         <span>🚨</span> Paano Makilala ang mga Fake Giveaway
       </h2>
       <div class="space-y-3 text-sm text-red-700">
@@ -250,9 +271,9 @@ const prizeTypes = [
   <EmailCapturePopup client:idle source="online-contests-ph" />
 
   <!-- ── Internal Links ─────────────────────────────────────────────────────── -->
-  <section class="bg-gray-50 border-t border-gray-100 py-8 px-4">
+  <section class="bg-gray-50 border-t border-gray-100 py-10 px-4">
     <div class="max-w-3xl mx-auto">
-      <h2 class="text-sm font-bold text-gray-700 mb-4 uppercase tracking-wide">Explore More</h2>
+      <h2 class="text-sm font-bold text-gray-700 mb-5 uppercase tracking-wide">Explore More</h2>
       <div class="flex flex-wrap gap-3">
         {[
           { href: '/earn-gcash',                  label: '💰 Earn GCash Online' },

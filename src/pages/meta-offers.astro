@@ -2,12 +2,10 @@
 import Layout from '../layouts/main.astro';
 import CPAOffersWall from '../components/CPAOffersWall';
 
-// ── UTM → CPABuild sub-IDs ────────────────────────────────────────────────────
+// ── UTM → CPAGrip tracking_id ────────────────────────────────────────────────
 const utm_campaign = Astro.url.searchParams.get('utm_campaign') ?? '';
-const utm_content  = Astro.url.searchParams.get('utm_content')  ?? '';
 const utm_source   = Astro.url.searchParams.get('utm_source')   ?? '';
-const s1 = utm_campaign || utm_source;
-const s2 = utm_content;
+const trackingId   = utm_campaign || utm_source || 'meta-offers';
 
 // ── SSR: pre-fetch offers with the visitor's real IP ─────────────────────────
 // This prevents a loading flash on first paint — critical for paid ad traffic.
@@ -18,26 +16,18 @@ try {
     Astro.request.headers.get('x-real-ip') ||
     '';
 
-  const runtimeEnv = (Astro.locals as any)?.runtime?.env;
-  const userId = runtimeEnv?.CPABUILD_USER_ID ?? import.meta.env.CPABUILD_USER_ID ?? process.env.CPABUILD_USER_ID ?? '48201';
-  const apiKey = runtimeEnv?.CPABUILD_API_KEY ?? import.meta.env.CPABUILD_API_KEY ?? process.env.CPABUILD_API_KEY ?? '';
+  const feedUrl = new URL('https://www.cpagrip.com/common/offer_feed_json.php');
+  feedUrl.searchParams.set('user_id', '1392970');
+  feedUrl.searchParams.set('pubkey', 'a5202038591dd63f9d0dc5e21ca96ecb');
+  feedUrl.searchParams.set('tracking_id', trackingId);
 
-  if (apiKey) {
-    const feedUrl = new URL('https://d2dzcaq3bhqk1m.cloudfront.net/public/offers/feed.php');
-    feedUrl.searchParams.set('user_id', userId);
-    feedUrl.searchParams.set('api_key', apiKey);
-    feedUrl.searchParams.set('s1', s1);
-    feedUrl.searchParams.set('s2', s2);
+  const fetchHeaders: Record<string, string> = { 'Accept': 'application/json, */*' };
+  if (clientIp) fetchHeaders['X-Forwarded-For'] = clientIp;
 
-    const fetchHeaders: Record<string, string> = { 'Accept': 'application/json, */*' };
-    if (clientIp) fetchHeaders['X-Forwarded-For'] = clientIp;
-
-    const res = await fetch(feedUrl.toString(), { headers: fetchHeaders, signal: AbortSignal.timeout(8_000) });
-    if (res.ok) {
-      const text = await res.text();
-      const raw = JSON.parse(text.trim());
-      initialOffers = Array.isArray(raw) ? raw : (raw.offers ?? raw.data ?? []);
-    }
+  const res = await fetch(feedUrl.toString(), { headers: fetchHeaders, signal: AbortSignal.timeout(8_000) });
+  if (res.ok) {
+    const raw = JSON.parse((await res.text()).trim());
+    initialOffers = Array.isArray(raw) ? raw : [];
   }
 } catch {
   // Silently fallback — CPAOffersWall fetches client-side on mount
@@ -111,7 +101,6 @@ const pageImage       = 'https://smartly.sale/og-image.jpg';
   <CPAOffersWall
     client:load
     initialOffers={initialOffers}
-    s1={s1}
-    s2={s2}
+    s1={trackingId}
   />
 </Layout>

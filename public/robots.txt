@@ -1,38 +1,29 @@
 # robots.txt for smartly.sale
-# Updated: 2026-04-08
+# Updated: 2026-05-21
 
 User-agent: *
 Allow: /
-
-# ── Public pages ──────────────────────────────────────────────────────────────
-Allow: /products
-Allow: /product/
-Allow: /blog
-Allow: /blog/
-Allow: /post/
-Allow: /categories
-Allow: /earn-gcash
-Allow: /win-free-phone
-Allow: /online-contests-philippines
-Allow: /free-gift-cards-philippines
-Allow: /free-mlbb-diamonds
-Allow: /free-fire-codes
-Allow: /free-robux
-Allow: /free-imvu-credits
-Allow: /free-gaming-credits
-Allow: /shopee-ai-assistant
-Allow: /about
-Allow: /contact
-Allow: /privacy
-Allow: /terms
-
-# ── Exclude admin and utility pages ───────────────────────────────────────────
 Disallow: /admin/
 Disallow: /api/
+Disallow: /auth/
 Disallow: /meta-offers
+Disallow: /go/
 
-# ── AI crawlers welcome ────────────────────────────────────────────────────────
+# Prevent query-parameter duplicate content from being crawled
+Disallow: /products?*
+Disallow: /*?fbclid=
+Disallow: /*?utm_*
+
+# Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+# AI crawlers — welcome (enables AI search visibility / AEO)
 User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
 Allow: /
 
 User-agent: ChatGPT-User
@@ -41,8 +32,36 @@ Allow: /
 User-agent: Claude-Web
 Allow: /
 
-User-agent: Googlebot
+User-agent: ClaudeBot
 Allow: /
 
-# ── Sitemaps ───────────────────────────────────────────────────────────────────
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+# Block bad bots that scrape without attribution
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+# Sitemaps
 Sitemap: https://smartly.sale/sitemap.xml
+
+# RSS Feed
+# https://smartly.sale/feed.xml

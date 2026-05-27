@@ -1,11 +1,21 @@
 import { useState, useMemo } from 'react';
 import BlogCard from './BlogCard';
-import { blogPosts, blogCategories } from '../lib/blog-data';
+import { blogCategories } from '../lib/blog-categories';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import type { BlogPost } from '../types/blog';
 
 const POSTS_PER_PAGE = 10;
 
-export default function BlogList() {
+/** Lightweight post shape — omits heavy `content` field to shrink the client bundle */
+export type BlogListPost = Omit<BlogPost, 'content'>;
+
+interface Props {
+  posts: BlogListPost[];
+}
+
+export default function BlogList({ posts }: Props) {
+  // Use provided posts (server-passed, no content field → ~90% smaller)
+  const blogPosts = posts;
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [currentPage, setCurrentPage] = useState<number>(1);
 
