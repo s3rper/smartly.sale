@@ -69,15 +69,21 @@ const breadcrumbData = {
 };
 
 // Product schema (only when we have real product data)
+// Ensure images are absolute URLs for proper crawling
+const absoluteImages = product ? product.images.map((img: string) =>
+  img.startsWith('http') ? img : `https://smartly.sale${img}`
+) : [];
+
 const productSchema = product ? {
   "@context": "https://schema.org",
   "@type": "Product",
   "name": product.name,
-  "image": product.images,
+  "image": absoluteImages,
   "description": pageDescription,
   "url": canonicalUrl,
   "sku": `shopee-${product.id}`,
   "mpn": product.id,
+  "itemCondition": "https://schema.org/NewCondition",
   ...(shopName && {
     "brand": { "@type": "Brand", "name": shopName }
   }),
@@ -88,9 +94,17 @@ const productSchema = product ? {
     "price": product.price.replace(/[^0-9.]/g, '') || "0",
     "priceValidUntil": new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
     "availability": "https://schema.org/InStock",
+    "itemCondition": "https://schema.org/NewCondition",
     "seller": {
       "@type": "Organization",
       "name": shopName ?? "Shopee Philippines"
+    },
+    "shippingDetails": {
+      "@type": "OfferShippingDetails",
+      "shippingDestination": {
+        "@type": "DefinedRegion",
+        "addressCountry": "PH"
+      }
     }
   },
   ...(product.shopRating && product.shopRating > 0 && product.shopRatingCount && product.shopRatingCount > 0 && {

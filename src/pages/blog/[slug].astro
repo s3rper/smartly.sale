@@ -42,15 +42,19 @@ const articleSchema = {
   "image": post.featuredImage,
   "url": fullUrl,
   "datePublished": post.publishDate,
-  "dateModified": new Date().toISOString().split('T')[0],
-  "author": { "@type": "Person", "name": post.author, "url": "https://smartly.sale/about" },
-  "publisher": {
-    "@type": "Organization",
-    "name": "smartly.sale",
-    "logo": { "@type": "ImageObject", "url": "https://smartly.sale/og-image.jpg" }
+  "dateModified": post.publishDate,
+  "author": {
+    "@type": "Person",
+    "name": post.author,
+    "url": "https://smartly.sale/about"
   },
+  "publisher": { "@id": "https://smartly.sale/#organization" },
   "mainEntityOfPage": { "@type": "WebPage", "@id": fullUrl },
-  "keywords": post.keywords.join(', ')
+  "isPartOf": { "@id": "https://smartly.sale/#website" },
+  "inLanguage": "en-PH",
+  "keywords": post.keywords.join(', '),
+  ...((post as any).wordCount && { "wordCount": (post as any).wordCount }),
+  ...(post.readTime && { "timeRequired": `PT${post.readTime}M` })
 };
 
 const categoryLabel = post.category ? post.category.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) : null;
