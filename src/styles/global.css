@@ -219,7 +219,7 @@ font-size: 1.75rem;
 font-weight: 700;
 color: var(--foreground);
 margin-top: 3rem;
-margin-bottom: 1rem;
+margin-bottom: 1.25rem;
 line-height: 1.3;
 letter-spacing: -0.015em;
 padding-left: 1rem;
@@ -231,8 +231,8 @@ font-family: var(--heading-font);
 font-size: 1.375rem;
 font-weight: 700;
 color: var(--foreground);
-margin-top: 2.25rem;
-margin-bottom: 0.875rem;
+margin-top: 2.5rem;
+margin-bottom: 1rem;
 line-height: 1.4;
 }
 
@@ -241,8 +241,8 @@ font-family: var(--heading-font);
 font-size: 1.125rem;
 font-weight: 600;
 color: var(--foreground);
-margin-top: 1.75rem;
-margin-bottom: 0.625rem;
+margin-top: 2rem;
+margin-bottom: 0.75rem;
 line-height: 1.5;
 }
 
@@ -763,19 +763,38 @@ opacity: 0;
 }
 
 /* ═══════════════════════════════════════════════════════
-   Global Section Heading Spacing
-   Ensures consistent vertical rhythm across all pages
+   Global Heading & Section Spacing
+   Generous vertical rhythm between headings, subheadings,
+   paragraphs, and content blocks across ALL pages.
+   Uses !important selectively to override tight inline
+   Tailwind spacing (mb-2, mb-3, mb-4) on headings.
 ═══════════════════════════════════════════════════════ */
 
-/* Section headings (h2) inside page sections — consistent bottom margin.
-   Only targets the direct h2 children (not nested ones inside cards, etc.) */
-section > div > h2:not(.article-content h2) {
-  margin-bottom: 1rem;
+/* ── Page-level h1 headings ── */
+section h1:not(.article-content h1),
+main h1:not(.article-content h1) {
+  margin-bottom: 1.5rem !important;
 }
 
-/* Section subtext that follows a heading — consistent spacing */
-section > div > h2 + p:not(.article-content p) {
-  margin-bottom: 2rem;
+/* ── Section h2 headings ── */
+section h2:not(.article-content h2):not(details h2):not(footer h2) {
+  margin-bottom: 1.5rem !important;
+}
+
+/* ── h2 followed by subtext/description paragraph ── */
+section h2 + p:not(.article-content p) {
+  margin-bottom: 2.5rem !important;
+}
+
+/* ── h3 sub-headings ── */
+section h3:not(.article-content h3):not(footer h3) {
+  margin-top: 2rem !important;
+  margin-bottom: 1rem !important;
+}
+
+/* ── h3 followed by paragraph — breathing room ── */
+section h3 + p:not(.article-content p) {
+  margin-top: 0.5rem;
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -786,13 +805,19 @@ section > div > h2 + p:not(.article-content p) {
 
 /* Content pages: ensure section > article blocks breathe */
 article > h2 {
-  margin-top: 2rem;
-  margin-bottom: 1rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
 }
 
 article > p + h2,
 article > div + h2 {
-  margin-top: 2.5rem;
+  margin-top: 3rem;
+}
+
+/* h3 inside articles */
+article > h3 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 
 /* Tables inside content pages — more breathing room */

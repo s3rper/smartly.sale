@@ -4,6 +4,11 @@
  * Pill-link row at the bottom of blog posts linking readers to revenue pages.
  * Uses descriptive, keyword-rich anchor text per SEO internal linking best practices.
  * Pass category="gaming" | "shopping" | "earning" | "deals" to get the right set of links.
+ *
+ * Topical Authority Strategy:
+ * - Every category funnels readers toward the money pages (products, deals hub, categories)
+ * - Gaming posts bridge to shopping via "deals for gamers" links
+ * - Shopping/deals posts link to the pillar hub page and product categories
  */
 interface Props {
   category?: 'gaming' | 'shopping' | 'earning' | 'deals';
@@ -18,16 +23,21 @@ const links: Record<string, { href: string; label: string }[]> = {
     { href: '/free-mlbb-diamonds',   label: 'Free MLBB Diamonds Guide'           },
     { href: '/free-gaming-credits',  label: 'Free Gaming Credits Philippines'    },
     { href: '/free-fire-codes',      label: 'Free Fire Redeem Codes 2026'        },
-    { href: '/free-imvu-credits',    label: 'Free IMVU Credits Claim'            },
     { href: '/earn-gcash',           label: 'Earn Free GCash Online'             },
+    { href: '/category/gadgets',     label: 'Best Gaming Gadgets on Shopee'      },
+    { href: '/shopee-deals-guide',   label: 'Complete Shopee Deals Guide 2026'   },
+    { href: '/deals/under-1000',     label: 'Gaming Deals Under PHP 1,000'       },
   ],
   shopping: [
+    { href: '/shopee-deals-guide',   label: 'Complete Shopee Deals Guide 2026'   },
     { href: '/products',             label: 'Best Deals on Shopee Philippines'   },
-    { href: '/earn-gcash',           label: 'Earn Free GCash — Legit Methods'    },
-    { href: '/earn',                 label: 'Ways to Earn Money Online PH'       },
-    { href: '/free-gift-cards-philippines', label: 'Free Gift Cards Philippines' },
-    { href: '/win-free-phone',       label: 'Win a Free Phone Philippines'       },
+    { href: '/category/gadgets',     label: 'Top Gadgets & Tech on Shopee'       },
+    { href: '/category/home-living', label: 'Home & Living Deals Shopee PH'      },
+    { href: '/category/fashion',     label: 'Fashion Finds on Shopee Philippines'},
+    { href: '/category/beauty',      label: 'Beauty & Skincare Deals Shopee'     },
     { href: '/shopee-sales-2026',    label: 'Upcoming Shopee Sales 2026'         },
+    { href: '/earn-gcash',           label: 'Earn Free GCash — Legit Methods'    },
+    { href: '/deals/under-500',      label: 'Best Shopee Deals Under PHP 500'    },
   ],
   earning: [
     { href: '/earn-gcash',           label: 'Earn Free GCash Online Philippines' },
@@ -36,14 +46,18 @@ const links: Record<string, { href: string; label: string }[]> = {
     { href: '/free-gaming-credits',  label: 'Free Gaming Credits Philippines'    },
     { href: '/free-gift-cards-philippines', label: 'Free Gift Cards Philippines' },
     { href: '/earn',                 label: 'Legit Ways to Earn Online PH'       },
+    { href: '/shopee-deals-guide',   label: 'Complete Shopee Deals Guide 2026'   },
   ],
   deals: [
+    { href: '/shopee-deals-guide',   label: 'Complete Shopee Deals Guide 2026'   },
     { href: '/best-deals',           label: 'Best Deals Philippines Today'       },
     { href: '/daily',                label: 'Daily Deals — Shopee Philippines'   },
     { href: '/shopee-sales-2026',    label: 'Upcoming Shopee Sales 2026'         },
     { href: '/products',             label: 'Trending Products on Shopee PH'     },
+    { href: '/category/gadgets',     label: 'Top Gadgets & Tech Deals'           },
+    { href: '/category/home-living', label: 'Home & Living Deals Shopee PH'      },
+    { href: '/deals/under-500',      label: 'Best Shopee Deals Under PHP 500'    },
     { href: '/earn-gcash',           label: 'Earn Free GCash While Shopping'     },
-    { href: '/free-gift-cards-philippines', label: 'Free Gift Cards Philippines' },
   ],
 };
 
