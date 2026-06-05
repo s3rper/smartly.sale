@@ -116,6 +116,21 @@ const breadcrumbSchema = {
     <SocialShareButtons url={fullUrl} title={post.title} description={post.metaDescription} image={post.featuredImage} />
   </div>
 
+  <!-- Author Bio — E-E-A-T signal -->
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-6">
+    <div class="bg-muted/30 border border-border rounded-xl p-5 flex gap-4 items-start">
+      <div class="w-12 h-12 bg-brand/10 rounded-full flex items-center justify-center shrink-0">
+        <span class="text-brand font-bold text-lg">{post.author?.charAt(0) ?? 'S'}</span>
+      </div>
+      <div>
+        <p class="font-semibold text-foreground text-sm mb-1">{post.author ?? 'smartly.sale Team'}</p>
+        <p class="text-xs text-muted-foreground leading-relaxed">
+          The smartly.sale team curates Shopee deals, reviews products, and writes shopping guides for Filipino consumers. We personally verify sellers, compare prices, and test products to help you shop smarter. <a href="/about" class="text-brand hover:underline">Learn more about us</a> | <a href="/editorial-policy" class="text-brand hover:underline">Editorial Policy</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
   <!-- Ad unit after article, before related posts -->
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
     <AdUnit format="auto" />

@@ -28,26 +28,32 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 1
+          fetch-depth: 0
 
-      # ── 2. Node.js ───────────────────────────────────────────────────────────
+      # ── 2. Pull latest main to avoid conflicts ─────────────────────────────
+      - name: Pull latest commits from main
+        run: |
+          git fetch origin main
+          git reset --hard origin/main
+
+      # ── 3. Node.js ───────────────────────────────────────────────────────────
       - name: Setup Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
 
-      # ── 3. Install dependencies ──────────────────────────────────────────────
+      # ── 4. Install dependencies ──────────────────────────────────────────────
       - name: Install dependencies
         run: npm ci --prefer-offline
 
-      # ── 4. Generate product blog post ────────────────────────────────────────
+      # ── 5. Generate product blog post ────────────────────────────────────────
       - name: Research & generate product blog post with Claude
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: node scripts/generate-product-blog.mjs
 
-      # ── 5. Commit & push ─────────────────────────────────────────────────────
+      # ── 6. Commit & push ─────────────────────────────────────────────────────
       - name: Commit and push new product blog post
         run: |
           git config --global user.name  "smartly.sale Bot"
@@ -66,11 +72,18 @@ jobs:
           ")
 
           git commit -m "🛍️ Blog: ${TITLE} [skip ci]"
-          git push
+
+          # Push with retry — if another workflow pushed between our fetch and now,
+          # pull latest, rebase our commit on top, and retry
+          for i in 1 2 3; do
+            git push && break
+            echo "⚠️  Push failed (attempt $i/3), rebasing on latest and retrying..."
+            git pull --rebase origin main
+          done
 
           echo "✅ Product blog post committed and pushed — Vercel will redeploy automatically"
 
-      # ── 6. Submit to Google Indexing API ─────────────────────────────────────
+      # ── 7. Submit to Google Indexing API ─────────────────────────────────────
       - name: Submit new post to Google (IndexNow + Indexing API)
         env:
           GOOGLE_INDEXING_SA_JSON: ${{ secrets.GOOGLE_INDEXING_SA_JSON }}
@@ -79,7 +92,7 @@ jobs:
           sleep 60
           node scripts/submit-to-google.mjs
 
-      # ── 7. Re-check indexing status after 10 minutes ─────────────────────────
+      # ── 8. Re-check indexing status after 10 minutes ─────────────────────────
       - name: Re-check indexing status (10 min after submission)
         env:
           GOOGLE_INDEXING_SA_JSON: ${{ secrets.GOOGLE_INDEXING_SA_JSON }}

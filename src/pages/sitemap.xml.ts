@@ -34,6 +34,7 @@ export const GET: APIRoute = async () => {
     { url: '/terms',                       priority: '0.4', changefreq: 'yearly',  lastmod: '2026-01-15' },
     { url: '/editorial-policy',            priority: '0.5', changefreq: 'yearly',  lastmod: '2026-04-01' },
     { url: '/faq',                         priority: '0.8', changefreq: 'monthly', lastmod: '2026-04-01' },
+    { url: '/shopee-deals-guide',           priority: '0.9', changefreq: 'daily',   lastmod: today   },
     { url: '/shopee-sales-2026',           priority: '0.9', changefreq: 'monthly', lastmod: today   },
     { url: '/earn',                        priority: '0.7', changefreq: 'weekly',  lastmod: today   },
     { url: '/earn/gcash',                  priority: '0.7', changefreq: 'weekly',  lastmod: today   },
@@ -109,10 +110,12 @@ export const GET: APIRoute = async () => {
     const path    = (post as any).generated ? `/post/${post.slug}` : `/blog/${post.slug}`;
     const lastmod = today; // SSR renders today's date = always fresh for Google
     // Differentiate priority by category and content depth
+    // Shopping/deals content gets highest priority (money pages supporting pillar)
     const cat = ((post as any).category ?? '').toLowerCase();
     const wc  = (post as any).wordCount ?? 0;
     let priority = '0.7';
-    if (cat.includes('gaming') || cat.includes('game')) priority = '0.8';
+    if (cat.includes('shopping') || cat.includes('deal') || cat.includes('buying') || cat.includes('product-review') || cat.includes('budget')) priority = '0.8';
+    else if (cat.includes('gaming') || cat.includes('game')) priority = '0.7';
     else if (wc < 800) priority = '0.6';
     const imgUrl = post.featuredImage ?? '';
     const imgTag = imgUrl ? `

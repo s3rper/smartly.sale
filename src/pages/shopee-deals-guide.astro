@@ -1,0 +1,340 @@
+---
+import MainLayout from '../layouts/main.astro';
+import { blogPosts } from '../lib/blog-data';
+
+const pageTitle = "Complete Shopee Deals Guide Philippines 2026 — Best Deals, Vouchers & Shopping Tips";
+const pageDescription = "Your ultimate guide to Shopee Philippines deals in 2026. Find the best products, voucher codes, flash sale schedules, shopping tips, and budget-friendly picks across all categories.";
+const pageKeywords = "Shopee deals guide 2026, best Shopee deals Philippines, Shopee voucher codes, Shopee shopping tips, Shopee sale schedule, budget shopping Shopee PH";
+
+// Get shopping-related blog posts for the topic cluster links
+const shoppingPosts = blogPosts.filter(p => {
+  const cat = p.category?.toLowerCase() ?? '';
+  return cat.includes('deal') || cat.includes('shopping') || cat.includes('buying')
+    || cat.includes('product-review') || cat.includes('budget') || cat.includes('fashion')
+    || cat.includes('home') || cat.includes('beauty') || cat.includes('kitchen')
+    || cat.includes('tech-gadget') || cat.includes('local');
+}).slice(0, 12);
+
+const pillarSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": pageTitle,
+  "description": pageDescription,
+  "url": "https://smartly.sale/shopee-deals-guide",
+  "mainEntity": {
+    "@type": "Article",
+    "headline": "Complete Shopee Deals Guide Philippines 2026",
+    "author": { "@type": "Organization", "name": "smartly.sale" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "smartly.sale",
+      "logo": { "@type": "ImageObject", "url": "https://smartly.sale/og-image.jpg" }
+    },
+    "datePublished": "2026-06-05",
+    "dateModified": new Date().toISOString().split('T')[0]
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://smartly.sale" },
+    { "@type": "ListItem", "position": 2, "name": "Shopee Deals Guide", "item": "https://smartly.sale/shopee-deals-guide" }
+  ]
+};
+
+const faqs = [
+  {
+    q: "How do I find the best deals on Shopee Philippines?",
+    a: "Use smartly.sale to browse curated deals by category and budget. Collect vouchers early, stack shop + platform + free shipping vouchers, and shop during flash sale windows (12AM, 12PM, 6PM, 9PM) on sale days. Enable ShopeePay for extra cashback."
+  },
+  {
+    q: "When are the biggest Shopee sales in 2026?",
+    a: "The biggest Shopee Philippines sales in 2026 are: 3.3 Mega Shopping Day, 4.4 Summer Sale, 5.5 Brands Festival, 6.6 Mid-Year Sale, 7.7 Lucky Sale, 8.8 Mega Flash Sale, 9.9 Super Shopping Day, 10.10 Brands Festival, 11.11 Big Sale, and 12.12 Birthday Sale. Payday sales also run on the 15th and 30th of each month."
+  },
+  {
+    q: "How can I tell if a Shopee product is legit or fake?",
+    a: "Check the seller's Star Seller or Preferred Seller badge, read verified buyer reviews with photos, compare prices across multiple sellers, look for Shopee Mall products (official brand stores), and check the return/refund policy. Avoid deals that seem too good to be true."
+  },
+  {
+    q: "What is voucher stacking on Shopee?",
+    a: "Voucher stacking means applying multiple discount codes on a single order: a shop voucher (from the seller), a platform voucher (from Shopee), and a free shipping voucher. This can save you 30-50% on your total order. Collect all three types before checkout."
+  },
+  {
+    q: "Paano mag-ipon gamit ang Shopee? (How to save money on Shopee?)",
+    a: "Mag-collect ng vouchers bago mag-sale, gamitin ang ShopeePay para sa extra cashback, mag-add to cart bago mag-flash sale, at mag-compare ng prices sa iba't ibang sellers. Mag-check din ng smartly.sale para sa curated deals at budget guides."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": f.a }
+  }))
+};
+
+function jsonLd(obj: unknown): string {
+  return JSON.stringify(obj)
+    .replace(/</g, '\\u003c')
+    .replace(/>/g, '\\u003e')
+    .replace(/&/g, '\\u0026');
+}
+---
+
+<MainLayout
+  title={pageTitle}
+  description={pageDescription}
+  ogImage="https://smartly.sale/og-image.jpg"
+  canonicalUrl="https://smartly.sale/shopee-deals-guide"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={jsonLd(pillarSchema)} />
+    <script type="application/ld+json" set:html={jsonLd(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={jsonLd(faqSchema)} />
+    <meta name="keywords" content={pageKeywords} />
+  </Fragment>
+
+  <!-- Breadcrumb -->
+  <div class="bg-muted/50 border-b border-border">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <nav class="flex items-center gap-2 text-sm text-muted-foreground">
+        <a href="/" class="hover:text-brand transition-colors">Home</a>
+        <span class="text-border">/</span>
+        <span class="text-foreground font-medium">Shopee Deals Guide 2026</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="py-12 md:py-16 bg-gradient-to-b from-orange-50 to-white border-b border-border">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
+        Complete Shopee Deals Guide Philippines 2026
+      </h1>
+      <p class="text-lg text-muted-foreground max-w-2xl mx-auto mb-6" data-speakable>
+        Your one-stop resource for the best Shopee deals, voucher codes, shopping strategies, and budget-friendly product picks across all categories. Updated daily by the smartly.sale team.
+      </p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="#categories" class="px-5 py-2.5 bg-brand text-white rounded-full text-sm font-semibold hover:bg-orange-700 transition-colors">Browse by Category</a>
+        <a href="#budget" class="px-5 py-2.5 bg-white border border-border text-foreground rounded-full text-sm font-semibold hover:border-brand transition-colors">Shop by Budget</a>
+        <a href="#tips" class="px-5 py-2.5 bg-white border border-border text-foreground rounded-full text-sm font-semibold hover:border-brand transition-colors">Shopping Tips</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- How We Pick Deals — E-E-A-T Section -->
+  <section class="py-10 bg-white border-b border-border">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-foreground mb-4">How We Pick Deals</h2>
+      <p class="text-muted-foreground mb-6">Our team manually reviews Shopee products every day. We don't just list random items. Here's our process:</p>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {[
+          { step: '1', title: 'Verify Sellers', desc: 'We check seller ratings, badges, and review authenticity before recommending any product.' },
+          { step: '2', title: 'Compare Prices', desc: 'We compare prices across sellers and track price history to ensure you get genuine discounts.' },
+          { step: '3', title: 'Read Real Reviews', desc: 'We analyze buyer reviews with photos to verify product quality and accurate descriptions.' },
+          { step: '4', title: 'Test Value', desc: 'We evaluate cost-per-use and durability to recommend items that deliver real value for money.' },
+        ].map(({ step, title, desc }) => (
+          <div class="p-4 bg-muted/30 rounded-xl border border-border">
+            <div class="w-8 h-8 bg-brand text-white rounded-full flex items-center justify-center text-sm font-bold mb-3">{step}</div>
+            <p class="font-semibold text-foreground mb-1">{title}</p>
+            <p class="text-sm text-muted-foreground">{desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Shop by Category — Topic Cluster Hub -->
+  <section id="categories" class="py-12 bg-muted/20 border-b border-border">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-foreground text-center mb-3">Shop by Category</h2>
+      <p class="text-sm text-muted-foreground text-center mb-8">Browse curated Shopee deals across all major product categories</p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+        <a href="/category/gadgets" class="flex flex-col items-center gap-2 p-5 bg-card border border-border rounded-xl hover:border-brand hover:shadow-md transition-all text-center group">
+          <span class="text-3xl">📱</span>
+          <span class="text-sm font-semibold text-foreground group-hover:text-brand transition-colors">Gadgets & Tech</span>
+          <span class="text-xs text-muted-foreground">Phones, earbuds, power banks</span>
+        </a>
+        <a href="/category/home-living" class="flex flex-col items-center gap-2 p-5 bg-card border border-border rounded-xl hover:border-brand hover:shadow-md transition-all text-center group">
+          <span class="text-3xl">🏠</span>
+          <span class="text-sm font-semibold text-foreground group-hover:text-brand transition-colors">Home & Living</span>
+          <span class="text-xs text-muted-foreground">Fans, kitchen, organizers</span>
+        </a>
+        <a href="/category/fashion" class="flex flex-col items-center gap-2 p-5 bg-card border border-border rounded-xl hover:border-brand hover:shadow-md transition-all text-center group">
+          <span class="text-3xl">👗</span>
+          <span class="text-sm font-semibold text-foreground group-hover:text-brand transition-colors">Fashion</span>
+          <span class="text-xs text-muted-foreground">Bags, shoes, clothes</span>
+        </a>
+        <a href="/category/beauty" class="flex flex-col items-center gap-2 p-5 bg-card border border-border rounded-xl hover:border-brand hover:shadow-md transition-all text-center group">
+          <span class="text-3xl">💄</span>
+          <span class="text-sm font-semibold text-foreground group-hover:text-brand transition-colors">Beauty & Health</span>
+          <span class="text-xs text-muted-foreground">Skincare, makeup, wellness</span>
+        </a>
+        <a href="/category/sports-outdoor" class="flex flex-col items-center gap-2 p-5 bg-card border border-border rounded-xl hover:border-brand hover:shadow-md transition-all text-center group">
+          <span class="text-3xl">⚽</span>
+          <span class="text-sm font-semibold text-foreground group-hover:text-brand transition-colors">Sports & Outdoor</span>
+          <span class="text-xs text-muted-foreground">Fitness, outdoor gear</span>
+        </a>
+        <a href="/category/food-snacks" class="flex flex-col items-center gap-2 p-5 bg-card border border-border rounded-xl hover:border-brand hover:shadow-md transition-all text-center group">
+          <span class="text-3xl">🍜</span>
+          <span class="text-sm font-semibold text-foreground group-hover:text-brand transition-colors">Food & Snacks</span>
+          <span class="text-xs text-muted-foreground">Local snacks, pantry staples</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Shop by Budget -->
+  <section id="budget" class="py-12 bg-white border-b border-border">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-foreground text-center mb-3">Shop by Budget</h2>
+      <p class="text-sm text-muted-foreground text-center mb-8">Find the best Shopee deals for every price range — updated daily</p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        {[
+          { href: '/deals/under-100',  label: 'Under PHP 100',   emoji: '🪙', desc: 'Accessories, tools, small items' },
+          { href: '/deals/under-200',  label: 'Under PHP 200',   emoji: '💰', desc: 'Phone cases, organizers' },
+          { href: '/deals/under-500',  label: 'Under PHP 500',   emoji: '🔥', desc: 'Earbuds, kitchen gadgets' },
+          { href: '/deals/under-1000', label: 'Under PHP 1,000', emoji: '⭐', desc: 'Smart watches, appliances' },
+          { href: '/deals/under-2000', label: 'Under PHP 2,000', emoji: '💎', desc: 'Tablets, air fryers' },
+          { href: '/deals/under-5000', label: 'Under PHP 5,000', emoji: '🏆', desc: 'Smartphones, laptops' },
+        ].map(({ href, label, emoji, desc }) => (
+          <a href={href} class="flex flex-col items-center gap-2 p-4 bg-card border border-border rounded-xl hover:border-brand hover:shadow-md transition-all text-center group">
+            <span class="text-3xl">{emoji}</span>
+            <span class="text-sm font-semibold text-foreground group-hover:text-brand transition-colors">{label}</span>
+            <span class="text-xs text-muted-foreground">{desc}</span>
+          </a>
+        ))}
+      </div>
+      <div class="text-center mt-5">
+        <a href="/deals" class="text-sm text-brand hover:underline font-medium">View all price ranges</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Shopping Tips & Strategies -->
+  <section id="tips" class="py-12 bg-muted/20 border-b border-border">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-foreground mb-6">Shopee Shopping Tips & Strategies</h2>
+
+      <div class="space-y-6">
+        <div class="bg-card border border-border rounded-xl p-6">
+          <h3 class="text-lg font-semibold text-foreground mb-2">1. Stack Multiple Vouchers</h3>
+          <p class="text-muted-foreground text-sm leading-relaxed">The biggest savings come from stacking: shop voucher + platform voucher + free shipping voucher on a single order. Collect all three types before each sale event. This alone can save you 30-50% on your total order.</p>
+        </div>
+
+        <div class="bg-card border border-border rounded-xl p-6">
+          <h3 class="text-lg font-semibold text-foreground mb-2">2. Shop During Flash Sale Windows</h3>
+          <p class="text-muted-foreground text-sm leading-relaxed">The deepest discounts happen at 12AM (midnight madness), 12PM (lunch rush), 6PM (happy hour), and 9PM (final wave) during sale days. Add items to cart beforehand so you can check out instantly when prices drop.</p>
+        </div>
+
+        <div class="bg-card border border-border rounded-xl p-6">
+          <h3 class="text-lg font-semibold text-foreground mb-2">3. Use ShopeePay for Extra Cashback</h3>
+          <p class="text-muted-foreground text-sm leading-relaxed">ShopeePay users get exclusive vouchers and an extra 10% coins cashback on most purchases during sales. Top up your balance before the sale starts to avoid last-minute issues.</p>
+        </div>
+
+        <div class="bg-card border border-border rounded-xl p-6">
+          <h3 class="text-lg font-semibold text-foreground mb-2">4. Verify Seller Authenticity</h3>
+          <p class="text-muted-foreground text-sm leading-relaxed">Always check for Star Seller or Preferred Seller badges, read buyer reviews with photos, and compare prices across sellers. Our <a href="/blog/shopee-quality-check-guide-before-buying" class="text-brand hover:underline">quality check guide</a> covers this in detail.</p>
+        </div>
+
+        <div class="bg-card border border-border rounded-xl p-6">
+          <h3 class="text-lg font-semibold text-foreground mb-2">5. Track Sale Events</h3>
+          <p class="text-muted-foreground text-sm leading-relaxed">Bookmark our <a href="/shopee-sales-2026" class="text-brand hover:underline">Shopee sales calendar 2026</a> to never miss a sale. The biggest events are monthly number sales (6.6, 7.7, etc.) and payday sales on the 15th and 30th.</p>
+        </div>
+      </div>
+
+      <div class="mt-6 text-center">
+        <a href="/tools/discount-calculator" class="inline-flex items-center px-5 py-2.5 bg-brand text-white rounded-full text-sm font-semibold hover:bg-orange-700 transition-colors">
+          Calculate Your Savings
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Topic Cluster: Related Guides & Articles -->
+  <section class="py-12 bg-white border-b border-border">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-foreground text-center mb-3">Shopping Guides & Articles</h2>
+      <p class="text-sm text-muted-foreground text-center mb-8">In-depth guides to help you make smarter shopping decisions</p>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {[
+          { href: '/blog/shopee-6-6-mid-year-sale-2026-best-deals-guide', title: 'Shopee 6.6 Mid-Year Sale Guide 2026', desc: 'Best deals, voucher codes & flash sale schedules for June 2026' },
+          { href: '/blog/best-budget-phones-under-5000-shopee-philippines-2026', title: 'Best Phones Under PHP 5,000', desc: 'Top budget smartphones compared — Xiaomi, realme, Samsung' },
+          { href: '/blog/shopee-free-voucher-discount-codes-2025', title: 'Shopee Free Voucher & Discount Codes', desc: 'Updated daily with working promo codes and exclusive deals' },
+          { href: '/blog/shopee-hidden-vouchers-secret-codes', title: 'Hidden Vouchers & Secret Codes', desc: 'Find vouchers most shoppers miss and save big on every purchase' },
+          { href: '/blog/shopee-free-shipping-voucher-guide', title: 'Free Shipping Voucher Guide', desc: 'Never pay for delivery again with these proven methods' },
+          { href: '/blog/smart-shopee-shopping-hacks-philippines', title: 'Smart Shopee Shopping Hacks', desc: 'Maximize vouchers, get free shipping, and save on every checkout' },
+          { href: '/blog/shopee-quality-check-guide-before-buying', title: 'Product Quality Check Guide', desc: 'Verify quality and avoid scams before you buy' },
+          { href: '/blog/how-to-spot-shopee-bestsellers-2025', title: 'How to Spot Shopee Bestsellers', desc: 'Data-driven techniques to identify products worth buying' },
+          { href: '/blog/starter-kit-under-500-budget-shopping-shopee', title: 'Starter Kit Under PHP 500', desc: 'Build a complete starter kit on Shopee for under PHP 500' },
+          { href: '/blog/shopee-vs-lazada-best-deals-comparison-2026', title: 'Shopee vs Lazada: Which Has Better Deals?', desc: 'Honest comparison of prices, vouchers, and delivery in 2026' },
+          { href: '/blog/shopee-voucher-stacking-guide-save-50-percent', title: 'Voucher Stacking Guide', desc: 'How to stack shop + platform + shipping vouchers for max savings' },
+          { href: '/blog/is-shopee-safe-buyer-protection-guide-2026', title: 'Is Shopee Safe? Buyer Protection Guide', desc: 'Complete guide to Shopee buyer protection and refund policies' },
+        ].map(({ href, title, desc }) => (
+          <a href={href} class="group flex flex-col gap-2 p-5 bg-muted/30 border border-border rounded-xl hover:border-brand hover:shadow-sm transition-all">
+            <span class="text-sm font-semibold text-foreground group-hover:text-brand transition-colors">{title}</span>
+            <span class="text-sm text-muted-foreground leading-relaxed">{desc}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Earn While Shopping -->
+  <section class="py-12 bg-muted/20 border-b border-border">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-foreground text-center mb-3">Earn While You Shop</h2>
+      <p class="text-sm text-muted-foreground text-center mb-8">Offset your shopping costs with these legitimate earning methods</p>
+      <div class="grid sm:grid-cols-3 gap-5">
+        <a href="/earn-gcash" class="group rounded-2xl border border-blue-200 hover:border-blue-400 bg-card p-6 transition-all hover:-translate-y-0.5 hover:shadow-md">
+          <p class="font-bold text-foreground mb-2 group-hover:text-brand transition-colors">Earn GCash Online</p>
+          <p class="text-sm text-muted-foreground leading-relaxed">Verified reward offers and prize draws. Earn GCash credits for free.</p>
+        </a>
+        <a href="/free-gift-cards-philippines" class="group rounded-2xl border border-emerald-200 hover:border-emerald-400 bg-card p-6 transition-all hover:-translate-y-0.5 hover:shadow-md">
+          <p class="font-bold text-foreground mb-2 group-hover:text-brand transition-colors">Free Gift Cards PH</p>
+          <p class="text-sm text-muted-foreground leading-relaxed">Win Visa cards, GCash credits, and e-wallet rewards online.</p>
+        </a>
+        <a href="/online-contests-philippines" class="group rounded-2xl border border-purple-200 hover:border-purple-400 bg-card p-6 transition-all hover:-translate-y-0.5 hover:shadow-md">
+          <p class="font-bold text-foreground mb-2 group-hover:text-brand transition-colors">Online Contests PH</p>
+          <p class="text-sm text-muted-foreground leading-relaxed">Win gadgets, gift cards, and cash prizes. Updated daily.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-12 bg-white border-b border-border" id="faq">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-foreground text-center mb-8">Frequently Asked Questions</h2>
+      <div class="space-y-4">
+        {faqs.map((faq, i) => (
+          <details class="group bg-card border border-border rounded-xl overflow-hidden" open={i === 0}>
+            <summary class="flex items-center px-6 py-5 cursor-pointer font-semibold text-foreground hover:text-brand transition-colors list-none">
+              <span class="flex-1">{faq.q}</span>
+              <span class="text-brand text-xl shrink-0 ml-6 transition-transform group-open:rotate-45">+</span>
+            </summary>
+            <div class="px-6 pb-6 text-muted-foreground leading-relaxed text-sm border-t border-border pt-4">
+              {faq.a}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Sale Calendar CTA -->
+  <section class="py-12 bg-gradient-to-b from-orange-50 to-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl font-bold text-foreground mb-3">Never Miss a Shopee Sale</h2>
+      <p class="text-muted-foreground mb-6">Check the complete schedule of every Shopee sale event in 2026</p>
+      <a href="/shopee-sales-2026" class="inline-flex items-center px-6 py-3 bg-brand text-white rounded-full font-semibold hover:bg-orange-700 transition-colors">
+        View Shopee Sales Calendar 2026
+      </a>
+    </div>
+  </section>
+</MainLayout>

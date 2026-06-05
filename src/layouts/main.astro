@@ -33,9 +33,17 @@ const resolvedCanonical = canonicalUrl ?? `https://smartly.sale${Astro.url.pathn
 <html lang="en-PH" dir="ltr" class={pageClass}>
 <head>
 <meta charset="utf-8" />
-<!-- dataLayer queue init — must be first so deferred GTM picks up early pushes -->
-<!-- GA4 is handled inside GTM (GTM-PXRK86GQ) — no separate gtag script needed -->
-<script is:inline>window.dataLayer=window.dataLayer||[];</script>
+
+<!-- Google tag (gtag.js) — DO NOT REMOVE: direct GA4 tag required for verification -->
+<script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-BWPR8CV7BR"></script>
+<script is:inline>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BWPR8CV7BR');
+</script>
+
+<!-- dataLayer queue init for deferred GTM -->
 
 <!-- Defer other analytics until page is interactive (reduces TBT/LCP on mobile) -->
 <script is:inline>
