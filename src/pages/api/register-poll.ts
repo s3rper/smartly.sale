@@ -22,12 +22,13 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   // ── Parse body ────────────────────────────────────────────────────────────
-  let pollId: string, shopeeUrl: string, imageBase64: string;
+  let pollId: string, shopeeUrl: string, imageBase64: string, pollQuestion: string;
   try {
-    const body = await request.json() as { pollId?: string; shopeeUrl?: string; imageBase64?: string };
-    pollId     = body.pollId     ?? '';
-    shopeeUrl  = body.shopeeUrl  ?? '';
+    const body = await request.json() as { pollId?: string; shopeeUrl?: string; imageBase64?: string; pollQuestion?: string };
+    pollId      = body.pollId      ?? '';
+    shopeeUrl   = body.shopeeUrl   ?? '';
     imageBase64 = body.imageBase64 ?? '';
+    pollQuestion = body.pollQuestion ?? '';
   } catch {
     return new Response(JSON.stringify({ error: 'Invalid JSON body' }), {
       status: 400,
@@ -64,6 +65,7 @@ export const POST: APIRoute = async ({ request }) => {
     await redis.set(`poll:${pollId}`, {
       shopeeUrl,
       imageUrl,
+      pollQuestion,
       createdAt: new Date().toISOString(),
     }, {
       // Expire after 30 days — polls don't need to live forever

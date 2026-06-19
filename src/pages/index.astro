@@ -10,8 +10,8 @@ import { fetchProductsFromWebflow } from '../lib/products';
 import type { CMSProduct } from '../types/product';
 import { transformCMSProduct } from '../types/product';
 
-const pageTitle = "smartly.sale - Best Shopee Deals & Viral Products Philippines 2026";
-const pageDescription = "Discover trending Shopee products, viral finds, budget gadgets, and exclusive deals in the Philippines. Smart shopping made easy with curated reviews and affiliate links.";
+const pageTitle = "Best Shopee Deals & Viral Finds Philippines 2026 | smartly.sale";
+const pageDescription = "Discover trending Shopee products, viral finds, budget gadgets, and exclusive deals in the Philippines. Smart shopping made easy with curated reviews.";
 const pageKeywords = "Shopee Philippines 2026, viral Shopee products, budget gadgets Philippines, best Shopee deals, online shopping Philippines, trending products Shopee, earn GCash online";
 
 // Fetch products server-side — eliminates client-side waterfall for initial render
@@ -37,21 +37,7 @@ const featuredForSchema = initialProducts
     };
   });
 
-const websiteSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "smartly.sale",
-  "url": "https://smartly.sale",
-  "description": pageDescription,
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": {
-      "@type": "EntryPoint",
-      "urlTemplate": "https://smartly.sale/products?q={search_term_string}"
-    },
-    "query-input": "required name=search_term_string"
-  }
-};
+// WebSite schema is now in main.astro globally — no duplicate needed here
 
 const itemListSchema = featuredForSchema.length > 0 ? {
   "@context": "https://schema.org",
@@ -96,8 +82,16 @@ canonicalUrl="https://smartly.sale"
 keywords={pageKeywords}
 >
   <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
     {itemListSchema && <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} />}
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": homeFaqs.map(f => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type": "Answer", "text": f.a }
+      }))
+    })} />
   </Fragment>
 
 <!-- Hero Section -->

@@ -90,10 +90,11 @@ const schemaData = {
 };
 ---
 
-<MainLayout 
+<MainLayout
   title={pageTitle}
   description={pageDescription}
   ogImage={ogImage}
+  noindex={true}
 >
   <!-- Enhanced SEO Meta Tags in Head -->
   <Fragment slot="head">
@@ -102,9 +103,7 @@ const schemaData = {
     
     <!-- Additional Meta Tags -->
     <meta name="keywords" content="pinoy jokes, filipino jokes, tagalog jokes, taglish jokes, filipino humor, pinoy humor generator, tagalog joke generator, free joke generator, social media content, pinoy memes, filipino comedy, hugot lines, pinoy banat, filipino funny quotes" />
-    <meta name="author" content="smartly.sale" />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    
+    <meta name="author" content="smartly.sale" />    
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={pageUrl} />

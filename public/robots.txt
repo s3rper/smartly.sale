@@ -8,16 +8,26 @@ Disallow: /api/
 Disallow: /auth/
 Disallow: /meta-offers
 Disallow: /go/
+Disallow: /s_include.php
+Disallow: /product-details
 
 # Prevent query-parameter duplicate content from being crawled
 Disallow: /products?*
 Disallow: /*?fbclid=
 Disallow: /*?utm_*
 
-# Google
+# Google — must repeat Disallow rules: a bot-specific group fully overrides the
+# wildcard (*) group, so without these Googlebot would crawl /admin/, /api/, etc.
 User-agent: Googlebot
 Allow: /
-Crawl-delay: 1
+Disallow: /admin/
+Disallow: /api/
+Disallow: /auth/
+Disallow: /meta-offers
+Disallow: /go/
+Disallow: /s_include.php
+Disallow: /product-details
+Disallow: /products?*
 
 # AI crawlers — welcome (enables AI search visibility / AEO)
 User-agent: GPTBot
@@ -45,6 +55,15 @@ User-agent: Applebot-Extended
 Allow: /
 
 User-agent: cohere-ai
+Allow: /
+
+# Facebook / Meta — allow scraping /go/ for OG poll images
+User-agent: facebookexternalhit
+Allow: /go/
+Allow: /
+
+User-agent: Facebot
+Allow: /go/
 Allow: /
 
 # Block bad bots that scrape without attribution

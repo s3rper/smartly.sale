@@ -1,5 +1,5 @@
 import React from 'react';
-import { Facebook, ShoppingBag, Home, Mail, MapPin } from 'lucide-react';
+import { Facebook, ShoppingBag, Home, Mail, Tag } from 'lucide-react';
 
 const TikTokIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5" aria-hidden="true">
@@ -31,11 +31,11 @@ const Footer: React.FC = () => {
             <span className="text-xs font-medium">Products</span>
           </a>
           <a
-            href={`${baseUrl}/cheapest-near-me`}
+            href={`${baseUrl}/best-deals`}
             className="flex flex-col items-center space-y-1 hover:opacity-80 transition-opacity"
           >
-            <MapPin className="w-5 h-5" />
-            <span className="text-xs font-medium">Near Me</span>
+            <Tag className="w-5 h-5" />
+            <span className="text-xs font-medium">Deals</span>
           </a>
           <a
             href={`${baseUrl}/contact`}
@@ -115,10 +115,26 @@ const Footer: React.FC = () => {
                 </li>
                 <li>
                   <a
-                    href={`${baseUrl}/cheapest-near-me`}
+                    href={`${baseUrl}/best-deals`}
                     className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
                   >
-                    Cheapest Near Me
+                    Best Deals
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`${baseUrl}/shopee-deals-guide`}
+                    className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
+                  >
+                    Shopee Deals Guide
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`${baseUrl}/tools`}
+                    className="text-gray-400 hover:text-white transition-colors duration-200 text-sm inline-block"
+                  >
+                    Free Tools
                   </a>
                 </li>
                 <li>

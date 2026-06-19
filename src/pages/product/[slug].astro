@@ -69,39 +69,56 @@ const breadcrumbData = {
 };
 
 // Product schema (only when we have real product data)
-const productSchema = product ? {
+// Ensure images are absolute URLs for proper crawling
+const absoluteImages = product ? product.images.map((img: string) =>
+  img.startsWith('http') ? img : `https://smartly.sale${img}`
+) : [];
+
+// Parse a clean numeric price. If we can't determine a real price, skip the
+// Product/Offer schema entirely rather than emit an invalid price of "0".
+const numericPrice = product ? parseFloat(product.price.replace(/[^0-9.]/g, '')) : 0;
+const hasValidPrice = Number.isFinite(numericPrice) && numericPrice > 0;
+
+// Derive availability from stock when the field is present; default to InStock
+// for curated live listings where stock isn't reported.
+const stockNum = product?.stock != null ? parseInt(String(product.stock).replace(/[^0-9]/g, ''), 10) : NaN;
+const availability = Number.isFinite(stockNum) && stockNum <= 0
+  ? "https://schema.org/OutOfStock"
+  : "https://schema.org/InStock";
+
+const productSchema = (product && hasValidPrice) ? {
   "@context": "https://schema.org",
   "@type": "Product",
   "name": product.name,
-  "image": product.images,
+  "image": absoluteImages,
   "description": pageDescription,
   "url": canonicalUrl,
   "sku": `shopee-${product.id}`,
   "mpn": product.id,
-  ...(shopName && {
-    "brand": { "@type": "Brand", "name": shopName }
-  }),
+  "itemCondition": "https://schema.org/NewCondition",
   "offers": {
     "@type": "Offer",
     "url": product.affiliateLink ?? canonicalUrl,
     "priceCurrency": "PHP",
-    "price": product.price.replace(/[^0-9.]/g, '') || "0",
+    "price": numericPrice.toFixed(2),
     "priceValidUntil": new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-    "availability": "https://schema.org/InStock",
+    "availability": availability,
+    "itemCondition": "https://schema.org/NewCondition",
     "seller": {
       "@type": "Organization",
       "name": shopName ?? "Shopee Philippines"
+    },
+    "shippingDetails": {
+      "@type": "OfferShippingDetails",
+      "shippingDestination": {
+        "@type": "DefinedRegion",
+        "addressCountry": "PH"
+      }
     }
-  },
-  ...(product.shopRating && product.shopRating > 0 && product.shopRatingCount && product.shopRatingCount > 0 && {
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": product.shopRating.toFixed(1),
-      "bestRating": "5",
-      "worstRating": "1",
-      "ratingCount": String(product.shopRatingCount)
-    }
-  })
+  }
+  // NOTE: aggregateRating intentionally omitted. The available rating is the
+  // Shopee *shop* rating, not a per-product review score — emitting it as a
+  // Product aggregateRating is misleading structured data (manual-action risk).
 } : null;
 
 ---

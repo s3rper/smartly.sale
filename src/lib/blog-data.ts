@@ -1674,23 +1674,28 @@ export function getPostsByCategory(categorySlug: string): BlogPost[] {
 export function getRelatedPosts(currentPostId: string, category?: string, limit: number = 3): BlogPost[] {
   const others = blogPosts.filter(post => post.id !== currentPostId);
 
+  // Sort by recency. `views` is never populated (always 0), so the old
+  // view-count sort was a no-op that returned posts in arbitrary array order.
+  const byRecency = (a: BlogPost, b: BlogPost) =>
+    new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime();
+
   if (category) {
     const sameCategory = others
       .filter(p => p.category === category)
-      .sort((a, b) => (b.views || 0) - (a.views || 0))
+      .sort(byRecency)
       .slice(0, limit);
 
     if (sameCategory.length >= limit) return sameCategory;
 
     const fill = others
       .filter(p => p.category !== category)
-      .sort((a, b) => (b.views || 0) - (a.views || 0))
+      .sort(byRecency)
       .slice(0, limit - sameCategory.length);
 
     return [...sameCategory, ...fill];
   }
 
-  return others.sort((a, b) => (b.views || 0) - (a.views || 0)).slice(0, limit);
+  return others.sort(byRecency).slice(0, limit);
 }
 
 // Helper function to get latest posts

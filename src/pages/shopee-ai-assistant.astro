@@ -2,8 +2,8 @@
 import MainLayout from '../layouts/main.astro';
 import ShopeeAIAssistant from '../components/shopee-ai/ShopeeAIAssistant';
 
-const pageTitle = "Shopee Shopping Assistant - AI-Powered Product Finder Philippines 2026";
-const pageDescription = "Your personal Shopee shopping concierge. Find perfect products through conversation. No more endless scrolling - just tell our AI what you need and get personalized recommendations instantly!";
+const pageTitle = "Shopee AI Shopping Assistant — Product Finder PH 2026";
+const pageDescription = "Your personal Shopee shopping concierge. Tell our AI what you need and get personalized Philippine product recommendations instantly — no endless scrolling.";
 const pageUrl = "https://smartly.sale/shopee-ai-assistant";
 const ogImage = "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1200&h=630&fit=crop";
 
@@ -66,11 +66,12 @@ const schemaData = {
 };
 ---
 
-<MainLayout 
+<MainLayout
   title={pageTitle}
   description={pageDescription}
   ogImage={ogImage}
   pageClass="chat-page"
+  noindex={true}
 >
   <!-- Enhanced SEO Meta Tags -->
   <Fragment slot="head">
@@ -78,8 +79,7 @@ const schemaData = {
     
     <meta name="keywords" content="shopee assistant, AI shopping, shopee product finder, conversational shopping, shopee recommendations, online shopping philippines, shopee deals, gift finder, budget shopping, shopee affiliate" />
     <meta name="author" content="smartly.sale" />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    
+
     <meta property="og:type" content="website" />
     <meta property="og:url" content={pageUrl} />
     <meta property="og:title" content={pageTitle} />

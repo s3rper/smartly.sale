@@ -27,7 +27,10 @@ canonicalUrl,
 noindex = false,
 } = Astro.props;
 
-const resolvedCanonical = canonicalUrl ?? `https://smartly.sale${Astro.url.pathname}`;
+// Normalise the canonical path: strip any trailing slash so /page and /page/
+// resolve to one canonical URL instead of self-canonicalising separately.
+const canonicalPath = Astro.url.pathname.replace(/\/+$/, '');
+const resolvedCanonical = canonicalUrl ?? `https://smartly.sale${canonicalPath}`;
 ---
 
 <html lang="en-PH" dir="ltr" class={pageClass}>
@@ -227,10 +230,11 @@ src="https://www.facebook.com/tr?id=849998290917290&ev=PageView&noscript=1"
 <!-- Page-specific structured data / meta injected by individual pages -->
 <slot name="head" />
 
-<!-- Organization Structured Data -->
+<!-- Organization Structured Data — entity-level markup for AI citation & Knowledge Graph -->
 <script type="application/ld+json" set:html={JSON.stringify({
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": "https://smartly.sale/#organization",
   "name": "smartly.sale",
   "url": "https://smartly.sale",
   "logo": {
@@ -239,45 +243,84 @@ src="https://www.facebook.com/tr?id=849998290917290&ev=PageView&noscript=1"
     "width": 1200,
     "height": 630
   },
-  "description": "Discover trending Shopee products, viral finds, and budget gadgets in the Philippines.",
+  "description": "Filipino shopping guide that curates trending Shopee products, reviews budget gadgets, and publishes deal guides for Philippine consumers. We verify sellers, compare prices, and test products to help Filipinos shop smarter.",
   "areaServed": { "@type": "Country", "name": "PH" },
   "knowsLanguage": ["en-PH", "fil"],
+  "knowsAbout": [
+    "Shopee Philippines deals",
+    "budget gadgets Philippines",
+    "online shopping Philippines",
+    "Shopee voucher codes",
+    "product reviews",
+    "Filipino consumer guides",
+    "ecommerce deals comparison",
+    "gaming deals Philippines",
+    "GCash earning methods",
+    "Shopee sale events"
+  ],
   "sameAs": [
     "https://www.facebook.com/smartlysale",
-    "https://www.tiktok.com/@smartlysale"
+    "https://www.tiktok.com/@smartlysale",
+    "https://smartly.sale/feed.xml"
   ],
   "contactPoint": {
     "@type": "ContactPoint",
     "contactType": "customer service",
     "availableLanguage": ["English", "Filipino"],
     "url": "https://smartly.sale/contact"
-  }
+  },
+  "foundingDate": "2025",
+  "publishingPrinciples": "https://smartly.sale/editorial-policy"
 })} />
 
-<!-- Speakable — helps AI Overviews & voice assistants identify citable content -->
+<!-- Speakable — helps AI Overviews & voice assistants identify citable passages -->
 <script type="application/ld+json" set:html={JSON.stringify({
   "@context": "https://schema.org",
   "@type": "WebPage",
+  "@id": resolvedCanonical,
   "name": title,
   "url": resolvedCanonical,
+  "isPartOf": { "@id": "https://smartly.sale/#website" },
+  "about": { "@id": "https://smartly.sale/#organization" },
+  "inLanguage": "en-PH",
   "speakable": {
     "@type": "SpeakableSpecification",
-    "cssSelector": ["h1", "h2", "[data-speakable]", "meta[name='description']"]
+    "cssSelector": ["h1", "[data-speakable]", ".hero-description", ".excerpt", "meta[name='description']"]
   }
 })} />
 
-<!-- SiteNavigationElement — helps Google generate sitelinks -->
+<!-- WebSite entity — connects Organization to site for entity graph -->
 <script type="application/ld+json" set:html={JSON.stringify({
   "@context": "https://schema.org",
-  "@type": "SiteNavigationElement",
-  "name": ["Products", "Blog", "Earn GCash", "Categories", "Best Deals", "Tools"],
-  "url": [
-    "https://smartly.sale/products",
-    "https://smartly.sale/blog",
-    "https://smartly.sale/earn-gcash",
-    "https://smartly.sale/categories",
-    "https://smartly.sale/best-deals",
-    "https://smartly.sale/tools"
+  "@type": "WebSite",
+  "@id": "https://smartly.sale/#website",
+  "name": "smartly.sale",
+  "url": "https://smartly.sale",
+  "publisher": { "@id": "https://smartly.sale/#organization" },
+  "inLanguage": "en-PH",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://smartly.sale/products?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+})} />
+
+<!-- SiteNavigationElement — proper ItemList structure for sitelinks -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": [
+    { "@type": "SiteNavigationElement", "position": 1, "name": "Products", "url": "https://smartly.sale/products" },
+    { "@type": "SiteNavigationElement", "position": 2, "name": "Shopee Deals Guide", "url": "https://smartly.sale/shopee-deals-guide" },
+    { "@type": "SiteNavigationElement", "position": 3, "name": "Blog", "url": "https://smartly.sale/blog" },
+    { "@type": "SiteNavigationElement", "position": 4, "name": "Earn GCash", "url": "https://smartly.sale/earn-gcash" },
+    { "@type": "SiteNavigationElement", "position": 5, "name": "Categories", "url": "https://smartly.sale/categories" },
+    { "@type": "SiteNavigationElement", "position": 6, "name": "Best Deals", "url": "https://smartly.sale/best-deals" },
+    { "@type": "SiteNavigationElement", "position": 7, "name": "Sale Calendar 2026", "url": "https://smartly.sale/shopee-sales-2026" },
+    { "@type": "SiteNavigationElement", "position": 8, "name": "Tools", "url": "https://smartly.sale/tools" }
   ]
 })} />
 
