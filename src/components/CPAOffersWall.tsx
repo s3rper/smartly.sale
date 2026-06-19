@@ -616,13 +616,14 @@ export default function CPAOffersWall({ initialOffers = [], s1 = '', s2 = '' }: 
             </span>
           </div>
 
-          {/* Headline */}
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-white leading-tight tracking-tight mb-3">
+          {/* Headline — h2, not h1: this widget is embedded in pages that already
+              have their own page-level <h1>, so it must not introduce a second one. */}
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white leading-tight tracking-tight mb-3">
             Earn GCash Free —<br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-orange-300">
               Prizes Near You Today
             </span>
-          </h1>
+          </h2>
 
           <p className="text-white/60 text-sm sm:text-base mb-7 max-w-sm mx-auto">
             Complete simple tasks and receive your GCash payout. Limited slots — claim yours now.

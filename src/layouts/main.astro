@@ -27,7 +27,10 @@ canonicalUrl,
 noindex = false,
 } = Astro.props;
 
-const resolvedCanonical = canonicalUrl ?? `https://smartly.sale${Astro.url.pathname}`;
+// Normalise the canonical path: strip any trailing slash so /page and /page/
+// resolve to one canonical URL instead of self-canonicalising separately.
+const canonicalPath = Astro.url.pathname.replace(/\/+$/, '');
+const resolvedCanonical = canonicalUrl ?? `https://smartly.sale${canonicalPath}`;
 ---
 
 <html lang="en-PH" dir="ltr" class={pageClass}>

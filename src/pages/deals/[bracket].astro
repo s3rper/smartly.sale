@@ -9,6 +9,7 @@ import { baseUrl } from '../../lib/base-url';
 interface PriceBracket {
   slug: string;
   label: string;
+  minPrice: number;
   maxPrice: number;
   metaTitle: string;
   metaDescription: string;
@@ -17,81 +18,96 @@ interface PriceBracket {
   intro: string;
 }
 
+// Brackets are DISTINCT price ranges (minPrice exclusive, maxPrice inclusive) so
+// each page holds unique inventory. Cumulative "≤ max" brackets made every lower
+// page a strict subset of the higher ones — classic faceted duplicate content.
+// Slugs stay "under-N" (existing indexed URLs) while content reflects the range.
 const BRACKETS: PriceBracket[] = [
   {
     slug: 'under-100',
-    label: 'Under PHP 100',
+    label: 'Under ₱100',
+    minPrice: 0,
     maxPrice: 100,
-    metaTitle: 'Best Shopee Deals Under PHP 100 Philippines 2026 | smartly.sale',
-    metaDescription: 'Discover the best Shopee products under PHP 100 in the Philippines. Affordable finds, accessories, and bargain deals — all under a hundred pesos.',
+    metaTitle: 'Best Shopee Deals Under ₱100 Philippines 2026 | smartly.sale',
+    metaDescription: 'Discover the best Shopee products under ₱100 in the Philippines. Affordable finds, accessories, and bargain deals — all under a hundred pesos.',
     keywords: 'shopee under 100, cheapest shopee products, budget finds philippines, shopee deals under 100 pesos',
-    heading: 'Best Shopee Finds Under PHP 100',
-    intro: 'Looking for affordable Shopee products that won\'t break the bank? These items are all under PHP 100 — perfect for accessories, small gadgets, and everyday essentials. We update this list daily with the latest deals.',
+    heading: 'Best Shopee Finds Under ₱100',
+    intro: 'Looking for affordable Shopee products that won\'t break the bank? These items are all under ₱100 — perfect for accessories, small gadgets, and everyday essentials. We update this list daily with the latest deals.',
   },
   {
     slug: 'under-200',
-    label: 'Under PHP 200',
+    label: '₱100 to ₱200',
+    minPrice: 100,
     maxPrice: 200,
-    metaTitle: 'Best Shopee Deals Under PHP 200 Philippines 2026 | smartly.sale',
-    metaDescription: 'Browse the best Shopee Philippines products under PHP 200. Budget-friendly finds, gadgets, and daily essentials curated for smart Filipino shoppers.',
-    keywords: 'shopee under 200, budget shopee deals, cheap products shopee philippines, shopee finds under 200',
-    heading: 'Best Shopee Finds Under PHP 200',
-    intro: 'Great deals don\'t have to be expensive. These Shopee products are all priced under PHP 200 — from useful accessories to trending items. Updated daily so you never miss a bargain.',
+    metaTitle: 'Best Shopee Deals ₱100 to ₱200 Philippines 2026 | smartly.sale',
+    metaDescription: 'Browse the best Shopee Philippines products priced ₱100 to ₱200. Budget-friendly finds, gadgets, and daily essentials curated for smart Filipino shoppers.',
+    keywords: 'shopee under 200, budget shopee deals, cheap products shopee philippines, shopee finds 100 to 200',
+    heading: 'Best Shopee Finds from ₱100 to ₱200',
+    intro: 'Great deals don\'t have to be expensive. These Shopee products are priced between ₱100 and ₱200 — from useful accessories to trending items. Updated daily so you never miss a bargain.',
   },
   {
     slug: 'under-500',
-    label: 'Under PHP 500',
+    label: '₱200 to ₱500',
+    minPrice: 200,
     maxPrice: 500,
-    metaTitle: 'Best Shopee Deals Under PHP 500 Philippines 2026 | smartly.sale',
-    metaDescription: 'Top Shopee products under PHP 500 in the Philippines. Budget gadgets, fashion, home essentials, and more — curated daily for Filipino shoppers.',
+    metaTitle: 'Best Shopee Deals ₱200 to ₱500 Philippines 2026 | smartly.sale',
+    metaDescription: 'Top Shopee products priced ₱200 to ₱500 in the Philippines. Budget gadgets, fashion, home essentials, and more — curated daily for Filipino shoppers.',
     keywords: 'shopee under 500, best shopee deals under 500, budget gadgets shopee, cheap shopee finds philippines',
-    heading: 'Best Shopee Finds Under PHP 500',
-    intro: 'PHP 500 goes a long way on Shopee Philippines. This curated list features the best products under PHP 500 — including budget gadgets, fashion staples, home essentials, and trending finds. Refreshed daily.',
+    heading: 'Best Shopee Finds from ₱200 to ₱500',
+    intro: '₱500 goes a long way on Shopee Philippines. This curated list features the best products priced ₱200 to ₱500 — including budget gadgets, fashion staples, home essentials, and trending finds. Refreshed daily.',
   },
   {
     slug: 'under-1000',
-    label: 'Under PHP 1,000',
+    label: '₱500 to ₱1,000',
+    minPrice: 500,
     maxPrice: 1000,
-    metaTitle: 'Best Shopee Deals Under PHP 1,000 Philippines 2026 | smartly.sale',
-    metaDescription: 'Find the best Shopee Philippines products under PHP 1,000. Quality gadgets, fashion, beauty, and home items — all under a thousand pesos.',
+    metaTitle: 'Best Shopee Deals ₱500 to ₱1,000 Philippines 2026 | smartly.sale',
+    metaDescription: 'Find the best Shopee Philippines products priced ₱500 to ₱1,000. Quality gadgets, fashion, beauty, and home items in the sub-thousand-peso range.',
     keywords: 'shopee under 1000, best shopee products under 1000, shopee deals philippines, quality budget products shopee',
-    heading: 'Best Shopee Finds Under PHP 1,000',
-    intro: 'Under PHP 1,000, you can get surprisingly high-quality products on Shopee Philippines. From reliable gadgets to stylish fashion pieces — here are our top picks, updated daily.',
+    heading: 'Best Shopee Finds from ₱500 to ₱1,000',
+    intro: 'Between ₱500 and ₱1,000, you can get surprisingly high-quality products on Shopee Philippines. From reliable gadgets to stylish fashion pieces — here are our top picks, updated daily.',
   },
   {
     slug: 'under-2000',
-    label: 'Under PHP 2,000',
+    label: '₱1,000 to ₱2,000',
+    minPrice: 1000,
     maxPrice: 2000,
-    metaTitle: 'Best Shopee Deals Under PHP 2,000 Philippines 2026 | smartly.sale',
-    metaDescription: 'Best Shopee Philippines products under PHP 2,000. Mid-range gadgets, home appliances, fashion brands, and more — curated for value-conscious shoppers.',
+    metaTitle: 'Best Shopee Deals ₱1,000 to ₱2,000 Philippines 2026 | smartly.sale',
+    metaDescription: 'Best Shopee Philippines products priced ₱1,000 to ₱2,000. Mid-range gadgets, home appliances, fashion brands, and more — curated for value-conscious shoppers.',
     keywords: 'shopee under 2000, mid-range shopee products, shopee appliances under 2000, best value shopee philippines',
-    heading: 'Best Shopee Finds Under PHP 2,000',
-    intro: 'The PHP 1,000-2,000 range is the sweet spot for quality on Shopee Philippines. Expect reliable gadgets, brand-name fashion, kitchen appliances, and more. Curated and updated daily.',
+    heading: 'Best Shopee Finds from ₱1,000 to ₱2,000',
+    intro: 'The ₱1,000–₱2,000 range is the sweet spot for quality on Shopee Philippines. Expect reliable gadgets, brand-name fashion, kitchen appliances, and more. Curated and updated daily.',
   },
   {
     slug: 'under-5000',
-    label: 'Under PHP 5,000',
+    label: '₱2,000 to ₱5,000',
+    minPrice: 2000,
     maxPrice: 5000,
-    metaTitle: 'Best Shopee Deals Under PHP 5,000 Philippines 2026 | smartly.sale',
-    metaDescription: 'Top Shopee Philippines products under PHP 5,000. Smartphones, laptops accessories, appliances, and premium finds — handpicked for Filipino shoppers.',
+    metaTitle: 'Best Shopee Deals ₱2,000 to ₱5,000 Philippines 2026 | smartly.sale',
+    metaDescription: 'Top Shopee Philippines products priced ₱2,000 to ₱5,000. Smartphones, laptop accessories, appliances, and premium finds — handpicked for Filipino shoppers.',
     keywords: 'shopee under 5000, best shopee products under 5000, budget phones shopee, shopee appliances philippines',
-    heading: 'Best Shopee Finds Under PHP 5,000',
-    intro: 'Under PHP 5,000, Shopee Philippines offers serious value — budget smartphones, quality earphones, home appliances, and more. Our editors pick the best items in this range, updated daily.',
+    heading: 'Best Shopee Finds from ₱2,000 to ₱5,000',
+    intro: 'In the ₱2,000–₱5,000 range, Shopee Philippines offers serious value — budget smartphones, quality earphones, home appliances, and more. Our editors pick the best items in this range, updated daily.',
   },
 ];
 
-// ── Static paths ──────────────────────────────────────────────────────────────
-
-export function getStaticPaths() {
-  return BRACKETS.map(b => ({
-    params: { bracket: b.slug },
-    props: { bracket: b },
-  }));
-}
-
 // ── Page data ─────────────────────────────────────────────────────────────────
 
-const { bracket } = Astro.props as { bracket: PriceBracket };
+// SSR (output: 'server') ignores getStaticPaths, so resolve the bracket from the
+// route param. Looking it up here (instead of via getStaticPaths props, which were
+// always undefined at runtime and 500'd the page) makes it work on-demand and 404s
+// on unknown brackets instead of crashing.
+const bracket = BRACKETS.find(b => b.slug === Astro.params.bracket);
+
+if (!bracket) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+/** Parse "₱1,234" → 1234 */
+function parsePrice(priceStr: string | undefined): number {
+  if (!priceStr) return 0;
+  return Number(priceStr.replace(/[^0-9.]/g, '')) || 0;
+}
 
 /** Parse "₱1,234" → 1234 */
 function parsePrice(priceStr: string | undefined): number {
@@ -104,7 +120,7 @@ const allProducts = shopeeProducts
   .map(p => ({ cms: p, ui: transformCMSProduct(p) }))
   .filter(({ ui }) => {
     const price = parsePrice(ui.price);
-    return price > 0 && price <= bracket.maxPrice;
+    return price > bracket.minPrice && price <= bracket.maxPrice;
   })
   .sort((a, b) => parsePrice(a.ui.price) - parsePrice(b.ui.price))
   .slice(0, 48);
@@ -138,6 +154,32 @@ const itemListSchema = allProducts.length > 0 ? {
   })),
 } : null;
 
+// FAQ content — shared between the visible accordion and FAQPage schema.
+const faqItems = [
+  {
+    q: `What are the best Shopee products in the ${bracket.label} range?`,
+    a: `We curate the best Shopee Philippines products in the ${bracket.label} range daily. Our picks include gadgets, fashion, home essentials, and beauty items — all verified to be in stock and highly rated by real buyers.`,
+  },
+  {
+    q: `Are Shopee products in the ${bracket.label} range worth buying?`,
+    a: `Yes! Many Shopee Philippines products in the ${bracket.label} range offer excellent value. We recommend checking seller ratings (4.7+ stars), reading reviews with photos, and buying from Shopee Mall sellers when possible.`,
+  },
+  {
+    q: `How often is this deals page updated?`,
+    a: `This page is updated daily with fresh product data from Shopee Philippines. Prices and availability may change — click through to Shopee for the latest pricing.`,
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map(f => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": f.a },
+  })),
+};
+
 ---
 
 <MainLayout
@@ -149,6 +191,7 @@ const itemListSchema = allProducts.length > 0 ? {
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
     {itemListSchema && <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} />}
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   </Fragment>
 
   <!-- Breadcrumb -->
@@ -240,7 +283,7 @@ const itemListSchema = allProducts.length > 0 ? {
         {BRACKETS.filter(b => b.slug !== bracket.slug).map(b => (
           <a href={`/deals/${b.slug}`} class="group p-4 bg-card border border-border rounded-xl hover:border-brand hover:shadow-sm transition-all">
             <p class="font-semibold text-foreground group-hover:text-brand transition-colors">{b.label}</p>
-            <p class="text-xs text-muted-foreground mt-1">Best Shopee deals {b.label.toLowerCase()}</p>
+            <p class="text-xs text-muted-foreground mt-1">Best Shopee deals in the {b.label} range</p>
           </a>
         ))}
       </div>
@@ -252,33 +295,17 @@ const itemListSchema = allProducts.length > 0 ? {
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-xl font-bold text-foreground mb-4">Frequently Asked Questions</h2>
       <div class="space-y-3">
-        <details class="group bg-card border border-border rounded-xl overflow-hidden" open>
-          <summary class="flex items-center px-5 py-3 cursor-pointer font-semibold text-foreground hover:text-brand transition-colors list-none text-sm">
-            <span>What are the best Shopee products {bracket.label.toLowerCase()}?</span>
-            <span class="text-brand text-lg shrink-0 ml-6 transition-transform group-open:rotate-45">+</span>
-          </summary>
-          <div class="px-5 pb-4 text-muted-foreground text-sm border-t border-border pt-3">
-            We curate the best Shopee Philippines products {bracket.label.toLowerCase()} daily. Our picks include gadgets, fashion, home essentials, and beauty items — all verified to be in stock and highly rated by real buyers.
-          </div>
-        </details>
-        <details class="group bg-card border border-border rounded-xl overflow-hidden">
-          <summary class="flex items-center px-5 py-3 cursor-pointer font-semibold text-foreground hover:text-brand transition-colors list-none text-sm">
-            <span>Are Shopee products {bracket.label.toLowerCase()} worth buying?</span>
-            <span class="text-brand text-lg shrink-0 ml-6 transition-transform group-open:rotate-45">+</span>
-          </summary>
-          <div class="px-5 pb-4 text-muted-foreground text-sm border-t border-border pt-3">
-            Yes! Many Shopee Philippines products {bracket.label.toLowerCase()} offer excellent value. We recommend checking seller ratings (4.7+ stars), reading reviews with photos, and buying from Shopee Mall sellers when possible.
-          </div>
-        </details>
-        <details class="group bg-card border border-border rounded-xl overflow-hidden">
-          <summary class="flex items-center px-5 py-3 cursor-pointer font-semibold text-foreground hover:text-brand transition-colors list-none text-sm">
-            <span>How often is this deals page updated?</span>
-            <span class="text-brand text-lg shrink-0 ml-6 transition-transform group-open:rotate-45">+</span>
-          </summary>
-          <div class="px-5 pb-4 text-muted-foreground text-sm border-t border-border pt-3">
-            This page is updated daily with fresh product data from Shopee Philippines. Prices and availability may change — click through to Shopee for the latest pricing.
-          </div>
-        </details>
+        {faqItems.map((faq, i) => (
+          <details class="group bg-card border border-border rounded-xl overflow-hidden" open={i === 0}>
+            <summary class="flex items-center px-5 py-3 cursor-pointer font-semibold text-foreground hover:text-brand transition-colors list-none text-sm">
+              <span class="flex-1">{faq.q}</span>
+              <span class="text-brand text-lg shrink-0 ml-6 transition-transform group-open:rotate-45">+</span>
+            </summary>
+            <div class="px-5 pb-4 text-muted-foreground text-sm border-t border-border pt-3">
+              {faq.a}
+            </div>
+          </details>
+        ))}
       </div>
     </div>
   </section>

@@ -53,7 +53,14 @@ const PostContent: React.FC<{ post: Post }> = ({ post }) => {
 
   const categoryLabel = post.category
     ? post.category.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
-    : 'Gaming';
+    : 'Guides';
+
+  // The post title is the page's single <h1> (rendered in the hero below). Many
+  // stored article bodies embed their own <h1>, which would create a second H1
+  // on the page — demote any in-content <h1> to <h2> to keep one H1 per page.
+  const bodyHtml = post.content
+    .replace(/<h1(\s[^>]*)?>/gi, '<h2$1>')
+    .replace(/<\/h1>/gi, '</h2>');
 
   return (
     <>
@@ -151,7 +158,7 @@ const PostContent: React.FC<{ post: Post }> = ({ post }) => {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16">
           <div
             className="article-content"
-            dangerouslySetInnerHTML={{ __html: post.content }}
+            dangerouslySetInnerHTML={{ __html: bodyHtml }}
           />
 
           {/* ── Shopee affiliate banner ── */}
@@ -236,8 +243,9 @@ const PostContent: React.FC<{ post: Post }> = ({ post }) => {
                 <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">Written by</p>
                 <h3 className="text-lg font-bold text-foreground mb-2">{post.author}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Gaming journalist and deals expert covering the latest in gaming news, tips, and
-                  free-to-play opportunities for Filipino gamers and beyond.
+                  The smartly.sale team curates Shopee deals, reviews products, and writes shopping
+                  guides for Filipino consumers — verifying sellers, comparing prices, and testing
+                  products so you can shop smarter.
                 </p>
               </div>
             </div>

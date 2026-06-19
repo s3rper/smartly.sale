@@ -65,10 +65,11 @@ const pageDescription = productName && productName !== 'Product Details'
   : 'Discover amazing Shopee products at smartly.sale. Best deals and viral finds in the Philippines.';
 ---
 
-<MainLayout 
+<MainLayout
   title={pageTitle}
   description={pageDescription}
   ogImage={imageUrl}
+  noindex={true}
 >
   {parsedData ? (
     <ProductDetailDynamic client:only="react" productData={parsedData} />

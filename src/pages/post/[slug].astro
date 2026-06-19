@@ -7,8 +7,15 @@ import { blogPosts } from '../../lib/blog-data';
 const { slug } = Astro.params;
 const post = blogPosts.find(p => p.slug === slug);
 
+// Genuinely missing post → 404 (not a redirect, which Google treats as a soft-404).
 if (!post) {
-  return Astro.redirect('/blog');
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+// Canonical-namespace enforcement: hardcoded posts live at /blog/<slug>.
+// Permanently redirect so the two route namespaces never index the same content.
+if (!(post as any).generated) {
+  return Astro.redirect(`/blog/${post.slug}`, 301);
 }
 
 const pageTitle = post.metaTitle || `${post.title} - smartly.sale`;
@@ -39,23 +46,21 @@ const articleSchema = {
   "image": post.featuredImage,
   "url": canonicalUrl,
   "datePublished": post.publishDate,
-  "dateModified": post.publishDate,
+  "dateModified": (post as any).modifiedDate || post.publishDate,
   "author": {
     "@type": "Person",
-    "name": post.author
+    "name": post.author,
+    "url": "https://smartly.sale/about"
   },
-  "publisher": {
-    "@type": "Organization",
-    "name": "smartly.sale",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://smartly.sale/og-image.jpg"
-    }
-  },
+  "publisher": { "@id": "https://smartly.sale/#organization" },
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": canonicalUrl
-  }
+  },
+  "isPartOf": { "@id": "https://smartly.sale/#website" },
+  "inLanguage": "en-PH",
+  ...((post as any).wordCount && { "wordCount": (post as any).wordCount }),
+  ...(post.readTime && { "timeRequired": `PT${post.readTime}M` })
 };
 
 const breadcrumbData = {
@@ -67,6 +72,18 @@ const breadcrumbData = {
     { "@type": "ListItem", "position": 3, "name": post.title, "item": canonicalUrl }
   ]
 };
+
+// FAQPage schema — generated posts ship a `faqs` array rendered by PostContent.
+const faqs = (post as any).faqs as { q: string; a: string }[] | undefined;
+const faqSchema = (faqs && faqs.length > 0) ? {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": f.a },
+  })),
+} : null;
 ---
 
 <MainLayout
@@ -81,6 +98,7 @@ const breadcrumbData = {
   <Fragment slot="head">
     <script type="application/ld+json" set:html={jsonLd(articleSchema)} />
     <script type="application/ld+json" set:html={jsonLd(breadcrumbData)} />
+    {faqSchema && <script type="application/ld+json" set:html={jsonLd(faqSchema)} />}
     <meta property="article:published_time" content={post.publishDate} />
     <meta property="article:author" content={post.author} />
     <meta property="article:section" content={post.category} />

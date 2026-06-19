@@ -77,19 +77,18 @@ const schemaData = {
 };
 ---
 
-<MainLayout 
+<MainLayout
   title={pageTitle}
   description={pageDescription}
   ogImage={ogImage}
+  noindex={true}
 >
   <!-- Enhanced SEO Meta Tags in Head -->
   <Fragment slot="head">
     <link rel="canonical" href={pageUrl} />
     
     <meta name="keywords" content="daily insights, daily advice, mood checker, energy level, daily predictions, motivation generator, life advice, decision maker, relationship insights, free daily tool, personal growth, self awareness" />
-    <meta name="author" content="smartly.sale" />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    
+    <meta name="author" content="smartly.sale" />    
     <meta property="og:type" content="website" />
     <meta property="og:url" content={pageUrl} />
     <meta property="og:title" content={pageTitle} />

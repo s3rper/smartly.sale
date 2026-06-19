@@ -18,10 +18,9 @@ export const GET: APIRoute = async () => {
     { url: '/free-gift-cards-philippines', priority: '0.8', changefreq: 'daily',   lastmod: today   },
     { url: '/free-mlbb-diamonds',          priority: '0.8', changefreq: 'daily',   lastmod: today   },
     { url: '/free-fire-codes',             priority: '0.8', changefreq: 'daily',   lastmod: today   },
-    { url: '/free-robux',                  priority: '0.8', changefreq: 'daily',   lastmod: today   },
-    { url: '/free-imvu-credits',           priority: '0.8', changefreq: 'daily',   lastmod: today   },
     { url: '/free-gaming-credits',         priority: '0.8', changefreq: 'daily',   lastmod: today   },
-    { url: '/shopee-ai-assistant',         priority: '0.7', changefreq: 'monthly', lastmod: '2026-04-01' },
+    // /free-robux, /free-imvu-credits, /free-deviantart-points excluded — noindexed (off-topic "generator" pages)
+    // /shopee-ai-assistant excluded — noindexed (client-only chat shell, no crawlable content)
     { url: '/category/gadgets',            priority: '0.8', changefreq: 'weekly',  lastmod: today   },
     { url: '/category/home-living',        priority: '0.8', changefreq: 'weekly',  lastmod: today   },
     { url: '/category/fashion',            priority: '0.8', changefreq: 'weekly',  lastmod: today   },
@@ -37,12 +36,12 @@ export const GET: APIRoute = async () => {
     { url: '/shopee-deals-guide',           priority: '0.9', changefreq: 'daily',   lastmod: today   },
     { url: '/shopee-sales-2026',           priority: '0.9', changefreq: 'monthly', lastmod: today   },
     { url: '/earn',                        priority: '0.7', changefreq: 'weekly',  lastmod: today   },
-    { url: '/earn/gcash',                  priority: '0.7', changefreq: 'weekly',  lastmod: today   },
+    // /earn/gcash excluded — 301 redirect to /earn-gcash (redirect URLs must not be in the sitemap)
     // /jokes and /daily excluded — low-value utility pages, not worth crawl budget
     { url: '/best-deals',                  priority: '0.8', changefreq: 'daily',   lastmod: today   },
     { url: '/tiktok-viral',                priority: '0.7', changefreq: 'weekly',  lastmod: today   },
     // /cheapest-near-me excluded — noindexed page, must not conflict with sitemap
-    { url: '/free-robux-philippines',      priority: '0.8', changefreq: 'weekly',  lastmod: today   },
+    // /free-robux-philippines excluded — 301 redirect to /free-robux
     { url: '/tools',                       priority: '0.7', changefreq: 'monthly', lastmod: '2026-04-01' },
     { url: '/tools/discount-calculator',   priority: '0.7', changefreq: 'monthly', lastmod: '2026-04-01' },
     { url: '/tools/password-generator',    priority: '0.7', changefreq: 'monthly', lastmod: '2026-04-01' },
@@ -50,14 +49,9 @@ export const GET: APIRoute = async () => {
     { url: '/tools/word-counter',          priority: '0.7', changefreq: 'monthly', lastmod: '2026-04-01' },
     { url: '/tools/ai-budget-planner',     priority: '0.7', changefreq: 'monthly', lastmod: '2026-04-01' },
     { url: '/tools/ai-review-summarizer',  priority: '0.7', changefreq: 'monthly', lastmod: '2026-04-01' },
-    { url: '/tools/cash-tracker',          priority: '0.7', changefreq: 'monthly', lastmod: '2026-04-01' },
-    { url: '/tools/json-formatter',        priority: '0.6', changefreq: 'monthly', lastmod: '2026-04-01' },
-    { url: '/tools/color-converter',       priority: '0.6', changefreq: 'monthly', lastmod: '2026-04-01' },
-    { url: '/tools/base64-image',          priority: '0.6', changefreq: 'monthly', lastmod: '2026-04-01' },
-    { url: '/tools/html-entity',           priority: '0.6', changefreq: 'monthly', lastmod: '2026-04-01' },
-    { url: '/tools/css-minifier',          priority: '0.6', changefreq: 'monthly', lastmod: '2026-04-01' },
-    { url: '/blog/shopee-6-6-mid-year-sale-2026-best-deals-guide', priority: '0.9', changefreq: 'daily', lastmod: today },
-    { url: '/blog/best-budget-phones-under-5000-shopee-philippines-2026', priority: '0.8', changefreq: 'weekly', lastmod: today },
+    // Dev/off-brand tools (cash-tracker, json-formatter, color-converter, base64-image, html-entity, css-minifier)
+    // excluded — noindexed to preserve topical authority for a shopping site.
+    // Two hardcoded blog posts are emitted by the programmatic blog loop below — do not list them here (was duplicating URLs).
     // Programmatic deal pages by price bracket
     { url: '/deals',              priority: '0.8', changefreq: 'daily', lastmod: today },
     { url: '/deals/under-100',    priority: '0.8', changefreq: 'daily', lastmod: today },
@@ -108,7 +102,10 @@ export const GET: APIRoute = async () => {
 
   const blogXml = indexablePosts.map(post => {
     const path    = (post as any).generated ? `/post/${post.slug}` : `/blog/${post.slug}`;
-    const lastmod = today; // SSR renders today's date = always fresh for Google
+    // Use the post's real publish/modified date. Faking lastmod=today on every
+    // crawl is a spam signal Google distrusts and erodes the whole sitemap's credibility.
+    const rawDate = (post as any).modifiedDate || (post as any).publishDate || today;
+    const lastmod = String(rawDate).split('T')[0];
     // Differentiate priority by category and content depth
     // Shopping/deals content gets highest priority (money pages supporting pillar)
     const cat = ((post as any).category ?? '').toLowerCase();

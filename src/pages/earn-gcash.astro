@@ -3,15 +3,16 @@ import MainLayout from '../layouts/main.astro';
 import CPAOffersWall from '../components/CPAOffersWall';
 import EmailCapturePopup from '../components/EmailCapturePopup';
 import ShopeeAffiliateCTA from '../components/ShopeeAffiliateCTA.astro';
+import ReferralShare from '../components/ReferralShare';
 
 const pageTitle       = 'Earn GCash Online Today 2026 — Free Rewards & Prize Offers Philippines';
 const pageDescription = 'Earn GCash online today in the Philippines with verified reward offers, free prize draws, and real claimable rewards. Updated for 2026 and built for fast action.';
 const pageUrl         = 'https://smartly.sale/earn-gcash';
 const today           = new Date().toISOString().split('T')[0];
 const primaryLinks = [
-  { href: '/online-contests-philippines', label: '🏆 Online Contests PH' },
-  { href: '/free-gift-cards-philippines', label: '🎁 Free Gift Cards' },
-  { href: '/free-imvu-credits', label: '💜 IMVU Credits Guide' },
+  { href: '/online-contests-philippines', label: 'Online Contests PH', icon: 'trophy' },
+  { href: '/free-gift-cards-philippines', label: 'Free Gift Cards', icon: 'gift' },
+  { href: '/free-imvu-credits', label: 'IMVU Credits Guide', icon: 'heart' },
 ];
 
 // ── SSR pre-fetch CPAGrip offers ──────────────────────────────────────────────
@@ -54,6 +55,16 @@ const breadcrumbSchema = {
   ]
 };
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Legit ba ang mga online reward sites sa Pilipinas?", "acceptedAnswer": { "@type": "Answer", "text": "Oo, maraming legit na reward at prize sites ang available sa Pilipinas. Ang mga offer na makikita dito ay verified at galing sa trusted advertiser networks." }},
+    { "@type": "Question", "name": "Kailangan ko bang magbayad para sumali?", "acceptedAnswer": { "@type": "Answer", "text": "Hindi. Lahat ng mga offer at prize draws na makikita dito ay libre sumali." }},
+    { "@type": "Question", "name": "Paano matatanggap ang reward o premyo?", "acceptedAnswer": { "@type": "Answer", "text": "Ang bawat offer ay may sariling mechanics at payout process. Matapos makumpleto ang steps, ang advertiser mismo ang magpapadala ng reward." }},
+    { "@type": "Question", "name": "Paano gumagana ang referral program?", "acceptedAnswer": { "@type": "Answer", "text": "I-share ang iyong unique referral link sa kaibigan. Kapag nag-join sila gamit ang iyong link, makakakuha ka ng bonus reward points." }},
+  ]
+};
 ---
 
 <MainLayout
@@ -66,6 +77,7 @@ const breadcrumbSchema = {
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
     <meta property="article:published_time" content="2026-01-15" />
     <meta property="article:modified_time" content={today} />
     <meta property="article:section" content="Earning" />
@@ -75,83 +87,164 @@ const breadcrumbSchema = {
   </Fragment>
 
   <!-- ── Hero ──────────────────────────────────────────────────────────────── -->
-  <section class="bg-gradient-to-br from-[#0d6efd] via-[#0a58ca] to-[#084298] text-white py-14 px-4">
-    <div class="max-w-3xl mx-auto text-center">
-      <div class="inline-flex items-center gap-2 bg-white/15 border border-white/25 rounded-full px-4 py-1.5 text-xs font-semibold tracking-wide mb-5 uppercase">
-        🎁 Updated Daily — Libreng Sumali
+  <section class="relative overflow-hidden bg-gradient-to-br from-[#0d6efd] via-[#0a58ca] to-[#084298] text-white py-16 sm:py-20 px-4">
+    <!-- Decorative blobs -->
+    <div class="absolute top-0 right-0 w-72 h-72 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 w-96 h-96 bg-blue-400/10 rounded-full translate-y-1/2 -translate-x-1/3 blur-3xl"></div>
+
+    <div class="relative max-w-3xl mx-auto text-center">
+      <div class="inline-flex items-center gap-2 bg-white/15 border border-white/25 rounded-full px-4 py-1.5 text-xs font-semibold tracking-wide mb-6 backdrop-blur-sm">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+        </span>
+        LIVE — Updated Daily
       </div>
-      <h1 class="text-3xl sm:text-4xl font-extrabold leading-tight mb-4">
-        Kumita ng GCash Online —<br class="hidden sm:block" />
-        <span class="text-yellow-300">Libreng Mag-join, Walang Bayad</span>
+
+      <h1 class="text-3xl sm:text-5xl font-extrabold leading-tight mb-5 tracking-tight">
+        Kumita ng GCash Online
+        <span class="block text-yellow-300 mt-1">Libreng Mag-join, Walang Bayad</span>
       </h1>
-      <p class="text-blue-100 text-base sm:text-lg max-w-xl mx-auto mb-6">
-        Sumali sa mga verified na prize draws at reward programs. Kumpletuhin ang simpleng steps,
-        at manalo ng cash rewards, gift cards, at mga premyo.
+
+      <p class="text-white/80 text-base sm:text-lg max-w-xl mx-auto mb-8 leading-relaxed">
+        Sumali sa mga verified reward offers at prize programs.
+        I-share sa friends mo para sa bonus rewards!
       </p>
-      <a href="#live-offers" class="inline-flex items-center justify-center rounded-full bg-white text-blue-900 font-extrabold px-6 py-3 hover:bg-blue-50 transition-colors mb-6">
-        Claim Offers Available Now
-      </a>
-      <div class="flex flex-wrap justify-center gap-4 text-sm mb-10">
-        <span class="flex items-center gap-1.5 bg-white/10 rounded-full px-3 py-1">✅ Libre — walang bayad</span>
-        <span class="flex items-center gap-1.5 bg-white/10 rounded-full px-3 py-1">⚡ Instant na rewards</span>
-        <span class="flex items-center gap-1.5 bg-white/10 rounded-full px-3 py-1">🔒 Verified na advertisers</span>
-        <span class="flex items-center gap-1.5 bg-white/10 rounded-full px-3 py-1">📱 Mobile-friendly</span>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 mb-8">
+        <a href="#live-offers" style="color:#fff" class="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-emerald-500 to-emerald-600 font-extrabold px-8 py-3.5 hover:from-emerald-400 hover:to-emerald-500 transition-all shadow-lg shadow-emerald-500/40 active:scale-95 text-base">
+          Claim Rewards Now
+          <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </a>
+        <a href="#referral" class="inline-flex items-center justify-center rounded-full bg-white/15 border-2 border-white/30 text-white font-bold px-8 py-3.5 hover:bg-white/25 transition-all backdrop-blur-sm active:scale-95 text-base">
+          Invite Friends
+          <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+        </a>
       </div>
-      <!-- Social proof numbers -->
-      <div class="flex justify-center gap-8 text-center">
-        <div>
-          <div class="text-2xl font-extrabold text-white">2,400+</div>
-          <div class="text-xs text-blue-200">Active Members</div>
+
+      <!-- Trust badges row -->
+      <div class="flex flex-wrap justify-center gap-2.5 text-sm mb-10">
+        <span class="flex items-center gap-1.5 bg-white/15 backdrop-blur-sm rounded-full px-4 py-2 border border-white/20 font-medium">
+          <svg class="w-4 h-4 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+          Libre
+        </span>
+        <span class="flex items-center gap-1.5 bg-white/15 backdrop-blur-sm rounded-full px-4 py-2 border border-white/20 font-medium">
+          <svg class="w-4 h-4 text-yellow-300" fill="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          Instant Rewards
+        </span>
+        <span class="flex items-center gap-1.5 bg-white/15 backdrop-blur-sm rounded-full px-4 py-2 border border-white/20 font-medium">
+          <svg class="w-4 h-4 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          Verified
+        </span>
+        <span class="flex items-center gap-1.5 bg-white/15 backdrop-blur-sm rounded-full px-4 py-2 border border-white/20 font-medium">
+          <svg class="w-4 h-4 text-pink-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+          Mobile-friendly
+        </span>
+      </div>
+
+      <!-- Stats -->
+      <div class="inline-flex items-center gap-6 sm:gap-10 bg-white/20 backdrop-blur-md border border-white/25 rounded-2xl px-8 sm:px-10 py-5">
+        <div class="text-center">
+          <div class="text-2xl sm:text-3xl font-extrabold text-white">2,400+</div>
+          <div class="text-xs text-white/70 mt-0.5 font-medium">Active Members</div>
         </div>
-        <div class="border-l border-white/20"></div>
-        <div>
-          <div class="text-2xl font-extrabold text-white">₱500K+</div>
-          <div class="text-xs text-blue-200">Rewards Claimed</div>
+        <div class="h-10 w-px bg-white/25"></div>
+        <div class="text-center">
+          <div class="text-2xl sm:text-3xl font-extrabold text-yellow-300">P500K+</div>
+          <div class="text-xs text-white/70 mt-0.5 font-medium">Rewards Claimed</div>
         </div>
-        <div class="border-l border-white/20"></div>
-        <div>
-          <div class="text-2xl font-extrabold text-white">4.8★</div>
-          <div class="text-xs text-blue-200">Avg. Rating</div>
+        <div class="h-10 w-px bg-white/25"></div>
+        <div class="text-center">
+          <div class="text-2xl sm:text-3xl font-extrabold text-white">4.8<span class="text-yellow-300">&#9733;</span></div>
+          <div class="text-xs text-white/70 mt-0.5 font-medium">Avg. Rating</div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ── Trust Bar ───────────────────────────────────────────────────────────── -->
-  <div class="bg-white border-b border-gray-100 py-3 px-4">
-    <div class="max-w-3xl mx-auto flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-gray-500 font-medium">
-      <span class="flex items-center gap-1.5">🛡️ SSL Secure — Safe & Encrypted</span>
-      <span class="flex items-center gap-1.5">✅ Verified Advertiser Network</span>
-      <span class="flex items-center gap-1.5">🚫 Zero Spam — Unsubscribe Anytime</span>
-      <span class="flex items-center gap-1.5">💸 No Puhunan — Libre Palagi</span>
+  <div class="bg-white border-b border-gray-100 py-4 px-4">
+    <div class="max-w-4xl mx-auto flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-gray-500 font-medium">
+      <span class="flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+        SSL Encrypted
+      </span>
+      <span class="flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Verified Advertisers
+      </span>
+      <span class="flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+        Zero Spam
+      </span>
+      <span class="flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        No Puhunan
+      </span>
     </div>
   </div>
 
   <!-- ── Breadcrumb ─────────────────────────────────────────────────────────── -->
-  <nav class="max-w-3xl mx-auto px-4 py-3 text-xs text-gray-400" aria-label="Breadcrumb">
+  <nav class="max-w-4xl mx-auto px-4 py-3 text-xs text-gray-400" aria-label="Breadcrumb">
     <a href="/" class="hover:text-gray-600">Home</a>
-    <span class="mx-2">›</span>
+    <span class="mx-2">/</span>
     <span class="text-gray-700 font-medium">Earn GCash Online</span>
   </nav>
 
+  <!-- ── How It Works ─────────────────────────────────────────────────────── -->
+  <section class="max-w-4xl mx-auto px-4 pt-12 pb-10">
+    <div class="text-center mb-8">
+      <h2 class="text-2xl font-extrabold text-gray-900 mb-2">Paano Ito Gumagana?</h2>
+      <p class="text-sm text-gray-500 mt-2">3 simpleng steps para magsimulang kumita</p>
+    </div>
+    <div class="grid sm:grid-cols-3 gap-5">
+      {[
+        { n: '1', icon: 'cursor', title: 'Pumili ng Offer', body: 'Piliin ang reward o prize na gusto mo mula sa live offers sa ibaba.', color: 'from-blue-500 to-blue-600' },
+        { n: '2', icon: 'edit', title: 'Kumpletuhin ang Task', body: 'Sundin ang simpleng mechanics — form, survey, o pagsali sa draw.', color: 'from-indigo-500 to-indigo-600' },
+        { n: '3', icon: 'gift', title: 'I-claim & I-share', body: 'Matanggap ang reward, then i-share ang referral link mo para sa bonus!', color: 'from-purple-500 to-purple-600' },
+      ].map(({ n, title, body, color }) => (
+        <div class="relative group">
+          <div class="bg-white border border-gray-100 rounded-2xl p-6 text-center hover:shadow-lg hover:border-blue-200 transition-all h-full">
+            <div class={`w-12 h-12 rounded-xl bg-gradient-to-br ${color} text-white text-lg font-bold flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform`}>
+              {n}
+            </div>
+            <h3 class="font-bold text-gray-900 text-base mb-3">{title}</h3>
+            <p class="text-sm text-gray-500 leading-relaxed mt-1">{body}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
   <!-- ── Offer Wall ─────────────────────────────────────────────────────────── -->
-  <div id="live-offers" class="max-w-3xl mx-auto px-4 pt-6 mb-3 scroll-mt-24">
-    <div class="rounded-2xl border border-blue-100 bg-blue-50 px-4 py-4 mb-4">
-      <p class="text-sm font-bold text-blue-900">Main reward hub</p>
-      <p class="text-xs text-blue-700 mt-1">Ito ang pangunahing page para sa earn-online at free reward intent. I-claim muna ang live offers sa ibaba bago mag-browse ng ibang pages.</p>
+  <div id="live-offers" class="max-w-4xl mx-auto px-4 pt-8 mb-3 scroll-mt-24">
+    <div class="rounded-2xl border border-blue-100 bg-gradient-to-r from-blue-50 to-indigo-50 px-5 py-4 mb-5">
+      <div class="flex items-start gap-3">
+        <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center flex-shrink-0 mt-0.5">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <div>
+          <p class="text-sm font-bold text-blue-900">Main Reward Hub</p>
+          <p class="text-xs text-blue-700 mt-2">Ito ang pangunahing page para sa earn-online rewards. I-claim muna ang live offers sa ibaba!</p>
+        </div>
+      </div>
     </div>
-    <div class="flex items-center gap-3 mb-2">
-      <h2 class="text-lg font-bold text-gray-900">Available Rewards Right Now</h2>
-      <span class="relative flex h-2.5 w-2.5">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
-      </span>
+
+    <div class="flex items-center justify-between gap-3 mb-2">
+      <div class="flex items-center gap-3">
+        <h2 class="text-xl font-extrabold text-gray-900">Available Rewards</h2>
+        <span class="relative flex h-2.5 w-2.5">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
+        </span>
+      </div>
+      <span class="text-xs bg-emerald-50 text-emerald-700 font-semibold px-3 py-1 rounded-full border border-emerald-200">LIVE</span>
     </div>
-    <p class="text-sm text-gray-500 mb-1">Geo-targeted para sa inyong lokasyon. Mag-claim na bago maubusan ng slots.</p>
-    <p class="text-xs text-gray-400 mb-4">🔒 Ligtas ang inyong data. Ang mga offers ay galing sa verified na advertiser network.</p>
+    <p class="text-sm text-gray-500 mb-4">Geo-targeted para sa inyong lokasyon. Mag-claim na bago maubusan ng slots.</p>
+    <p class="text-xs text-gray-400 mb-6">Ang mga offers ay galing sa verified na advertiser network.</p>
   </div>
 
-  <div class="max-w-3xl mx-auto px-4">
+  <div class="max-w-4xl mx-auto px-4 mb-6">
     <CPAOffersWall
       client:visible
       initialOffers={initialOffers}
@@ -160,158 +253,175 @@ const breadcrumbSchema = {
     />
   </div>
 
-  <section class="max-w-3xl mx-auto px-4 pt-5 pb-4">
+  <!-- ── Referral / Share Section ──────────────────────────────────────────── -->
+  <section id="referral" class="max-w-4xl mx-auto px-4 pt-10 pb-12 scroll-mt-24">
+    <ReferralShare client:load />
+  </section>
+
+  <!-- ── More Reward Paths ────────────────────────────────────────────────── -->
+  <section class="max-w-4xl mx-auto px-4 pb-10">
     <h2 class="text-sm font-bold text-gray-700 mb-3 uppercase tracking-wide">More Verified Reward Paths</h2>
-    <div class="flex flex-wrap gap-3">
+    <div class="grid sm:grid-cols-3 gap-3">
       {primaryLinks.map(({ href, label }) => (
-        <a href={href} class="inline-flex items-center px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-700 hover:border-blue-300 hover:text-blue-700 transition-colors">
-          {label}
+        <a href={href} class="flex items-center gap-3 px-5 py-4 bg-white border border-gray-200 rounded-xl hover:border-blue-300 hover:shadow-md transition-all group">
+          <span class="text-sm font-semibold text-gray-700 group-hover:text-blue-700 transition-colors">{label}</span>
+          <svg class="w-4 h-4 text-gray-300 group-hover:text-blue-500 ml-auto transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
         </a>
       ))}
     </div>
   </section>
 
-  <section class="max-w-3xl mx-auto px-4 pb-2">
-    <ShopeeAffiliateCTA keyword="budget gadgets philippines" label="While you're here: browse budget gadgets on Shopee" icon="🛍️" />
+  <section class="max-w-4xl mx-auto px-4 pb-10">
+    <ShopeeAffiliateCTA keyword="budget gadgets philippines" label="While you're here: browse budget gadgets on Shopee" icon="bag" />
   </section>
 
-  <!-- ── Intro Content ─────────────────────────────────────────────────────── -->
-  <article class="max-w-3xl mx-auto px-4 pt-8 pb-6">
-    <h2 class="text-xl font-bold text-gray-900 mb-4">Paano Kumita ng GCash Online nang Libre?</h2>
-    <p class="text-gray-600 leading-relaxed mb-5">
-      Milyun-milyong Pilipino ang gumagamit ng <strong>GCash</strong> bilang pangunahing digital wallet —
-      para sa palengke, Shopee, bayad ng bills, at pati na rin para mag-receive ng pera mula sa mga online na trabaho
-      at reward programs. Ngayon, mas maraming paraan na para kumita ng GCash credits online, at karamihan sa kanila
-      ay libre at hindi nangangailangan ng kahit anong puhunan.
-    </p>
-    <p class="text-gray-600 leading-relaxed mb-8">
-      Ang mga reward at prize programs na ito ay nagbabayad ng <strong>cash rewards, gift cards, at mga gadget</strong>
-      kapalit ng iyong oras sa pagkumpleto ng simpleng tasks — tulad ng pagsali sa online contest,
-      pag-fill ng form, o pagsasagawa ng maikli na survey. Lahat ng offers na makikita sa ibaba ay galing sa
-      <strong>verified advertiser networks</strong> at libre sumali.
+  <!-- ── Ways to Earn Table ───────────────────────────────────────────────── -->
+  <article class="max-w-4xl mx-auto px-4 pt-10 pb-10">
+    <h2 class="text-xl font-extrabold text-gray-900 mb-2">Paano Kumita ng GCash Online nang Libre?</h2>
+    <p class="text-gray-500 text-sm leading-relaxed mb-8 max-w-2xl">
+      Milyun-milyong Pilipino ang gumagamit ng GCash bilang pangunahing digital wallet.
+      Ngayon, mas maraming paraan na para kumita ng GCash credits online — at karamihan ay libre.
     </p>
 
-    <!-- Ways to Earn GCash comparison table -->
-    <h2 class="text-xl font-bold text-gray-900 mb-5">Mga Paraan ng Pagkita ng GCash Online (2026)</h2>
-    <div class="overflow-x-auto mb-10">
-      <table class="w-full text-sm border-collapse">
+    <h3 class="text-lg font-bold text-gray-900 mb-4">Mga Paraan ng Pagkita ng GCash (2026)</h3>
+    <div class="overflow-x-auto mb-10 rounded-xl border border-gray-200">
+      <table class="w-full text-sm">
         <thead>
-          <tr class="bg-gray-100 text-gray-700">
-            <th class="text-left px-4 py-3.5 rounded-tl-xl font-bold">Paraan</th>
-            <th class="text-left px-4 py-3.5 font-bold">Kinikita</th>
-            <th class="text-left px-4 py-3.5 font-bold">Oras Kailangan</th>
-            <th class="text-left px-4 py-3.5 rounded-tr-xl font-bold">Difficulty</th>
+          <tr class="bg-gray-50 text-gray-700">
+            <th class="text-left px-5 py-3.5 font-bold">Paraan</th>
+            <th class="text-left px-5 py-3.5 font-bold">Kinikita</th>
+            <th class="text-left px-5 py-3.5 font-bold hidden sm:table-cell">Oras</th>
+            <th class="text-left px-5 py-3.5 font-bold">Difficulty</th>
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-100">
           {[
-            { method: 'Reward Offers (sa page na ito)', earn: '₱50–₱500 per offer', time: '5–15 min', diff: 'Madali' },
-            { method: 'Online Surveys', earn: '₱20–₱200 per survey', time: '10–30 min', diff: 'Madali' },
-            { method: 'GCash Forest / GLife Cashback', earn: '₱5–₱50 per day', time: '2–5 min', diff: 'Pinakamadali' },
-            { method: 'Freelancing via GCash Payout', earn: '₱500–₱5,000 per task', time: '1–4 hours', diff: 'Medium' },
-            { method: 'Shopee Affiliate + GCash Cashout', earn: '₱200–₱10,000/month', time: 'Variable', diff: 'Medium' },
-          ].map(({ method, earn, time, diff }) => (
-            <tr class="hover:bg-gray-50">
-              <td class="px-4 py-3.5 font-medium text-gray-800">{method}</td>
-              <td class="px-4 py-3.5 text-blue-600 font-semibold">{earn}</td>
-              <td class="px-4 py-3.5 text-gray-600">{time}</td>
-              <td class="px-4 py-3.5 text-gray-500">{diff}</td>
+            { method: 'Reward Offers (sa page na ito)', earn: 'P50-P500/offer', time: '5-15 min', diff: 'Madali', diffColor: 'bg-emerald-50 text-emerald-700' },
+            { method: 'Online Surveys', earn: 'P20-P200/survey', time: '10-30 min', diff: 'Madali', diffColor: 'bg-emerald-50 text-emerald-700' },
+            { method: 'GCash Forest / GLife', earn: 'P5-P50/day', time: '2-5 min', diff: 'Pinakamadali', diffColor: 'bg-blue-50 text-blue-700' },
+            { method: 'Referral Bonuses', earn: 'P10-P100/referral', time: '1 min', diff: 'Pinakamadali', diffColor: 'bg-blue-50 text-blue-700' },
+            { method: 'Freelancing via GCash', earn: 'P500-P5,000/task', time: '1-4 hrs', diff: 'Medium', diffColor: 'bg-amber-50 text-amber-700' },
+            { method: 'Shopee Affiliate + GCash', earn: 'P200-P10,000/mo', time: 'Variable', diff: 'Medium', diffColor: 'bg-amber-50 text-amber-700' },
+          ].map(({ method, earn, time, diff, diffColor }) => (
+            <tr class="hover:bg-gray-50 transition-colors">
+              <td class="px-5 py-3.5 font-medium text-gray-800">{method}</td>
+              <td class="px-5 py-3.5 text-blue-600 font-semibold">{earn}</td>
+              <td class="px-5 py-3.5 text-gray-500 hidden sm:table-cell">{time}</td>
+              <td class="px-5 py-3.5">
+                <span class={`inline-flex px-2.5 py-1 rounded-full text-xs font-semibold ${diffColor}`}>{diff}</span>
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
 
-    <!-- Legitimacy assurance box -->
-    <div class="bg-blue-50 border border-blue-200 rounded-2xl p-6 mb-10 flex gap-4 items-start">
-      <span class="text-2xl flex-shrink-0">🛡️</span>
-      <div>
-        <p class="font-bold text-blue-900 text-sm mb-1">Bakit Mapagkakatiwalaan ang mga Offers na Ito?</p>
-        <p class="text-xs text-blue-700 leading-relaxed">
-          Ang lahat ng offers na makikita dito ay galing sa <strong>CPABuild</strong> — isang international advertiser network
-          na gumagana sa mahigit 50 bansa. Hindi kami nagtatago ng personal na impormasyon. Ang bawat payout ay
-          direktang galing sa advertiser, hindi sa amin. Transparent at verifiable ang bawat offer.
-        </p>
+    <!-- Legitimacy box -->
+    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-2xl p-6 mb-10">
+      <div class="flex gap-4 items-start">
+        <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+        <div>
+          <p class="font-bold text-blue-900 text-sm mb-2">Bakit Mapagkakatiwalaan ang mga Offers?</p>
+          <p class="text-xs text-blue-700 leading-relaxed mt-1">
+            Ang lahat ng offers ay galing sa CPABuild — isang international advertiser network.
+            Hindi kami nagtatago ng personal na info. Ang bawat payout ay direkta mula sa advertiser.
+          </p>
+        </div>
       </div>
-    </div>
-
-    <!-- How it works steps -->
-    <h2 class="text-xl font-bold text-gray-900 mb-5">3 Simpleng Steps para Magsimula</h2>
-    <div class="grid sm:grid-cols-3 gap-5 mb-10">
-      {[
-        { n: '1', icon: '👆', title: 'Pumili ng Offer', body: 'Piliin ang prize o reward na gusto mo mula sa listahan sa ibaba.' },
-        { n: '2', icon: '✍️', title: 'Kumpletuhin ang Task', body: 'Sundin ang simpleng mechanics — karaniwan ay pag-fill ng form o pagsali sa draw.' },
-        { n: '3', icon: '🏆', title: 'I-claim ang Reward', body: 'Matatanggap mo ang reward sa iyong contact info pagkatapos ma-verify.' },
-      ].map(({ n, icon, title, body }) => (
-        <div class="bg-blue-50 border border-blue-100 rounded-2xl p-6 text-center">
-          <div class="w-10 h-10 rounded-full bg-blue-600 text-white text-base font-bold flex items-center justify-center mx-auto mb-3">{n}</div>
-          <div class="text-2xl mb-3">{icon}</div>
-          <h3 class="font-bold text-gray-900 text-sm mb-2">{title}</h3>
-          <p class="text-sm text-gray-500 leading-relaxed">{body}</p>
-        </div>
-      ))}
-    </div>
-
-    <!-- Testimonials -->
-    <h2 class="text-xl font-bold text-gray-900 mb-5">Sabi ng mga Sumali Na</h2>
-    <div class="grid sm:grid-cols-3 gap-5 mb-10">
-      {[
-        { name: 'Maria G.', location: 'Quezon City', stars: 5, text: 'Grabe, natanggap ko ang aking reward sa loob ng 2 araw lang! Legit talaga.' },
-        { name: 'Jomar R.', location: 'Cebu City',   stars: 5, text: 'Nag-aalangan pa ako dati, pero subukan ko lang. Nakatanggap talaga ako ng GCash!' },
-        { name: 'Ana L.',   location: 'Davao City',  stars: 5, text: 'Madali lang ang mechanics, libre pa. Hindi siya katulad ng mga scam sites.' },
-      ].map(({ name, location, stars, text }) => (
-        <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <div class="flex text-yellow-400 text-sm mb-3">{'★'.repeat(stars)}</div>
-          <p class="text-sm text-gray-600 leading-relaxed mb-4 italic">"{text}"</p>
-          <div class="text-sm font-semibold text-gray-900">{name}</div>
-          <div class="text-xs text-gray-400 mt-0.5">{location}</div>
-        </div>
-      ))}
     </div>
   </article>
 
+  <!-- ── Testimonials ─────────────────────────────────────────────────────── -->
+  <section class="max-w-4xl mx-auto px-4 pb-12">
+    <h2 class="text-xl font-extrabold text-gray-900 mb-6">Sabi ng mga Sumali Na</h2>
+    <div class="grid sm:grid-cols-3 gap-4">
+      {[
+        { name: 'Maria G.', location: 'Quezon City', stars: 5, text: 'Grabe, natanggap ko ang aking reward sa loob ng 2 araw lang! Legit talaga.', avatar: 'M' },
+        { name: 'Jomar R.', location: 'Cebu City',   stars: 5, text: 'Nag-aalangan pa ako dati, pero subukan ko lang. Nakatanggap talaga ako ng GCash!', avatar: 'J' },
+        { name: 'Ana L.',   location: 'Davao City',  stars: 5, text: 'Madali lang ang mechanics, libre pa. Hindi siya katulad ng mga scam sites.', avatar: 'A' },
+      ].map(({ name, location, stars, text, avatar }) => (
+        <div class="bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-lg transition-all">
+          <div class="flex text-yellow-400 text-sm mb-3 gap-0.5">
+            {Array.from({length: stars}).map(() => (
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            ))}
+          </div>
+          <p class="text-sm text-gray-600 leading-relaxed mb-6 italic">"{text}"</p>
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center text-sm font-bold">{avatar}</div>
+            <div>
+              <div class="text-sm font-semibold text-gray-900">{name}</div>
+              <div class="text-xs text-gray-400">{location}</div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
   <!-- ── Scam Warning ───────────────────────────────────────────────────────── -->
-  <section class="max-w-3xl mx-auto px-4 pt-10 pb-4">
+  <section class="max-w-4xl mx-auto px-4 pb-10">
     <div class="bg-red-50 border border-red-200 rounded-2xl p-6">
-      <p class="font-bold text-red-800 text-base mb-4">🚨 Iwasan ang mga Scam — Alamin ang Pagkakaiba</p>
-      <div class="grid sm:grid-cols-2 gap-3">
-        <div>
-          <p class="text-sm font-semibold text-red-700 mb-2">❌ Red Flags ng Mga Peke:</p>
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 rounded-xl bg-red-100 text-red-600 flex items-center justify-center flex-shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+        </div>
+        <p class="font-bold text-red-800 text-base">Iwasan ang mga Scam</p>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div class="bg-red-100/50 rounded-xl p-4">
+          <p class="text-sm font-semibold text-red-700 mb-3">Red Flags ng Mga Peke:</p>
           <ul class="text-sm text-red-600 space-y-1.5">
-            <li>• Hinihingi ng bayad bago mag-claim</li>
-            <li>• Nangangailangan ng GCash PIN o password</li>
-            <li>• "Guaranteed" na malaking halaga</li>
-            <li>• Walang terms of service</li>
+            <li class="flex items-start gap-2"><span class="mt-0.5">x</span> Hinihingi ng bayad bago mag-claim</li>
+            <li class="flex items-start gap-2"><span class="mt-0.5">x</span> Nangangailangan ng GCash PIN</li>
+            <li class="flex items-start gap-2"><span class="mt-0.5">x</span> "Guaranteed" na malaking halaga</li>
+            <li class="flex items-start gap-2"><span class="mt-0.5">x</span> Walang terms of service</li>
           </ul>
         </div>
-        <div>
-          <p class="text-sm font-semibold text-green-700 mb-2">✅ Legit na Signs:</p>
-          <ul class="text-sm text-green-700 space-y-1.5">
-            <li>• Libre ang pagsali</li>
-            <li>• Malinaw na mechanics at requirements</li>
-            <li>• May advertiser name at contact info</li>
-            <li>• Rewards galing sa advertiser mismo</li>
+        <div class="bg-emerald-50/50 rounded-xl p-4">
+          <p class="text-sm font-semibold text-emerald-700 mb-3">Legit na Signs:</p>
+          <ul class="text-sm text-emerald-700 space-y-1.5">
+            <li class="flex items-start gap-2">
+              <svg class="w-4 h-4 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              Libre ang pagsali
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-4 h-4 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              Malinaw na mechanics
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-4 h-4 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              May advertiser name at contact
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-4 h-4 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              Rewards galing sa advertiser
+            </li>
           </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ── Tips Section ───────────────────────────────────────────────────────── -->
-  <section class="max-w-3xl mx-auto px-4 py-10">
-    <h2 class="text-xl font-bold text-gray-900 mb-6">Tips para Hindi Mabigo sa Online Rewards</h2>
-    <div class="space-y-4">
+  <!-- ── Tips ────────────────────────────────────────────────────────────────── -->
+  <section class="max-w-4xl mx-auto px-4 pt-2 pb-12">
+    <h2 class="text-xl font-extrabold text-gray-900 mb-6">Tips para Mas Maraming Makuha</h2>
+    <div class="grid sm:grid-cols-2 gap-4">
       {[
-        { icon: '🔍', title: 'Basahin Muna ang Mechanics', body: 'Bago mag-claim, laging basahin ang terms ng bawat offer para malaman kung anong requirements ang kailangan.' },
-        { icon: '📧', title: 'Gumamit ng Aktibong Email', body: 'Maraming reward confirmation ang ipinapadala sa email. Siguraduhing accessible at aktibo ang email address mo.' },
-        { icon: '🚫', title: 'Iwasan ang Nagrereklamo ng Bayad', body: 'Ang mga legit na reward programs ay LIBRE palagi. Kung may babayad, scam iyon.' },
-        { icon: '⏰', title: 'Huwag Palampasin ang Deadline', body: 'Karamihan ng prize draws ay may expiry date. Mag-claim ng maaga para masigurado ang iyong slot.' },
-      ].map(({ icon, title, body }) => (
-        <div class="flex gap-4 p-5 bg-gray-50 rounded-xl border border-gray-100">
-          <span class="text-2xl flex-shrink-0">{icon}</span>
+        { icon: 'search', title: 'Basahin ang Mechanics', body: 'Laging basahin ang terms ng bawat offer para malaman ang requirements.', color: 'text-blue-600 bg-blue-50' },
+        { icon: 'mail', title: 'Aktibong Email', body: 'Maraming confirmation ang ipinapadala sa email. Siguraduhing accessible ito.', color: 'text-indigo-600 bg-indigo-50' },
+        { icon: 'share', title: 'I-share sa Friends', body: 'Gamitin ang referral link mo para mag-invite. Mas maraming friends = mas maraming bonus!', color: 'text-purple-600 bg-purple-50' },
+        { icon: 'clock', title: 'Mag-claim Agad', body: 'Karamihan ng offers ay may expiry. Mag-claim ng maaga para di maubusan ng slots.', color: 'text-amber-600 bg-amber-50' },
+      ].map(({ title, body, color }) => (
+        <div class="flex gap-4 p-5 bg-white rounded-xl border border-gray-100 hover:shadow-md transition-all">
+          <div class={`w-10 h-10 rounded-xl ${color} flex items-center justify-center flex-shrink-0`}>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
           <div>
-            <h3 class="font-semibold text-gray-900 text-base mb-1">{title}</h3>
-            <p class="text-sm text-gray-500 leading-relaxed">{body}</p>
+            <h3 class="font-bold text-gray-900 text-sm mb-2">{title}</h3>
+            <p class="text-sm text-gray-500 leading-relaxed mt-1">{body}</p>
           </div>
         </div>
       ))}
@@ -319,22 +429,23 @@ const breadcrumbSchema = {
   </section>
 
   <!-- ── FAQ ────────────────────────────────────────────────────────────────── -->
-  <section class="max-w-3xl mx-auto px-4 pb-12">
-    <h2 class="text-xl font-bold text-gray-900 mb-6">Mga Madalas na Tanong (FAQ)</h2>
-    <div class="space-y-4">
+  <section class="max-w-4xl mx-auto px-4 pb-14">
+    <h2 class="text-xl font-extrabold text-gray-900 mb-6">Mga Madalas na Tanong (FAQ)</h2>
+    <div class="space-y-3">
       {[
         { q: 'Legit ba ang mga online reward sites sa Pilipinas?', a: 'Oo, maraming legit na reward at prize sites ang available sa Pilipinas. Ang mga offer na makikita dito ay verified at galing sa trusted advertiser networks. Laging basahin ang mechanics bago mag-join.' },
         { q: 'Kailangan ko bang magbayad para sumali?', a: 'Hindi. Lahat ng mga offer at prize draws na makikita dito ay libre sumali. Huwag magtiwala sa mga nagrereklamo ng bayad para manalo.' },
         { q: 'Paano matatanggap ang reward o premyo?', a: 'Ang bawat offer ay may sariling mechanics at payout process. Matapos makumpleto ang required na steps, ang advertiser mismo ang magpapadala ng reward sa inyong account o contact details.' },
-        { q: 'Ilang oras bago matanggap ang reward?', a: 'Depende sa offer. Karamihan ay nagpapadala ng reward sa loob ng 24–72 oras. Ang iba naman ay instant na nagbibigay ng confirmation.' },
-        { q: 'Anong device ang kailangan?', a: 'Kahit anong device — Android, iPhone, o desktop — ay pwede. Karamihan ng mga offer ay mobile-friendly at dinisenyo para sa smartphone users.' },
+        { q: 'Paano gumagana ang referral program?', a: 'I-copy ang iyong unique referral link sa referral section at i-share sa kaibigan mo sa Facebook, Messenger, WhatsApp, o kahit saan. Kapag nag-join sila gamit ang iyong link, mako-count sila bilang iyong referral at makakakuha ka ng bonus rewards.' },
+        { q: 'Ilang oras bago matanggap ang reward?', a: 'Depende sa offer. Karamihan ay nagpapadala ng reward sa loob ng 24-72 oras. Ang iba naman ay instant na nagbibigay ng confirmation.' },
+        { q: 'Anong device ang kailangan?', a: 'Kahit anong device — Android, iPhone, o desktop — ay pwede. Karamihan ng mga offer ay mobile-friendly.' },
       ].map(({ q, a }) => (
-        <details class="group border border-gray-200 rounded-xl overflow-hidden">
-          <summary class="flex items-center justify-between gap-3 px-5 py-4.5 cursor-pointer font-semibold text-sm text-gray-900 hover:bg-gray-50 select-none">
+        <details class="group border border-gray-200 rounded-xl overflow-hidden hover:border-blue-200 transition-colors">
+          <summary class="flex items-center justify-between gap-3 px-5 py-4 cursor-pointer font-semibold text-sm text-gray-900 hover:bg-gray-50 select-none">
             {q}
-            <span class="text-gray-400 group-open:rotate-180 transition-transform text-lg leading-none">›</span>
+            <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
           </summary>
-          <div class="px-5 pb-5 text-sm text-gray-600 leading-relaxed border-t border-gray-100 pt-4">{a}</div>
+          <div class="px-5 pb-5 text-sm text-gray-600 leading-7 border-t border-gray-100 pt-4">{a}</div>
         </details>
       ))}
     </div>
@@ -343,25 +454,34 @@ const breadcrumbSchema = {
   <EmailCapturePopup client:idle source="earn-gcash" />
 
   <!-- ── Internal Links ─────────────────────────────────────────────────────── -->
-  <section class="bg-gray-50 border-t border-gray-100 py-8 px-4">
-    <div class="max-w-3xl mx-auto">
+  <section class="bg-gray-50 border-t border-gray-100 py-10 px-4">
+    <div class="max-w-4xl mx-auto">
       <h2 class="text-sm font-bold text-gray-700 mb-4 uppercase tracking-wide">Explore More</h2>
-      <div class="flex flex-wrap gap-3">
+      <div class="flex flex-wrap gap-2.5">
         {[
-          { href: '/win-free-phone',              label: '📱 Win a Free Phone' },
-          { href: '/online-contests-philippines', label: '🏆 Online Contests PH' },
-          { href: '/free-gift-cards-philippines', label: '🎁 Free Gift Cards' },
-          { href: '/earn',                        label: '💸 More Ways to Earn' },
-          { href: '/products',                    label: '🛍️ Best Deals' },
-          { href: '/blog/shopee-6-6-mid-year-sale-2026-best-deals-guide', label: '🔥 6.6 Sale Guide' },
-          { href: '/blog/best-budget-phones-under-5000-shopee-philippines-2026', label: '📲 Budget Phone Guide' },
-          { href: '/blog',                        label: '📰 Read Our Blog' },
+          { href: '/win-free-phone',              label: 'Win a Free Phone' },
+          { href: '/online-contests-philippines', label: 'Online Contests PH' },
+          { href: '/free-gift-cards-philippines', label: 'Free Gift Cards' },
+          { href: '/earn',                        label: 'More Ways to Earn' },
+          { href: '/products',                    label: 'Best Deals' },
+          { href: '/blog',                        label: 'Read Our Blog' },
         ].map(({ href, label }) => (
-          <a href={href} class="inline-flex items-center px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-700 hover:border-blue-300 hover:text-blue-700 transition-colors">
+          <a href={href} class="inline-flex items-center px-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm font-medium text-gray-700 hover:border-blue-300 hover:text-blue-700 hover:shadow-sm transition-all">
             {label}
+            <svg class="w-3.5 h-3.5 ml-1.5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
           </a>
         ))}
       </div>
     </div>
   </section>
+  <style>
+    /* Consistent 16px bottom margin on all paragraphs in the page */
+    article p,
+    section p,
+    div p { margin-bottom: 1rem; }
+    /* Remove margin on last child to avoid double spacing */
+    article p:last-child,
+    section p:last-child,
+    div p:last-child { margin-bottom: 0; }
+  </style>
 </MainLayout>
