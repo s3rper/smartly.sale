@@ -1,5 +1,6 @@
 ---
 import MainLayout from '../../layouts/main.astro';
+import BlogStructuredData from '../../components/BlogStructuredData.astro';
 
 const title = "Shopee Roblox Robux Giveaway - Don't Miss Out!";
 const description = "Find active Shopee Roblox Robux giveaways, contests, and promotional events. Learn how to participate and increase your chances of winning free Robux in 2025.";
@@ -16,32 +17,15 @@ const featuredImage = "https://images.unsplash.com/photo-1614294148960-9aa740632
   ogImage={featuredImage}
 >
 
-  <!-- Breadcrumb Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://smartly.sale"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Blog",
-        "item": "https://smartly.sale/blog"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "Shopee Roblox Robux Giveaway - Don't Miss Out!"
-      }
-    ]
-  }
-  </script>
+  <BlogStructuredData 
+    slug="shopee-roblox-robux-giveaway-2025"
+    title={title}
+    description={description}
+    publishDate={publishDate}
+    author={author}
+    category={category}
+    image={featuredImage}
+  />
   <article class="max-w-4xl mx-auto px-4 py-12">
     <header class="mb-12">
       <div class="mb-6">

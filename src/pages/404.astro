@@ -3,6 +3,8 @@ import MainLayout from '../layouts/main.astro';
 
 const pageTitle = "Page Not Found | smartly.sale";
 const pageDescription = "The page you're looking for doesn't exist. Browse trending Shopee products, deals, and more on smartly.sale.";
+
+Astro.response.status = 404;
 ---
 
 <MainLayout
@@ -10,10 +12,6 @@ const pageDescription = "The page you're looking for doesn't exist. Browse trend
   description={pageDescription}
   noindex={true}
 >
-  <Fragment slot="head">
-    <link rel="canonical" href="https://smartly.sale/" />
-  </Fragment>
-
   <section class="min-h-[60vh] flex items-center justify-center py-20 px-4">
     <div class="max-w-lg mx-auto text-center">
       <div class="text-8xl font-bold text-brand mb-4">404</div>

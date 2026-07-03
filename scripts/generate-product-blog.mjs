@@ -214,10 +214,12 @@ const INTERNAL_LINK_MAP = {
     { href: '/best-deals',  anchors: ['best deals Philippines today', 'top online deals Philippines', 'hottest deals this week PH'] },
     { href: '/earn',        anchors: ['earn money online Philippines', 'legit online earning Philippines', 'ways to earn extra income PH'] },
   ],
+  // /daily and /shopee-ai-assistant removed 2026-07-03: both noindexed (2026-06
+  // policy) — sitewide links to noindexed pages waste crawl equity.
   shopping: [
-    { href: '/daily',                anchors: ['daily deals Philippines', 'Shopee daily deals today', 'daily online deals PH'] },
     { href: '/shopee-sales-2026',    anchors: ['Shopee sales calendar 2026', 'upcoming Shopee mega sales', 'next Shopee sale date'] },
-    { href: '/shopee-ai-assistant',  anchors: ['Shopee AI shopping assistant', 'AI product finder Philippines', 'smart Shopee product search'] },
+    { href: '/shopee-deals-guide',   anchors: ['Shopee deals guide', 'how to find the best Shopee deals', 'Shopee shopping guide Philippines'] },
+    { href: '/deals',                anchors: ['Shopee deals by budget', 'deals under your budget', 'budget finds Philippines'] },
     { href: '/free-gift-cards-philippines', anchors: ['free gift cards Philippines', 'free e-gift cards PH', 'claim free gift cards Philippines'] },
     { href: '/win-free-phone',       anchors: ['win a free phone Philippines', 'free smartphone giveaway Philippines', 'win free gadget online PH'] },
     { href: '/online-contests-philippines', anchors: ['online contests Philippines 2026', 'join contests Philippines', 'online giveaways Philippines'] },

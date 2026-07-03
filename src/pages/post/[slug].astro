@@ -7,8 +7,26 @@ import { blogPosts } from '../../lib/blog-data';
 const { slug } = Astro.params;
 const post = blogPosts.find(p => p.slug === slug);
 
+// Near-duplicate posts consolidated 2026-07-03: the pipeline published 9 variants
+// of the same Elden Ring story in one weekend; 8 were removed from blog-posts.json.
+// Checked only when the slug no longer resolves, so a future post reusing a slug wins.
+const CONSOLIDATED_REDIRECTS: Record<string, string> = {
+  'elden-ring-movie-set-leak-a24-alex-garland': 'elden-ring-movie-set-leak-marika-statue-a24-alex-garland',
+  'elden-ring-movie-set-leak-first-look-a24-alex-garland': 'elden-ring-movie-set-leak-marika-statue-a24-alex-garland',
+  'elden-ring-movie-set-leak-viral-a24-alex-garland': 'elden-ring-movie-set-leak-marika-statue-a24-alex-garland',
+  'elden-ring-movie-set-leak-first-look-a24-adaptation-2026-04-05': 'elden-ring-movie-set-leak-marika-statue-a24-alex-garland',
+  'elden-ring-movie-set-leak-viral-marika-statue': 'elden-ring-movie-set-leak-marika-statue-a24-alex-garland',
+  'elden-ring-movie-set-leak-first-look-a24-adaptation': 'elden-ring-movie-set-leak-marika-statue-a24-alex-garland',
+  'elden-ring-movie-set-leak-first-look-a24-film': 'elden-ring-movie-set-leak-marika-statue-a24-alex-garland',
+  'elden-ring-movie-set-leak-first-look': 'elden-ring-movie-set-leak-marika-statue-a24-alex-garland',
+};
+
 // Genuinely missing post → 404 (not a redirect, which Google treats as a soft-404).
 if (!post) {
+  const redirectTarget = CONSOLIDATED_REDIRECTS[slug ?? ''];
+  if (redirectTarget) {
+    return Astro.redirect(`/post/${redirectTarget}`, 301);
+  }
   return new Response(null, { status: 404, statusText: 'Not Found' });
 }
 

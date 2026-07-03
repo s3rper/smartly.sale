@@ -2,9 +2,11 @@ name: 🎮 Gaming Blog Auto-Generator
 
 on:
   schedule:
-    # Mon, Wed, Fri at 02:00 UTC = 10:00 AM Philippines time
-    # 3 posts/week — proven safe cadence, Google never flags this as spam
-    - cron: '0 2 * * 1,3,5'
+    # Friday at 02:00 UTC = 10:00 AM Philippines time
+    # Reduced 3×/week → 1×/week (2026-07-03 SEO rebalance): the blog had grown
+    # to ~80% gaming news on a Shopee-affiliate site, diluting shopping topical
+    # authority. Product blog (Tue/Thu/Sat) now outpaces gaming 3:1.
+    - cron: '0 2 * * 5'
 
   # Allow manual trigger from GitHub Actions tab
   workflow_dispatch:

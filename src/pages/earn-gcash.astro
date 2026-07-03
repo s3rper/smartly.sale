@@ -55,15 +55,25 @@ const breadcrumbSchema = {
   ]
 };
 
+// Single source of truth: rendered in the visible FAQ accordion AND serialized
+// into the FAQPage schema below — Google requires the two to match.
+const faqs = [
+  { q: 'Legit ba ang mga online reward sites sa Pilipinas?', a: 'Oo, maraming legit na reward at prize sites ang available sa Pilipinas. Ang mga offer na makikita dito ay verified at galing sa trusted advertiser networks. Laging basahin ang mechanics bago mag-join.' },
+  { q: 'Kailangan ko bang magbayad para sumali?', a: 'Hindi. Lahat ng mga offer at prize draws na makikita dito ay libre sumali. Huwag magtiwala sa mga nagrereklamo ng bayad para manalo.' },
+  { q: 'Paano matatanggap ang reward o premyo?', a: 'Ang bawat offer ay may sariling mechanics at payout process. Matapos makumpleto ang required na steps, ang advertiser mismo ang magpapadala ng reward sa inyong account o contact details.' },
+  { q: 'Paano gumagana ang referral program?', a: 'I-copy ang iyong unique referral link sa referral section at i-share sa kaibigan mo sa Facebook, Messenger, WhatsApp, o kahit saan. Kapag nag-join sila gamit ang iyong link, mako-count sila bilang iyong referral at makakakuha ka ng bonus rewards.' },
+  { q: 'Ilang oras bago matanggap ang reward?', a: 'Depende sa offer. Karamihan ay nagpapadala ng reward sa loob ng 24-72 oras. Ang iba naman ay instant na nagbibigay ng confirmation.' },
+  { q: 'Anong device ang kailangan?', a: 'Kahit anong device — Android, iPhone, o desktop — ay pwede. Karamihan ng mga offer ay mobile-friendly.' },
+];
+
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": [
-    { "@type": "Question", "name": "Legit ba ang mga online reward sites sa Pilipinas?", "acceptedAnswer": { "@type": "Answer", "text": "Oo, maraming legit na reward at prize sites ang available sa Pilipinas. Ang mga offer na makikita dito ay verified at galing sa trusted advertiser networks." }},
-    { "@type": "Question", "name": "Kailangan ko bang magbayad para sumali?", "acceptedAnswer": { "@type": "Answer", "text": "Hindi. Lahat ng mga offer at prize draws na makikita dito ay libre sumali." }},
-    { "@type": "Question", "name": "Paano matatanggap ang reward o premyo?", "acceptedAnswer": { "@type": "Answer", "text": "Ang bawat offer ay may sariling mechanics at payout process. Matapos makumpleto ang steps, ang advertiser mismo ang magpapadala ng reward." }},
-    { "@type": "Question", "name": "Paano gumagana ang referral program?", "acceptedAnswer": { "@type": "Answer", "text": "I-share ang iyong unique referral link sa kaibigan. Kapag nag-join sila gamit ang iyong link, makakakuha ka ng bonus reward points." }},
-  ]
+  "mainEntity": faqs.map(({ q, a }) => ({
+    "@type": "Question",
+    "name": q,
+    "acceptedAnswer": { "@type": "Answer", "text": a },
+  })),
 };
 ---
 
@@ -432,14 +442,7 @@ const faqSchema = {
   <section class="max-w-4xl mx-auto px-4 pb-14">
     <h2 class="text-xl font-extrabold text-gray-900 mb-6">Mga Madalas na Tanong (FAQ)</h2>
     <div class="space-y-3">
-      {[
-        { q: 'Legit ba ang mga online reward sites sa Pilipinas?', a: 'Oo, maraming legit na reward at prize sites ang available sa Pilipinas. Ang mga offer na makikita dito ay verified at galing sa trusted advertiser networks. Laging basahin ang mechanics bago mag-join.' },
-        { q: 'Kailangan ko bang magbayad para sumali?', a: 'Hindi. Lahat ng mga offer at prize draws na makikita dito ay libre sumali. Huwag magtiwala sa mga nagrereklamo ng bayad para manalo.' },
-        { q: 'Paano matatanggap ang reward o premyo?', a: 'Ang bawat offer ay may sariling mechanics at payout process. Matapos makumpleto ang required na steps, ang advertiser mismo ang magpapadala ng reward sa inyong account o contact details.' },
-        { q: 'Paano gumagana ang referral program?', a: 'I-copy ang iyong unique referral link sa referral section at i-share sa kaibigan mo sa Facebook, Messenger, WhatsApp, o kahit saan. Kapag nag-join sila gamit ang iyong link, mako-count sila bilang iyong referral at makakakuha ka ng bonus rewards.' },
-        { q: 'Ilang oras bago matanggap ang reward?', a: 'Depende sa offer. Karamihan ay nagpapadala ng reward sa loob ng 24-72 oras. Ang iba naman ay instant na nagbibigay ng confirmation.' },
-        { q: 'Anong device ang kailangan?', a: 'Kahit anong device — Android, iPhone, o desktop — ay pwede. Karamihan ng mga offer ay mobile-friendly.' },
-      ].map(({ q, a }) => (
+      {faqs.map(({ q, a }) => (
         <details class="group border border-gray-200 rounded-xl overflow-hidden hover:border-blue-200 transition-colors">
           <summary class="flex items-center justify-between gap-3 px-5 py-4 cursor-pointer font-semibold text-sm text-gray-900 hover:bg-gray-50 select-none">
             {q}

@@ -32,10 +32,11 @@ if (!entry) {
 
 const { shopeeUrl, imageUrl, pollQuestion } = entry;
 
-// Escape values for safe HTML attribute insertion
-const safeShopee   = shopeeUrl.replace(/"/g, '&quot;');
-const safeImage    = imageUrl.replace(/"/g, '&quot;');
-const safeTitle    = (pollQuestion || 'Vote Now').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+// Escape values for safe HTML attribute insertion (& first, so it doesn't double-escape the others)
+const escAttr = (s: string) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+const safeShopee   = escAttr(shopeeUrl);
+const safeImage    = escAttr(imageUrl);
+const safeTitle    = escAttr(pollQuestion || 'Vote Now');
 const safeDesc     = 'I-comment ang iyong sagot!';
 
 // Return raw HTML — no Astro layout. Facebook's scraper sees pure OG tags.
@@ -44,6 +45,7 @@ return new Response(
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
 <meta property="og:title"       content="${safeTitle}"/>
 <meta property="og:description" content="${safeDesc}"/>
 <meta property="og:image"        content="${safeImage}"/>

@@ -11,13 +11,26 @@ export type BlogListPost = Omit<BlogPost, 'content'>;
 
 interface Props {
   posts: BlogListPost[];
+  /** Server-parsed ?page= — makes paginated views SSR-crawlable */
+  initialPage?: number;
+  /** Server-parsed ?category= */
+  initialCategory?: string;
 }
 
-export default function BlogList({ posts }: Props) {
+/** Build a crawlable URL for a given page/category state */
+function blogUrl(page: number, category: string): string {
+  const params = new URLSearchParams();
+  if (category !== 'all') params.set('category', category);
+  if (page > 1) params.set('page', String(page));
+  const qs = params.toString();
+  return qs ? `/blog?${qs}` : '/blog';
+}
+
+export default function BlogList({ posts, initialPage = 1, initialCategory = 'all' }: Props) {
   // Use provided posts (server-passed, no content field → ~90% smaller)
   const blogPosts = posts;
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory);
+  const [currentPage, setCurrentPage] = useState<number>(initialPage);
 
   const filteredPosts = useMemo(() => {
     if (selectedCategory === 'all') {
@@ -32,14 +45,23 @@ export default function BlogList({ posts }: Props) {
   const endIndex = startIndex + POSTS_PER_PAGE;
   const currentPosts = filteredPosts.slice(startIndex, endIndex);
 
+  // Keep the URL in sync so every view is linkable and back/forward work
+  const syncUrl = (page: number, category: string) => {
+    if (typeof window !== 'undefined') {
+      window.history.pushState({}, '', blogUrl(page, category));
+    }
+  };
+
   // Reset to page 1 when category changes
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
     setCurrentPage(1);
+    syncUrl(1, category);
   };
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
+    syncUrl(page, selectedCategory);
     // Scroll to top of blog list
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -92,9 +114,10 @@ export default function BlogList({ posts }: Props) {
             {[{ slug: 'all', name: 'All Posts' }, ...blogCategories].map(cat => {
               const active = selectedCategory === cat.slug;
               return (
-                <button
+                <a
                   key={cat.slug}
-                  onClick={() => handleCategoryChange(cat.slug)}
+                  href={blogUrl(1, cat.slug)}
+                  onClick={(e) => { e.preventDefault(); handleCategoryChange(cat.slug); }}
                   className="px-4 py-2 rounded-full text-sm font-medium border transition-all duration-200"
                   style={active
                     ? { background: '#f97316', color: '#fff', borderColor: '#f97316' }
@@ -102,7 +125,7 @@ export default function BlogList({ posts }: Props) {
                   }
                 >
                   {cat.name}
-                </button>
+                </a>
               );
             })}
           </div>
@@ -149,42 +172,56 @@ export default function BlogList({ posts }: Props) {
         <section className="pb-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-center gap-1.5">
-              <button
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 1}
-                className="p-2 rounded-lg border border-border transition-colors disabled:opacity-30 disabled:cursor-not-allowed hover:bg-muted"
-                aria-label="Previous page"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
+              {currentPage === 1 ? (
+                <span className="p-2 rounded-lg border border-border opacity-30 cursor-not-allowed" aria-label="Previous page" aria-disabled="true">
+                  <ChevronLeft className="w-4 h-4" />
+                </span>
+              ) : (
+                <a
+                  href={blogUrl(currentPage - 1, selectedCategory)}
+                  onClick={(e) => { e.preventDefault(); handlePageChange(currentPage - 1); }}
+                  className="p-2 rounded-lg border border-border transition-colors hover:bg-muted"
+                  aria-label="Previous page"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </a>
+              )}
 
               {getPageNumbers().map((page, index) => (
                 <div key={index}>
                   {page === '...' ? (
                     <span className="px-3 py-2 text-muted-foreground text-sm">…</span>
                   ) : (
-                    <button
-                      onClick={() => handlePageChange(page as number)}
-                      className="min-w-[36px] h-9 px-3 rounded-lg text-sm font-medium transition-all border"
+                    <a
+                      href={blogUrl(page as number, selectedCategory)}
+                      onClick={(e) => { e.preventDefault(); handlePageChange(page as number); }}
+                      aria-current={currentPage === page ? 'page' : undefined}
+                      className="inline-flex items-center justify-center min-w-[36px] h-9 px-3 rounded-lg text-sm font-medium transition-all border"
                       style={currentPage === page
                         ? { background: '#f97316', color: '#fff', borderColor: '#f97316' }
                         : { background: 'transparent', color: 'var(--foreground)', borderColor: 'var(--border)' }
                       }
                     >
                       {page}
-                    </button>
+                    </a>
                   )}
                 </div>
               ))}
 
-              <button
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === totalPages}
-                className="p-2 rounded-lg border border-border transition-colors disabled:opacity-30 disabled:cursor-not-allowed hover:bg-muted"
-                aria-label="Next page"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
+              {currentPage === totalPages ? (
+                <span className="p-2 rounded-lg border border-border opacity-30 cursor-not-allowed" aria-label="Next page" aria-disabled="true">
+                  <ChevronRight className="w-4 h-4" />
+                </span>
+              ) : (
+                <a
+                  href={blogUrl(currentPage + 1, selectedCategory)}
+                  onClick={(e) => { e.preventDefault(); handlePageChange(currentPage + 1); }}
+                  className="p-2 rounded-lg border border-border transition-colors hover:bg-muted"
+                  aria-label="Next page"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </a>
+              )}
             </div>
 
             <p className="mt-3 text-center text-xs text-muted-foreground md:hidden">

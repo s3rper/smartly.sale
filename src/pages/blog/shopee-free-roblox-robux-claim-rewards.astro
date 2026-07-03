@@ -1,5 +1,6 @@
 ---
 import MainLayout from '../../layouts/main.astro';
+import BlogStructuredData from '../../components/BlogStructuredData.astro';
 
 const title = "Shopee Free Roblox Robux - Claim Your Rewards Today!";
 const description = "Discover how to get free Roblox Robux through Shopee promotions, vouchers, and exclusive events. Learn the best methods to claim your rewards in 2025!";
@@ -16,32 +17,15 @@ const featuredImage = "https://images.unsplash.com/photo-1511512578047-dfb367046
   ogImage={featuredImage}
 >
 
-  <!-- Breadcrumb Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://smartly.sale"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Blog",
-        "item": "https://smartly.sale/blog"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "Shopee Free Roblox Robux - Claim Your Rewards Today!"
-      }
-    ]
-  }
-  </script>
+  <BlogStructuredData 
+    slug="shopee-free-roblox-robux-claim-rewards"
+    title={title}
+    description={description}
+    publishDate={publishDate}
+    author={author}
+    category={category}
+    image={featuredImage}
+  />
   <article class="max-w-4xl mx-auto px-4 py-12">
     <header class="mb-12">
       <div class="mb-6">

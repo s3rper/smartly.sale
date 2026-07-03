@@ -102,9 +102,13 @@ const ProductDetailDynamic: React.FC<ProductDetailDynamicProps> = ({ productData
                     poster={images[0]}
                   />
                 ) : (
-                  <img 
-                    src={images[selectedImage] || images[0]} 
+                  <img
+                    src={images[selectedImage] || images[0]}
                     alt={product.name}
+                    width={600}
+                    height={600}
+                    fetchPriority="high"
+                    decoding="async"
                     className="w-full h-full object-cover"
                   />
                 )}
@@ -134,7 +138,7 @@ const ProductDetailDynamic: React.FC<ProductDetailDynamicProps> = ({ productData
                       selectedImage === idx ? 'border-brand' : 'border-border'
                     }`}
                   >
-                    <img src={img} alt={`View ${idx + 1}`} className="w-full h-full object-cover" />
+                    <img src={img} alt={`View ${idx + 1}`} width={100} height={100} loading="lazy" decoding="async" className="w-full h-full object-cover" />
                   </button>
                 ))}
               </div>
@@ -272,9 +276,13 @@ const ProductDetailDynamic: React.FC<ProductDetailDynamicProps> = ({ productData
                               }`}
                             >
                               {imageUrl && (
-                                <img 
-                                  src={imageUrl} 
+                                <img
+                                  src={imageUrl}
                                   alt={option}
+                                  width={48}
+                                  height={48}
+                                  loading="lazy"
+                                  decoding="async"
                                   className="w-12 h-12 object-cover mx-auto mb-2 rounded"
                                 />
                               )}

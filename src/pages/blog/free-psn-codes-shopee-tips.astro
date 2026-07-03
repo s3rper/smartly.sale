@@ -1,5 +1,6 @@
 ---
 import MainLayout from '../../layouts/main.astro';
+import BlogStructuredData from '../../components/BlogStructuredData.astro';
 
 const title = "Top Tips for Claiming Free PSN Codes on Shopee This Month";
 const description = "Discover how to claim free PSN codes on Shopee Philippines. Learn about seasonal promotions, Shopee Live drops, and trusted sellers for safe PlayStation voucher redemption.";
@@ -12,32 +13,12 @@ const publishDate = "2025-01-16";
   ogImage="/images/blog/psn-codes-shopee.jpg"
 >
 
-  <!-- Breadcrumb Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://smartly.sale"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Blog",
-        "item": "https://smartly.sale/blog"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "Top Tips for Claiming Free PSN Codes on Shopee This Month"
-      }
-    ]
-  }
-  </script>
+  <BlogStructuredData 
+    slug="free-psn-codes-shopee-tips"
+    title={title}
+    description={description}
+    publishDate={publishDate}
+  />
   <article class="max-w-4xl mx-auto px-4 py-12">
     <!-- Header -->
     <header class="mb-8">

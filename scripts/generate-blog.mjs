@@ -140,29 +140,29 @@ function pickFromPool(pool, slug) {
 // ── Internal Link Map ──────────────────────────────────────────────────────────
 // Each entry: { href, anchors: [keyword-rich options to vary across articles] }
 // Claude picks 3-5 contextually relevant links and chooses one anchor per link.
+// Only INDEXED pages belong here — /free-robux, /free-imvu-credits, /daily,
+// /bonus and /shopee-ai-assistant are noindexed (2026-06 policy) and were
+// removed 2026-07-03: sitewide links to noindexed pages waste crawl equity.
 const INTERNAL_LINK_MAP = {
   // Always eligible — high-authority site pages
   universal: [
-    { href: '/products',    anchors: ['best deals on Shopee Philippines', 'trending Shopee products', 'top Shopee deals'] },
-    { href: '/earn-gcash',  anchors: ['earn free GCash online', 'free GCash Philippines 2026', 'legit ways to earn GCash'] },
-    { href: '/earn',        anchors: ['earn money online Philippines', 'legit online earning Philippines', 'ways to earn online PH'] },
-    { href: '/best-deals',  anchors: ['best deals Philippines today', 'top deals Philippines', 'online deals Philippines'] },
+    { href: '/products',    anchors: ['best deals on Shopee Philippines', 'trending Shopee products', 'top Shopee deals', 'viral Shopee finds', 'Shopee product picks'] },
+    { href: '/earn-gcash',  anchors: ['earn free GCash online', 'free GCash Philippines 2026', 'legit ways to earn GCash', 'GCash rewards and offers', 'paano kumita ng GCash online'] },
+    { href: '/earn',        anchors: ['earn money online Philippines', 'legit online earning Philippines', 'ways to earn online PH', 'extra income online PH', 'online raket ideas'] },
+    { href: '/best-deals',  anchors: ['best deals Philippines today', 'top deals Philippines', 'online deals Philippines', 'today’s biggest discounts', 'budol-worthy deals'] },
+    { href: '/deals',       anchors: ['Shopee deals by budget', 'deals under your budget', 'budget finds Philippines'] },
+    { href: '/shopee-deals-guide', anchors: ['Shopee deals guide', 'how to find the best Shopee deals', 'Shopee shopping guide Philippines'] },
   ],
   // Gaming-specific
   gaming: [
-    { href: '/free-mlbb-diamonds',  anchors: ['free MLBB diamonds Philippines', 'get free Mobile Legends diamonds', 'free diamonds Mobile Legends Bang Bang'] },
-    { href: '/free-fire-codes',     anchors: ['Free Fire redeem codes 2026', 'free Garena Free Fire codes', 'Free Fire codes Philippines'] },
-    { href: '/free-robux',          anchors: ['free Robux Philippines', 'how to get free Robux', 'free Robux no survey 2026'] },
-    { href: '/free-imvu-credits',   anchors: ['free IMVU credits 2026', 'get IMVU credits free', 'free IMVU credits Philippines'] },
-    { href: '/free-gaming-credits', anchors: ['free gaming credits Philippines', 'free online game credits PH', 'gaming credits for free'] },
-    { href: '/shopee-ai-assistant', anchors: ['Shopee AI shopping assistant', 'AI shopping guide Philippines', 'smart shopping assistant'] },
+    { href: '/free-mlbb-diamonds',  anchors: ['free MLBB diamonds Philippines', 'get free Mobile Legends diamonds', 'free diamonds Mobile Legends Bang Bang', 'MLBB diamond top-up tips'] },
+    { href: '/free-fire-codes',     anchors: ['Free Fire redeem codes 2026', 'free Garena Free Fire codes', 'Free Fire codes Philippines', 'FF redeem code updates'] },
+    { href: '/free-gaming-credits', anchors: ['free gaming credits Philippines', 'free online game credits PH', 'gaming credits for free', 'game top-up rewards PH'] },
   ],
   // Deals / voucher-related
   deals: [
-    { href: '/daily',                anchors: ['daily deals Philippines', 'Shopee daily deals', 'daily online deals PH'] },
-    { href: '/shopee-sales-2026',    anchors: ['Shopee sales calendar 2026', 'upcoming Shopee sales 2026', 'Shopee mega sale schedule'] },
+    { href: '/shopee-sales-2026',    anchors: ['Shopee sales calendar 2026', 'upcoming Shopee sales 2026', 'Shopee mega sale schedule', 'next Shopee payday sale'] },
     { href: '/free-gift-cards-philippines', anchors: ['free gift cards Philippines', 'free e-gift cards PH', 'claim free gift cards Philippines'] },
-    { href: '/bonus',                anchors: ['Shopee bonus offers', 'exclusive Shopee bonuses', 'Shopee cashback and bonus deals'] },
   ],
   // Giveaways / winning
   giveaways: [
@@ -254,13 +254,17 @@ function extractBlock(text, tag) {
 }
 
 // Generate blog post with Claude
-async function generatePost(articles) {
+async function generatePost(articles, recentTitles = []) {
   const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
   const headlines = articles
     .slice(0, 12)
     .map(a => `[${a.source}] ${a.title}`)
     .join('\n');
+
+  const alreadyCovered = recentTitles.length
+    ? `\nALREADY COVERED (do NOT write about these stories again — pick a DIFFERENT topic):\n${recentTitles.map(t => `- ${t}`).join('\n')}\n`
+    : '';
 
   const system = `You are a senior SEO content strategist and gaming journalist for smartly.sale -- a gaming and deals website popular in the Philippines and globally.
 
@@ -277,8 +281,10 @@ Your articles:
 
 LATEST HEADLINES:
 ${headlines}
-
+${alreadyCovered}
 PRIORITY TOPICS (if trending): Roblox, PlayStation, Xbox, IMVU, Mobile Legends, Free Fire, Fortnite, GTA 6, Minecraft, Call of Duty, Nintendo Switch 2, Valorant, Genshin Impact.
+
+TOPIC SELECTION — PURCHASE RELEVANCE FIRST: smartly.sale is a Shopee Philippines shopping site, so prefer stories with a natural buying angle for Filipino gamers: console/handheld launches and pricing, game release dates and pre-orders, top-up/credit promos, accessory and peripheral news, sales on games or hardware. Pure industry news (layoffs, lawsuits, executive moves, movie adaptations) is LAST resort — only when nothing purchase-relevant is trending. When the story allows, include a short practical section on what it means for buyers in the Philippines (pricing in PHP, where to buy, when to wait for a sale) — written naturally, not bolted on.
 
 ARTICLE REQUIREMENTS:
 - Length: 2000-2500 words of real content
@@ -443,6 +449,25 @@ function readingTime(html) {
   return Math.max(1, Math.ceil(wordCount(html) / 220));
 }
 
+// Near-duplicate guard: token-set Jaccard similarity between two titles.
+// Exact-slug dedup alone let 9 variants of one story publish in a weekend
+// (elden-ring-movie-set-leak-*, 2026-04-05) — Google treats that cluster as
+// duplicate content, so similar TOPICS must be blocked, not just equal slugs.
+function titleTokens(s) {
+  const STOP = new Set(['2025', '2026', 'the', 'and', 'for', 'with', 'what', 'know', 'first', 'look', 'goes', 'viral', 'news', 'update']);
+  return new Set(
+    s.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/)
+      .filter(w => w.length > 2 && !STOP.has(w))
+  );
+}
+function titleSimilarity(a, b) {
+  const ta = titleTokens(a), tb = titleTokens(b);
+  if (!ta.size || !tb.size) return 0;
+  let inter = 0;
+  for (const w of ta) if (tb.has(w)) inter++;
+  return inter / (ta.size + tb.size - inter);
+}
+
 // Main
 async function main() {
   if (!process.env.ANTHROPIC_API_KEY) {
@@ -459,7 +484,24 @@ async function main() {
   const articles = await getLatestNews();
   console.log(`Found ${articles.length} headlines from ${RSS_FEEDS.length} feeds`);
 
-  const raw = await generatePost(articles);
+  // Titles from the last 30 days — told to Claude up front, and enforced below.
+  const cutoff = Date.now() - 30 * 24 * 60 * 60 * 1000;
+  const recentTitles = existing
+    .filter(p => new Date(p.publishDate).getTime() > cutoff)
+    .map(p => p.title)
+    .slice(0, 30);
+
+  const raw = await generatePost(articles, recentTitles);
+
+  // Hard guard: refuse to publish a near-duplicate of a recent post.
+  const dupe = recentTitles.find(t => titleSimilarity(raw.title || '', t) >= 0.5);
+  if (dupe) {
+    console.error(`ABORT: generated title is a near-duplicate of a recent post.`);
+    console.error(`  New:      ${raw.title}`);
+    console.error(`  Existing: ${dupe}`);
+    console.error('  Nothing was published. The topic is already covered.');
+    process.exit(0); // clean exit — skipping a run is success, not failure
+  }
 
   // Clean and dedupe slug
   let slug = (raw.slug || '')

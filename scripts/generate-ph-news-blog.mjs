@@ -160,9 +160,11 @@ const INTERNAL_LINK_MAP = {
     { href: '/best-deals',  anchors: ['best deals Philippines today', 'top online deals Philippines', 'hottest deals this week PH'] },
     { href: '/earn',        anchors: ['earn money online Philippines', 'legit online earning Philippines', 'ways to earn extra income PH'] },
   ],
+  // /daily removed 2026-07-03: noindexed (2026-06 policy) — links to noindexed
+  // pages waste crawl equity.
   news: [
-    { href: '/daily',                anchors: ['daily deals Philippines', 'Shopee daily deals today', 'daily online deals PH'] },
     { href: '/shopee-sales-2026',    anchors: ['Shopee sales calendar 2026', 'upcoming Shopee mega sales', 'next Shopee sale date'] },
+    { href: '/shopee-deals-guide',   anchors: ['Shopee deals guide', 'how to find the best Shopee deals', 'Shopee shopping guide Philippines'] },
     { href: '/free-gift-cards-philippines', anchors: ['free gift cards Philippines', 'free e-gift cards PH', 'claim free gift cards Philippines'] },
   ],
 };

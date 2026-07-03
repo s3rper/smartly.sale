@@ -1,10 +1,13 @@
 name: 🇵🇭 Philippine News Blog Auto-Generator
 
 on:
-  schedule:
-    # Sun & Wed at 04:00 UTC = 12:00 PM Philippines time
-    # 2 posts/week — covers Philippine political news
-    - cron: '0 4 * * 0,3'
+  # Schedule disabled 2026-07-03 (SEO rebalance): auto-generated, anonymously
+  # bylined POLITICAL news is YMYL content — Google applies its strictest
+  # E-E-A-T scrutiny there, and it's fully off-topic for a Shopee-affiliate
+  # site. No politics posts had published yet. Manual trigger retained below;
+  # restore the schedule block only with a deliberate content-strategy decision.
+  # schedule:
+  #   - cron: '0 4 * * 0,3'  # was Sun & Wed 04:00 UTC
 
   # Allow manual trigger from GitHub Actions tab
   workflow_dispatch:

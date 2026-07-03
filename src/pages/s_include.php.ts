@@ -43,7 +43,10 @@ export const GET: APIRoute = async ({ request, url }) => {
     console.error('[s-include] fetch error:', msg);
     return new Response(`/* s-include error: ${msg} */`, {
       status: 200,
-      headers: { 'Content-Type': 'application/javascript' },
+      headers: {
+        'Content-Type': 'application/javascript',
+        'Cache-Control': 'no-store',
+      },
     });
   }
 };
